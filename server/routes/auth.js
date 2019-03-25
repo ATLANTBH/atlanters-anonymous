@@ -7,7 +7,7 @@ require('dotenv').config();
 isPasswordValid = (password) => {
 	const validPassword = typeof password == 'string' &&
 													password.trim() != '' &&
-													password.trim().length >= 8;
+													password.trim().length >= parseInt(process.env.MIN_PW_LENGTH);
   return validPassword;
 }
 
