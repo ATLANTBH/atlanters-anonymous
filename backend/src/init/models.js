@@ -11,24 +11,11 @@ export default async (sequelize, eraseDatabaseOnSync) => {
   return models;
 }
 
+// TODO: SEED DB
 // const createUsersWithMessages = async () => {
 //     await models.User.create ({
-
+//     {
+//       username: 'uname',
+//     }
 //     })
-
 // }
-
-
-// await models.User.create(
-//     {
-//       username: 'rwieruch',
-//       messages: [
-//         {
-//           text: 'Published the Road to learn React',
-//         },
-//       ],
-//     },
-//     {
-//       include: [models.Message],
-//     },
-//   );

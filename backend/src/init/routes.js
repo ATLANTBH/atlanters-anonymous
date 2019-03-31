@@ -1,8 +1,10 @@
 import authRouter from '../routes/auth';
+import userRouter from '../routes/user';
 
 export default async (app, models) => {
 
   app.use('/auth', authRouter(models));
+  app.use('/user', userRouter(models));
 
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
@@ -13,14 +15,5 @@ export default async (app, models) => {
       error: {}
     })
   })
-
-  app.get('/user', (req, res) => {
-    models.User.findAll()
-      .then(user => {
-        console.log(user)
-        res.sendStatus(200);
-      })
-      .catch(err => console.log(err))
-  });
 
 }
