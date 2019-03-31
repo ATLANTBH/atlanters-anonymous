@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon --exec babel-node app.js"
   },
   "engines": {
     "node": "10.15.3"
@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.4.2",
     "bcrypt": "^3.0.5",
     "cookie-parser": "^1.4.4",
     "dotenv": "^7.0.0",
@@ -21,5 +22,14 @@
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
+    "nodemon": "^1.18.10"
   }
 }

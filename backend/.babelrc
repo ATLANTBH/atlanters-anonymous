@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": true
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    ["@babel/transform-runtime"]
+  ],
+  "sourceMaps": "inline",
+  "retainLines": true
+}
