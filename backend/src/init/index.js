@@ -1,11 +1,11 @@
-import DB from './DB';
-import Models from './models';
-import Middlewares from './middlewares';
-import Routes from './routes';
+import db from './db';
+import models from './models';
+import middlewares from './middlewares';
+import routes from './routes';
 
 export default {
-  DB,
-  Models,
-  Middlewares,
-  Routes
+  db,
+  models,
+  middlewares,
+  routes
 }

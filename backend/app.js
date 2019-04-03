@@ -10,13 +10,19 @@ async function startExpressApp(app) {
 
 async function start() {
   const eraseDatabaseOnSync = true;
-  const app = express();
+  const expressApp = express();
 
-  const sequelize = await init.DB();
-  const models = await init.Models(sequelize, eraseDatabaseOnSync);
-  await init.Middlewares(app);
-  await init.Routes(app, models);
-  await startExpressApp(app);
+  const sequelize = await init.db();
+  const models = await init.models(sequelize, eraseDatabaseOnSync);
+
+  const app = {
+    expressApp,
+    models
+  }
+
+  await init.middlewares(app);
+  await init.routes(app);
+  await startExpressApp(app.expressApp);
 }
 
 start();

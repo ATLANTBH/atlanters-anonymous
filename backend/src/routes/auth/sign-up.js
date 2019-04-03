@@ -7,13 +7,14 @@ function isPasswordValid(password) {
   return validPassword;
 }
 
-export default (models) => {
+export default ({ models }) => {
+  const { User } = models;
   return async (req, res, next) => {
     let userObj = req.body;
     if (!isPasswordValid(userObj.password)) next(new Error("Password not valid, must be at least 8 characters long"));
     else {
       userObj.password = await hash(userObj.password, parseInt(process.env.SALT_ROUNDS));
-      const [user, isCreated] = await models.User.findByEmailOrCreate(userObj);
+      const [user, isCreated] = await User.findByEmailOrCreate(userObj);
       if (isCreated) {
         res.json({
           user,

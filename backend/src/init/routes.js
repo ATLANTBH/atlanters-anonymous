@@ -1,14 +1,13 @@
-import authRouter from '../routes/auth';
-import userRouter from '../routes/user';
+import routes from '../routes';
 
-export default async (app, models) => {
+export default async (app) => {
+  const { expressApp } = app;
 
-  app.use('/auth', authRouter(models));
-  app.use('/user', userRouter(models));
+  expressApp.use(routes(app));
 
-  app.use(function (err, req, res, next) {
+  expressApp.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    let error = req.app.get('env') === 'development' ? err : {}
+    let error = req.expressApp.get('env') === 'development' ? err : {}
     console.log(error);
     res.json({
       message: err.message,

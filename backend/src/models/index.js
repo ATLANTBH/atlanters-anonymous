@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
 import AnswerModel from './answer';
-import PollAnswerModel from './poll_answer';
+import PollAnswerModel from './poll-answer';
 import PollModel from './poll';
-import PollTemplateModel from './poll_template';
+import PollTemplateModel from './poll-template';
 import QuestionModel from './question';
 import UserModel from './user';
 
@@ -21,7 +21,7 @@ function initModels(sequelize) {
       models[key].associate(models);
     }
   })
-  
+
   return models;
 }
 
