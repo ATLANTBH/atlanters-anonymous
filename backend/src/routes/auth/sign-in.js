@@ -1,12 +1,13 @@
 import { hash, compare } from 'bcrypt';
 
-export default (models) => {
+export default ({ models }) => {
+  const { User } = models;
   return async (req, res, next) => {
-    let userObj = req.body;
-    let user = await models.User.findByEmail(userObj.email);
+    const { email, password } = req.body;
+    const user = await User.findByEmail(email);
     if (!user) next(new Error("User with this email does not exist"));
     else {
-      let isPasswordEqual = await compare(userObj.password, user.password);
+      const isPasswordEqual = await compare(password, user.password);
       if (!isPasswordEqual) next(new Error("Password incorrect"));
       else {
         res.cookie('user_id', user.id, {

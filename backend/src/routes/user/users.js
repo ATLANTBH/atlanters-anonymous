@@ -1,6 +1,7 @@
-export default (models) => {
+export default ({ models }) => {
+  const { User } = models;
   return (req, res) => {
-    models.User.findAll()
+    User.findAll()
       .then(user => {
         console.log(user)
         res.sendStatus(200);

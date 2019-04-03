@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import signUp from './sign_up';
-import signIn from './sign_in';
-import signOut from './sign_out';
+import signUp from './sign-up';
+import signIn from './sign-in';
+import signOut from './sign-out';
 
-export default (models) => {
+export default (app) => {
   const router = Router();
 
-  router.post('/signup', signUp(models));
-  router.post('/signin', signIn(models));
+  router.post('/sign-up', signUp(app));
+  router.post('/sign-in', signIn(app));
 
   return router;
 }
-

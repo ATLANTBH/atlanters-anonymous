@@ -55,14 +55,14 @@ class User extends Sequelize.Model {
   }
 
   static async findByEmail(uEmail) {
-    let user = await User.findOne({
+    const user = await User.findOne({
       where: { email: uEmail }
     });
     return user;
   }
 
   static async findByEmailOrCreate(userObject) {
-    let resultArray = await User.findOrCreate({
+    const resultArray = await User.findOrCreate({
       where: { email: userObject.email },
       defaults: userObject
     })
