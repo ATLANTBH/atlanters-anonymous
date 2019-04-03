@@ -3,9 +3,9 @@ export default ({ models }) => {
   return (req, res) => {
     User.findAll()
       .then(user => {
-        console.log(user)
+        console.log(user);
         res.sendStatus(200);
       })
-      .catch(err => console.log(err))
-  }
-}
+      .catch(err => console.log(err));
+  };
+};

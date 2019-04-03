@@ -7,5 +7,5 @@ export default {
   db,
   models,
   middlewares,
-  routes
-}
+  routes,
+};

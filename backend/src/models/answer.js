@@ -6,8 +6,8 @@ class Answer extends Sequelize.Model {
       {
         content: {
           type: DataTypes.JSONB,
-          allowNull: false
-        }
+          allowNull: false,
+        },
       },
       { sequelize }
     );
@@ -18,7 +18,6 @@ class Answer extends Sequelize.Model {
     Answer.belongsTo(models.Question);
     Answer.belongsTo(models.PollAnswer);
   }
-
 }
 
 export default Answer;

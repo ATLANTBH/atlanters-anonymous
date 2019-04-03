@@ -1,7 +1,6 @@
 import Sequelize from 'sequelize';
 
 class User extends Sequelize.Model {
-
   static init(sequelize, DataTypes) {
     return super.init(
       {
@@ -11,42 +10,42 @@ class User extends Sequelize.Model {
           allowNull: false,
           validate: {
             isEmail: {
-              msg: "Email address must be valid"
+              msg: 'Email address must be valid',
             },
-            notEmpty: true
-          }
+            notEmpty: true,
+          },
         },
         password: {
           type: DataTypes.STRING,
           allowNull: false,
           validate: {
             len: {
-              msg: "Password must be at least 8 characters long",
-              args: 8
-            }
-          }
+              msg: 'Password must be at least 8 characters long',
+              args: 8,
+            },
+          },
         },
         name: {
           type: DataTypes.STRING,
           allowNull: false,
           validate: {
             notEmpty: {
-              msg: "Unexpected that name is empty"
-            }
-          }
+              msg: 'Unexpected that name is empty',
+            },
+          },
         },
         surname: {
           type: DataTypes.STRING,
           allowNull: false,
           validate: {
             notEmpty: {
-              msg: "Unexpected that surname is empty"
-            }
-          }
-        }
+              msg: 'Unexpected that surname is empty',
+            },
+          },
+        },
       },
       { sequelize }
-    )
+    );
   }
 
   static associate(models) {
@@ -56,7 +55,7 @@ class User extends Sequelize.Model {
 
   static async findByEmail(uEmail) {
     const user = await User.findOne({
-      where: { email: uEmail }
+      where: { email: uEmail },
     });
     return user;
   }
@@ -64,11 +63,10 @@ class User extends Sequelize.Model {
   static async findByEmailOrCreate(userObject) {
     const resultArray = await User.findOrCreate({
       where: { email: userObject.email },
-      defaults: userObject
-    })
+      defaults: userObject,
+    });
     return resultArray;
   }
-
 }
 
 export default User;

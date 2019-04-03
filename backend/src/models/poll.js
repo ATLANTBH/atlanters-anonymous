@@ -6,20 +6,20 @@ class Poll extends Sequelize.Model {
       {
         entity: {
           type: DataTypes.STRING,
-          allowNull: false
+          allowNull: false,
         },
         description: {
           type: DataTypes.TEXT,
-          allowNull: false
+          allowNull: false,
         },
         locked: {
           type: DataTypes.BOOLEAN,
-          allowNull: false
+          allowNull: false,
         },
         max_num_answers: {
           type: DataTypes.INTEGER,
-          allowNull: false
-        }
+          allowNull: false,
+        },
       },
       { sequelize }
     );
@@ -31,7 +31,6 @@ class Poll extends Sequelize.Model {
     Poll.hasMany(models.Answer, { onDelete: 'CASCADE' });
     Poll.hasMany(models.PollAnswer, { onDelete: 'CASCADE' });
   }
-
 }
 
 export default Poll;

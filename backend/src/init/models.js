@@ -9,7 +9,7 @@ export default async (sequelize, eraseDatabaseOnSync) => {
   }
 
   return models;
-}
+};
 
 // TODO: SEED DB
 // const createUsersWithMessages = async () => {

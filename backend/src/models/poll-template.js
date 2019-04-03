@@ -6,13 +6,12 @@ class PollTemplate extends Sequelize.Model {
       {
         title: {
           type: DataTypes.STRING,
-          allowNull: false
+          allowNull: false,
         },
         description: {
           type: DataTypes.TEXT,
-          allowNull: false
-        }
-
+          allowNull: false,
+        },
       },
       { sequelize }
     );
@@ -23,7 +22,6 @@ class PollTemplate extends Sequelize.Model {
     PollTemplate.hasMany(models.Poll, { onDelete: 'CASCADE' });
     PollTemplate.belongsTo(models.User);
   }
-
 }
 
 export default PollTemplate;
