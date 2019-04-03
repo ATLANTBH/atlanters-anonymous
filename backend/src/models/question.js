@@ -6,16 +6,16 @@ class Question extends Sequelize.Model {
       {
         content: {
           type: DataTypes.JSONB,
-          allowNull: false
+          allowNull: false,
         },
         title: {
           type: DataTypes.TEXT,
-          allowNull: false
+          allowNull: false,
         },
         type: {
           type: DataTypes.STRING,
-          allowNull: false
-        }
+          allowNull: false,
+        },
       },
       { sequelize }
     );
@@ -25,7 +25,6 @@ class Question extends Sequelize.Model {
     Question.belongsTo(models.PollTemplate);
     Question.hasOne(models.Answer);
   }
-
 }
 
 export default Question;
