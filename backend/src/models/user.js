@@ -73,12 +73,40 @@ class User extends Sequelize.Model {
     return resultArray;
   }
 
+  static async findByAuthenticationToken(token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    }
+    catch(e) {
+      return Promise.reject(e);
+    }
+
+    const Op = Sequelize.Op;
+    const user = await User.findOne({
+      where: {
+        tokens: {
+          [Op.contains]: [token]
+        }
+      }
+    })
+    return user;
+  }
+
   async generateAuthenticationToken() {
     const user = this;
     const token = jwt.sign({ id: user.id.toString() }, process.env.JWT_SECRET).toString();
     user.tokens.push(token);
     await user.update({ tokens: user.tokens });
     return token;
+  }
+
+  async removeAuthenticationToken(token) {
+    const user = this;
+    user.tokens = user.tokens.filter((value, index, array) => {
+      return value != token;
+    })
+    await user.update({ tokens: user.tokens });
+    return user;
   }
 
 }
