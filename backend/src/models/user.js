@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import jwt from 'jsonwebtoken';
 
 class User extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -43,6 +44,10 @@ class User extends Sequelize.Model {
             },
           },
         },
+        tokens: {
+          type: DataTypes.ARRAY(DataTypes.STRING(800)),
+          defaultValue: []
+        }
       },
       { sequelize }
     );
@@ -67,6 +72,15 @@ class User extends Sequelize.Model {
     });
     return resultArray;
   }
+
+  async generateAuthenticationToken() {
+    const user = this;
+    const token = jwt.sign({ id: user.id.toString() }, process.env.JWT_SECRET).toString();
+    user.tokens.push(token);
+    await user.update({ tokens: user.tokens });
+    return token;
+  }
+
 }
 
 export default User;

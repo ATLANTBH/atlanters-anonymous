@@ -1,4 +1,4 @@
-import { hash, compare } from 'bcrypt';
+import { hash } from 'bcrypt';
 
 function isPasswordValid(password) {
   const validPassword =
@@ -8,24 +8,45 @@ function isPasswordValid(password) {
   return validPassword;
 }
 
+async function userExists(email, User) {
+  if (await User.findByEmail(email)) return true;
+  return false;
+}
+
+async function getPasswordHash(inputPassword) {
+  return await hash(
+    inputPassword,
+    parseInt(process.env.SALT_ROUNDS)
+  );
+}
+
+async function getUserObjectFromRequest(reqUser, User) {
+  return new User({
+    email: reqUser.email,
+    password: await getPasswordHash(reqUser.password),
+    name: reqUser.name,
+    surname: reqUser.surname
+  })
+}
+
 export default ({ models }) => {
   const { User } = models;
   return async (req, res, next) => {
-    let userObj = req.body;
-    if (!isPasswordValid(userObj.password))
-      next(new Error('Password not valid, must be at least 8 characters long'));
+    let reqUser = req.body;
+    if (!isPasswordValid(reqUser.password))
+      next(new Error('Password must be at least 8 characters long'));
+    else if (await userExists(reqUser.email, User))
+      next(new Error('User with this email already exists'));
     else {
-      userObj.password = await hash(
-        userObj.password,
-        parseInt(process.env.SALT_ROUNDS)
-      );
-      const [user, isCreated] = await User.findByEmailOrCreate(userObj);
-      if (isCreated) {
-        res.json({
-          user,
-          isCreated,
-        });
-      } else next(new Error('User with this email already exists'));
+      const user = await getUserObjectFromRequest(reqUser, User);
+      try {
+        await user.save();
+        const token = await user.generateAuthenticationToken();
+        res.header('x-auth', token).send(user);
+      }
+      catch (error) {
+        next(new Error(error));
+      }
     }
   };
 };

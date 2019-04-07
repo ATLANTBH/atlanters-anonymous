@@ -5,13 +5,13 @@ export default async app => {
 
   expressApp.use(routes(app));
 
-  expressApp.use(function(err, req, res, next) {
+  expressApp.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    let error = req.expressApp.get('env') === 'development' ? err : {};
-    console.log(error);
+    const errorStack = process.env.MODE === 'development' ? err.stack : {};
+    console.log(err);
     res.json({
       message: err.message,
-      error: {},
+      error: errorStack,
     });
   });
 };
