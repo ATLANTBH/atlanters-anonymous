@@ -14,7 +14,7 @@ class User extends Sequelize.Model {
               msg: 'Email address must be valid',
             },
             notEmpty: {
-              msg: 'Unexpected that email is empty'
+              msg: 'Unexpected that email is empty',
             },
           },
         },
@@ -48,8 +48,8 @@ class User extends Sequelize.Model {
         },
         tokens: {
           type: DataTypes.ARRAY(DataTypes.STRING(800)),
-          defaultValue: []
-        }
+          defaultValue: [],
+        },
       },
       { sequelize }
     );
@@ -78,8 +78,7 @@ class User extends Sequelize.Model {
   static async findByAuthenticationToken(token) {
     try {
       jwt.verify(token, process.env.JWT_SECRET);
-    }
-    catch (e) {
+    } catch (e) {
       return Promise.reject(e);
     }
 
@@ -87,16 +86,18 @@ class User extends Sequelize.Model {
     const user = await User.findOne({
       where: {
         tokens: {
-          [Op.contains]: [token]
-        }
-      }
-    })
+          [Op.contains]: [token],
+        },
+      },
+    });
     return user;
   }
 
   async generateAuthenticationToken() {
     const user = this;
-    const token = jwt.sign({ id: user.id.toString() }, process.env.JWT_SECRET).toString();
+    const token = jwt
+      .sign({ id: user.id.toString() }, process.env.JWT_SECRET)
+      .toString();
     user.tokens.push(token);
     await user.update({ tokens: user.tokens });
     return token;
@@ -106,11 +107,10 @@ class User extends Sequelize.Model {
     const user = this;
     user.tokens = user.tokens.filter((value, index, array) => {
       return value != token;
-    })
+    });
     await user.update({ tokens: user.tokens });
     return user;
   }
-
 }
 
 export default User;

@@ -4,8 +4,7 @@ export default async (req, res, next) => {
   try {
     await user.removeAuthenticationToken(token);
     res.status(200).send();
-  }
-  catch(e) {
+  } catch (e) {
     next(new Error(e));
   }
-}
+};

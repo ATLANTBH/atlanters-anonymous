@@ -7,5 +7,5 @@ export default ({ models }) => {
     req.user = user;
     req.token = token;
     next();
-  }
-}
+  };
+};
