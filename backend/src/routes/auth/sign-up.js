@@ -8,11 +8,6 @@ function isPasswordValid(password) {
   return validPassword;
 }
 
-async function userExists(email, User) {
-  if (await User.findByEmail(email)) return true;
-  return false;
-}
-
 async function getPasswordHash(inputPassword) {
   return await hash(inputPassword, parseInt(process.env.SALT_ROUNDS));
 }
@@ -33,7 +28,7 @@ export default ({ models }) => {
     try {
       if (!isPasswordValid(reqUser.password))
         next(new Error('Password must be at least 8 characters long'));
-      else if (await userExists(reqUser.email, User))
+      else if (await User.findByEmail(reqUser.email))
         next(new Error('User with this email already exists'));
       else {
         const user = await getUserObject(reqUser, User);
