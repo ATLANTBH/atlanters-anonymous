@@ -14,10 +14,7 @@ async function userExists(email, User) {
 }
 
 async function getPasswordHash(inputPassword) {
-  return await hash(
-    inputPassword,
-    parseInt(process.env.SALT_ROUNDS)
-  );
+  return await hash(inputPassword, parseInt(process.env.SALT_ROUNDS));
 }
 
 async function getUserObject(reqUser, User) {
@@ -25,8 +22,8 @@ async function getUserObject(reqUser, User) {
     email: reqUser.email,
     password: await getPasswordHash(reqUser.password),
     name: reqUser.name,
-    surname: reqUser.surname
-  })
+    surname: reqUser.surname,
+  });
 }
 
 export default ({ models }) => {
@@ -44,8 +41,7 @@ export default ({ models }) => {
         const token = await user.generateAuthenticationToken();
         res.header('x-auth', token).send(user);
       }
-    }
-    catch (error) {
+    } catch (error) {
       next(new Error(error));
     }
   };

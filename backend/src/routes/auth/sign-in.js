@@ -24,9 +24,8 @@ export default ({ models }) => {
       });
       res.header('x-auth', token).send(user);
       return token;
-    }
-    catch (error) {
-      next(new Error(error))
+    } catch (error) {
+      next(new Error(error));
     }
   };
 };

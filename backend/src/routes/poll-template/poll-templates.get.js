@@ -4,9 +4,8 @@ export default ({ models }) => {
     try {
       const pollTemplates = await PollTemplate.findAll();
       res.send(pollTemplates);
-    }
-    catch (error) {
+    } catch (error) {
       next(new Error(error));
     }
-  }
-}
+  };
+};

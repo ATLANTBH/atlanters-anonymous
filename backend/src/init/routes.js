@@ -5,7 +5,7 @@ export default async app => {
 
   expressApp.use(routes(app));
 
-  expressApp.use(function (err, req, res, next) {
+  expressApp.use(function(err, req, res, next) {
     res.status(err.status || 500);
     const errorStack = process.env.MODE === 'development' ? err.stack : {};
     console.log(err);

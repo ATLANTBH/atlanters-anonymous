@@ -4,11 +4,10 @@ export default ({ models }) => {
   return async (req, res, next) => {
     try {
       const users = await User.findAll({
-        include: [PollTemplate]
+        include: [PollTemplate],
       });
       res.send(users);
-    }
-    catch (error) {
+    } catch (error) {
       next(new Error(error));
     }
   };

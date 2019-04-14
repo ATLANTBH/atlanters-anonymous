@@ -6,14 +6,15 @@ class PollTemplate extends Sequelize.Model {
       {
         title: {
           type: DataTypes.STRING,
+          unique: true,
           allowNull: false,
           validate: {
             notEmpty: {
               msg: 'Unexpected that title is empty',
             },
             notNull: {
-              msg: 'Title must be provided'
-            }
+              msg: 'Title must be provided',
+            },
           },
         },
         description: {
@@ -24,8 +25,8 @@ class PollTemplate extends Sequelize.Model {
               msg: 'Unexpected that description is empty',
             },
             notNull: {
-              msg: 'Description must be provided'
-            }
+              msg: 'Description must be provided',
+            },
           },
         },
       },
@@ -39,13 +40,19 @@ class PollTemplate extends Sequelize.Model {
     PollTemplate.belongsTo(models.User);
   }
 
-  static async findByTitle(title) {
+  static async findById(id) {
     const pollTemplate = await PollTemplate.findOne({
-      where: { title: title }
+      where: { id: id },
     });
     return pollTemplate;
   }
 
+  static async findByTitle(title) {
+    const pollTemplate = await PollTemplate.findOne({
+      where: { title: title },
+    });
+    return pollTemplate;
+  }
 }
 
 export default PollTemplate;

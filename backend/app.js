@@ -4,8 +4,8 @@ import init from './src/init';
 
 async function startExpressApp(app) {
   app.listen(process.env.PORT, () => {
-    console.log(`Listening on port ${process.env.PORT}`)
-  })
+    console.log(`Listening on port ${process.env.PORT}`);
+  });
 }
 
 async function start() {
@@ -17,8 +17,8 @@ async function start() {
 
   const app = {
     expressApp,
-    models
-  }
+    models,
+  };
 
   await init.middlewares(app);
   await init.routes(app);
