@@ -1,15 +1,10 @@
-async function pollTemplateExists(title, PollTemplate) {
-  if (await PollTemplate.findByTitle(title)) return true;
-  return false;
-}
-
 export default ({ models }) => {
   const { PollTemplate } = models;
   return async (req, res, next) => {
     const pollTemplateReq = req.body;
     const userCreator = req.user;
     try {
-      if (!(await pollTemplateExists(pollTemplateReq.title, PollTemplate))) {
+      if (!(await PollTemplate.findByTitle(pollTemplateReq.title))) {
         const pollTemplate = await PollTemplate.create(pollTemplateReq);
         await userCreator.setPollTemplates([pollTemplate]);
         res.send(pollTemplate);
