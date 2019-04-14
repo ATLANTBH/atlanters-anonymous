@@ -13,7 +13,9 @@ class User extends Sequelize.Model {
             isEmail: {
               msg: 'Email address must be valid',
             },
-            notEmpty: true,
+            notEmpty: {
+              msg: 'Unexpected that email is empty'
+            },
           },
         },
         password: {
@@ -75,9 +77,9 @@ class User extends Sequelize.Model {
 
   static async findByAuthenticationToken(token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      jwt.verify(token, process.env.JWT_SECRET);
     }
-    catch(e) {
+    catch (e) {
       return Promise.reject(e);
     }
 
