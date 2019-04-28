@@ -40,6 +40,12 @@ class PollTemplate extends Sequelize.Model {
     PollTemplate.belongsTo(models.User);
   }
 
+  static async findAllWithAssoc(associations = []) {
+    return await PollTemplate.findAll({
+      include: associations,
+    });
+  }
+
   static async findById(id) {
     const pollTemplate = await PollTemplate.findOne({
       where: { id: id },
