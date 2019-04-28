@@ -22,8 +22,8 @@ class Question extends Sequelize.Model {
   }
 
   static associate(models) {
-    Question.belongsTo(models.PollTemplate, { onDelete: 'CASCADE' });
     Question.hasOne(models.Answer);
+    Question.belongsTo(models.PollTemplate, { onDelete: 'CASCADE' });
   }
 
   static async findById(id) {
