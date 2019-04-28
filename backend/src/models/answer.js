@@ -7,6 +7,14 @@ class Answer extends Sequelize.Model {
         content: {
           type: DataTypes.JSONB,
           allowNull: false,
+          validate: {
+            notEmpty: {
+              msg: 'Unexpected that content field is empty',
+            },
+            notNull: {
+              msg: 'Answers must be provided',
+            },
+          },
         },
       },
       { sequelize }
@@ -15,8 +23,12 @@ class Answer extends Sequelize.Model {
 
   static associate(models) {
     Answer.belongsTo(models.Poll);
-    Answer.belongsTo(models.Question);
-    Answer.belongsTo(models.PollAnswer);
+  }
+
+  static async findAllWithAssoc(associations = []) {
+    return await Answer.findAll({
+      include: associations,
+    });
   }
 }
 

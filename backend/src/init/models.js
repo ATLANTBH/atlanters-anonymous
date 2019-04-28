@@ -11,7 +11,6 @@ export default async (sequelize, eraseDatabaseOnSync) => {
   return models;
 };
 
-// TODO: SEED DB
 const createUsersWithMessages = async models => {
   const user = await models.User.create({
     email: 'veda_df@dfasfasa.com',
@@ -23,21 +22,28 @@ const createUsersWithMessages = async models => {
     ],
   });
 
-  const question1 = await models.Question.create({
-    type: 'checkbox',
-    question: 'What foods do you like?',
-    content: ['Pizza', 'Spaghetti', 'Burgers', 'Chicken'],
-  });
-
-  const question2 = await models.Question.create({
-    type: 'radio',
-    question: 'What movies do you like?',
-    content: ['Sci-fi', 'Biography', 'Fantasy'],
-  });
-
   const pollTemplate = await models.PollTemplate.create({
     title: 'Food Poll',
     description: 'this is a food poll',
+    questions: [
+      {
+        type: 'radio',
+        question: 'Your favorite food?',
+        options: ['Pizza', 'Spaghetti', 'Salmon', 'Chicken'],
+        required: true,
+      },
+      {
+        type: 'checkbox',
+        question: 'Your favorite movie genre',
+        options: ['Sci-fi', 'Fantasy', 'Biography', 'Soap Opera'],
+        required: true,
+      },
+      {
+        type: 'text',
+        question: 'Additional input',
+        required: false,
+      },
+    ],
   });
 
   const poll = await models.Poll.create({
@@ -45,10 +51,25 @@ const createUsersWithMessages = async models => {
     description: 'This poll is for the team reactor8',
     locked: false,
     maxNumAnswers: 4,
+    numAnswers: 1,
+  });
+
+  const answer = await models.Answer.create({
+    content: [
+      {
+        'Your favorite food?': ['Spaghetti'],
+      },
+      {
+        'Your favorite movie genre': ['Sci-fi', 'Fantasy', 'Biography'],
+      },
+      {
+        'Additional input': 'Random text',
+      },
+    ],
   });
 
   await user.setPollTemplates([pollTemplate]);
-  await pollTemplate.setQuestions([question1, question2]);
   await user.setPolls([poll]);
   await pollTemplate.setPolls([poll]);
+  await poll.setAnswers([answer]);
 };

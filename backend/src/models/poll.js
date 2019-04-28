@@ -20,16 +20,34 @@ class Poll extends Sequelize.Model {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
+        numAnswers: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
       },
       { sequelize }
     );
   }
 
+  async isMaxNumAnswersReached() {
+    if (this.maxNumAnswers == this.numAnswers) return true;
+    return false;
+  }
+
+  async incrementNumAnswers() {
+    await this.update({ numAnswers: ++this.numAnswers });
+  }
+
   static associate(models) {
     Poll.hasMany(models.Answer, { onDelete: 'CASCADE' });
-    Poll.hasMany(models.PollAnswer, { onDelete: 'CASCADE' });
     Poll.belongsTo(models.PollTemplate);
     Poll.belongsTo(models.User);
+  }
+
+  static async findAllWithAssoc(associations = []) {
+    return await Poll.findAll({
+      include: associations,
+    });
   }
 
   static async findById(id) {
