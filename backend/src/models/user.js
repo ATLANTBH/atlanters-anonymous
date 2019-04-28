@@ -60,6 +60,12 @@ class User extends Sequelize.Model {
     User.hasMany(models.Poll);
   }
 
+  static async findAllWithAssoc(associations = []) {
+    return await User.findAll({
+      include: associations,
+    });
+  }
+
   static async findByEmail(uEmail) {
     const user = await User.findOne({
       where: { email: uEmail },

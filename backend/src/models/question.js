@@ -8,7 +8,7 @@ class Question extends Sequelize.Model {
           type: DataTypes.JSONB,
           allowNull: false,
         },
-        title: {
+        question: {
           type: DataTypes.TEXT,
           allowNull: false,
         },
@@ -22,8 +22,15 @@ class Question extends Sequelize.Model {
   }
 
   static associate(models) {
-    Question.belongsTo(models.PollTemplate);
+    Question.belongsTo(models.PollTemplate, { onDelete: 'CASCADE' });
     Question.hasOne(models.Answer);
+  }
+
+  static async findById(id) {
+    const question = await Question.findOne({
+      where: { id: id },
+    });
+    return question;
   }
 }
 

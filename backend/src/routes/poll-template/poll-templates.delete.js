@@ -7,8 +7,7 @@ export default ({ models }) => {
       if (pollTemplate) {
         const deleteResult = await pollTemplate.destroy();
         res.send(deleteResult);
-      } else
-        next(new Error('Poll template does not exist, please create it first'));
+      } else next(new Error(`Poll template with id ${id} does not exist`));
     } catch (error) {
       next(new Error(error));
     }

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import auth from './auth';
 import user from './user';
 import pollTemplate from './poll-template';
+import question from './question';
 
 export default app => {
   const router = Router();
@@ -9,6 +10,7 @@ export default app => {
   router.use('/auth', auth(app));
   router.use('/user', user(app));
   router.use('/poll-template', pollTemplate(app));
+  router.use('/question', question(app));
 
   return router;
 };

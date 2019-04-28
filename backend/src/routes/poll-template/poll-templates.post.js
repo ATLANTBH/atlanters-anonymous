@@ -6,9 +6,14 @@ export default ({ models }) => {
     try {
       if (!(await PollTemplate.findByTitle(pollTemplateReq.title))) {
         const pollTemplate = await PollTemplate.create(pollTemplateReq);
-        await userCreator.setPollTemplates([pollTemplate]);
+        await userCreator.addPollTemplate(pollTemplate);
         res.send(pollTemplate);
-      } else next(new Error('Poll template with this title already exists'));
+      } else
+        next(
+          new Error(
+            `Poll template with title ${pollTemplateReq.title} already exists`
+          )
+        );
     } catch (error) {
       next(new Error(error));
     }

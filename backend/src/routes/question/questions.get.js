@@ -1,9 +1,9 @@
 export default ({ models }) => {
-  const { User, PollTemplate } = models;
+  const { Question } = models;
   return async (req, res, next) => {
     try {
-      const users = await User.findAllWithAssoc([PollTemplate]);
-      res.send(users);
+      const questions = await Question.findAll();
+      res.send(questions);
     } catch (error) {
       next(new Error(error));
     }

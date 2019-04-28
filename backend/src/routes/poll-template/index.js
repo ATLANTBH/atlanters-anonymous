@@ -10,12 +10,12 @@ export default app => {
 
   router.get('/poll-templates', verifyToken(app), getPollTemplates(app));
   router.post('/poll-templates', verifyToken(app), createPollTemplate(app));
-  router.put('/poll-templates', verifyToken(app), updatePollTemplate(app));
   router.delete(
     '/poll-templates/:id',
     verifyToken(app),
     deletePollTemplate(app)
   );
+  router.put('/poll-templates/:id', verifyToken(app), updatePollTemplate(app));
 
   return router;
 };
