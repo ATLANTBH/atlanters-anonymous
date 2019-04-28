@@ -29,13 +29,24 @@ class PollTemplate extends Sequelize.Model {
             },
           },
         },
+        questions: {
+          type: DataTypes.JSONB,
+          allowNull: false,
+          validate: {
+            notEmpty: {
+              msg: 'Unexpected that questions field is empty',
+            },
+            notNull: {
+              msg: 'Questions must be provided for poll template',
+            },
+          },
+        },
       },
       { sequelize }
     );
   }
 
   static associate(models) {
-    PollTemplate.hasMany(models.Question, { onDelete: 'CASCADE' });
     PollTemplate.hasMany(models.Poll, { onDelete: 'CASCADE' });
     PollTemplate.belongsTo(models.User);
   }

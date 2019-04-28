@@ -1,9 +1,9 @@
 export default ({ models }) => {
-  const { Question } = models;
+  const { Answer, Poll } = models;
   return async (req, res, next) => {
     try {
-      const questions = await Question.findAll();
-      res.send(questions);
+      const answers = await Answer.findAllWithAssoc([Poll]);
+      res.send(answers);
     } catch (error) {
       next(new Error(error));
     }
