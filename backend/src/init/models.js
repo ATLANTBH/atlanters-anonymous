@@ -39,6 +39,16 @@ const createUsersWithMessages = async models => {
     title: 'Food Poll',
     description: 'this is a food poll',
   });
+
+  const poll = await models.Poll.create({
+    entity: 'Reactor8',
+    description: 'This poll is for the team reactor8',
+    locked: false,
+    maxNumAnswers: 4,
+  });
+
   await user.setPollTemplates([pollTemplate]);
   await pollTemplate.setQuestions([question1, question2]);
+  await user.setPolls([poll]);
+  await pollTemplate.setPolls([poll]);
 };

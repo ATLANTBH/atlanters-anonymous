@@ -16,7 +16,7 @@ class Poll extends Sequelize.Model {
           type: DataTypes.BOOLEAN,
           allowNull: false,
         },
-        max_num_answers: {
+        maxNumAnswers: {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
@@ -26,10 +26,17 @@ class Poll extends Sequelize.Model {
   }
 
   static associate(models) {
-    Poll.belongsTo(models.PollTemplate);
-    Poll.belongsTo(models.User);
     Poll.hasMany(models.Answer, { onDelete: 'CASCADE' });
     Poll.hasMany(models.PollAnswer, { onDelete: 'CASCADE' });
+    Poll.belongsTo(models.PollTemplate);
+    Poll.belongsTo(models.User);
+  }
+
+  static async findById(id) {
+    const poll = await Poll.findOne({
+      where: { id: id },
+    });
+    return poll;
   }
 }
 
