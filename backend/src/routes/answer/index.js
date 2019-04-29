@@ -2,7 +2,7 @@ import { Router } from 'express';
 import getAnswers from './answers.get';
 import submitAnswer from './answers.post';
 import verifyToken from '../middlewares/verify-token';
-import validateAnswer from './answer.validate';
+import { validateAnswer } from '../validation';
 
 export default app => {
   const router = Router();

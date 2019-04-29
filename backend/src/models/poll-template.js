@@ -30,8 +30,9 @@ class PollTemplate extends Sequelize.Model {
           },
         },
         questions: {
-          type: DataTypes.JSONB,
+          type: DataTypes.ARRAY(DataTypes.JSONB),
           allowNull: false,
+          notEmpty: true,
           validate: {
             notEmpty: {
               msg: 'Unexpected that questions field is empty',
