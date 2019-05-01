@@ -4,6 +4,4 @@ const questionTypes = {
   text: 'text',
 };
 
-export {
-  questionTypes
-}
+export { questionTypes };

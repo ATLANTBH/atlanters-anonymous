@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const checkBoxValuesMatch = (answer, options) => {
   if (answer.length > options.length) return false;
-  else if(_.difference(answer, options).length > 0) return false;
+  else if (_.difference(answer, options).length > 0) return false;
   return true;
 };
 
@@ -11,7 +11,7 @@ const validateRadio = (answer, baseError, required) => {
     throw new Error(baseError + `should be a string type`);
   else if (answer === '' && required)
     throw new Error(baseError + `is not provided, but required`);
-}
+};
 
 const validateCheckbox = (answer, baseError, options, required) => {
   if (!(answer instanceof Array))
@@ -20,14 +20,14 @@ const validateCheckbox = (answer, baseError, options, required) => {
     throw new Error(baseError + `is not provided, but required`);
   else if (!checkBoxValuesMatch(answer, options))
     throw new Error(baseError + `has invalid arguments`);
-}
+};
 
 const validateText = (answer, baseError, required) => {
   if (!(typeof answer === 'string'))
     throw new Error(baseError + `must be a string type`);
   else if (answer === '' && required)
     throw new Error(baseError + `is not provided, but required`);
-}
+};
 
 const validateByType = (questionObj, answer) => {
   const type = questionObj.type;
