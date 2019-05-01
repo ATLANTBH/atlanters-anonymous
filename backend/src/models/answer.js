@@ -5,7 +5,7 @@ class Answer extends Sequelize.Model {
     return super.init(
       {
         content: {
-          type: DataTypes.ARRAY(DataTypes.JSONB),
+          type: DataTypes.JSONB,
           allowNull: false,
           validate: {
             notEmpty: {

@@ -30,7 +30,7 @@ class PollTemplate extends Sequelize.Model {
           },
         },
         questions: {
-          type: DataTypes.ARRAY(DataTypes.JSONB),
+          type: DataTypes.JSONB,
           allowNull: false,
           notEmpty: true,
           validate: {
