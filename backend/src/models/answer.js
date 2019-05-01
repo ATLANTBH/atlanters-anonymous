@@ -30,6 +30,14 @@ class Answer extends Sequelize.Model {
       include: associations,
     });
   }
+
+  static async findByPollId(pollId) {
+    return await Answer.findAll({
+      where: {
+        PollId: pollId,
+      },
+    });
+  }
 }
 
 export default Answer;
