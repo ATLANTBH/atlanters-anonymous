@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha tests/unit/user.test.js --require @babel/register",
     "start": "nodemon --exec babel-node app.js"
   },
   "engines": {
@@ -32,6 +32,9 @@
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^6.1.4",
     "nodemon": "^1.18.10",
     "prettier": "1.16.4"
   }

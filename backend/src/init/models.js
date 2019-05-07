@@ -16,7 +16,7 @@ const createUsersWithMessages = async models => {
     email: 'veda_df@dfasfasa.com',
     name: 'test',
     surname: 'test',
-    password: '12345678',
+    password: '$2b$10$YRyan2uS8QLqwzjeOOlZNu71xt5XdVtnvK0Ax.yALuqzgfG0s8dc.',
     tokens: [
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1NTUyNDY5NDJ9.YeHmVTL5bEo_SpxfifU-7OfsxTqJ-aH0lWf1l5Y1LLE',
     ],

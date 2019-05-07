@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import jwt from 'jsonwebtoken';
+import { hash } from 'bcrypt';
 
 class User extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -97,6 +98,41 @@ class User extends Sequelize.Model {
       },
     });
     return user;
+  }
+
+  static async getPasswordHash(inputPassword) {
+    return await hash(inputPassword, parseInt(process.env.SALT_ROUNDS));
+  }
+
+  static async getUserObject(reqUser, User) {
+    return User.build({
+      email: reqUser.email,
+      password: await User.getPasswordHash(reqUser.password),
+      name: reqUser.name,
+      surname: reqUser.surname,
+    });
+  }
+
+  static async insert(reqUser) {
+    if (!User.isPasswordValid(reqUser.password))
+      throw new Error('Password must be at least 8 characters long');
+    else if (await User.findByEmail(reqUser.email))
+      throw new Error('User with this email already exists');
+    else{
+      const user = await User.getUserObject(reqUser, User);
+      await user.save();
+      const token = await user.generateAuthenticationToken();
+      return { user, token };
+    }
+
+  }
+
+  static isPasswordValid(password) {
+    const validPassword =
+      typeof password == 'string' &&
+      password.trim() != '' &&
+      password.trim().length >= 8;
+    return validPassword;
   }
 
   async generateAuthenticationToken() {
