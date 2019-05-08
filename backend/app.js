@@ -12,7 +12,9 @@ async function start() {
   const eraseDatabaseOnSync = false;
   const expressApp = express();
 
+  console.log("Connecting to the database...");
   const sequelize = await init.db(eraseDatabaseOnSync);
+  console.log("Initiating models...");
   const models = await init.models(sequelize, eraseDatabaseOnSync);
 
   const app = {
@@ -20,8 +22,11 @@ async function start() {
     models,
   };
 
+  console.log("Initiating middlewares...");
   await init.middlewares(app);
+  console.log("Initiating routes...");
   await init.routes(app);
+  console.log("Starting express app...");
   await startExpressApp(app.expressApp);
 }
 

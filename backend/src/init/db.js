@@ -14,5 +14,5 @@ export default async (isDevelopment) => {
     dialect: 'postgres',
   };
 
-  return new Sequelize(pgConnection);
+  return new Sequelize(isDevelopment ? localConnection : pgConnection);
 };
