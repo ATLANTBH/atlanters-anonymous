@@ -8,11 +8,7 @@ export default async (isDevelopment) => {
     logging: false
   };
 
-  const pgConnection = {
-    connectionString: process.env.PGREMOTE_DATABASE,
-    ssl: process.env.PGSSL,
-    dialect: 'postgres',
-  };
+  const pgConnection = process.env.PGREMOTE_DATABASE
 
   return new Sequelize(isDevelopment ? localConnection : pgConnection);
 };

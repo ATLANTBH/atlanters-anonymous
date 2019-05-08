@@ -9,9 +9,9 @@ export default async (sequelize, eraseDatabaseOnSync) => {
   }
   catch(error) {
     console.log(error);
-    console.log("Sequelize:");
+    console.log("\n\nSequelize:");
     console.log(sequelize);
-    console.log("Models:");
+    console.log("\n\nModels:");
     console.log(models);
   }
   if (eraseDatabaseOnSync) {
