@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha tests/unit/user.test.js --require @babel/register",
     "init": "nodemon --exec babel-node app.js",
-    "start": "node app.js"
+    "start": "babel-node app.js"
   },
   "engines": {
     "node": "10.15.3"
