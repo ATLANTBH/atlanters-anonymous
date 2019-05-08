@@ -9,10 +9,6 @@ export default async (sequelize, eraseDatabaseOnSync) => {
   }
   catch(error) {
     console.log(error);
-    console.log("\n\nSequelize:");
-    console.log(sequelize);
-    console.log("\n\nModels:");
-    console.log(models);
   }
   if (eraseDatabaseOnSync) {
     createUsersWithMessages(models);
