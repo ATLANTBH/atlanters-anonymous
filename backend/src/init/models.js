@@ -3,6 +3,7 @@ import initModels from '../models';
 export default async (sequelize, eraseDatabaseOnSync) => {
   const models = initModels(sequelize);
 
+  console.log("Syncing...");
   await sequelize.sync({ force: eraseDatabaseOnSync });
   if (eraseDatabaseOnSync) {
     createUsersWithMessages(models);
