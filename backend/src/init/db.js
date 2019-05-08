@@ -8,7 +8,5 @@ export default async (isDevelopment) => {
     logging: false
   };
 
-  const pgConnection = process.env.PGREMOTE_DATABASE
-
-  return new Sequelize(isDevelopment ? localConnection : pgConnection);
+  return new Sequelize(isDevelopment ? localConnection : process.env.DATABASE_URL);
 };
