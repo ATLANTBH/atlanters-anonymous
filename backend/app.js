@@ -9,7 +9,7 @@ async function startExpressApp(app) {
 }
 
 async function start() {
-  const eraseDatabaseOnSync = true;
+  const eraseDatabaseOnSync = false;
   const expressApp = express();
 
   const sequelize = await init.db(eraseDatabaseOnSync);
