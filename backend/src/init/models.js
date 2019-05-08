@@ -4,7 +4,16 @@ export default async (sequelize, eraseDatabaseOnSync) => {
   const models = initModels(sequelize);
 
   console.log("Syncing...");
-  await sequelize.sync({ force: eraseDatabaseOnSync });
+  try{
+    await sequelize.sync({ force: eraseDatabaseOnSync });
+  }
+  catch(error) {
+    console.log(error);
+    console.log("Sequelize:");
+    console.log(sequelize);
+    console.log("Models:");
+    console.log(models);
+  }
   if (eraseDatabaseOnSync) {
     createUsersWithMessages(models);
   }
