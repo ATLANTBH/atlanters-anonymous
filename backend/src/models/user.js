@@ -85,8 +85,8 @@ class User extends Sequelize.Model {
   static async findByAuthenticationToken(token) {
     try {
       jwt.verify(token, process.env.JWT_SECRET);
-    } catch (e) {
-      return Promise.reject(e);
+    } catch (error) {
+      return Promise.reject(error);
     }
 
     const Op = Sequelize.Op;
