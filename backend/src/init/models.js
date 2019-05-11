@@ -45,10 +45,19 @@ const createUsersWithMessages = async models => {
         required: true,
       },
       {
-        type: 'text',
+        type: 'paragraph',
         question: 'Additional input',
         required: false,
       },
+      {
+        type: 'linearScale',
+        question: 'How much are you satisfied?',
+        minIndex: 1,
+        maxIndex: 10,
+        minChoice: "Don't like",
+        maxChoice: "Really like",
+        required: true
+      }
     ],
   });
 

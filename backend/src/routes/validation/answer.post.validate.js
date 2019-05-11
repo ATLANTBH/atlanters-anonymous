@@ -1,3 +1,5 @@
+import { questionTypes } from './utils';
+
 import _ from 'lodash';
 
 const checkBoxValuesMatch = (answer, options) => {
@@ -29,20 +31,33 @@ const validateText = (answer, baseError, required) => {
     throw new Error(baseError + `is not provided, but required`);
 };
 
+const validateLinearScale = (answer, questionObj, baseError, required) => {
+  if (!(typeof answer === 'number'))
+    throw new Error(baseError + `must be a number`);
+  else if(answer < questionObj.minIndex || answer > questionObj.maxIndex)
+    throw new Error(baseError + `must be a number between ${questionObj.minIndex} - ${questionObj.maxIndex}`);
+  else if (!answer && required)
+    throw new Error(baseError + `is not provided, but required`);
+}
+
 const validateByType = (questionObj, answer) => {
   const type = questionObj.type;
   const required = questionObj.required;
   const question = questionObj.question;
   const baseError = `Answer for question '${question}' `;
   switch (type) {
-    case 'radio':
+    case questionTypes.radio:
       validateRadio(answer, baseError, required);
       break;
-    case 'checkbox':
+    case questionTypes.checkbox:
       validateCheckbox(answer, baseError, questionObj.options, required);
       break;
-    case 'text':
+    case questionTypes.shortAnswer:
+    case questionTypes.paragraph:
       validateText(answer, baseError, required);
+      break;
+    case questionTypes.linearScale:
+      validateLinearScale(answer, questionObj, baseError, required);
       break;
   }
 };

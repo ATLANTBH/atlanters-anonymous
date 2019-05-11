@@ -41,7 +41,9 @@ const validateOptions = (type, question, questionTypes, questionString) => {
     const keys = Object.keys(question);
     const linearScaleKeys = ['minIndex', 'maxIndex', 'minChoice', 'maxChoice'];
     if(_.difference(linearScaleKeys, keys) != 0)
-      throw new Error(`Question of type linear scale must contain the following properties: ${linearScaleKeys}`);
+      throw new Error(`Question must contain the following properties: ${linearScaleKeys} in '${questionString}'`);
+    else if(question.minIndex >= question.maxIndex)
+      throw new Error(`Unexpected that ${question.minIndex} is not strictly less than ${question.maxIndex} in '${questionString}'`);
   }
 };
 
