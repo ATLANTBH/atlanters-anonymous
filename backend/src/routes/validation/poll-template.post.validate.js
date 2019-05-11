@@ -1,4 +1,5 @@
 import { questionTypes } from './utils';
+import _ from 'lodash';
 
 const validateOptionFields = options => {
   for (let option in options) {
@@ -17,8 +18,10 @@ const validateType = (type, questionTypes, questionString) => {
   }
 };
 
-const validateOptions = (type, options, questionTypes, questionString) => {
+const validateOptions = (type, question, questionTypes, questionString) => {
+  // short answer and paragraph types do not need special validation
   if (type === questionTypes.radio || type === questionTypes.checkbox) {
+    const options = question.options;
     if (!options)
       throw new Error(
         `Options must be provided for the given type '${type}' in '${questionString}'`
@@ -33,6 +36,12 @@ const validateOptions = (type, options, questionTypes, questionString) => {
           `Options must be an array of strings in '${questionString}'`
         );
     }
+  }
+  else if(type === questionTypes.linearScale) {
+    const keys = Object.keys(question);
+    const linearScaleKeys = ['minIndex', 'maxIndex', 'minChoice', 'maxChoice'];
+    if(_.difference(linearScaleKeys, keys) != 0)
+      throw new Error(`Question of type linear scale must contain the following properties: ${linearScaleKeys}`);
   }
 };
 
@@ -52,7 +61,7 @@ const validateQuestion = question => {
   validateType(type, questionTypes, questionString);
 
   const options = question.options;
-  validateOptions(type, options, questionTypes, questionString);
+  validateOptions(type, question, questionTypes, questionString);
 
   const required = question.required;
   validateRequired(required, questionString);

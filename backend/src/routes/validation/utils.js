@@ -1,7 +1,9 @@
 const questionTypes = {
   radio: 'radio',
   checkbox: 'checkbox',
-  text: 'text',
+  shortAnswer: 'shortAnswer',
+  paragraph: 'paragraph',
+  linearScale: 'linearScale'
 };
 
 export { questionTypes };
