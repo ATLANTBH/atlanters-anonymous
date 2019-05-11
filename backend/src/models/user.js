@@ -74,6 +74,13 @@ class User extends Sequelize.Model {
     return user;
   }
 
+  static async findById(id) {
+    const user = await User.findOne({
+      where: { id: id },
+    });
+    return user;
+  }
+
   static async findByEmailOrCreate(userObject) {
     const resultArray = await User.findOrCreate({
       where: { email: userObject.email },
@@ -114,17 +121,12 @@ class User extends Sequelize.Model {
   }
 
   static async insert(reqUser) {
-    if (!User.isPasswordValid(reqUser.password))
-      throw new Error('Password must be at least 8 characters long');
-    else if (await User.findByEmail(reqUser.email))
-      throw new Error('User with this email already exists');
-    else{
-      const user = await User.getUserObject(reqUser, User);
-      await user.save();
-      const token = await user.generateAuthenticationToken();
-      return { user, token };
-    }
-
+    await User.checkEmailValid(reqUser.email);
+    User.checkPasswordValid(reqUser.password);
+    const user = await User.getUserObject(reqUser, User);
+    await user.save();
+    const token = await user.generateAuthenticationToken();
+    return { user, token };
   }
 
   static isPasswordValid(password) {
@@ -133,6 +135,16 @@ class User extends Sequelize.Model {
       password.trim() != '' &&
       password.trim().length >= 8;
     return validPassword;
+  }
+
+  static checkPasswordValid(password) {
+    if (!User.isPasswordValid(password))
+      throw new Error('Password must be at least 8 characters long');
+  }
+
+  static async checkEmailValid(email) {
+    if (await User.findByEmail(email))
+      throw new Error('User with this email already exists');
   }
 
   async generateAuthenticationToken() {

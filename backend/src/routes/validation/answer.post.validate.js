@@ -83,31 +83,16 @@ const isAnswerValid = (questions, answers) => {
   return result;
 };
 
-export default ({ models }) => {
-  const { Answer, Poll, PollTemplate } = models;
-  return async (req, res, next) => {
-    const answers = req.body;
-    const pollId = req.params.pollId;
-    const pollTemplateId = req.params.pollTemplateId;
-    try {
-      const poll = await Poll.findById(pollId);
-      if (await poll.isMaxNumAnswersReached(Answer))
-        throw new Error(
-          `Maximum number of answers reached (${poll.maxNumAnswers})`
-        );
-      const pollTemplate = await PollTemplate.findById(pollTemplateId);
-      if (poll && pollTemplate) {
-        const answersValid = isAnswerValid(pollTemplate.questions, answers);
-        if (!answersValid.valid) next(new Error(answersValid.error));
-        else {
-          req.answers = answers;
-          req.poll = poll;
-          req.pollTemplate = pollTemplate;
-          next();
-        }
-      } else next(new Error(`Poll with id ${pollId} does not exist`));
-    } catch (error) {
-      next(new Error(error));
-    }
-  };
+export default async (Answer, Poll, PollTemplate, answers, pollId, pollTemplateId) => {
+  const poll = await Poll.findById(pollId);
+  const pollTemplate = await PollTemplate.findById(pollTemplateId);
+  if (poll && pollTemplate) {
+    if (await poll.isMaxNumAnswersReached(Answer))
+    throw new Error(
+      `Maximum number of answers reached (${poll.maxNumAnswers})`
+    );
+    const answersValid = isAnswerValid(pollTemplate.questions, answers);
+    if (!answersValid.valid) throw new Error(answersValid.error);
+    else return poll;
+  } else throw new Error(`Poll with id ${pollId} does not exist`);
 };

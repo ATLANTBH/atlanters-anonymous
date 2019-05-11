@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha tests/unit/user.test.js --require @babel/register",
+    "test": "./node_modules/.bin/mocha tests/integration/user.test.js --require @babel/register",
     "init": "nodemon --exec babel-node app.js",
     "start": "babel-node app.js"
   },

@@ -3,7 +3,6 @@ import getAnswers from './answers.get';
 import getPollAnswers from './answers.poll.get';
 import submitAnswer from './answers.post';
 import verifyToken from '../middlewares/verify-token';
-import { validateAnswer } from '../validation';
 
 export default app => {
   const router = Router();
@@ -13,7 +12,6 @@ export default app => {
   router.post(
     '/answers/:pollTemplateId/:pollId',
     verifyToken(app),
-    validateAnswer(app),
     submitAnswer(app)
   );
 
