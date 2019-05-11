@@ -9,7 +9,7 @@ async function startExpressApp(app) {
 }
 
 async function start() {
-  const eraseDatabaseOnSync = false;
+  const eraseDatabaseOnSync = true;
   const expressApp = express();
 
   console.log("Connecting to the database...");
