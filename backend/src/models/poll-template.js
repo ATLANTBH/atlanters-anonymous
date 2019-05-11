@@ -65,30 +65,14 @@ class PollTemplate extends Sequelize.Model {
     return pollTemplate;
   }
 
-  static async findByTitle(title) {
+  static async findByTitle(title, Poll) {
     const pollTemplate = await PollTemplate.findOne({
       where: { title: title },
+      include: Poll
     });
     return pollTemplate;
   }
 
-  static async findByPollTemplateId(pollTemplateId) {
-    const polls = await PollTemplate.findAll({
-      where: {
-        PollTemplateid: pollTemplateId,
-      },
-    });
-    return polls;
-  }
-
-  static async findByUserId(userId) {
-    const polls = await PollTemplate.findAll({
-      where: {
-        UserId: userId,
-      },
-    });
-    return polls;
-  }
 }
 
 export default PollTemplate;
