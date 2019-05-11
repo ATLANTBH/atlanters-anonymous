@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize';
+import user from '../routes/user';
+import poll from '../routes/poll';
 
 class PollTemplate extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -71,6 +73,13 @@ class PollTemplate extends Sequelize.Model {
       include: Poll
     });
     return pollTemplate;
+  }
+
+  static async findByUserId(userId) {
+    const pollTemplates = await PollTemplate.findAll({
+      where: { UserId: userId }
+    });
+    return pollTemplates;
   }
 
 }
