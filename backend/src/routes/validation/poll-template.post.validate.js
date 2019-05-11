@@ -67,24 +67,15 @@ const validateQuestions = questions => {
   }
 };
 
-export default ({ models }) => {
-  const { PollTemplate } = models;
-  return async (req, res, next) => {
-    const pollTemplateReq = req.body;
-    const questions = pollTemplateReq.questions;
-    try {
-      if (await PollTemplate.findByTitle(pollTemplateReq.title))
-        throw new Error(
-          `Poll template with title ${pollTemplateReq.title} already exists`
-        );
-      else if (!questions) throw new Error('Questions must be provided');
-      else if (!questions instanceof Array)
-        throw new Error('Must be of type array');
-      validateQuestions(questions);
-    } catch (error) {
-      next(new Error(error));
-    }
-    req.pollTemplate = pollTemplateReq;
-    next();
-  };
+export default async (PollTemplate, pollTemplateReq) => {
+  const questions = pollTemplateReq.questions;
+
+  if (await PollTemplate.findByTitle(pollTemplateReq.title))
+    throw new Error(
+      `Poll template with title ${pollTemplateReq.title} already exists`
+    );
+  else if (!questions) throw new Error('Questions must be provided');
+  else if (!questions instanceof Array)
+    throw new Error('Must be of type array');
+  validateQuestions(questions);
 };

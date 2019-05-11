@@ -5,7 +5,6 @@ import createPollTemplate from './poll-templates.post';
 import updatePollTemplate from './poll-templates.put';
 import deletePollTemplate from './poll-templates.delete';
 import verifyToken from '../middlewares/verify-token';
-import { validateQuestion } from '../validation';
 
 export default app => {
   const router = Router();
@@ -19,7 +18,6 @@ export default app => {
   router.post(
     '/poll-templates',
     verifyToken(app),
-    validateQuestion(app),
     createPollTemplate(app)
   );
   router.delete(
