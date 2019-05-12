@@ -67,10 +67,10 @@ class PollTemplate extends Sequelize.Model {
     return pollTemplate;
   }
 
-  static async findByTitle(title, Poll) {
+  static async findByTitle(title, associations = []) {
     const pollTemplate = await PollTemplate.findOne({
       where: { title: title },
-      include: Poll
+      include: associations
     });
     return pollTemplate;
   }

@@ -44,11 +44,15 @@ const validateOptions = (type, question, questionTypes, questionString) => {
       throw new Error(`Question must contain the following properties: ${linearScaleKeys} in '${questionString}'`);
     else if(question.minIndex >= question.maxIndex)
       throw new Error(`Unexpected that ${question.minIndex} is not strictly less than ${question.maxIndex} in '${questionString}'`);
+    else if(!(typeof question.minChoice === 'string'))
+      throw new Error(`Unexpected that minChoice is not string`);
+    else if(!(typeof question.maxChoice === 'string'))
+      throw new Error(`Unexpected that maxChoice is not string`);
   }
 };
 
 const validateRequired = (required, questionString) => {
-  if (!required) throw new Error(`Unexpected that field 'required' is not set`);
+  if (required == null) throw new Error(`Unexpected that field 'required' is not set in '${questionString}'`);
   else if (!(typeof required === 'boolean'))
     throw new Error(`Required must be true or false in '${questionString}'`);
 };
@@ -78,15 +82,11 @@ const validateQuestions = questions => {
   }
 };
 
-export default async (PollTemplate, pollTemplateReq) => {
+export default async (pollTemplateReq) => {
   const questions = pollTemplateReq.questions;
-
-  if (await PollTemplate.findByTitle(pollTemplateReq.title))
-    throw new Error(
-      `Poll template with title ${pollTemplateReq.title} already exists`
-    );
-  else if (!questions) throw new Error('Questions must be provided');
-  else if (!questions instanceof Array)
-    throw new Error('Must be of type array');
+  if (!questions) throw new Error('Questions must be provided');
+  else if (!(questions instanceof Array))
+    throw new Error('Questions must be of type array');
+  else if (questions.length == 0) throw new Error('Questions must not be empty');
   validateQuestions(questions);
 };
