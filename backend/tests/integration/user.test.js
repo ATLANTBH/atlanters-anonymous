@@ -1,12 +1,12 @@
 require('dotenv').config();
-import user from '../mocks/user';
 import { expect } from 'chai';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import getModels from '../lib/init';
+import mocks from '../mocks';
 
 chai.use(chaiAsPromised);
-
+let user = mocks.data.user;
 let models = null;
 
 describe('Testing models', async () => {
