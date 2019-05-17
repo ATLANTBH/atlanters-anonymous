@@ -6,7 +6,7 @@
   "scripts": {
     "pollTemplate": "./node_modules/.bin/mocha tests/integration/poll-template.test.js --require @babel/register",
     "user": "./node_modules/.bin/mocha tests/integration/user.test.js --require @babel/register",
-    "unit": "./node_modules/.bin/mocha tests/unit/**test.js --require @babel/register",
+    "unit": "./node_modules/.bin/mocha tests/unit/**/*test.js --require @babel/register",
     "init": "nodemon --exec babel-node app.js",
     "start": "babel-node app.js"
   },
@@ -26,7 +26,8 @@
     "lodash": "^4.17.11",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.1.0"
+    "sequelize": "^5.1.0",
+    "sinon": "^7.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

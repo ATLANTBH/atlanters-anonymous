@@ -1,2 +1,3 @@
-import user from './user';
-export default { user }
+import data from './data';
+import models from './models';
+export default { data, models };

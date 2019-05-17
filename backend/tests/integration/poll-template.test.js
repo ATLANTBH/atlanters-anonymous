@@ -3,9 +3,10 @@ import { expect } from 'chai';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import getModels from '../lib/init';
-chai.use(chaiAsPromised);
-import { pollTemplate } from '../mocks/poll-template';
+import mocks from '../mocks';
 
+chai.use(chaiAsPromised);
+const pollTemplate = mocks.data.pollTemplate.pollTemplate;
 let models = null;
 
 describe('Testing models', async () => {
