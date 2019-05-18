@@ -3,15 +3,14 @@ import initModels from '../models';
 export default async (sequelize, eraseDatabaseOnSync) => {
   const models = initModels(sequelize);
 
-  console.log("Syncing...");
-  try{
+  console.log('Syncing...');
+  try {
     await sequelize.sync({ force: eraseDatabaseOnSync });
-  }
-  catch(error) {
+  } catch (error) {
     console.log(error);
   }
   if (eraseDatabaseOnSync) {
-    createUsersWithMessages(models);
+    await createUsersWithMessages(models);
   }
 
   return models;
@@ -55,9 +54,9 @@ const createUsersWithMessages = async models => {
         minIndex: 1,
         maxIndex: 10,
         minChoice: "Don't like",
-        maxChoice: "Really like",
-        required: true
-      }
+        maxChoice: 'Really like',
+        required: true,
+      },
     ],
   });
 

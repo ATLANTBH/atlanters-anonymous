@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize';
-import user from '../routes/user';
-import poll from '../routes/poll';
+import validatePollTemplate from '../routes/validation/poll-template.post.validate';
 
 class PollTemplate extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -54,6 +53,11 @@ class PollTemplate extends Sequelize.Model {
     PollTemplate.belongsTo(models.User);
   }
 
+  static async validCreate(pollTemplateReq) {
+    await PollTemplate.validate(pollTemplateReq);
+    return await PollTemplate.create(pollTemplateReq);
+  }
+
   static async findAllWithAssoc(associations = []) {
     return await PollTemplate.findAll({
       include: associations,
@@ -70,18 +74,21 @@ class PollTemplate extends Sequelize.Model {
   static async findByTitle(title, associations = []) {
     const pollTemplate = await PollTemplate.findOne({
       where: { title: title },
-      include: associations
+      include: associations,
     });
     return pollTemplate;
   }
 
   static async findByUserId(userId) {
     const pollTemplates = await PollTemplate.findAll({
-      where: { UserId: userId }
+      where: { UserId: userId },
     });
     return pollTemplates;
   }
 
+  static async validate(pollTemplate) {
+    await validatePollTemplate(pollTemplate);
+  }
 }
 
 export default PollTemplate;

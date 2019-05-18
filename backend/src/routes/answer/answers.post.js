@@ -7,7 +7,14 @@ export default ({ models }) => {
     const pollId = req.params.pollId;
     const pollTemplateId = req.params.pollTemplateId;
     try {
-      const poll = await validateAnswer(Answer, Poll, PollTemplate, answers, pollId, pollTemplateId);
+      const poll = await validateAnswer(
+        Answer,
+        Poll,
+        PollTemplate,
+        answers,
+        pollId,
+        pollTemplateId
+      );
       const answer = await Answer.create({ content: answers });
       await poll.addAnswer(answer);
       await poll.incrementNumAnswers();

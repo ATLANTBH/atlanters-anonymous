@@ -34,11 +34,16 @@ const validateText = (answer, baseError, required) => {
 const validateLinearScale = (answer, questionObj, baseError, required) => {
   if (!(typeof answer === 'number'))
     throw new Error(baseError + `must be a number`);
-  else if(answer < questionObj.minIndex || answer > questionObj.maxIndex)
-    throw new Error(baseError + `must be a number between ${questionObj.minIndex} - ${questionObj.maxIndex}`);
+  else if (answer < questionObj.minIndex || answer > questionObj.maxIndex)
+    throw new Error(
+      baseError +
+        `must be a number between ${questionObj.minIndex} - ${
+          questionObj.maxIndex
+        }`
+    );
   else if (!answer && required)
     throw new Error(baseError + `is not provided, but required`);
-}
+};
 
 const validateByType = (questionObj, answer) => {
   const type = questionObj.type;
@@ -98,14 +103,21 @@ const isAnswerValid = (questions, answers) => {
   return result;
 };
 
-export default async (Answer, Poll, PollTemplate, answers, pollId, pollTemplateId) => {
+export default async (
+  Answer,
+  Poll,
+  PollTemplate,
+  answers,
+  pollId,
+  pollTemplateId
+) => {
   const poll = await Poll.findById(pollId);
   const pollTemplate = await PollTemplate.findById(pollTemplateId);
   if (poll && pollTemplate) {
     if (await poll.isMaxNumAnswersReached(Answer))
-    throw new Error(
-      `Maximum number of answers reached (${poll.maxNumAnswers})`
-    );
+      throw new Error(
+        `Maximum number of answers reached (${poll.maxNumAnswers})`
+      );
     const answersValid = isAnswerValid(pollTemplate.questions, answers);
     if (!answersValid.valid) throw new Error(answersValid.error);
     else return poll;

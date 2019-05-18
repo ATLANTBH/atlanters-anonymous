@@ -1,8 +1,7 @@
 require('dotenv').config();
 import express from 'express';
 import init from './src/init';
-import mockss from './tests/mocks';
-console.log(mockss);
+
 async function startExpressApp(app) {
   app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}`);

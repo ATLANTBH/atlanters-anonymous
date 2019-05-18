@@ -59,18 +59,17 @@ class Poll extends Sequelize.Model {
 
   static async findByUserId(userId) {
     const polls = await Poll.findAll({
-      where: { UserId: userId }
+      where: { UserId: userId },
     });
     return polls;
   }
 
   static async findByPollTemplateId(pollTemplateId) {
     const polls = await Poll.findAll({
-      where: { PollTemplateId: pollTemplateId }
+      where: { PollTemplateId: pollTemplateId },
     });
     return polls;
   }
-
 }
 
 export default Poll;

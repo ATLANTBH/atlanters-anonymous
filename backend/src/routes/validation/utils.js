@@ -3,7 +3,7 @@ const questionTypes = {
   checkbox: 'checkbox',
   shortAnswer: 'shortAnswer',
   paragraph: 'paragraph',
-  linearScale: 'linearScale'
+  linearScale: 'linearScale',
 };
 
 export { questionTypes };

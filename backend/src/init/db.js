@@ -1,12 +1,14 @@
 import Sequelize from 'sequelize';
 
-export default async (isDevelopment) => {
+export default async isDevelopment => {
   const localConnection = {
     connectionString: process.env.PGDATABASE,
     ssl: process.env.PGSSL,
     dialect: 'postgres',
-    logging: false
+    logging: false,
   };
 
-  return new Sequelize(isDevelopment ? localConnection : process.env.DATABASE_URL);
+  return new Sequelize(
+    isDevelopment ? localConnection : process.env.DATABASE_URL
+  );
 };

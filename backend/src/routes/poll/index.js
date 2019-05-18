@@ -21,7 +21,11 @@ export default app => {
     verifyToken(app),
     getPollTemplatePolls(app)
   );
-  router.get('/polls/poll-template-title/:pollTemplateTitle', verifyToken(app), getPollByPollTemplateTitle(app));
+  router.get(
+    '/polls/poll-template-title/:pollTemplateTitle',
+    verifyToken(app),
+    getPollByPollTemplateTitle(app)
+  );
   router.get('/polls/user/:userId', verifyToken(app), getUserPolls(app));
   router.post('/polls/:pollTemplateId', verifyToken(app), createPoll(app));
   router.delete('/polls/:id', verifyToken(app), deletePoll(app));

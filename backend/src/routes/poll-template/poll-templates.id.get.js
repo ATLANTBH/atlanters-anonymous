@@ -4,8 +4,11 @@ export default ({ models }) => {
     const pollTemplateId = req.params.id;
     try {
       const pollTemplate = await PollTemplate.findById(pollTemplateId);
-      if(pollTemplate) res.send(pollTemplate);
-      else throw new Error(`Poll template with id ${pollTemplateId} does not exist, please create it first`);
+      if (pollTemplate) res.send(pollTemplate);
+      else
+        throw new Error(
+          `Poll template with id ${pollTemplateId} does not exist, please create it first`
+        );
     } catch (error) {
       next(new Error(error));
     }
