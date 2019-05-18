@@ -38,6 +38,14 @@ class Answer extends Sequelize.Model {
       },
     });
   }
+
+  static async findById(id) {
+    const answer = await Answer.findOne({
+      where: { id: id },
+    });
+    return answer;
+  }
+
 }
 
 export default Answer;
