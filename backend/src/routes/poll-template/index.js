@@ -13,19 +13,27 @@ export default app => {
   const router = Router();
 
   router.get('/poll-templates', verifyToken(app), getPollTemplates(app));
-  router.get('/poll-templates/user-email', verifyToken(app), getPollTemplatesByUserEmail(app));
-  router.get('/poll-templates/:id', verifyToken(app), getPollTemplateByPollTemplateId(app));
-  router.get('/poll-templates/poll-template-title/:title', verifyToken(app), getPollTemplateByTitle(app));
+  router.get(
+    '/poll-templates/user-email',
+    verifyToken(app),
+    getPollTemplatesByUserEmail(app)
+  );
+  router.get(
+    '/poll-templates/:id',
+    verifyToken(app),
+    getPollTemplateByPollTemplateId(app)
+  );
+  router.get(
+    '/poll-templates/poll-template-title/:title',
+    verifyToken(app),
+    getPollTemplateByTitle(app)
+  );
   router.get(
     '/poll-templates/user/:userId',
     verifyToken(app),
     getUserPollTemplates(app)
   );
-  router.post(
-    '/poll-templates',
-    verifyToken(app),
-    createPollTemplate(app)
-  );
+  router.post('/poll-templates', verifyToken(app), createPollTemplate(app));
   router.delete(
     '/poll-templates/:id',
     verifyToken(app),

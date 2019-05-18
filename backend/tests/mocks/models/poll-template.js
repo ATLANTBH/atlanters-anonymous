@@ -7,5 +7,8 @@ export default {
   findAllWithAssoc: PollTemplateMock.expects('findAllWithAssoc'),
   findById: PollTemplateMock.expects('findById'),
   findByTitle: PollTemplateMock.expects('findByTitle'),
-  findByUserId: PollTemplateMock.expects('findByUserId')
+  findByUserId: PollTemplateMock.expects('findByUserId'),
+  create: PollTemplateMock.expects('create'),
+  validate: PollTemplateMock.expects('validate'),
+  validCreate: PollTemplateMock.expects('validCreate')
 }

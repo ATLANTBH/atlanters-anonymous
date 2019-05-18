@@ -3,9 +3,15 @@ export default ({ models }) => {
   return async (req, res, next) => {
     const pollTemplateTitle = req.params.title;
     try {
-      const pollTemplate = await PollTemplate.findByTitle(pollTemplateTitle, Poll);
-      if(pollTemplate) res.send(pollTemplate);
-      else throw new Error(`Poll template with title ${pollTemplateTitle} does not exist, please create it first`);
+      const pollTemplate = await PollTemplate.findByTitle(
+        pollTemplateTitle,
+        Poll
+      );
+      if (pollTemplate) res.send(pollTemplate);
+      else
+        throw new Error(
+          `Poll template with title ${pollTemplateTitle} does not exist, please create it first`
+        );
     } catch (error) {
       next(new Error(error));
     }

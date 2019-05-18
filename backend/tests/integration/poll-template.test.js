@@ -19,12 +19,12 @@ describe('Testing models', async () => {
   describe('Testing poll template', async () => {
 
     it('get created poll template by id', async () => {
-      const result = await models.PollTemplate.findById(1);
-      expect(result.dataValues).to.deep.include(pollTemplate.newPollTemplate);
+      const ptResult = await models.PollTemplate.findById(0);
+      expect(ptResult.dataValues).to.deep.include(pollTemplate.newPollTemplate);
     })
 
     it('get created poll template by title', async () => {
-      const result = await models.PollTemplate.findByTitle("Food Poll 2");
+      const result = await models.PollTemplate.findByTitle("Food Poll");
       expect(result.dataValues).to.deep.include(pollTemplate.newPollTemplate);
     })
 
