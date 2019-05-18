@@ -5,6 +5,9 @@ import getPollTemplateByTitle from '../../../src/routes/poll-template/poll-templ
 import getPollTemplateByUserId from '../../../src/routes/poll-template/poll-templates.user.get';
 import getPollTemplateByUserEmail from '../../../src/routes/poll-template/poll-templates.user.email.get';
 import postPollTemplate from '../../../src/routes/poll-template/poll-templates.post';
+import putPollTemplate from '../../../src/routes/poll-template/poll-templates.put';
+import deletePollTemplate from '../../../src/routes/poll-template/poll-templates.delete';
+
 import mocks from '../../mocks';
 import { expect } from 'chai';
 
@@ -111,6 +114,54 @@ describe('Poll Template Unit Tests', () => {
     })
   })
 
-  
+  describe('PUT', async () => {
+    it('poll-templates.put.js', async () => {
+      const input = {
+        body: mocks.data.pollTemplate.pollTemplate.newPollTemplate,
+        params: {
+          id: 1
+        }
+      }
+      const tempOutput = {
+        update: (input) => {}
+      };
+      const tempOutputMock = {
+        update: sinon.mock(tempOutput).expects('update').once().withExactArgs(input.body).returns(output)
+      }
+
+      PollTemplate.findById.once().withExactArgs(input.params.id).returns(tempOutputMock);
+      const expressMiddleware = putPollTemplate({ models: { PollTemplate} });
+      await expressMiddleware(input, res, next);
+
+      expect(PollTemplate.findById.verify()).to.true;
+      expect(tempOutputMock.update.verify()).to.true;
+      expect(res.send.verify()).to.true;
+    })
+  })
+
+
+  describe('DELETE', () => {
+    it('poll-templates.delete.js', async () => {
+      const input = {
+        params: {
+          id: 1
+        }
+      }
+      const tempOutput = {
+        destroy: (input) => {}
+      };
+      const tempOutputMock = {
+        destroy: sinon.mock(tempOutput).expects('destroy').once().withExactArgs().returns(output)
+      }
+
+      PollTemplate.findById.once().withExactArgs(input.params.id).returns(tempOutputMock);
+      const expressMiddleware = deletePollTemplate({ models: { PollTemplate} });
+      await expressMiddleware(input, res, next);
+
+      expect(PollTemplate.findById.verify()).to.true;
+      expect(tempOutputMock.destroy.verify()).to.true;
+      expect(res.send.verify()).to.true;
+    })
+  })
 
 });

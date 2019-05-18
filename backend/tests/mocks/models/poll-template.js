@@ -9,6 +9,5 @@ export default {
   findByTitle: PollTemplateMock.expects('findByTitle'),
   findByUserId: PollTemplateMock.expects('findByUserId'),
   create: PollTemplateMock.expects('create'),
-  validate: PollTemplateMock.expects('validate'),
   validCreate: PollTemplateMock.expects('validCreate')
 }
