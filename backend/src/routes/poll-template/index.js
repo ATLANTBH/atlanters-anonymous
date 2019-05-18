@@ -12,34 +12,34 @@ import verifyToken from '../middlewares/verify-token';
 export default app => {
   const router = Router();
 
-  router.get('/poll-templates', verifyToken(app), getPollTemplates(app));
+  router.get('/', verifyToken(app), getPollTemplates(app));
   router.get(
-    '/poll-templates/user-email',
+    '/user-email',
     verifyToken(app),
     getPollTemplatesByUserEmail(app)
   );
   router.get(
-    '/poll-templates/:id',
+    '/:id([0-9]{1,10})',
     verifyToken(app),
     getPollTemplateByPollTemplateId(app)
   );
   router.get(
-    '/poll-templates/poll-template-title/:title',
+    '/:title',
     verifyToken(app),
     getPollTemplateByTitle(app)
   );
   router.get(
-    '/poll-templates/user/:userId',
+    '/users/:userId',
     verifyToken(app),
     getUserPollTemplates(app)
   );
-  router.post('/poll-templates', verifyToken(app), createPollTemplate(app));
+  router.post('/', verifyToken(app), createPollTemplate(app));
   router.delete(
-    '/poll-templates/:id',
+    '/:id',
     verifyToken(app),
     deletePollTemplate(app)
   );
-  router.put('/poll-templates/:id', verifyToken(app), updatePollTemplate(app));
+  router.put('/:id', verifyToken(app), updatePollTemplate(app));
 
   return router;
 };

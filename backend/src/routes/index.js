@@ -9,10 +9,10 @@ export default app => {
   const router = Router();
 
   router.use('/auth', auth(app));
-  router.use('/user', user(app));
-  router.use('/poll-template', pollTemplate(app));
-  router.use('/poll', poll(app));
-  router.use('/answer', answer(app));
+  router.use('/users', user(app));
+  router.use('/poll-templates', pollTemplate(app));
+  router.use('/polls', poll(app));
+  router.use('/answers', answer(app));
 
   return router;
 };
