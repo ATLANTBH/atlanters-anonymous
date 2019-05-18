@@ -1,7 +1,7 @@
 export default ({ models }) => {
   const { Poll, PollTemplate } = models;
   return async (req, res, next) => {
-    const pollTemplateTitle = req.params.pollTemplateTitle;
+    const pollTemplateTitle = req.params.title;
     try {
       const pollTemplate = await PollTemplate.findByTitle(
         pollTemplateTitle,

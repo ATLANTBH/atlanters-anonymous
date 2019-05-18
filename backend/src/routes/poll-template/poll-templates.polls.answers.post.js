@@ -5,7 +5,7 @@ export default ({ models }) => {
   return async (req, res, next) => {
     const answers = req.body;
     const pollId = req.params.pollId;
-    const pollTemplateId = req.params.pollTemplateId;
+    const pollTemplateId = req.params.id;
     try {
       const poll = await validateAnswer(
         Answer,

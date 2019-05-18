@@ -2,8 +2,6 @@ import sinon from 'sinon';
 import getPollTemplates from '../../../src/routes/poll-template/poll-templates.get';
 import getPollTemplateByPollTemplateId from '../../../src/routes/poll-template/poll-templates.id.get';
 import getPollTemplateByTitle from '../../../src/routes/poll-template/poll-templates.title.get';
-import getPollTemplateByUserId from '../../../src/routes/poll-template/poll-templates.user.get';
-import getPollTemplateByUserEmail from '../../../src/routes/poll-template/poll-templates.user.email.get';
 import postPollTemplate from '../../../src/routes/poll-template/poll-templates.post';
 import putPollTemplate from '../../../src/routes/poll-template/poll-templates.put';
 import deletePollTemplate from '../../../src/routes/poll-template/poll-templates.delete';
@@ -64,28 +62,6 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).to.true;
     })
     
-    it('poll-templates.user.get.js', async () => {
-      const input = 1;
-      PollTemplate.findByUserId.once().withExactArgs(input).returns(output);
-      const expressMiddleware = getPollTemplateByUserId( { models: { PollTemplate } });
-      await expressMiddleware({ params: { userId: input } }, res, next);
-  
-      expect(PollTemplate.findByUserId.verify()).to.true;
-      expect(res.send.verify()).to.true;
-    })
-
-    it('poll-templates.user.email.get.js', async () => {
-      const input = 'user@email.com';
-      const user = { id: 1 };
-      User.findByEmail.once().withExactArgs(input).returns(user);
-      PollTemplate.findByUserId.once().withExactArgs(user.id).returns(output);
-      const expressMiddleware = getPollTemplateByUserEmail( { models: { PollTemplate, User } });
-      await expressMiddleware({ body: { email: input } }, res, next);
-      
-      expect(User.findByEmail.verify()).to.true;
-      expect(PollTemplate.findByUserId.verify()).to.true;
-      expect(res.send.verify()).to.true;
-    })
   })
 
   describe('POST', () => {
