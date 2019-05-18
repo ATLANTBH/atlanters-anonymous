@@ -54,7 +54,7 @@ class PollTemplate extends Sequelize.Model {
   }
 
   static async validCreate(pollTemplateReq) {
-    await PollTemplate.validate(pollTemplateReq);
+    await validatePollTemplate(pollTemplateReq);
     return await PollTemplate.create(pollTemplateReq);
   }
 
@@ -84,10 +84,6 @@ class PollTemplate extends Sequelize.Model {
       where: { UserId: userId },
     });
     return pollTemplates;
-  }
-
-  static async validate(pollTemplate) {
-    await validatePollTemplate(pollTemplate);
   }
 }
 
