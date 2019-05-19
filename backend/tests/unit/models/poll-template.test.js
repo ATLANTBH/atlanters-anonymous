@@ -8,43 +8,27 @@ import postPollTemplate from '../../../src/routes/poll-template/poll-templates.p
 import postPollTemplatePollAnswers from '../../../src/routes/poll-template/poll-templates.polls.answers.post';
 import putPollTemplate from '../../../src/routes/poll-template/poll-templates.put';
 import deletePollTemplate from '../../../src/routes/poll-template/poll-templates.delete';
-import mocks from '../../mocks';
 import { expect } from 'chai';
+import utils from './utils';
 
-const output = {
-  Polls: []
-};
-const resMock = sinon.mock(mocks.data.express.res);
-const res = {
-  send: resMock.expects('send').once().withArgs(output).returns()
-}
-const PollTemplate = mocks.models.PollTemplateMock;
-const Poll = mocks.models.PollMock;
-const Answer = mocks.models.AnswerMock;
-const models = {
-  PollTemplate,
-  Poll,
-  Answer
-}
-const next = (error) => {
-  console.log(error);
-}
+const PollTemplate = utils.models.PollTemplate;
+const Poll = utils.models.Poll;
+const Answer = utils.models.Answer;
 
-function resetMocks() {
-  res.send.reset();
-  for(let key in PollTemplate) PollTemplate[key].reset();
-  for(let key in Poll) Poll[key].reset();
-  for(let key in Answer) Answer[key].reset();
-}
+const output = utils.output;
+const res = utils.res;
+const next = utils.next;
+
+const models = utils.models;
 
 describe('Poll Template Unit Tests', () => {
 
   afterEach(() => {
-    resetMocks();
+    utils.resetMocks();
   })
 
   describe('GET', () => {
-    it('poll-templates.get.js', async () => {
+    it('poll-templates.get', async () => {
       PollTemplate.findAllWithAssoc.once().withExactArgs([Poll]).returns(output);
       const expressMiddleware = getPollTemplates({models});
       await expressMiddleware({}, res, next);
@@ -53,7 +37,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).to.true;
     });
 
-    it('poll-templates.id.get.js', async() => {
+    it('poll-templates.id.get', async() => {
       const input = 1;
 
       PollTemplate.findById.once().withExactArgs(input).returns(output);
@@ -64,7 +48,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).to.true;
     });
   
-    it('poll-templates.title.get.js', async() => {
+    it('poll-templates.title.get', async() => {
       const input = 'title';
 
       PollTemplate.findByTitle.once().withExactArgs(input, Poll).returns(output);
@@ -75,7 +59,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).to.true;
     })
     
-    it('poll-templates.polls.get.js', async() => {
+    it('poll-templates.polls.get', async() => {
       const input = {
         params: {
           id: 1
@@ -90,14 +74,14 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).to.true;
     })
 
-    it('poll-templates.polls.title.get.js', async() => {
+    it('poll-templates.polls.title.get', async() => {
       const input = {
         params: {
           title: 'title'
         }
       }
       const resTemp = {
-        send: resMock.expects('send').once().withArgs(output.Polls).returns()
+        send: utils.resMock.expects('send').once().withArgs(output.Polls).returns()
       }
 
       PollTemplate.findByTitle.once().withExactArgs(input.params.title, Poll).returns(output);
@@ -112,7 +96,7 @@ describe('Poll Template Unit Tests', () => {
 
   describe('POST', () => {
 
-    it('poll-templates.post.js', async () => {
+    it('poll-templates.post', async () => {
       const user = {
         addPollTemplate: (input) => {}
       }
@@ -121,7 +105,9 @@ describe('Poll Template Unit Tests', () => {
         user: {
           addPollTemplate: userMock.expects('addPollTemplate').withExactArgs(output)
         },
-        body: mocks.data.pollTemplate.pollTemplate.newPollTemplate
+        body: {
+          title: 'title'
+        }
       }
 
       PollTemplate.findByTitle.once().withExactArgs(input.body.title);
@@ -175,9 +161,9 @@ describe('Poll Template Unit Tests', () => {
   })
 
   describe('PUT', async () => {
-    it('poll-templates.put.js', async () => {
+    it('poll-templates.put', async () => {
       const input = {
-        body: mocks.data.pollTemplate.pollTemplate.newPollTemplate,
+        body: {},
         params: {
           id: 1
         }
@@ -201,7 +187,7 @@ describe('Poll Template Unit Tests', () => {
 
 
   describe('DELETE', () => {
-    it('poll-templates.delete.js', async () => {
+    it('poll-templates.delete', async () => {
       const input = {
         params: {
           id: 1

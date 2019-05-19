@@ -7,5 +7,6 @@ export default {
   findAllWithAssoc: PollMock.expects('findAllWithAssoc'),
   findByUserId: PollMock.expects('findByUserId'),
   findById: PollMock.expects('findById'),
-  findByPollTemplateId: PollMock.expects('findByPollTemplateId')
+  findByPollTemplateId: PollMock.expects('findByPollTemplateId'),
+  create: PollMock.expects('create')
 }
