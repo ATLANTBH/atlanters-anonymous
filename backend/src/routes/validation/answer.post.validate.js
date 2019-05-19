@@ -10,14 +10,14 @@ const checkBoxValuesMatch = (answer, options) => {
 
 const validateRadio = (answer, baseError, required) => {
   if (!(typeof answer === 'string'))
-    throw new Error(baseError + `should be a string type`);
+    throw new Error(baseError + `must be a string type`);
   else if (answer === '' && required)
     throw new Error(baseError + `is not provided, but required`);
 };
 
 const validateCheckbox = (answer, baseError, options, required) => {
   if (!(answer instanceof Array))
-    throw new Error(baseError + `should be an array type`);
+    throw new Error(baseError + `must be an array type`);
   else if (answer.length == 0 && required)
     throw new Error(baseError + `is not provided, but required`);
   else if (!checkBoxValuesMatch(answer, options))
@@ -80,46 +80,17 @@ const getRelatedAnswer = (questionObj, answers) => {
     );
 };
 
-const isAnswerValid = (questions, answers) => {
-  let result = { valid: false, error: '' };
+export default async (questions, answers) => {
   if (!answers instanceof Array)
-    result.error = 'Unexpected that answers is not an array';
+    throw new Error('Unexpected that answers is not an array');
   else if (questions.length > answers.length)
-    result.error = 'Answers to certain questions are missing';
+    throw new Error('Answers to certain questions are missing');
   else if (questions.length < answers.length)
-    result.error = 'Answers contain more questions than necessary';
+    throw new Error('Answers contain more questions than necessary');
   else {
     for (let i = 0; i < questions.length; i++) {
-      try {
-        const answer = getRelatedAnswer(questions[i], answers);
-        validateByType(questions[i], answer);
-      } catch (error) {
-        result.error = error;
-        break;
-      }
+      const answer = getRelatedAnswer(questions[i], answers);
+      validateByType(questions[i], answer);
     }
   }
-  if (result.error === '') result.valid = true;
-  return result;
-};
-
-export default async (
-  Answer,
-  Poll,
-  PollTemplate,
-  answers,
-  pollId,
-  pollTemplateId
-) => {
-  const poll = await Poll.findById(pollId);
-  const pollTemplate = await PollTemplate.findById(pollTemplateId);
-  if (poll && pollTemplate) {
-    if (await poll.isMaxNumAnswersReached(Answer))
-      throw new Error(
-        `Maximum number of answers reached (${poll.maxNumAnswers})`
-      );
-    const answersValid = isAnswerValid(pollTemplate.questions, answers);
-    if (!answersValid.valid) throw new Error(answersValid.error);
-    else return poll;
-  } else throw new Error(`Poll with id ${pollId} does not exist`);
 };

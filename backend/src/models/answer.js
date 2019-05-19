@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import validateAnswer from '../routes/validation/answer.post.validate';
 
 class Answer extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -23,6 +24,11 @@ class Answer extends Sequelize.Model {
 
   static associate(models) {
     Answer.belongsTo(models.Poll);
+  }
+
+  static async validCreate(questions, answers) {
+    await validateAnswer(questions, answers);
+    return await Answer.create({ content: answers });
   }
 
   static async findAllWithAssoc(associations = []) {
