@@ -169,8 +169,17 @@ class User extends Sequelize.Model {
     };
   }
 
-  async generateAuthenticationToken() {
-    const user = this;
+  static async authenticate(email, password) {
+    const user = await User.findByEmail(email);
+    if (!user) throw new Error('User with this email does not exist');
+    else {
+      const isPasswordEqual = await compare(password, user.password);
+      if (!isPasswordEqual) throw new Error('Password incorrect');
+      return user;
+    }
+  }
+
+  static async generateAuthenticationToken(user) {
     const token = jwt
       .sign({ id: user.id.toString() }, process.env.JWT_SECRET)
       .toString();

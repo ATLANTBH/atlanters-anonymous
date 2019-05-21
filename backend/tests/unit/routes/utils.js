@@ -2,11 +2,12 @@ import sinon from 'sinon';
 import mocks from '../../mocks';
 
 const output = {
-  Polls: []
+  Polls: [],
+  id: 1
 };
 const resMock = sinon.mock(mocks.data.express.res);
 const res = {
-  send: resMock.expects('send').once().withArgs(output).returns()
+  send: resMock.expects('send').once().withExactArgs(output).returns()
 }
 const models = {
   PollTemplate: mocks.models.PollTemplateMock,
