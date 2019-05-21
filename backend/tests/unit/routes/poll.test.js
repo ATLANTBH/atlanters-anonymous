@@ -1,5 +1,4 @@
 import sinon from 'sinon';
-import mocks from '../../mocks';
 import { expect } from 'chai';
 import getPolls from '../../../src/routes/poll/polls.get';
 import getPollById from '../../../src/routes/poll/polls.id.get';

@@ -1,5 +1,3 @@
-import getValidUserRequest from '../validation/user.put.validate';
-
 export default ({ models }) => {
   const { User } = models;
   return async (req, res, next) => {
@@ -8,7 +6,7 @@ export default ({ models }) => {
     try {
       const user = await User.findById(userId);
       if (user) {
-        reqUser = await getValidUserRequest(User, user, reqUser);
+        reqUser = await User.getValidUserRequest(user, reqUser);
         const updateResult = await user.update(reqUser);
         res.send(updateResult);
       } else
