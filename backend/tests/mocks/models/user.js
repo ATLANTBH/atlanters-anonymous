@@ -9,5 +9,7 @@ export default {
   findById: UserMock.expects('findById'),
   findByAuthenticationToken: UserMock.expects('findByAuthenticationToken'),
   insert: UserMock.expects('insert'),
-  getValidUserRequest: UserMock.expects('getValidUserRequest')
+  getValidUserRequest: UserMock.expects('getValidUserRequest'),
+  authenticate: UserMock.expects('authenticate'),
+  generateAuthenticationToken: UserMock.expects('generateAuthenticationToken')
 }

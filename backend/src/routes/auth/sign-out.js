@@ -3,7 +3,7 @@ export default async (req, res, next) => {
   const token = req.token;
   try {
     await user.removeAuthenticationToken(token);
-    res.status(200).send();
+    res.send();
   } catch (error) {
     next(new Error(error));
   }
