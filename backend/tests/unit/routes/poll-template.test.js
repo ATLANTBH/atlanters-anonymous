@@ -11,15 +11,15 @@ import deletePollTemplate from '../../../src/routes/poll-template/poll-templates
 import { expect } from 'chai';
 import utils from './utils';
 
-const PollTemplate = utils.models.PollTemplate;
-const Poll = utils.models.Poll;
-const Answer = utils.models.Answer;
-
 const output = utils.output;
 const res = utils.res;
 const next = utils.next;
 
 const models = utils.models;
+
+const PollTemplate = models.PollTemplate;
+const Poll = models.Poll;
+const Answer = models.Answer;
 
 describe('Poll Template Unit Tests', () => {
 

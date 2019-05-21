@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import jwt from 'jsonwebtoken';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
 class User extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -145,6 +145,28 @@ class User extends Sequelize.Model {
   static async checkEmailValid(email) {
     if (await User.findByEmail(email))
       throw new Error('User with this email already exists');
+  }
+
+  static async getValidUserRequest(userToUpdate, reqUser) {
+    let password = reqUser.password;
+    const email = reqUser.email;
+    if (email) {
+      if (email === userToUpdate.email)
+        throw new Error(`Email matches the one currently in use`);
+      await User.checkEmailValid(reqUser.email);
+    }
+    if (password) {
+      User.checkPasswordValid(reqUser.password);
+      if (await compare(password, userToUpdate.password))
+        throw new Error(`Password matches the one currently in use`);
+      password = await User.getPasswordHash(password);
+    }
+    return {
+      email: email,
+      password: password,
+      name: reqUser.name,
+      surname: reqUser.surname,
+    };
   }
 
   async generateAuthenticationToken() {
