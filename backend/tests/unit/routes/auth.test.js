@@ -2,7 +2,6 @@ import sinon from 'sinon';
 import signIn from '../../../src/routes/auth/sign-in';
 import signOut from '../../../src/routes/auth/sign-out';
 import signUp from '../../../src/routes/auth/sign-up';
-import { expect } from 'chai';
 import utils from './utils';
 
 const output = utils.output;
@@ -90,9 +89,9 @@ describe('Auth Unit Tests', () => {
       const expressMiddleware = signUp({models});
       await expressMiddleware(input, res, next);
 
-      expect(User.insert.verify()).to.true;
-      expect(res.header.verify()).to.true;
-      expect(header.send.verify()).to.true;  
+      expect(User.insert.verify()).toBe(true);
+      expect(res.header.verify()).toBe(true);
+      expect(header.send.verify()).toBe(true);  
     })
 
     it('sign-in', async () => {
@@ -110,11 +109,11 @@ describe('Auth Unit Tests', () => {
       const expressMiddleware = signIn({models});
       await expressMiddleware(input, res, next);
 
-      expect(User.authenticate.verify()).to.true;
-      expect(User.generateAuthenticationToken.verify()).to.true;
-      expect(res.cookie.verify()).to.true;  
-      expect(res.header.verify()).to.true;
-      expect(header.send.verify()).to.true;   
+      expect(User.authenticate.verify()).toBe(true);
+      expect(User.generateAuthenticationToken.verify()).toBe(true);
+      expect(res.cookie.verify()).toBe(true);  
+      expect(res.header.verify()).toBe(true);
+      expect(header.send.verify()).toBe(true);   
     })
 
     it('sign-out', async () => {
@@ -127,8 +126,8 @@ describe('Auth Unit Tests', () => {
 
       await signOut(input, res, next);
 
-      expect(user.removeAuthenticationToken.verify()).to.true;
-      expect(res.send.verify()).to.true;   
+      expect(user.removeAuthenticationToken.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);   
     })
 
   })

@@ -21,7 +21,7 @@ async function isValid(invalidTemplate) {
 mocks.data.pollTemplate.pollTemplate.newPollTemplate
 describe('Validate Poll Template', () => {
 
-  describe('Validate without questions', async() => {
+  describe('Validate without questions', () => {
     it('Validate without questions', async () => {
       let valid = false;
       const invalidPollTemplates = pollTemplate.invalidPollTemplates;
@@ -36,7 +36,7 @@ describe('Validate Poll Template', () => {
     })
   })
 
-  describe('Validate radiobutton', async() => {
+  describe('Validate radiobutton', () => {
     it('Invalid radiobutton structure', async () => {
       let valid = false;
       const invalidRadios = questionTypes.radio.invalid;
@@ -57,7 +57,7 @@ describe('Validate Poll Template', () => {
 
   })
 
-  describe('Validate checkbox', async() => {
+  describe('Validate checkbox', () => {
     it('Invalid checkbox structure', async () => {
       let valid = false;
       const invalidCheckboxes = questionTypes.checkbox.invalid;
@@ -77,7 +77,7 @@ describe('Validate Poll Template', () => {
     })
   })
 
-  describe('Validate linear scale', async() => {
+  describe('Validate linear scale', () => {
     it('Invalid linear scale structure', async () => {
       let valid = false;
       const invalidLinearScales = questionTypes.linearScale.invalid;

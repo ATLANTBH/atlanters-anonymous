@@ -8,7 +8,16 @@
     "user": "./node_modules/.bin/mocha tests/integration/user.test.js --require @babel/register",
     "unit": "./node_modules/.bin/mocha tests/unit/**/*test.js --require @babel/register",
     "init": "nodemon --exec babel-node app.js",
-    "start": "babel-node app.js"
+    "start": "babel-node app.js",
+    "test": "jest tests/unit",
+    "coverage": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "tests/unit/**/*.js",
+      "tests/integration/**/*.js",
+      "src/**/*.js"
+    ]
   },
   "engines": {
     "node": "10.15.3"
@@ -36,8 +45,10 @@
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
+    "babel-jest": "^24.8.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "jest": "^24.8.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.18.10",
     "prettier": "1.16.4"
