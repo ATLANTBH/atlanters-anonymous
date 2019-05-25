@@ -1,11 +1,8 @@
 require('dotenv').config();
 import { expect } from 'chai';
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
 import getModels from '../lib/init';
 import mocks from '../mocks';
 
-chai.use(chaiAsPromised);
 const pollTemplate = mocks.data.pollTemplate.pollTemplate;
 let models = null;
 
