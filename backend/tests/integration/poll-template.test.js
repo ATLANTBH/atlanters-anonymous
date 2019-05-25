@@ -1,5 +1,4 @@
 require('dotenv').config();
-import { expect } from 'chai';
 import getModels from '../lib/init';
 import mocks from '../mocks';
 
@@ -8,26 +7,26 @@ let models = null;
 
 describe('Testing models', async () => {
 
-  before(async function () {
+  beforeAll(async function () {
     models = await getModels();
     await models.PollTemplate.create(pollTemplate.newPollTemplate);
   })
 
-  describe('Testing poll template', async () => {
+  describe('Testing poll template', () => {
 
-    it('get created poll template by id', async () => {
+    test('get created poll template by id', async () => {
       const ptResult = await models.PollTemplate.findById(0);
-      expect(ptResult.dataValues).to.deep.include(pollTemplate.newPollTemplate);
+      expect(ptResult.dataValues).toEqual(expect.arrayContaining([pollTemplate.newPollTemplate]));
     })
 
-    it('get created poll template by title', async () => {
+    test('get created poll template by title', async () => {
       const result = await models.PollTemplate.findByTitle("Food Poll");
-      expect(result.dataValues).to.deep.include(pollTemplate.newPollTemplate);
+      expect(result.dataValues).toEqual(expect.arrayContaining([pollTemplate.newPollTemplate]));
     })
 
-    it('get created poll template by user id', async () => {
+    test('get created poll template by user id', async () => {
       const result = await models.PollTemplate.findByUserId(1);
-      expect(result[0].dataValues).to.deep.include(pollTemplate.newPollTemplate);
+      expect(result[0].dataValues).toEqual(expect.arrayContaining([pollTemplate.newPollTemplate]));
     })
 
   })
