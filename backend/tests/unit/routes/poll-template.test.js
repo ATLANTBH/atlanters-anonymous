@@ -27,7 +27,7 @@ describe('Poll Template Unit Tests', () => {
   })
 
   describe('GET', () => {
-    it('poll-templates', async () => {
+    test('poll-templates', async () => {
       PollTemplate.findAllWithAssoc.once().withExactArgs([Poll]).returns(output);
       const expressMiddleware = getPollTemplates({models});
       await expressMiddleware({}, res, next);
@@ -36,7 +36,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     });
 
-    it('poll-templates.id.get', async() => {
+    test('poll-templates.id.get', async() => {
       const input = 1;
 
       PollTemplate.findById.once().withExactArgs(input).returns(output);
@@ -47,7 +47,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     });
   
-    it('poll-templates.title', async() => {
+    test('poll-templates.title', async() => {
       const input = 'title';
 
       PollTemplate.findByTitle.once().withExactArgs(input, Poll).returns(output);
@@ -58,7 +58,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
     
-    it('poll-templates.polls', async() => {
+    test('poll-templates.polls', async() => {
       const input = {
         params: {
           id: 1
@@ -73,7 +73,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('poll-templates.polls.title', async() => {
+    test('poll-templates.polls.title', async() => {
       const input = {
         params: {
           title: 'title'
@@ -95,7 +95,7 @@ describe('Poll Template Unit Tests', () => {
 
   describe('POST', () => {
 
-    it('poll-templates', async () => {
+    test('poll-templates', async () => {
       const user = {
         addPollTemplate: (input) => {}
       }
@@ -120,7 +120,7 @@ describe('Poll Template Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('poll-templates.polls.answers', async () => {
+    test('poll-templates.polls.answers', async () => {
       const input = {
         params: {
           pollId: 1,
@@ -160,7 +160,7 @@ describe('Poll Template Unit Tests', () => {
   })
 
   describe('PUT', () => {
-    it('poll-templates', async () => {
+    test('poll-templates', async () => {
       const input = {
         body: {},
         params: {
@@ -186,7 +186,7 @@ describe('Poll Template Unit Tests', () => {
 
 
   describe('DELETE', () => {
-    it('poll-templates', async () => {
+    test('poll-templates', async () => {
       const input = {
         params: {
           id: 1

@@ -78,7 +78,7 @@ describe('Auth Unit Tests', () => {
 
   describe('GET', () => {
 
-    it('sign-up', async () => {
+    test('sign-up', async () => {
       const input = {
         body: {}
       }
@@ -94,7 +94,7 @@ describe('Auth Unit Tests', () => {
       expect(header.send.verify()).toBe(true);  
     })
 
-    it('sign-in', async () => {
+    test('sign-in', async () => {
       const input = {
         body: {
           email: 'user@email.com',
@@ -116,7 +116,7 @@ describe('Auth Unit Tests', () => {
       expect(header.send.verify()).toBe(true);   
     })
 
-    it('sign-out', async () => {
+    test('sign-out', async () => {
       
       const { res, user } = getSignOutResUserMock();
       const input = {

@@ -24,7 +24,7 @@ describe('Poll Unit Tests', () => {
   });
   
   describe('GET', () => {
-    it('polls', async() => {
+    test('polls', async() => {
       Poll.findAllWithAssoc.once().withExactArgs([Answer]).returns(output);
       const expressMiddleware = getPolls({models});
       await expressMiddleware({}, res, next);
@@ -33,7 +33,7 @@ describe('Poll Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     });
 
-    it('polls.id', async() => {
+    test('polls.id', async() => {
       const input = {
         params: {
           id: 1
@@ -48,7 +48,7 @@ describe('Poll Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     });
 
-    it('polls.answers', async() => {
+    test('polls.answers', async() => {
       const input = {
         params: {
           id: 1
@@ -65,7 +65,7 @@ describe('Poll Unit Tests', () => {
   });
 
   describe('POST', () => {
-    it('polls', async() => {
+    test('polls', async() => {
       const user = {
         addPoll: (input) => {}
       }
@@ -101,7 +101,7 @@ describe('Poll Unit Tests', () => {
   });
 
   describe('PUT', () => {
-    it('polls', async() => {
+    test('polls', async() => {
       const input = {
         body: {},
         params: {
@@ -126,7 +126,7 @@ describe('Poll Unit Tests', () => {
   });
 
   describe('DELETE', () => {
-    it('polls', async() => {
+    test('polls', async() => {
       const input = {
         params: {
           id: 1
