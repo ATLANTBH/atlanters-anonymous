@@ -19,7 +19,7 @@ describe('Answer Unit Tests', () => {
 
   describe('GET', () => {
 
-    it('answers', async () => {
+    test('answers', async () => {
       Answer.findAllWithAssoc.once().withExactArgs([Poll]).returns(output);
       const expressMiddleware = getAnswers({models});
       await expressMiddleware({}, res, next);
@@ -28,7 +28,7 @@ describe('Answer Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     });
 
-    it('answers.id', async () => {
+    test('answers.id', async () => {
       const input = {
         params: {
           id: 1

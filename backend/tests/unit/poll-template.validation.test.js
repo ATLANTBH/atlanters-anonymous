@@ -1,8 +1,4 @@
 require('dotenv').config();
-import { expect } from 'chai';
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-chai.use(chaiAsPromised);
 import mocks from '../mocks';
 import validatePollTemplate from '../../src/routes/validation/poll-template.post.validate';
 
@@ -22,7 +18,7 @@ mocks.data.pollTemplate.pollTemplate.newPollTemplate
 describe('Validate Poll Template', () => {
 
   describe('Validate without questions', () => {
-    it('Validate without questions', async () => {
+    test('Validate without questions', async () => {
       let valid = false;
       const invalidPollTemplates = pollTemplate.invalidPollTemplates;
       for(let i = 0; i < invalidPollTemplates.length; i++){
@@ -37,7 +33,7 @@ describe('Validate Poll Template', () => {
   })
 
   describe('Validate radiobutton', () => {
-    it('Invalid radiobutton structure', async () => {
+    test('Invalid radiobutton structure', async () => {
       let valid = false;
       const invalidRadios = questionTypes.radio.invalid;
       for(let i = 0; i < invalidRadios.length; i++){
@@ -50,7 +46,7 @@ describe('Validate Poll Template', () => {
       expect(valid).to.false;
     })
 
-    it('Valid radiobutton structure', async () => {
+    test('Valid radiobutton structure', async () => {
       const valid = await isValid(questionTypes.radio.valid);
       expect(valid).to.true;
     })
@@ -58,7 +54,7 @@ describe('Validate Poll Template', () => {
   })
 
   describe('Validate checkbox', () => {
-    it('Invalid checkbox structure', async () => {
+    test('Invalid checkbox structure', async () => {
       let valid = false;
       const invalidCheckboxes = questionTypes.checkbox.invalid;
       for(let i = 0; i < invalidCheckboxes.length; i++){
@@ -71,14 +67,14 @@ describe('Validate Poll Template', () => {
       expect(valid).to.false;
     })
 
-    it('Valid checkbox structure', async () => {
+    test('Valid checkbox structure', async () => {
       const valid = await isValid(questionTypes.checkbox.valid);
       expect(valid).to.true;
     })
   })
 
   describe('Validate linear scale', () => {
-    it('Invalid linear scale structure', async () => {
+    test('Invalid linear scale structure', async () => {
       let valid = false;
       const invalidLinearScales = questionTypes.linearScale.invalid;
       for(let i = 0; i < invalidLinearScales.length; i++){
@@ -91,7 +87,7 @@ describe('Validate Poll Template', () => {
       expect(valid).to.false;
     })
 
-    it('Valid linear scale structure', async () => {
+    test('Valid linear scale structure', async () => {
       const valid = await isValid(questionTypes.linearScale.valid);
       expect(valid).to.true;
     })

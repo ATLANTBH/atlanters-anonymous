@@ -3,9 +3,9 @@ import getModels from '../lib/init';
 import mocks from '../mocks';
 
 const pollTemplate = mocks.data.pollTemplate.pollTemplate;
-let models = null;
+let models;
 
-describe('Testing models', async () => {
+describe('Testing models', () => {
 
   beforeAll(async function () {
     models = await getModels();

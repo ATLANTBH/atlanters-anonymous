@@ -3,7 +3,7 @@ import getModels from '../lib/init';
 import mocks from '../mocks';
 
 let user = mocks.data.user;
-let models = null;
+let models;
 
 describe('Testing models', () => {
 

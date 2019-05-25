@@ -27,7 +27,7 @@ describe('User Unit Tests', () => {
 
   describe('GET', () => {
 
-    it('users', async () => {
+    test('users', async () => {
       User.findAllWithAssoc.once().withExactArgs([PollTemplate, Poll]).returns(output);
       const expressMiddleware = getUsers({models});
       await expressMiddleware({}, res, next);
@@ -36,7 +36,7 @@ describe('User Unit Tests', () => {
       expect(res.send.verify()).toBe(true);      
     });
 
-    it('user.id', async () => {
+    test('user.id', async () => {
       const input = 1;
 
       User.findById.once().withExactArgs(input).returns(output);
@@ -47,7 +47,7 @@ describe('User Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('user.email', async () => {
+    test('user.email', async () => {
       const input = {
         body: {
           email: 'user@email.com'
@@ -62,7 +62,7 @@ describe('User Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('user.email.poll-templates', async () => {
+    test('user.email.poll-templates', async () => {
       const input = {
         body: {
           email: 'user@email.com'
@@ -82,7 +82,7 @@ describe('User Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('user.email.polls', async () => {
+    test('user.email.polls', async () => {
       const input = {
         body: {
           email: 'user@email.com'
@@ -102,7 +102,7 @@ describe('User Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('user.poll-templates', async () => {
+    test('user.poll-templates', async () => {
       const input = {
         params: {
           id: 1
@@ -117,7 +117,7 @@ describe('User Unit Tests', () => {
       expect(res.send.verify()).toBe(true);
     })
 
-    it('user.polls', async() => {
+    test('user.polls', async() => {
       const input = {
         params: {
           id: 1
@@ -136,7 +136,7 @@ describe('User Unit Tests', () => {
 
   describe('PUT', () => {
 
-    it('users', async () => {
+    test('users', async () => {
       const input = {
         body: {},
         params: {
