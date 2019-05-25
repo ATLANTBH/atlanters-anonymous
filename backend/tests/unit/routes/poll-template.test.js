@@ -8,7 +8,6 @@ import postPollTemplate from '../../../src/routes/poll-template/poll-templates.p
 import postPollTemplatePollAnswers from '../../../src/routes/poll-template/poll-templates.polls.answers.post';
 import putPollTemplate from '../../../src/routes/poll-template/poll-templates.put';
 import deletePollTemplate from '../../../src/routes/poll-template/poll-templates.delete';
-import { expect } from 'chai';
 import utils from './utils';
 
 const output = utils.output;
@@ -28,13 +27,13 @@ describe('Poll Template Unit Tests', () => {
   })
 
   describe('GET', () => {
-    it('poll-templates.get', async () => {
+    it('poll-templates', async () => {
       PollTemplate.findAllWithAssoc.once().withExactArgs([Poll]).returns(output);
       const expressMiddleware = getPollTemplates({models});
       await expressMiddleware({}, res, next);
 
-      expect(PollTemplate.findAllWithAssoc.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findAllWithAssoc.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
 
     it('poll-templates.id.get', async() => {
@@ -44,22 +43,22 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = getPollTemplateByPollTemplateId({models});
       await expressMiddleware({ params: { id: input } }, res, next);
 
-      expect(PollTemplate.findById.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findById.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
   
-    it('poll-templates.title.get', async() => {
+    it('poll-templates.title', async() => {
       const input = 'title';
 
       PollTemplate.findByTitle.once().withExactArgs(input, Poll).returns(output);
       const expressMiddleware = getPollTemplateByTitle({models});
       await expressMiddleware({ params: { title: input } }, res, next);
 
-      expect(PollTemplate.findByTitle.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findByTitle.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
     
-    it('poll-templates.polls.get', async() => {
+    it('poll-templates.polls', async() => {
       const input = {
         params: {
           id: 1
@@ -70,11 +69,11 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = getPollTemplatePollsById({models});
       await expressMiddleware(input, res, next);
       
-      expect(Poll.findByPollTemplateId.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Poll.findByPollTemplateId.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('poll-templates.polls.title.get', async() => {
+    it('poll-templates.polls.title', async() => {
       const input = {
         params: {
           title: 'title'
@@ -88,15 +87,15 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = getPollTemplatePollsByTitle({models});
       await expressMiddleware(input, resTemp, next);
       
-      expect(PollTemplate.findByTitle.verify()).to.true;
-      expect(resTemp.send.verify()).to.true;
+      expect(PollTemplate.findByTitle.verify()).toBe(true);
+      expect(resTemp.send.verify()).toBe(true);
     })
 
   })
 
   describe('POST', () => {
 
-    it('poll-templates.post', async () => {
+    it('poll-templates', async () => {
       const user = {
         addPollTemplate: (input) => {}
       }
@@ -115,13 +114,13 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = postPollTemplate({models});
       await expressMiddleware(input, res, next);
 
-      expect(PollTemplate.findByTitle.verify()).to.true;
-      expect(PollTemplate.validCreate.verify()).to.true;
-      expect(input.user.addPollTemplate.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findByTitle.verify()).toBe(true);
+      expect(PollTemplate.validCreate.verify()).toBe(true);
+      expect(input.user.addPollTemplate.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('poll-templates.polls.answers.post', async () => {
+    it('poll-templates.polls.answers', async () => {
       const input = {
         params: {
           pollId: 1,
@@ -150,18 +149,18 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = postPollTemplatePollAnswers({models});
       await expressMiddleware(input, res, next);
 
-      expect(Poll.findById.verify()).to.true;
-      expect(PollTemplate.findById.verify()).to.true;
-      expect(pollDataMock.isMaxNumAnswersReached.verify()).to.true;
-      expect(Answer.validCreate.verify()).to.true;
-      expect(pollDataMock.addAnswer.verify()).to.true;
-      expect(pollDataMock.incrementNumAnswers.verify()).to.true;
+      expect(Poll.findById.verify()).toBe(true);
+      expect(PollTemplate.findById.verify()).toBe(true);
+      expect(pollDataMock.isMaxNumAnswersReached.verify()).toBe(true);
+      expect(Answer.validCreate.verify()).toBe(true);
+      expect(pollDataMock.addAnswer.verify()).toBe(true);
+      expect(pollDataMock.incrementNumAnswers.verify()).toBe(true);
     })
 
   })
 
-  describe('PUT', async () => {
-    it('poll-templates.put', async () => {
+  describe('PUT', () => {
+    it('poll-templates', async () => {
       const input = {
         body: {},
         params: {
@@ -179,15 +178,15 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = putPollTemplate({models});
       await expressMiddleware(input, res, next);
 
-      expect(PollTemplate.findById.verify()).to.true;
-      expect(tempOutputMock.update.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findById.verify()).toBe(true);
+      expect(tempOutputMock.update.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
   })
 
 
   describe('DELETE', () => {
-    it('poll-templates.delete', async () => {
+    it('poll-templates', async () => {
       const input = {
         params: {
           id: 1
@@ -204,9 +203,9 @@ describe('Poll Template Unit Tests', () => {
       const expressMiddleware = deletePollTemplate({models});
       await expressMiddleware(input, res, next);
 
-      expect(PollTemplate.findById.verify()).to.true;
-      expect(tempOutputMock.destroy.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findById.verify()).toBe(true);
+      expect(tempOutputMock.destroy.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
   })
 

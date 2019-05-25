@@ -7,7 +7,6 @@ import getUserById from '../../../src/routes/user/user.id.get';
 import getPollTemplatesByUserId from '../../../src/routes/user/user.poll-templates.get';
 import getPollsByUserId from '../../../src/routes/user/user.polls.get';
 import putUser from '../../../src/routes/user/users.put';
-import { expect } from 'chai';
 import utils from './utils';
 
 const output = utils.output;
@@ -28,27 +27,27 @@ describe('User Unit Tests', () => {
 
   describe('GET', () => {
 
-    it('users.get', async () => {
+    it('users', async () => {
       User.findAllWithAssoc.once().withExactArgs([PollTemplate, Poll]).returns(output);
       const expressMiddleware = getUsers({models});
       await expressMiddleware({}, res, next);
 
-      expect(User.findAllWithAssoc.verify()).to.true;
-      expect(res.send.verify()).to.true;      
+      expect(User.findAllWithAssoc.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);      
     });
 
-    it('user.id.get', async () => {
+    it('user.id', async () => {
       const input = 1;
 
       User.findById.once().withExactArgs(input).returns(output);
       const expressMiddleware = getUserById({models});
       await expressMiddleware({ params: { id: input } }, res, next);
 
-      expect(User.findById.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(User.findById.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('user.email.get', async () => {
+    it('user.email', async () => {
       const input = {
         body: {
           email: 'user@email.com'
@@ -59,11 +58,11 @@ describe('User Unit Tests', () => {
       const expressMiddleware = getUserByEmail({models});
       await expressMiddleware(input, res, next);
 
-      expect(User.findByEmail.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(User.findByEmail.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('user.email.poll-templates.get', async () => {
+    it('user.email.poll-templates', async () => {
       const input = {
         body: {
           email: 'user@email.com'
@@ -78,12 +77,12 @@ describe('User Unit Tests', () => {
       const expressMiddleware = getPollTemplatesByUserEmail({models});
       await expressMiddleware(input, res, next);
 
-      expect(User.findByEmail.verify()).to.true;
-      expect(PollTemplate.findByUserId.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(User.findByEmail.verify()).toBe(true);
+      expect(PollTemplate.findByUserId.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('user.email.polls.get', async () => {
+    it('user.email.polls', async () => {
       const input = {
         body: {
           email: 'user@email.com'
@@ -98,12 +97,12 @@ describe('User Unit Tests', () => {
       const expressMiddleware = getPollsByUserEmail({models});
       await expressMiddleware(input, res, next);
 
-      expect(User.findByEmail.verify()).to.true;
-      expect(Poll.findByUserId.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(User.findByEmail.verify()).toBe(true);
+      expect(Poll.findByUserId.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('user.poll-templates.get', async () => {
+    it('user.poll-templates', async () => {
       const input = {
         params: {
           id: 1
@@ -114,11 +113,11 @@ describe('User Unit Tests', () => {
       const expressMiddleware = getPollTemplatesByUserId({models});
       await expressMiddleware(input, res, next);
 
-      expect(PollTemplate.findByUserId.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findByUserId.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
-    it('user.polls.get', async() => {
+    it('user.polls', async() => {
       const input = {
         params: {
           id: 1
@@ -129,15 +128,15 @@ describe('User Unit Tests', () => {
       const expressMiddleware = getPollsByUserId({models});
       await expressMiddleware(input, res, next);
 
-      expect(Poll.findByUserId.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Poll.findByUserId.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
   })
 
   describe('PUT', () => {
 
-    it('users.put', async () => {
+    it('users', async () => {
       const input = {
         body: {},
         params: {
@@ -157,10 +156,10 @@ describe('User Unit Tests', () => {
       const expressMiddleware = putUser({models});
       await expressMiddleware(input, res, next);
 
-      expect(User.findById.verify()).to.true;
-      expect(User.getValidUserRequest.verify()).to.true;
-      expect(tempOutputMock.update.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(User.findById.verify()).toBe(true);
+      expect(User.getValidUserRequest.verify()).toBe(true);
+      expect(tempOutputMock.update.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     })
 
   })

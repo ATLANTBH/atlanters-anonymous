@@ -1,6 +1,5 @@
 import getAnswers from '../../../src/routes/answer/answers.get';
 import getAnswersById from '../../../src/routes/answer/answers.id.get';
-import { expect } from 'chai';
 import utils from './utils';
 
 const output = utils.output;
@@ -20,16 +19,16 @@ describe('Answer Unit Tests', () => {
 
   describe('GET', () => {
 
-    it('answers.get', async () => {
+    it('answers', async () => {
       Answer.findAllWithAssoc.once().withExactArgs([Poll]).returns(output);
       const expressMiddleware = getAnswers({models});
       await expressMiddleware({}, res, next);
 
-      expect(Answer.findAllWithAssoc.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Answer.findAllWithAssoc.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
 
-    it('answers.id.get', async () => {
+    it('answers.id', async () => {
       const input = {
         params: {
           id: 1
@@ -39,8 +38,8 @@ describe('Answer Unit Tests', () => {
       const expressMiddleware = getAnswersById({models});
       await expressMiddleware(input, res, next);
 
-      expect(Answer.findById.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Answer.findById.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
 
   })

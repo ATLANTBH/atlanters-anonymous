@@ -1,5 +1,4 @@
 import sinon from 'sinon';
-import { expect } from 'chai';
 import getPolls from '../../../src/routes/poll/polls.get';
 import getPollById from '../../../src/routes/poll/polls.id.get';
 import getAnswersByPollId from '../../../src/routes/poll/polls.answers.get';
@@ -25,16 +24,16 @@ describe('Poll Unit Tests', () => {
   });
   
   describe('GET', () => {
-    it('polls.get', async() => {
+    it('polls', async() => {
       Poll.findAllWithAssoc.once().withExactArgs([Answer]).returns(output);
       const expressMiddleware = getPolls({models});
       await expressMiddleware({}, res, next);
 
-      expect(Poll.findAllWithAssoc.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Poll.findAllWithAssoc.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
 
-    it('polls.id.get', async() => {
+    it('polls.id', async() => {
       const input = {
         params: {
           id: 1
@@ -45,11 +44,11 @@ describe('Poll Unit Tests', () => {
       const expressMiddleware = getPollById({models});
       await expressMiddleware(input, res, next);
 
-      expect(Poll.findById.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Poll.findById.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
 
-    it('polls.answers.get', async() => {
+    it('polls.answers', async() => {
       const input = {
         params: {
           id: 1
@@ -60,13 +59,13 @@ describe('Poll Unit Tests', () => {
       const expressMiddleware = getAnswersByPollId({models});
       await expressMiddleware(input, res, next);
 
-      expect(Answer.findByPollId.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Answer.findByPollId.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
   });
 
   describe('POST', () => {
-    it('polls.post', async() => {
+    it('polls', async() => {
       const user = {
         addPoll: (input) => {}
       }
@@ -93,16 +92,16 @@ describe('Poll Unit Tests', () => {
       const expressMiddleware = postPoll({models});
       await expressMiddleware(input, res, next);
 
-      expect(PollTemplate.findById.verify()).to.true;
-      expect(Poll.create.verify()).to.true;
-      expect(input.user.addPoll.verify()).to.true;
-      expect(pTMockOutput.addPoll.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(PollTemplate.findById.verify()).toBe(true);
+      expect(Poll.create.verify()).toBe(true);
+      expect(input.user.addPoll.verify()).toBe(true);
+      expect(pTMockOutput.addPoll.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
   });
 
   describe('PUT', () => {
-    it('polls.put', async() => {
+    it('polls', async() => {
       const input = {
         body: {},
         params: {
@@ -120,14 +119,14 @@ describe('Poll Unit Tests', () => {
       const expressMiddleware = putPoll({models});
       await expressMiddleware(input, res, next);
 
-      expect(Poll.findById.verify()).to.true;
-      expect(tempOutputMock.update.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Poll.findById.verify()).toBe(true);
+      expect(tempOutputMock.update.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
     });
   });
 
   describe('DELETE', () => {
-    it('polls.delete', async() => {
+    it('polls', async() => {
       const input = {
         params: {
           id: 1
@@ -145,9 +144,9 @@ describe('Poll Unit Tests', () => {
       const expressMiddleware = deletePoll({models});
       await expressMiddleware(input, res, next);
 
-      expect(Poll.findById.verify()).to.true;
-      expect(tempOutputMock.destroy.verify()).to.true;
-      expect(res.send.verify()).to.true;
+      expect(Poll.findById.verify()).toBe(true);
+      expect(tempOutputMock.destroy.verify()).toBe(true);
+      expect(res.send.verify()).toBe(true);
 
     });
   });
