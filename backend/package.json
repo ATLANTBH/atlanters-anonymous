@@ -4,16 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pollTemplate": "jest tests/integration/poll-template.test.js",
-    "user": "./node_modules/.bin/mocha tests/integration/user.test.js --require @babel/register",
-    "unit": "./node_modules/.bin/mocha tests/unit/**/*test.js --require @babel/register",
+    "01": "jest tests/integration/poll.test.js --detectOpenHandles --runInBand",
+    "02": "jest tests/integration/user.test.js --detectOpenHandles --runInBand",
     "init": "nodemon --exec babel-node app.js",
     "start": "babel-node app.js",
     "test": "jest tests/unit",
-    "coverage": "jest"
+    "coverage": "jest --runInBand --detectOpenHandles"
   },
   "jest": {
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "tests/unit/**/*.js",
       "src/**/*.js"
@@ -37,7 +36,8 @@
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.1.0",
-    "sinon": "^7.3.2"
+    "sinon": "^7.3.2",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -8,6 +8,7 @@ import getPollsByUserEmail from './user.email.polls.get';
 import getPollsByUserId from './user.polls.get';
 import getPollTemplatesByUserEmail from './user.email.poll-templates.get';
 import getPollTemplatesByUserId from './user.poll-templates.get';
+import deleteUser from './users.delete';
 
 export default app => {
   const router = Router();
@@ -20,6 +21,7 @@ export default app => {
   router.get('/:id([0-9]{1,10})/poll-templates', verifyToken(app), getPollTemplatesByUserId(app));
   router.get('/email/poll-templates', verifyToken(app), getPollTemplatesByUserEmail(app)); 
   router.put('/:id', verifyToken(app), putUser(app));
+  router.delete('/:id', verifyToken(app), deleteUser(app));
 
   return router;
 };

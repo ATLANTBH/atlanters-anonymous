@@ -28,7 +28,7 @@ describe('Validate Poll Template', () => {
           break;  
         }
       }
-      expect(valid).to.false;
+      expect(valid).toBe(false);
     })
   })
 
@@ -43,12 +43,12 @@ describe('Validate Poll Template', () => {
           break;  
         }
       }
-      expect(valid).to.false;
+      expect(valid).toBe(false);
     })
 
     test('Valid radiobutton structure', async () => {
       const valid = await isValid(questionTypes.radio.valid);
-      expect(valid).to.true;
+      expect(valid).toBe(true);
     })
 
   })
@@ -64,12 +64,12 @@ describe('Validate Poll Template', () => {
           break;  
         }
       }
-      expect(valid).to.false;
+      expect(valid).toBe(false);
     })
 
     test('Valid checkbox structure', async () => {
       const valid = await isValid(questionTypes.checkbox.valid);
-      expect(valid).to.true;
+      expect(valid).toBe(true);
     })
   })
 
@@ -84,12 +84,12 @@ describe('Validate Poll Template', () => {
           break;  
         }
       }
-      expect(valid).to.false;
+      expect(valid).toBe(false);
     })
 
     test('Valid linear scale structure', async () => {
       const valid = await isValid(questionTypes.linearScale.valid);
-      expect(valid).to.true;
+      expect(valid).toBe(true);
     })
   })
 
