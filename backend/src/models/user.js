@@ -81,14 +81,6 @@ class User extends Sequelize.Model {
     return user;
   }
 
-  static async findByEmailOrCreate(userObject) {
-    const resultArray = await User.findOrCreate({
-      where: { email: userObject.email },
-      defaults: userObject,
-    });
-    return resultArray;
-  }
-
   static async findByAuthenticationToken(token) {
     try {
       jwt.verify(token, process.env.JWT_SECRET);
@@ -111,6 +103,10 @@ class User extends Sequelize.Model {
     return await hash(inputPassword, parseInt(process.env.SALT_ROUNDS));
   }
 
+  static async isPasswordHashProper(inputPassword, hashedPassword) {
+    return await compare(inputPassword, hashedPassword);
+  }
+
   static async getUserObject(reqUser, User) {
     return User.build({
       email: reqUser.email,
@@ -125,7 +121,7 @@ class User extends Sequelize.Model {
     User.checkPasswordValid(reqUser.password);
     const user = await User.getUserObject(reqUser, User);
     await user.save();
-    const token = await user.generateAuthenticationToken();
+    const token = await User.generateAuthenticationToken(user);
     return { user, token };
   }
 
@@ -157,7 +153,7 @@ class User extends Sequelize.Model {
     }
     if (password) {
       User.checkPasswordValid(reqUser.password);
-      if (await compare(password, userToUpdate.password))
+      if (!User.isPasswordHashProper(password, userToUpdate.password))
         throw new Error(`Password matches the one currently in use`);
       password = await User.getPasswordHash(password);
     }

@@ -1,59 +1,94 @@
+// Sign up -> edit user info -> Sign out -> Sign in
+
 require('dotenv').config();
-import getModels from '../lib/init';
-import mocks from '../mocks';
+import request from 'supertest';
+import init from '../../src/init';
+import data from '../../tests/mocks/data';
 
-let user = mocks.data.user;
-let models;
+describe('Goes through sign up, poll template creation, poll creation, deletion and sign out', () => {
 
-describe('Testing models', () => {
+  let app;
+  let expressApp;
+  let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1NTUyNDY5NDJ9.YeHmVTL5bEo_SpxfifU-7OfsxTqJ-aH0lWf1l5Y1LLE';
+  let userId = '2';
+  let newUser = data.user.newUser;
 
-  beforeAll(async function () {
-    models = await getModels();
+  const updatedUser = {
+    email: "newEmail@email.com",
+    password: "newPassword123",
+    name: "newName"
+  }
+
+  beforeAll(async (done) => {
+    app = await init.start();
+    expressApp = app.expressApp;
+    done();
   })
 
-  describe('Testing User', () => {
-  
-    test('find user with given auth token', async() => {
-      const userResult = await models.User.findByAuthenticationToken(user.oldUser.tokens[0]);
-      expect(userResult.dataValues).toEqual(expect.arrayContaining([user.oldUser]));
-    })
-  
-    test('find user with given email', async () => {
-      const userResult = await models.User.findByEmail('veda_df@dfasfasa.com');
-      expect(userResult.dataValues).toEqual(expect.arrayContaining([user.oldUser]));
+  test('Sign up', (done) => {
+    request(expressApp).post('/auth/sign-up')
+    .send(newUser)
+    .set('Accept', 'application/json')
+    .then(async (response) => {
+      expect(response.statusCode).toBe(200);
+      expect(typeof response.body).toBe('object');
+      const body = response.body;
+      expect(await app.models.User.isPasswordHashProper(newUser.password, body.password)).toBe(true);
+      let userHashPw = {...newUser};
+      userHashPw.password = body.password;
+      expect(body).toMatchObject(userHashPw);
+      done();
     });
-  
-    test('password invalid', async() => {
-      const invalidPasswords = ['test', [], {}, ''];
-      let invalid = false;
-      invalidPasswords.forEach(element => {
-        if(models.User.isPasswordValid(element)) {
-          invalid = true;
-        }
-      });
-      expect(invalid).toBe(false);
-    });
-  
-    test('user not added to db - email already exists', async() => {
-      expect(models.User.insert(user.oldUser)).to.be.rejected;
-    })
-  
-    test('user not added to db - missing fields', async() => {
-      let added = false;
-      user.invalidUsers.forEach(async(element) => {
-        try{
-          await models.User.insert(element);
-          added = true;
-        }
-        catch(error) {}
-      })
-      expect(added).toBe(false);
-    })
-  
-    test('add user to db', async() => {
-      expect(models.User.insert(user.newUser)).to.be.fulfilled;
-    })
+  });
 
+  test('Edit user', (done) => {
+
+    request(expressApp).put('/users/' + userId)
+    .send(updatedUser)
+    .set('Accept', 'application/json')
+    .set('x-auth', token)
+    .then(async (response) => {
+      expect(response.statusCode).toBe(200);
+      expect(typeof response.body).toBe('object');
+      const body = response.body;
+      expect(await app.models.User.isPasswordHashProper(updatedUser.password, body.password)).toBe(true);
+      let userHashPw = {...updatedUser};
+      userHashPw.password = body.password;
+      expect(body).toMatchObject(userHashPw);
+      done();
+    });
+  });
+
+  test('Sign out', (done) => {
+    request(expressApp).delete('/auth/sign-out')
+    .set('x-auth', token)
+    .then(async (response) => {
+      expect(response.statusCode).toBe(200);
+      done();
+    })
+  })
+
+  test('Sign in', (done) => {
+    const user = {
+      email: updatedUser.email,
+      password: updatedUser.password
+    }
+
+    request(expressApp).post('/auth/sign-in')
+    .send(user)
+    .set('Accept', 'application/json')
+    .then(async (response) => {
+      expect(response.statusCode).toBe(200);
+      expect(typeof response.body).toBe('object');
+      const body = response.body;
+      expect(await app.models.User.isPasswordHashProper(user.password, body.password)).toBe(true);
+      expect(user.email).toEqual(body.email);
+      done();
+    })
+  })
+  
+  afterAll( async () => {
+    app.server.close();
   })
 
 })
