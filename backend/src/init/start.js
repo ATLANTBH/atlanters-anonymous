@@ -2,7 +2,7 @@ import express from 'express';
 import init from './index';
 
 export default async () => {
-  const eraseDatabaseOnSync = true;
+  const eraseDatabaseOnSync = process.env.MODE === 'development';
   const expressApp = express();
 
   console.log("Connecting to the database...");
