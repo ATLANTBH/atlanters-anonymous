@@ -2,8 +2,8 @@
 
 require('dotenv').config();
 import request from 'supertest';
-import init from '../../src/init';
-import data from '../../tests/mocks/data';
+import init from '../../../src/init';
+import data from '../../mocks/data';
 
 describe('Goes through sign up, poll template creation, poll creation, deletion and sign out', () => {
 
