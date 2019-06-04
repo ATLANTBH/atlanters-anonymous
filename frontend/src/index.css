@@ -3,6 +3,11 @@
   src: url(./fonts/overpass-regular.otf);
 }
 
+@font-face {
+  font-family: SourceSansPro;
+  src: url(./fonts/SourceSansPro-Regular.otf);
+}
+
 @keyframes linkActive {
   from {
     border-bottom: 3px solid transparent;
@@ -55,6 +60,101 @@ body {
   border-bottom: 3px solid #00a4d8;
   animation-name: linkActive;
   animation-duration: 0.5s;
+}
+
+.form-row.row {
+  justify-content: center;
+}
+
+.form {
+  background-color: #ffffff;
+  border-top: 6px solid #00a4d8;
+  border-radius: 4px;
+  padding: 40px;
+  margin-top: 20%;
+}
+
+h1.sign-in {
+  height: 54px;
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+label.basic {
+  height: 14px;
+  width: 238.64px;
+  color: #14232c;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.forgot-password {
+  height: 18px;
+  width: 97px;
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+button.sign-in {
+  width: 100%;
+  background-color: #00a4d8;
+  border-color: transparent;
+}
+
+div.sign-in-text {
+  color: #ffffff;
+  font-family: SourceSansPro;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+label.keep-signed-in {
+  color: #333333;
+  font-family: Overpass;
+  font-size: 12px;
+  letter-spacing: 0.25px;
+}
+
+input.keep-signed-in {
+  margin-top: 7px;
+}
+
+div.no-account-row {
+  align-items: center;
+}
+
+div.no-account-row hr {
+  background-color: #c1c2c2 !important;
+}
+
+div.no-account-text {
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  line-height: 18px;
+  margin-top: 16px;
+  padding: 0px;
+}
+
+button.sign-up {
+  width: 100%;
+  background-color: transparent;
+  border-color: #00a4d8;
+  border-width: 2px;
+  margin-top: 10px;
+}
+
+div.sign-up-text {
+  color: #00a4d8;
+  font-family: SourceSansPro;
+  font-weight: bold;
+  letter-spacing: 0.3px;
 }
 
 code {
