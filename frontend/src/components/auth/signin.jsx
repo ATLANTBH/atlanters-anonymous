@@ -1,51 +1,51 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
+import Form from "../common/form";
+class SignIn extends Form {
+  state = {
+    data: {
+      email: "",
+      password: ""
+    },
+    errors: {}
+  };
 
-class SignIn extends Component {
-  state = {};
+  schema = {
+    email: Joi.string()
+      .required()
+      .label("Email"),
+    password: Joi.string()
+      .required()
+      .label("Password")
+  };
+
+  handleSignUpRedirect = () => {
+    const { history } = this.props;
+    history.push("/signup");
+  };
+
+  doSubmit = () => {
+    //Call the server
+    console.log("Submitted");
+  };
+
   render() {
     return (
       <div className="container-fluid">
         <div className="form-row row">
           <div className="col-lg-3">
-            <form className="form">
+            <form onSubmit={this.handleSubmit} className="form">
               <h1 className="sign-in text-center">Sign in</h1>
-              <div className="form-group">
-                <label className="basic" htmlFor="exampleInputEmail1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                />
-                <small id="emailHelp" className="form-text text-muted" />
-              </div>
-              <div className="form-group">
-                <label className="basic" htmlFor="exampleInputPassword1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="exampleInputPassword1"
-                  placeholder="Password"
-                />
-                <small
-                  id="emailHelp"
-                  className="form-text text-muted text-right"
-                >
-                  <ins>
-                    <a className="forgot-password" href="/">
-                      Forgot password?
-                    </a>
-                  </ins>
-                </small>
-              </div>
-              <button type="submit" className="btn btn-primary sign-in">
-                <div className="sign-in-text">SIGN IN</div>
-              </button>
+              {this.renderInput("email", "Email", "email")}
+              {this.renderInput("password", "Password", "password")}
+              <small className="form-text text-muted text-right">
+                <ins>
+                  <a className="forgot-password" href="/">
+                    Forgot password?
+                  </a>
+                </ins>
+              </small>
+              {this.renderButton("SIGN IN")}
               <div className="form-check">
                 <input
                   type="checkbox"
@@ -68,7 +68,11 @@ class SignIn extends Component {
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary sign-up">
+              <button
+                type="button"
+                onClick={this.handleSignUpRedirect}
+                className="btn btn-primary sign-up"
+              >
                 <div className="sign-up-text">SIGN UP</div>
               </button>
             </form>

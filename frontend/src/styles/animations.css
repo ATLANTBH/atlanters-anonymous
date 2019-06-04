@@ -1,0 +1,8 @@
+@keyframes linkActive {
+  from {
+    border-bottom: 3px solid transparent;
+  }
+  to {
+    border-bottom: 3px solid #00a4d8;
+  }
+}
