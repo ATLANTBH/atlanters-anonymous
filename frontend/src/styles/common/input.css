@@ -1,0 +1,21 @@
+label.basic {
+  height: 14px;
+  width: 238.64px;
+  color: #14232c;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.error-text {
+  color: #e84855;
+  font-family: SourceSanspro;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.form-control.error {
+  border: 1px solid #f34a43;
+  background-color: #f8d2d2;
+}
