@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar />
-        <main className="container">
+        <main className="container-fluid">
           <Switch>
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
