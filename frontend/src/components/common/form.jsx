@@ -39,14 +39,52 @@ class Form extends Component {
     this.doSubmit();
   };
 
+  deleteProperty = (obj, property) => {
+    delete obj[property];
+  };
+
+  validateConfirmPassword(
+    password,
+    confirmPassword,
+    confirmPasswordName,
+    errors
+  ) {
+    if (password !== confirmPassword) {
+      const errorMessage = this.validateProperty({
+        name: confirmPasswordName,
+        value: confirmPassword
+      });
+      errors[confirmPasswordName] = errorMessage;
+    } else {
+      this.deleteProperty(errors, confirmPasswordName);
+    }
+  }
+
   handleChange = ({ currentTarget }) => {
     const errors = { ...this.state.errors };
-    const errorMessage = this.validateProperty(currentTarget);
-    if (errorMessage) errors[currentTarget.name] = errorMessage;
-    else delete errors[currentTarget.name];
+    const { name, value } = currentTarget;
+    const { signUpPassword, confirmPassword } = this.state.data;
+    const confirmPasswordName = "confirmPassword";
+
+    if (name === confirmPasswordName && value === signUpPassword) {
+      this.deleteProperty(errors, name);
+    } else {
+      const errorMessage = this.validateProperty(currentTarget);
+      if (errorMessage) errors[name] = errorMessage;
+      else this.deleteProperty(errors, name);
+      if (name === "signUpPassword") {
+        // validate confirm password while password is being changed
+        this.validateConfirmPassword(
+          value,
+          confirmPassword,
+          confirmPasswordName,
+          errors
+        );
+      }
+    }
 
     const data = { ...this.state.data };
-    data[currentTarget.name] = currentTarget.value;
+    data[name] = value;
     this.setState({ data, errors });
   };
 
