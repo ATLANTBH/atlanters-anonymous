@@ -5,11 +5,17 @@
 /** IMPORT NAV STYLE **/
 @import "styles/navbar.css";
 
+/** IMPORT NOT FOUND PAGE STYLE **/
+@import "styles/not-found.css";
+
 /** IMPORT COMMON STYLES **/
 @import "styles/common/input.css";
 
 /** IMPORT AUTH STYLES **/
 @import "styles/auth/signin.css";
+@import "styles/auth/signup.css";
+@import "styles/auth/forgot-password.css";
+@import "styles/auth/pw-email-sent.css";
 
 body {
   margin: 0;
@@ -22,6 +28,11 @@ body {
 
 .form-row.row {
   justify-content: center;
+  min-height: 100vh;
+  align-content: center;
+  position: relative;
+  margin-top: -90px;
+  z-index: 0;
 }
 
 .form {
@@ -29,7 +40,8 @@ body {
   border-top: 6px solid #00a4d8;
   border-radius: 4px;
   padding: 40px;
-  margin-top: 20%;
+  vertical-align: middle;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
 }
 
 code {

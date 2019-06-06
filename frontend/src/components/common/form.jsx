@@ -60,6 +60,17 @@ class Form extends Component {
     }
   }
 
+  handleRedirect = (target, params = {}) => {
+    const { history } = this.props;
+    console.log(params);
+    history.push({
+      pathname: target,
+      state: {
+        params
+      }
+    });
+  };
+
   handleChange = ({ currentTarget }) => {
     const errors = { ...this.state.errors };
     const { name, value } = currentTarget;
@@ -88,14 +99,11 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label) {
+  renderButton(label, className) {
+    const btnClassName = "btn btn-primary " + className;
     return (
-      <button
-        type="submit"
-        disabled={this.validate()}
-        className="btn btn-primary sign-in"
-      >
-        <div className="sign-in-text">{label}</div>
+      <button type="submit" disabled={this.validate()} className={btnClassName}>
+        <div className="sign-text">{label}</div>
       </button>
     );
   }
