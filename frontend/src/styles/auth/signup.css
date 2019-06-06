@@ -1,0 +1,35 @@
+h1.sign-up {
+  height: 54px;
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+form.sign-up button.sign-up {
+  width: 100%;
+  background-color: #00a4d8;
+  border-color: transparent;
+  border-radius: 6px;
+  margin-top: 7px;
+}
+
+form.sign-up button.sign-up:disabled {
+  background-color: #00a4d8;
+  border-color: #00a4d8;
+}
+
+form.sign-up button.sign-up:hover {
+  background-color: #0294c0;
+  border-color: transparent;
+  background-color: #11b7ef;
+}
+
+form.sign-up button.sign-up:focus {
+  background-color: #0a90bd;
+}
+
+form.sign-up button.sign-up:active {
+  background-color: #0a90bd !important;
+  border-color: #0a90bd !important;
+}

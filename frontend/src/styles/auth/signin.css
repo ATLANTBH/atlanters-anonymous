@@ -8,32 +8,50 @@ h1.sign-in {
 
 small.form-text {
   margin-top: -10px;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
 }
 
 .forgot-password {
-  color: #333333;
+  color: #1b1b1b;
   font-family: SourceSansPro;
   font-size: 13px;
   line-height: 18px;
 }
 
 a.forgot-password:hover {
-  color: #000000;
+  color: #1b1b1b !important;
+  cursor: pointer;
 }
 
-button.sign-in {
+form.sign-in button.sign-in {
   width: 100%;
   background-color: #00a4d8;
   border-color: transparent;
+  border-radius: 6px;
+  margin-top: 7px;
 }
 
-button.sign-in:hover {
+form.sign-in button.sign-in:disabled {
+  background-color: #00a4d8;
+  border-color: #00a4d8;
+}
+
+form.sign-in button.sign-in:hover {
   background-color: #0294c0;
   border-color: transparent;
+  background-color: #11b7ef;
 }
 
-div.sign-in-text {
+form.sign-in button.sign-in:focus {
+  background-color: #0a90bd;
+}
+
+form.sign-in button.sign-in:active {
+  background-color: #0a90bd !important;
+  border-color: #0a90bd !important;
+}
+
+div.sign-text {
   color: #ffffff;
   font-family: SourceSansPro;
   font-weight: bold;
@@ -68,21 +86,27 @@ div.no-account-text {
   padding: 0px;
 }
 
-button.sign-up {
+form.sign-in button.sign-up {
   width: 100%;
   background-color: transparent;
   border-color: #00a4d8;
   border-width: 2px;
   margin-top: 10px;
+  color: #00a4d8;
 }
 
-button.sign-up:hover {
-  background-color: transparent;
-  border-color: transparent;
+form.sign-in button.sign-up:hover {
+  background-color: #00a4d8;
+  border-color: #00a4d8;
+  color: white;
+}
+
+form.sign-in button.sign-up:active {
+  background-color: #0a90bd !important;
+  border-color: #0a90bd !important;
 }
 
 div.sign-up-text {
-  color: #00a4d8;
   font-family: SourceSansPro;
   font-weight: bold;
   letter-spacing: 0.3px;

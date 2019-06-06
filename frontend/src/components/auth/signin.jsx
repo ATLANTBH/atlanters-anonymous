@@ -19,11 +19,6 @@ class SignIn extends Form {
       .label("Password")
   };
 
-  handleSignUpRedirect = () => {
-    const { history } = this.props;
-    history.push("/signup");
-  };
-
   doSubmit = () => {
     //Call the server
     console.log("Submitted");
@@ -34,18 +29,23 @@ class SignIn extends Form {
       <div className="container-fluid">
         <div className="form-row row">
           <div className="col-lg-3">
-            <form onSubmit={this.handleSubmit} className="form">
+            <form onSubmit={this.handleSubmit} className="form sign-in">
               <h1 className="sign-in text-center">Sign in</h1>
               {this.renderInput("email", "Email", "email")}
               {this.renderInput("password", "Password", "password")}
               <small className="form-text text-muted text-right">
                 <ins>
-                  <a className="forgot-password" href="/">
+                  <a
+                    className="forgot-password"
+                    onClick={() => {
+                      this.handleRedirect("forgotPassword");
+                    }}
+                  >
                     Forgot password?
                   </a>
                 </ins>
               </small>
-              {this.renderButton("SIGN IN")}
+              {this.renderButton("SIGN IN", "sign-in")}
               <div className="form-check">
                 <input
                   type="checkbox"
@@ -67,10 +67,11 @@ class SignIn extends Form {
                   <hr />
                 </div>
               </div>
-
               <button
                 type="button"
-                onClick={this.handleSignUpRedirect}
+                onClick={() => {
+                  this.handleRedirect("signup");
+                }}
                 className="btn btn-primary sign-up"
               >
                 <div className="sign-up-text">SIGN UP</div>

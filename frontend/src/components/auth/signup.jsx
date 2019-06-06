@@ -23,7 +23,7 @@ class SignUp extends Form {
     signUpPassword: Joi.string()
       .required()
       .label("Password")
-      .min(3),
+      .min(8),
     confirmPassword: Joi.valid(Joi.ref("signUpPassword"))
       .options({
         language: { any: { allowOnly: "must match password" } }
@@ -41,8 +41,8 @@ class SignUp extends Form {
       <div className="container-fluid">
         <div className="form-row row">
           <div className="col-lg-3">
-            <form onSubmit={this.handleSubmit} className="form">
-              <h1 className="sign-in text-center">Sign Up</h1>
+            <form onSubmit={this.handleSubmit} className="form sign-up">
+              <h1 className="sign-up text-center">Sign Up</h1>
               {this.renderInput("fullName", "Full Name*")}
               {this.renderInput("email", "Email*", "email")}
               {this.renderInput("signUpPassword", "Password*", "password")}
@@ -51,7 +51,7 @@ class SignUp extends Form {
                 "Confirm Password*",
                 "password"
               )}
-              {this.renderButton("SIGN UP")}
+              {this.renderButton("SIGN UP", "sign-up")}
             </form>
           </div>
         </div>
