@@ -5,6 +5,7 @@ import Joi from "joi-browser";
 class SignUp extends Form {
   state = {
     data: {
+      fullName: "",
       email: "",
       signUpPassword: "",
       confirmPassword: ""
@@ -13,6 +14,9 @@ class SignUp extends Form {
   };
 
   schema = {
+    fullName: Joi.string()
+      .required()
+      .label("Full Name"),
     email: Joi.string()
       .required()
       .label("Email"),
@@ -39,11 +43,12 @@ class SignUp extends Form {
           <div className="col-lg-3">
             <form onSubmit={this.handleSubmit} className="form">
               <h1 className="sign-in text-center">Sign Up</h1>
-              {this.renderInput("email", "Email", "email")}
-              {this.renderInput("signUpPassword", "Password", "password")}
+              {this.renderInput("fullName", "Full Name*")}
+              {this.renderInput("email", "Email*", "email")}
+              {this.renderInput("signUpPassword", "Password*", "password")}
               {this.renderInput(
                 "confirmPassword",
-                "Confirm Password",
+                "Confirm Password*",
                 "password"
               )}
               {this.renderButton("SIGN UP")}
