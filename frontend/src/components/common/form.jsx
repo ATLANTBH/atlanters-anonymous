@@ -72,7 +72,7 @@ class Form extends Component {
       const errorMessage = this.validateProperty(currentTarget);
       if (errorMessage) errors[name] = errorMessage;
       else this.deleteProperty(errors, name);
-      if (name === "signUpPassword") {
+      if (name === "signUpPassword" && confirmPassword.length > 0) {
         // validate confirm password while password is being changed
         this.validateConfirmPassword(
           value,
