@@ -167,10 +167,10 @@ class User extends Sequelize.Model {
 
   static async authenticate(email, password) {
     const user = await User.findByEmail(email);
-    if (!user) throw new Error('Invalid credentials');
+    if (!user) throw new Error('Invalid email or password');
     else {
       const isPasswordEqual = await compare(password, user.password);
-      if (!isPasswordEqual) throw new Error('Invalid credentials');
+      if (!isPasswordEqual) throw new Error('Invalid email or password');
       return user;
     }
   }
