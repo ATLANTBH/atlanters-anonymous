@@ -2,8 +2,8 @@ export default ({ models }) => {
   const { User } = models;
   return async (req, res, next) => {
     const { email, password } = req.body;
-    const user = await User.authenticate(email, password);
     try {
+      const user = await User.authenticate(email, password);
       const token = await User.generateAuthenticationToken(user);
       res.cookie('user_id', user.id, {
         httpOnly: true,
