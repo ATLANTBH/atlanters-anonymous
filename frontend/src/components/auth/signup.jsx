@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "../common/form";
 import Joi from "joi-browser";
+import { register } from "../../services/userService";
 
 class SignUp extends Form {
   state = {
@@ -31,9 +32,17 @@ class SignUp extends Form {
       .label("Confirm Password")
   };
 
-  doSubmit = () => {
+  doSubmit = async () => {
     //Call the server
-    console.log("Submitted");
+    try {
+      await register(this.state.data);
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.email = err.response.data.message;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
