@@ -5,6 +5,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
+import logger from "./services/logService";
+
+logger.init();
 
 //.render(element/app component, from index)
 ReactDOM.render(
