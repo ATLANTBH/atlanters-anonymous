@@ -12,7 +12,7 @@ export default ({ models }) => {
       });
       res.header('x-auth', token).send(user);
     } catch (error) {
-      next(new Error(error));
+      next(error);
     }
   };
 };

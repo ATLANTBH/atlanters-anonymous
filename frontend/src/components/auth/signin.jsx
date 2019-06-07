@@ -27,6 +27,7 @@ class SignIn extends Form {
       if (err.response && err.response.status === 400) {
         const errors = { ...this.state.errors };
         errors.email = err.response.data.message;
+        errors.password = err.response.data.message;
         this.setState({ errors });
       }
     }
