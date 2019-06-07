@@ -7,6 +7,7 @@ import SignUp from "./components/auth/signup";
 import ForgotPassword from "./components/auth/forgot-password";
 import PwEmailSent from "./components/auth/pw-email-sent";
 import NotFound from "./components/not-found";
+import Dashboard from "./components/dashboard";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path="/signup" component={SignUp} />
             <Route path="/forgotPassword" component={ForgotPassword} />
             <Route path="/pwEmailSent" component={PwEmailSent} />
+            <Route path="/dashboard" component={Dashboard} />
 
             <Route path="/" component={SignIn} />
             <Route path="" component={NotFound} />
