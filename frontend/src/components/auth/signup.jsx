@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "../common/form";
 import Joi from "joi-browser";
-import { register } from "../../services/userService";
+import { register } from "../../services/authService";
 
 class SignUp extends Form {
   state = {
@@ -33,7 +33,6 @@ class SignUp extends Form {
   };
 
   doSubmit = async () => {
-    //Call the server
     try {
       await register(this.state.data);
     } catch (err) {
