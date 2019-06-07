@@ -22,11 +22,13 @@ class SignIn extends Form {
 
   doSubmit = async () => {
     try {
-      console.log(this.state.data);
-      const loginRes = await login(this.state.data);
-      console.log(loginRes);
+      await login(this.state.data);
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.email = err.response.data.message;
+        this.setState({ errors });
+      }
     }
   };
 
