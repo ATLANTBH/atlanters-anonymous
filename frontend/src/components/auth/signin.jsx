@@ -4,6 +4,7 @@ import Form from "../common/form";
 import { login } from "../../services/authService";
 class SignIn extends Form {
   state = {
+    submitPressed: false,
     data: {
       email: "",
       password: ""
@@ -20,17 +21,29 @@ class SignIn extends Form {
       .label("Password")
   };
 
+  getJwt = tokens => {
+    return tokens[tokens.length - 1];
+  };
+
   doSubmit = async () => {
+    let redirect = true;
     try {
-      await login(this.state.data);
+      this.toggleSubmitFlag(this.state.submitPressed);
+      const result = await login(this.state.data);
+      const token = this.getJwt(result.data.tokens);
+      localStorage.setItem("token", token);
     } catch (err) {
       if (err.response && err.response.status === 400) {
         const errors = { ...this.state.errors };
+        // highlight email field
         errors.email = " ";
         errors.password = err.response.data.message;
         this.setState({ errors });
       }
+      redirect = false;
     }
+    this.toggleSubmitFlag(this.state.submitPressed);
+    if (redirect) this.handleRedirect("/dashboard");
   };
 
   render() {
@@ -54,7 +67,11 @@ class SignIn extends Form {
                   </a>
                 </ins>
               </small>
-              {this.renderButton("SIGN IN", "sign-in")}
+              {this.renderButton(
+                "SIGN IN",
+                "sign-in",
+                this.state.submitPressed
+              )}
               <div className="form-check">
                 <input
                   type="checkbox"

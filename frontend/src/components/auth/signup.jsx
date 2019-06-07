@@ -5,6 +5,7 @@ import { register } from "../../services/authService";
 
 class SignUp extends Form {
   state = {
+    submitPressed: false,
     data: {
       fullName: "",
       email: "",
@@ -33,7 +34,9 @@ class SignUp extends Form {
   };
 
   doSubmit = async () => {
+    let redirect = true;
     try {
+      this.toggleSubmitFlag(this.state.submitPressed);
       await register(this.state.data);
     } catch (err) {
       if (err.response && err.response.status === 400) {
@@ -41,7 +44,10 @@ class SignUp extends Form {
         errors.email = err.response.data.message;
         this.setState({ errors });
       }
+      redirect = false;
     }
+    this.toggleSubmitFlag(this.state.submitPressed);
+    if (redirect) this.handleRedirect("/dashboard");
   };
 
   render() {
@@ -59,7 +65,11 @@ class SignUp extends Form {
                 "Confirm Password*",
                 "password"
               )}
-              {this.renderButton("SIGN UP", "sign-up")}
+              {this.renderButton(
+                "SIGN UP",
+                "sign-up",
+                this.state.submitPressed
+              )}
             </form>
           </div>
         </div>

@@ -4,6 +4,7 @@ import Input from "./input";
 
 class Form extends Component {
   state = {
+    submitPressed: false,
     data: {},
     errors: {}
   };
@@ -41,6 +42,11 @@ class Form extends Component {
 
   deleteProperty = (obj, property) => {
     delete obj[property];
+  };
+
+  toggleSubmitFlag = submitFlag => {
+    let submitPressed = !submitFlag;
+    this.setState({ submitPressed });
   };
 
   validateConfirmPassword(
@@ -98,10 +104,14 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label, className) {
+  renderButton(label, className, buttonPressed = false) {
     const btnClassName = "btn btn-primary " + className;
     return (
-      <button type="submit" disabled={this.validate()} className={btnClassName}>
+      <button
+        type="submit"
+        disabled={this.validate() || buttonPressed}
+        className={btnClassName}
+      >
         <div className="sign-text">{label}</div>
       </button>
     );
