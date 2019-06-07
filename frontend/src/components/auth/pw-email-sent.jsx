@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import NotFound from "../not-found";
 import Form from "../common/form";
 

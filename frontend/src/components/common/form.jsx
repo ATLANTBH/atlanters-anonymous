@@ -62,7 +62,6 @@ class Form extends Component {
 
   handleRedirect = (target, params = {}) => {
     const { history } = this.props;
-    console.log(params);
     history.push({
       pathname: target,
       state: {
