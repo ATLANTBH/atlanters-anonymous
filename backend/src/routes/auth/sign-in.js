@@ -10,7 +10,10 @@ export default ({ models }) => {
         secured: true,
         signed: true,
       });
-      res.header('x-auth', token).send(user);
+      res
+        .header('x-auth', token)
+        .header('access-control-expose-headers', 'x-auth')
+        .send(user);
     } catch (error) {
       next(error);
     }
