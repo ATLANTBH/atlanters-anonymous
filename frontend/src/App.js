@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import NavBar from "./components/navbar";
 import "./App.css";
 import SignIn from "./components/auth/signin";
@@ -10,6 +11,12 @@ import NotFound from "./components/not-found";
 import Dashboard from "./components/dashboard";
 
 class App extends Component {
+  state = {};
+  componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    const user = jwtDecode(jwt);
+    console.log(user);
+  }
   render() {
     return (
       <React.Fragment>

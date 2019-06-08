@@ -176,9 +176,13 @@ class User extends Sequelize.Model {
   }
 
   static async generateAuthenticationToken(user) {
-    const token = jwt
-      .sign({ id: user.id.toString() }, process.env.JWT_SECRET)
-      .toString();
+    const objToSign = {
+      id: user.id.toString(),
+      email: user.email,
+      name: user.name,
+      surname: user.surname,
+    };
+    const token = jwt.sign(objToSign, process.env.JWT_SECRET).toString();
     user.tokens.push(token);
     await user.update({ tokens: user.tokens });
     return token;
