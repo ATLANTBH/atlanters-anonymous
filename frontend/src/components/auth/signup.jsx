@@ -37,7 +37,8 @@ class SignUp extends Form {
     let redirect = true;
     try {
       this.toggleSubmitFlag(this.state.submitPressed);
-      await register(this.state.data);
+      const response = await register(this.state.data);
+      localStorage.setItem("token", response.headers["x-auth"]);
     } catch (err) {
       if (err.response && err.response.status === 400) {
         const errors = { ...this.state.errors };

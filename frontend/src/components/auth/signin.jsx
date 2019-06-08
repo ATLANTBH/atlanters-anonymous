@@ -21,17 +21,12 @@ class SignIn extends Form {
       .label("Password")
   };
 
-  getJwt = tokens => {
-    return tokens[tokens.length - 1];
-  };
-
   doSubmit = async () => {
     let redirect = true;
     try {
       this.toggleSubmitFlag(this.state.submitPressed);
-      const result = await login(this.state.data);
-      const token = this.getJwt(result.data.tokens);
-      localStorage.setItem("token", token);
+      const response = await login(this.state.data);
+      localStorage.setItem("token", response.headers["x-auth"]);
     } catch (err) {
       if (err.response && err.response.status === 400) {
         const errors = { ...this.state.errors };
