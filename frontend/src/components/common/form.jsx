@@ -76,6 +76,10 @@ class Form extends Component {
     });
   };
 
+  handleRedirectHard = target => {
+    window.location = target;
+  };
+
   handleChange = ({ currentTarget }) => {
     const errors = { ...this.state.errors };
     const { name, value } = currentTarget;
