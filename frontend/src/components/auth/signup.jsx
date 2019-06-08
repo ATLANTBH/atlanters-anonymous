@@ -1,7 +1,8 @@
 import React from "react";
 import Form from "../common/form";
 import Joi from "joi-browser";
-import { register } from "../../services/authService";
+import auth from "../../services/authService";
+import { Redirect } from "react-router-dom";
 
 class SignUp extends Form {
   state = {
@@ -37,8 +38,7 @@ class SignUp extends Form {
     let redirect = true;
     try {
       this.toggleSubmitFlag(this.state.submitPressed);
-      const response = await register(this.state.data);
-      localStorage.setItem("token", response.headers["x-auth"]);
+      await auth.register(this.state.data);
     } catch (err) {
       if (err.response && err.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -48,10 +48,15 @@ class SignUp extends Form {
       redirect = false;
     }
     this.toggleSubmitFlag(this.state.submitPressed);
-    if (redirect) this.handleRedirect("/dashboard");
+    if (redirect) {
+      const { state } = this.props.location;
+      this.handleRedirectHard(state ? state.from.pathname : "/");
+    }
   };
 
   render() {
+    if (auth.getCurrentUser()) return <Redirect to="/" />;
+
     return (
       <div className="container-fluid">
         <div className="form-row row">
