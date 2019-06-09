@@ -8,7 +8,7 @@ import SignOut from "./components/auth/signout";
 import ForgotPassword from "./components/auth/forgot-password";
 import PwEmailSent from "./components/auth/pw-email-sent";
 import NotFound from "./components/not-found";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/dashboard/dashboard";
 import auth from "./services/authService";
 import ProtectedRoute from "./components/common/protectedRoute";
 

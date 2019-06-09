@@ -1,0 +1,13 @@
+.card.poll-card {
+  background-color: #f8f9fa;
+  box-shadow: 6px 6px 6px -6px rgba(0, 0, 0, 0.2);
+  border-color: transparent !important;
+  width: 10rem;
+  color: #333333;
+  font-family: Overpass;
+  margin: 10px;
+}
+
+img.card-img {
+  opacity: 0.25;
+}
