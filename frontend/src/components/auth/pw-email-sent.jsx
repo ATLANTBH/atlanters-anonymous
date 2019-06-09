@@ -1,13 +1,14 @@
 import React from "react";
-import NotFound from "../not-found";
 import Form from "../common/form";
+import { Redirect } from "react-router-dom";
+import auth from "../../services/authService";
 
 class PwEmailSent extends Form {
   render() {
+    if (auth.getCurrentUser()) return <Redirect to="/" />;
+
     const state = this.props.location.state;
-    return !state || !state.params || !state.params.email ? (
-      <NotFound />
-    ) : (
+    return (
       <div className="container-fluid">
         <div className="form-row row">
           <div className="col-lg-3">

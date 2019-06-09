@@ -12,11 +12,18 @@ const NavBar = ({ user }) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         {user ? (
-          <Nav className="ml-auto">
-            <NavLink className=" nav-item nav-link mr-sm-2" to="/signout">
-              SIGN OUT
-            </NavLink>
-          </Nav>
+          <React.Fragment>
+            <Nav>
+              <NavLink className="nav-item nav-link mr-sm-2" to="/">
+                DASHBOARD
+              </NavLink>
+            </Nav>
+            <Nav className="ml-auto">
+              <NavLink className="nav-item nav-link mr-sm-2" to="/signout">
+                SIGN OUT
+              </NavLink>
+            </Nav>
+          </React.Fragment>
         ) : (
           <Nav className="mr-auto">
             <NavLink className="nav-item nav-link" to="/signin">
