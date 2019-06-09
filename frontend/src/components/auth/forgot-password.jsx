@@ -1,6 +1,8 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "../common/form";
+import { Redirect } from "react-router-dom";
+import auth from "../../services/authService";
 
 class SignIn extends Form {
   state = {
@@ -24,6 +26,8 @@ class SignIn extends Form {
   };
 
   render() {
+    if (auth.getCurrentUser()) return <Redirect to="/" />;
+
     return (
       <div className="container-fluid">
         <div className="form-row row">

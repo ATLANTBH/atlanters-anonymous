@@ -47,11 +47,11 @@ class SignUp extends Form {
       }
       redirect = false;
     }
-    this.toggleSubmitFlag(this.state.submitPressed);
     if (redirect) {
       const { state } = this.props.location;
       this.handleRedirectHard(state ? state.from.pathname : "/");
     }
+    this.toggleSubmitFlag(this.state.submitPressed);
   };
 
   render() {
