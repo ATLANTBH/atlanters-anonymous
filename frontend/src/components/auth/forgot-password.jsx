@@ -19,10 +19,8 @@ class SignIn extends Form {
   };
 
   doSubmit = () => {
-    //Call the server
     const { email } = this.state.data;
     this.handleRedirect("pwEmailSent", { email });
-    console.log("Submitted");
   };
 
   render() {

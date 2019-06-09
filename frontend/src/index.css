@@ -17,6 +17,10 @@
 @import "styles/auth/forgot-password.css";
 @import "styles/auth/pw-email-sent.css";
 
+/** IMPORT DASHBOARD STYLES **/
+@import "styles/dashboard/dashboard.css";
+@import "styles/dashboard/cards/poll-card.css";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -24,6 +28,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: scroll;
 }
 
 .form-row.row {
@@ -42,6 +47,20 @@ body {
   padding: 40px;
   vertical-align: middle;
   box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 
 code {

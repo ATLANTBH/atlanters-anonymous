@@ -14,7 +14,7 @@ const NavBar = ({ user }) => {
         {user ? (
           <React.Fragment>
             <Nav>
-              <NavLink className="nav-item nav-link mr-sm-2" to="/">
+              <NavLink className="nav-item nav-link mr-sm-2" to="/dashboard">
                 DASHBOARD
               </NavLink>
             </Nav>

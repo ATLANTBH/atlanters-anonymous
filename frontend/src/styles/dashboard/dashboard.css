@@ -1,0 +1,22 @@
+div.container-fluid.dashboard-container {
+  margin-top: 60px;
+}
+
+.surveys-title {
+  margin-bottom: 20px;
+}
+
+p.show-all {
+  margin-top: 10px;
+}
+
+p.show-all:hover {
+  cursor: pointer;
+}
+
+div.wrapper {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-auto-rows: minmax(50px, auto);
+}
