@@ -1,85 +1,93 @@
 import React, { Component } from "react";
 import PollCard from "./cards/poll-card";
 import pollTemplateService from "../../services/pollTemplateService";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from "react-infinite-scroller";
 
 class Dashboard extends Component {
   state = {
     pollTemplates: [],
-    showMore: false,
-    hasMore: true,
-    loadAmount: 5
+    renderShowMore: true,
+    renderAllPollTemplates: false,
+    hasMore: true
   };
 
-  async toggleShowMore() {
-    let { pollTemplates, showMore, loadAmount } = { ...this.state };
-    if (showMore) {
-      pollTemplates.splice(5, pollTemplates.length - 1);
-      this.state.hasMore = true;
-    } else {
-      this.setState({
-        pollTemplates: await this.fetchPollTemplates(loadAmount * 3)
-      });
-    }
-    this.setState({ showMore: !showMore });
-  }
-
   async fetchPollTemplates(count) {
-    let pollTemplates = this.state.pollTemplates;
     const result = await pollTemplateService.getPollTemplates(count);
-    pollTemplates = result.data;
-    return pollTemplates;
+    return result.data;
   }
 
   async componentDidMount() {
-    const pollTemplates = await this.fetchPollTemplates(this.state.loadAmount);
+    const pollTemplates = await this.fetchPollTemplates(10);
     this.setState({ pollTemplates });
   }
 
-  async fetchMoreData() {
-    let { pollTemplates, hasMore, loadAmount } = this.state;
+  renderPollTemplates(count) {
+    const pollTemplates = this.state.pollTemplates;
+    return pollTemplates.slice(0, count);
+  }
+
+  async loadItems(page) {
+    let { pollTemplates, hasMore } = this.state;
     let currentCount = pollTemplates.length;
-    pollTemplates = await this.fetchPollTemplates(currentCount + loadAmount);
+    pollTemplates = await this.fetchPollTemplates(pollTemplates.length + 5);
     if (pollTemplates.length == currentCount) hasMore = false;
     this.setState({ pollTemplates, hasMore });
   }
 
+  toggleShowMore() {
+    this.setState({
+      renderAllPollTemplates: !this.state.renderAllPollTemplates
+    });
+  }
+
+  displayItems(count) {
+    const items = [];
+    this.renderPollTemplates(count).map(element => {
+      items.push(<PollCard key={element.id} title={element.title} />);
+    });
+    return items;
+  }
+
   render() {
+    let items = [];
+    items.push(<PollCard key={0} title={"+"} />);
+    this.state.pollTemplates.map(element =>
+      items.push(<PollCard key={element.id} title={element.title} />)
+    );
+
     return (
-      <div className="container-fluid dashboard-container">
-        <div className="row">
-          <div className="col" />
-          <div className="col-7">
-            <h2 className="surveys-title">Surveys</h2>
-            {this.state.showMore ? (
-              <InfiniteScroll
-                dataLength={this.state.pollTemplates.length}
-                next={this.fetchMoreData.bind(this)}
-                hasMore={this.state.hasMore}
-                loader={<p>Loading...</p>}
-                height={this.state.loadAmount * 100}
-              >
-                <div className="wrapper">
-                  {this.state.pollTemplates.map(element => (
-                    <PollCard key={element.id} title={element.title} />
-                  ))}
+      <div className="dashboard-container">
+        <div className="main-view">
+          <h4 className="surveys-title">Surveys</h4>
+          {this.state.renderAllPollTemplates ? (
+            <InfiniteScroll
+              className="all-surveys-container"
+              pageStart={0}
+              loadMore={this.loadItems.bind(this)}
+              hasMore={this.state.hasMore}
+              loader={
+                <div className="loader text-center" key={-1}>
+                  Loading..
                 </div>
-              </InfiniteScroll>
-            ) : (
-              <div className="wrapper">
-                {this.state.pollTemplates.map(element => (
-                  <PollCard key={element.id} title={element.title} />
-                ))}
-              </div>
-            )}
-            <p
-              className="text-right show-all"
-              onClick={this.toggleShowMore.bind(this)}
+              }
+              useWindow={false}
             >
-              {!this.state.showMore ? "Show more" : "Show less"}
+              {items}
+            </InfiniteScroll>
+          ) : (
+            <div className="surveys-container">
+              <PollCard title={"+"} />
+              {this.state.pollTemplates.map(element => (
+                <PollCard key={element.id} title={element.title} />
+              ))}
+            </div>
+          )}
+
+          {this.state.renderShowMore && (
+            <p className="show-all" onClick={this.toggleShowMore.bind(this)}>
+              {this.state.renderAllPollTemplates ? "Show less" : "Show more"}
             </p>
-          </div>
-          <div className="col" />
+          )}
         </div>
       </div>
     );
