@@ -64,8 +64,9 @@ class PollTemplate extends Sequelize.Model {
     return await PollTemplate.create(pollTemplateReq);
   }
 
-  static async findAllByDraft(isDraft) {
+  static async findAllByDraft(count, isDraft) {
     return await PollTemplate.findAll({
+      limit: count,
       where: { isDraft: isDraft },
     });
   }

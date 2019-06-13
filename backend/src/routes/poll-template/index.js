@@ -17,7 +17,7 @@ export default app => {
 
   router.get('/', verifyToken(app), getPollTemplates(app));
   router.get(
-    '/drafts/:isDraft',
+    '/drafts/:isDraft/:count',
     verifyToken(app),
     getPollTemplatesByDraft(app)
   );
