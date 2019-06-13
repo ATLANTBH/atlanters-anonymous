@@ -11,6 +11,7 @@ import NotFound from "./components/not-found";
 import Dashboard from "./components/dashboard/dashboard";
 import auth from "./services/authService";
 import ProtectedRoute from "./components/common/protectedRoute";
+import CreateSurvey from "./components/create-survey/createSurvey";
 
 class App extends Component {
   state = {};
@@ -30,8 +31,12 @@ class App extends Component {
             <ProtectedRoute path="/signout" component={SignOut} />
             <Route path="/forgotPassword" component={ForgotPassword} />
             <Route path="/pwEmailSent" component={PwEmailSent} />
-            <Route path="/not-found" component={NotFound} />
+
             <ProtectedRoute path="/dashboard" component={Dashboard} />
+            <ProtectedRoute path="/createSurvey" component={CreateSurvey} />
+
+            <Route path="/not-found" component={NotFound} />
+
             <Redirect from="/" exact to="/dashboard" />
             <Redirect to="/not-found" />
           </Switch>

@@ -4,12 +4,15 @@ import { apiUrl } from "../config.json";
 
 const apiEndpoint = apiUrl + "/poll-templates";
 
-export async function getPollTemplates(count) {
-  return await http.get(apiEndpoint + "/count/" + count, {
-    headers: {
-      "x-auth": getJwt()
+export async function getPollTemplates(count, isDraft) {
+  return await http.get(
+    apiEndpoint + "/drafts/" + isDraft.toString() + "/" + count.toString(),
+    {
+      headers: {
+        "x-auth": getJwt()
+      }
     }
-  });
+  );
 }
 
 export default {
