@@ -12,8 +12,12 @@ class Dashboard extends Component {
   };
 
   async fetchPollTemplates(count) {
-    const result = await pollTemplateService.getPollTemplates(count);
-    return result.data;
+    try {
+      const result = await pollTemplateService.getPollTemplates(count);
+      return result.data;
+    } catch (err) {
+      console.log(err.response);
+    }
   }
 
   async componentDidMount() {

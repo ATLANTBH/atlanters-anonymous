@@ -46,6 +46,7 @@ class PollTemplate extends Sequelize.Model {
         isDraft: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+          notEmpty: true,
           defaultValue: false,
         },
       },
