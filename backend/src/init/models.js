@@ -3,7 +3,7 @@ import initModels from '../models';
 export default async (sequelize, eraseDatabaseOnSync) => {
   const models = initModels(sequelize);
 
-  console.log('Syncing...');
+  console.log("Syncing with erase: '" + eraseDatabaseOnSync + "'...");
   try {
     await sequelize.sync({ force: eraseDatabaseOnSync });
   } catch (error) {
