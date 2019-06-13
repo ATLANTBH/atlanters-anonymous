@@ -43,6 +43,11 @@ class PollTemplate extends Sequelize.Model {
             },
           },
         },
+        isDraft: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
       },
       { sequelize }
     );
@@ -56,6 +61,12 @@ class PollTemplate extends Sequelize.Model {
   static async validCreate(pollTemplateReq) {
     await validatePollTemplate(pollTemplateReq);
     return await PollTemplate.create(pollTemplateReq);
+  }
+
+  static async findAllByDraft(isDraft) {
+    return await PollTemplate.findAll({
+      where: { isDraft: isDraft },
+    });
   }
 
   static async findAllWithAssoc(associations = []) {

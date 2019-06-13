@@ -10,11 +10,17 @@ import getPollTemplatePolls from './poll-templates.polls.get';
 import getPollByPollTemplateTitle from './poll-templates.polls.title.get';
 import submitAnswer from './poll-templates.polls.answers.post';
 import getCountPollTemplates from './poll-templates.count.get';
+import getPollTemplatesByDraft from './poll-templates.draft.get';
 
 export default app => {
   const router = Router();
 
   router.get('/', verifyToken(app), getPollTemplates(app));
+  router.get(
+    '/drafts/:isDraft',
+    verifyToken(app),
+    getPollTemplatesByDraft(app)
+  );
   router.get('/count/:count', verifyToken(app), getCountPollTemplates(app));
   router.get(
     '/:id([0-9]{1,10})',
