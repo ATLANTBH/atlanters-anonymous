@@ -17,6 +17,9 @@ const NavBar = ({ user }) => {
               <NavLink className="nav-item nav-link mr-sm-2" to="/dashboard">
                 DASHBOARD
               </NavLink>
+              <NavLink className="nav-item nav-link mr-sm-2" to="/createSurvey">
+                CREATE SURVEY
+              </NavLink>
             </Nav>
             <Nav className="ml-auto">
               <NavLink className="nav-item nav-link mr-sm-2" to="/signout">
