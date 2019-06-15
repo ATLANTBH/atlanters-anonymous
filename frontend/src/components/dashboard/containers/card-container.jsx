@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import PollCard from "../cards/poll-card";
 
 class CardContainer extends Component {
   // todo: flip show more btn based on number of inital items shown
