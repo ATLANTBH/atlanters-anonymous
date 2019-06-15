@@ -18,7 +18,7 @@ class SurveysContainer extends Component {
         count,
         this.props.isDraft
       );
-      return result.data.length == 0 ? null : result.data;
+      return result.data.length === 0 ? null : result.data;
     } catch (err) {
       console.log(err.response);
     }

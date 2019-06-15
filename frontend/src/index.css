@@ -24,6 +24,7 @@
 @import "components/create-survey/survey-canvas.css";
 /** IMPORT WIDGET FORM STYLES **/
 @import "components/create-survey/widget-forms/short-answer/short-answer.css";
+@import "components/create-survey/widget-forms/common.css";
 
 /** IMPORT DASHBOARD STYLES **/
 @import "styles/dashboard/dashboard.css";

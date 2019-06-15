@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import movableIndicator from "../../assets/create-survey/widgets/movable-indicator.png";
-import { Draggable, Container } from "react-smooth-dnd";
+import { Draggable } from "react-smooth-dnd";
 
 class Widget extends Component {
   state = {};

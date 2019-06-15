@@ -4,6 +4,7 @@ import Widget from "./widget";
 import widgetImages from "../../assets/create-survey/widgets";
 import Navigator from "./navigator";
 import widgetForms from "./widget-forms";
+import Common from "./widget-forms/common";
 
 class CreateSurvey extends Component {
   state = {
@@ -49,27 +50,6 @@ class CreateSurvey extends Component {
     forms: []
   };
 
-  applyOnDrop(arr, dropResult) {
-    let { removedIndex, addedIndex, payload } = dropResult;
-    console.log(arr, dropResult);
-    const result = [...arr];
-    if (removedIndex !== null) {
-      payload = result.splice(removedIndex, 1)[0];
-    }
-    if (addedIndex !== null) {
-      result.splice(addedIndex, 0, payload);
-    }
-    this.setState({ forms: result });
-  }
-
-  shouldAcceptDrop(sourceContainerOptions, payload) {
-    return true;
-  }
-
-  shouldAnimateDrop(sourceContainerOptions, payload) {
-    return false;
-  }
-
   componentDidMount() {
     const widgetObjects = this.state.widgets.map((element, index) => (
       <Widget
@@ -90,7 +70,6 @@ class CreateSurvey extends Component {
 
   applyOnDrop(arr, dropResult) {
     let { removedIndex, addedIndex, payload } = dropResult;
-    console.log(arr, dropResult);
     const result = [...arr];
     if (removedIndex !== null) {
       payload = result.splice(removedIndex, 1)[0];
@@ -98,6 +77,7 @@ class CreateSurvey extends Component {
     if (addedIndex !== null) {
       result.splice(addedIndex, 0, payload);
     }
+    result.activeItemIndex = addedIndex;
     this.setState({ forms: result });
   }
 
@@ -110,15 +90,20 @@ class CreateSurvey extends Component {
   }
 
   onDragEnter() {
-    console.log("ENTERED");
+    //console.log("ENTERED");
   }
 
-  onDragStart({ isSource, payload, willAcceptDrop }) {
-    console.log(isSource, payload, willAcceptDrop);
+  onDragStart(e) {
+    console.log(e);
   }
+
+  onClick = (item, i) => {
+    this.state.forms.activeItemIndex = i;
+    this.setState({ forms: this.state.forms });
+  };
 
   render() {
-    const { widgetObjects, forms } = this.state;
+    const { widgetObjects, forms, widgets } = this.state;
     return (
       <div className="create-survey-container">
         <Container
@@ -130,7 +115,7 @@ class CreateSurvey extends Component {
         </Container>
 
         <div className="navigator-container">
-          <Navigator />
+          <Navigator survey={forms} />
         </div>
 
         <Container
@@ -146,10 +131,15 @@ class CreateSurvey extends Component {
           behaviour="contain"
           dragHandleSelector=".drag-handle-selector"
         >
-          {forms.map(item => (
-            <>
-              <item.props.form {...item.props} />
-            </>
+          {forms.map((item, index) => (
+            <Common
+              key={index}
+              onClick={() => {
+                this.onClick(item, index);
+              }}
+              {...item.props}
+              active={forms.activeItemIndex === index}
+            />
           ))}
         </Container>
       </div>
