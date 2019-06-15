@@ -48,7 +48,12 @@ class Common extends Component {
                   onColor="#00a4d8"
                 />
                 <p className="required-text">Required</p>
-                <img src={duplicate} alt="duplicate" />
+                <img
+                  className="duplicate-img"
+                  onClick={this.props.handleDuplicate}
+                  src={duplicate}
+                  alt="duplicate"
+                />
                 <img
                   className="trash-img"
                   onClick={this.props.handleDelete}
