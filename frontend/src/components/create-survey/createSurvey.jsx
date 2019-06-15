@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Draggable } from "react-smooth-dnd";
+import { Container } from "react-smooth-dnd";
 import Widget from "./widget";
 import widgetImages from "../../assets/create-survey/widgets";
 import Navigator from "./navigator";
@@ -123,7 +123,7 @@ class CreateSurvey extends Component {
   };
 
   render() {
-    const { widgetObjects, formData, widgets } = this.state;
+    const { widgetObjects, formData } = this.state;
     return (
       <div className="create-survey-container">
         <Container

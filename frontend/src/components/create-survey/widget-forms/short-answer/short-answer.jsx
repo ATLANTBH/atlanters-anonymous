@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Draggable } from "react-smooth-dnd";
 
 class ShortAnswer extends Component {
   render() {
