@@ -1,0 +1,51 @@
+.navigator {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  background-color: #ffffff;
+  height: 42px;
+  border-radius: 6px;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.navigator > p {
+  margin: 0;
+  align-self: center;
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 16px;
+}
+
+.navigator > p.back {
+  grid-column: 1;
+  text-align: left;
+}
+
+.navigator > p.steps {
+  grid-column: 2;
+  text-align: center;
+}
+
+.navigator > p.next {
+  grid-column: 3;
+  text-align: right;
+  color: #c8d5e6;
+}
+
+.navigator * img {
+  max-width: 10px;
+  min-width: 10px;
+  align-self: center;
+  margin-bottom: 2px;
+}
+
+.back > img {
+  margin-left: 20px;
+  margin-right: 7px;
+}
+
+.next > img {
+  margin-right: 20px;
+  margin-left: 7px;
+}

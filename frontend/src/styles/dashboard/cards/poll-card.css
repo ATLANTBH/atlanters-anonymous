@@ -32,9 +32,9 @@ img.card-img {
   opacity: 0.25;
 }
 
-.animate {
-  -webkit-animation-name: fade; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+/* .animate {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1s; 
   animation-name: fade;
-  animation-duration: 0.5s;
-}
+  animation-duration: 1s;
+} */

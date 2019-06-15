@@ -17,6 +17,12 @@
 @import "styles/auth/forgot-password.css";
 @import "styles/auth/pw-email-sent.css";
 
+/** IMPORT CREATE SURVEY STYLES **/
+@import "components/create-survey/create-survey.css";
+@import "components/create-survey/widget.css";
+@import "components/create-survey/navigator.css";
+@import "components/create-survey/survey-canvas.css";
+
 /** IMPORT DASHBOARD STYLES **/
 @import "styles/dashboard/dashboard.css";
 @import "styles/dashboard/cards/poll-card.css";
