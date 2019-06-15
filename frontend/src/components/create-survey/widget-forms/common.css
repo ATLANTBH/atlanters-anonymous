@@ -90,6 +90,10 @@ div.footer {
   cursor: pointer;
 }
 
+.footer img.duplicate-img:hover {
+  cursor: pointer;
+}
+
 .footer hr.horizontal-seperator {
   margin-bottom: 7px;
   margin-top: 7px;

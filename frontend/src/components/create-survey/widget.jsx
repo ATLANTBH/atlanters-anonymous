@@ -6,7 +6,7 @@ class Widget extends Component {
   state = {};
   render() {
     return (
-      <Draggable key={this.props.id}>
+      <Draggable key={this.props.id} onClick={this.props.onClick}>
         <div className="widget-container">
           <img
             className="left-img"

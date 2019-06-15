@@ -53,15 +53,22 @@ class CreateSurvey extends Component {
     }
   };
 
+  widgetOnClick = Form => {
+    let { forms, activeItemIndex } = this.state.formData;
+    forms.push(Form);
+    activeItemIndex = forms.length - 1;
+    this.setState({ formData: { forms, activeItemIndex } });
+  };
+
   componentDidMount() {
     const widgetObjects = this.state.widgets.map((element, index) => (
       <Widget
         key={index}
         id={index}
-        name={element.name}
-        image={element.image}
-        form={element.form}
-        height={element.height}
+        {...element}
+        onClick={() => {
+          this.widgetOnClick(<Widget key={index} id={index} {...element} />);
+        }}
       />
     ));
     this.setState({ widgetObjects });
@@ -74,16 +81,16 @@ class CreateSurvey extends Component {
   applyOnDrop(arr, dropResult) {
     let { removedIndex, addedIndex, payload } = dropResult;
     const result = [...arr];
-    const formData = { ...this.state.formData };
+    let { activeItemIndex, forms } = this.state.formData;
     if (removedIndex !== null) {
       payload = result.splice(removedIndex, 1)[0];
     }
     if (addedIndex !== null) {
       result.splice(addedIndex, 0, payload);
     }
-    formData.activeItemIndex = formData.forms.length === 0 ? 0 : addedIndex;
-    formData.forms = result;
-    this.setState({ formData });
+    activeItemIndex = forms.length === 0 ? 0 : addedIndex;
+    forms = result;
+    this.setState({ formData: { forms, activeItemIndex } });
   }
 
   shouldAcceptDrop(sourceContainerOptions, payload) {
@@ -97,16 +104,22 @@ class CreateSurvey extends Component {
   onClick = index => {
     const { formData } = this.state;
     formData.activeItemIndex = index;
-    this.setState({ formsData: formData });
+    this.setState({ formData });
   };
 
-  onRemove = index => {
+  onDelete = index => {
     this.setState(state => {
       const formData = state.formData;
       formData.forms.splice(index, 1);
       if (--formData.activeItemIndex < 0) ++formData.activeItemIndex;
       return { formData };
     });
+  };
+
+  onDuplicate = (item, index) => {
+    const { formData } = this.state;
+    formData.forms.splice(index, 0, item);
+    this.setState({ formData });
   };
 
   render() {
@@ -140,10 +153,13 @@ class CreateSurvey extends Component {
             <Common
               key={index}
               handleDelete={() => {
-                this.onRemove(index);
+                this.onDelete(index);
               }}
               handleClick={() => {
                 this.onClick(index);
+              }}
+              handleDuplicate={() => {
+                this.onDuplicate(item, index);
               }}
               {...item.props}
               active={formData.activeItemIndex === index}

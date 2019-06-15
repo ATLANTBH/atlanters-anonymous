@@ -8,6 +8,10 @@
 }
 
 .widget-container:hover {
+  cursor: pointer;
+}
+
+.widget-container:active {
   cursor: move;
 }
 
