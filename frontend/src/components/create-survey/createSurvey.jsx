@@ -47,7 +47,10 @@ class CreateSurvey extends Component {
       }
     ],
     widgetObjects: [],
-    forms: []
+    formData: {
+      forms: [],
+      activeItemIndex: 0
+    }
   };
 
   componentDidMount() {
@@ -71,14 +74,16 @@ class CreateSurvey extends Component {
   applyOnDrop(arr, dropResult) {
     let { removedIndex, addedIndex, payload } = dropResult;
     const result = [...arr];
+    const formData = { ...this.state.formData };
     if (removedIndex !== null) {
       payload = result.splice(removedIndex, 1)[0];
     }
     if (addedIndex !== null) {
       result.splice(addedIndex, 0, payload);
     }
-    result.activeItemIndex = addedIndex;
-    this.setState({ forms: result });
+    formData.activeItemIndex = formData.forms.length === 0 ? 0 : addedIndex;
+    formData.forms = result;
+    this.setState({ formData });
   }
 
   shouldAcceptDrop(sourceContainerOptions, payload) {
@@ -89,21 +94,23 @@ class CreateSurvey extends Component {
     return false;
   }
 
-  onDragEnter() {
-    //console.log("ENTERED");
-  }
+  onClick = index => {
+    const { formData } = this.state;
+    formData.activeItemIndex = index;
+    this.setState({ formsData: formData });
+  };
 
-  onDragStart(e) {
-    console.log(e);
-  }
-
-  onClick = (item, i) => {
-    this.state.forms.activeItemIndex = i;
-    this.setState({ forms: this.state.forms });
+  onRemove = index => {
+    this.setState(state => {
+      const formData = state.formData;
+      formData.forms.splice(index, 1);
+      if (--formData.activeItemIndex < 0) ++formData.activeItemIndex;
+      return { formData };
+    });
   };
 
   render() {
-    const { widgetObjects, forms, widgets } = this.state;
+    const { widgetObjects, formData, widgets } = this.state;
     return (
       <div className="create-survey-container">
         <Container
@@ -115,30 +122,31 @@ class CreateSurvey extends Component {
         </Container>
 
         <div className="navigator-container">
-          <Navigator survey={forms} />
+          <Navigator survey={formData.forms} />
         </div>
 
         <Container
           onDrop={e => {
-            this.applyOnDrop(forms, e);
+            this.applyOnDrop(formData.forms, e);
           }}
-          getChildPayload={i => forms[i]}
+          getChildPayload={i => formData.forms[i]}
           shouldAcceptDrop={this.shouldAcceptDrop}
           lockAxis="y"
           shouldAnimateDrop={this.shouldAnimateDrop}
-          onDragEnter={this.onDragEnter}
-          onDragStart={this.onDragStart}
           behaviour="contain"
           dragHandleSelector=".drag-handle-selector"
         >
-          {forms.map((item, index) => (
+          {formData.forms.map((item, index) => (
             <Common
               key={index}
-              onClick={() => {
-                this.onClick(item, index);
+              handleDelete={() => {
+                this.onRemove(index);
+              }}
+              handleClick={() => {
+                this.onClick(index);
               }}
               {...item.props}
-              active={forms.activeItemIndex === index}
+              active={formData.activeItemIndex === index}
             />
           ))}
         </Container>

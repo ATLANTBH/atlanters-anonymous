@@ -21,7 +21,6 @@
 @import "components/create-survey/create-survey.css";
 @import "components/create-survey/widget.css";
 @import "components/create-survey/navigator.css";
-@import "components/create-survey/survey-canvas.css";
 /** IMPORT WIDGET FORM STYLES **/
 @import "components/create-survey/widget-forms/short-answer/short-answer.css";
 @import "components/create-survey/widget-forms/common.css";
