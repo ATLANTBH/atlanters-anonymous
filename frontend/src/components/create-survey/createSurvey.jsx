@@ -3,33 +3,46 @@ import { Container, Draggable } from "react-smooth-dnd";
 import Widget from "./widget";
 import widgetImages from "../../assets/create-survey/widgets";
 import Navigator from "./navigator";
+import widgetForms from "./widget-forms";
 
 class CreateSurvey extends Component {
   state = {
     widgets: [
       {
         name: "Short Answer",
-        image: widgetImages.shortAnswer
+        image: widgetImages.shortAnswer,
+        form: widgetForms.ShortAnswer,
+        height: "170px"
       },
       {
         name: "Paragraph",
-        image: widgetImages.paragraph
+        image: widgetImages.paragraph,
+        form: widgetForms.ShortAnswer,
+        height: "350px"
       },
       {
         name: "Single Choice",
-        image: widgetImages.singleChoice
+        image: widgetImages.singleChoice,
+        form: widgetForms.ShortAnswer,
+        height: "160px"
       },
       {
         name: "Multiple Choice",
-        image: widgetImages.multipleChoice
+        image: widgetImages.multipleChoice,
+        form: widgetForms.ShortAnswer,
+        height: "160px"
       },
       {
         name: "Linear Scale",
-        image: widgetImages.linearScale
+        image: widgetImages.linearScale,
+        form: widgetForms.ShortAnswer,
+        height: "160px"
       },
       {
         name: "Star Rating",
-        image: widgetImages.starRating
+        image: widgetImages.starRating,
+        form: widgetForms.ShortAnswer,
+        height: "160px"
       }
     ],
     widgetObjects: [],
@@ -62,9 +75,10 @@ class CreateSurvey extends Component {
       <Widget
         key={index}
         id={index}
-        items={this.state.widgets}
         name={element.name}
         image={element.image}
+        form={element.form}
+        height={element.height}
       />
     ));
     this.setState({ widgetObjects });
@@ -130,11 +144,12 @@ class CreateSurvey extends Component {
           onDragEnter={this.onDragEnter}
           onDragStart={this.onDragStart}
           behaviour="contain"
+          dragHandleSelector=".drag-handle-selector"
         >
           {forms.map(item => (
-            <Draggable key={item.props.id}>
-              <p>{item.props.name}</p>
-            </Draggable>
+            <>
+              <item.props.form {...item.props} />
+            </>
           ))}
         </Container>
       </div>
