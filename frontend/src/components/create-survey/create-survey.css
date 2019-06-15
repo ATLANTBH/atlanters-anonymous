@@ -1,0 +1,55 @@
+.create-survey-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: auto auto 1fr;
+  height: 900px;
+}
+
+.create-survey-container .smooth-dnd-container.horizontal {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-gap: 24px;
+}
+
+.create-survey-container .smooth-dnd-container.vertical {
+  grid-column: 2;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-image-width: 1;
+  border: dashed 2px #c8d5e5;
+  border-image: url("../../assets/create-survey/border.png") 1 round;
+  height: auto;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+}
+
+.create-survey-container
+  .smooth-dnd-container.vertical
+  > .smooth-dnd-draggable-wrapper {
+  height: 100px;
+  grid-column-start: 2;
+  grid-column-end: 6;
+}
+
+.navigator-container {
+  grid-column: 2;
+  margin-top: 38px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 24px;
+}
+
+@media screen and (max-width: 1750px) {
+  .create-survey-container .smooth-dnd-container.horizontal {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: auto;
+  }
+}

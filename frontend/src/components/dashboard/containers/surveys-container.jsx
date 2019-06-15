@@ -33,14 +33,14 @@ class SurveysContainer extends Component {
     let { pollTemplates, hasMore } = this.state;
     let currentCount = pollTemplates.length;
     pollTemplates = await this.fetchPollTemplates(pollTemplates.length + 5);
-    if (pollTemplates.length == currentCount) hasMore = false;
+    if (pollTemplates.length >= currentCount) hasMore = false;
     this.setState({ pollTemplates, hasMore });
   }
 
   getCreateSurveyCard() {
     return (
-      <Link to="/createSurvey">
-        <PollCard key={0} title={"+"} />
+      <Link key={0} to="/createSurvey">
+        <PollCard title={"+"} />
       </Link>
     );
   }
