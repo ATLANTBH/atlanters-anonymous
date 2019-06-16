@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Container } from "react-smooth-dnd";
+import { Container, Draggable } from "react-smooth-dnd";
 import Widget from "./widget";
 import widgetImages from "../../assets/create-survey/widgets";
 import Navigator from "./navigator";
 import widgetForms from "./widget-forms";
 import SurveySection from "./widget-forms/survey-section";
+import Switch from "react-switch";
+import duplicate from "../../assets/create-survey/duplicate.png";
+import trash from "../../assets/create-survey/trash.png";
+import dragHandle from "../../assets/create-survey/drag-handle.png";
 
 class CreateSurvey extends Component {
   state = {
@@ -57,7 +61,9 @@ class CreateSurvey extends Component {
       forms: [],
       activeItemIndex: 0,
       formResult: []
-    }
+    },
+    question: "",
+    description: ""
   };
 
   widgetOnClick = Form => {
@@ -80,14 +86,16 @@ class CreateSurvey extends Component {
           this.widgetOnClick(<Widget key={index} id={index} {...element} />);
         }}
         isTitleForm={index === 0 ? false : true}
-        data={{}}
       />
     ));
     const formData = this.state.formData;
 
     // add title form
     formData.forms.push(widgetObjects[0]);
-    formData.formResult = this.getUpdatedFormResult(formData.forms);
+    formData.formResult = this.getUpdatedFormResult(
+      formData.formResult,
+      formData.forms
+    );
 
     this.setState({ widgetObjects, formData });
   }
@@ -106,7 +114,6 @@ class CreateSurvey extends Component {
     if (addedIndex !== null) {
       // prevents adding a form above the title form
       if (addedIndex === 0) addedIndex = forms.length;
-
       result.splice(addedIndex, 0, payload);
       formResult.splice(
         addedIndex,
@@ -117,13 +124,13 @@ class CreateSurvey extends Component {
     activeItemIndex = forms.length === 0 ? 0 : addedIndex;
 
     forms = result;
-    formResult = this.getUpdatedFormResult(forms);
-
-    this.setState({ formData: { forms, activeItemIndex, formResult } });
+    //formResult = this.getUpdatedFormResult(formResult, forms);
+    this.setState((state, props) => ({
+      formData: { forms, activeItemIndex, formResult }
+    }));
   }
 
-  getUpdatedFormResult(forms) {
-    const { formResult } = this.state.formData;
+  getUpdatedFormResult(formResult, forms) {
     for (let i = 0; i < forms.length; i++) {
       formResult[i] = {
         type: forms[i].props.name,
@@ -187,41 +194,130 @@ class CreateSurvey extends Component {
 
     formData.formResult[index].data = data;
     formData.formResult[index].required = required;
-
     this.setState({ formData });
   };
 
+  onChangeTest = (name, value) => {
+    this.state[name] = value;
+    this.setState({ state: this.state });
+  };
+
+  // renderForms = formData => {
+  //   return formData.forms.map((item, index) => {
+  //     // title (index=0) must be first form
+  //     return (
+  //       <SurveySection
+  //         key={index}
+  //         handleDelete={
+  //           index === 0
+  //             ? null
+  //             : () => {
+  //                 this.onDelete(index);
+  //               }
+  //         }
+  //         handleClick={() => {
+  //           this.onClick(index);
+  //         }}
+  //         handleDuplicate={
+  //           index === 0
+  //             ? null
+  //             : () => {
+  //                 this.onDuplicate(item, index);
+  //               }
+  //         }
+  //         handleChange={this.onChange}
+  //         {...item.props}
+  //         index={index}
+  //         active={formData.activeItemIndex === index}
+  //         isTitleForm={index === 0}
+  //         isRequired={formData.formResult[index].required ? true : false}
+  //         data={formData.formResult[index].data}
+  //       />
+  //     );
+  //   });
+  // };
+
   renderForms = formData => {
-    return formData.forms.map((item, index) => {
-      // title (index=0) must be first form
+    return formData.forms.map((element, index) => {
+      console.log(element);
       return (
-        <SurveySection
-          key={index}
-          handleDelete={
-            index === 0
-              ? null
-              : () => {
-                  this.onDelete(index);
-                }
-          }
-          handleClick={() => {
+        <Draggable
+          onClick={() => {
             this.onClick(index);
           }}
-          handleDuplicate={
-            index === 0
-              ? null
-              : () => {
-                  this.onDuplicate(item, index);
-                }
-          }
-          handleChange={this.onChange}
-          {...item.props}
-          index={index}
-          active={formData.activeItemIndex === index}
-          isTitleForm={index === 0}
-          isRequired={formData.formResult[index].required ? true : false}
-          data={formData.formResult[index].data}
-        />
+          key={index}
+          style={{ height: element.props.height }}
+        >
+          <div
+            className={
+              "widget-form " +
+              (formData.activeItemIndex === index ? "active" : " inactive")
+            }
+          >
+            {index !== 0 && (
+              <div className="drag-handle-selector">
+                <img
+                  className="drag-handle-img"
+                  src={dragHandle}
+                  alt="Drag handle"
+                />
+              </div>
+            )}
+            <div className="contents">
+              <element.props.form
+                name={element.props.name}
+                data={{
+                  question: this.state.question,
+                  description: this.state.description
+                }}
+                onChange={this.onChangeTest}
+              />
+            </div>
+            {index !== 0 && formData.activeItemIndex === index && (
+              <div className="footer">
+                <hr className="horizontal-seperator" />
+                <div className="items">
+                  <Switch
+                    className="switch"
+                    onChange={null}
+                    checked={false}
+                    width={30}
+                    height={14}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    offColor="#C1C2C2"
+                    onColor="#00a4d8"
+                  />
+                  <p className="required-text">Required</p>
+                  <img
+                    className="duplicate-img"
+                    onClick={
+                      index === 0
+                        ? null
+                        : () => {
+                            this.onDuplicate(element, index);
+                          }
+                    }
+                    src={duplicate}
+                    alt="duplicate"
+                  />
+                  <img
+                    className="trash-img"
+                    onClick={
+                      index === 0
+                        ? null
+                        : () => {
+                            this.onDelete(index);
+                          }
+                    }
+                    src={trash}
+                    alt="trash"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </Draggable>
       );
     });
   };

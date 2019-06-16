@@ -5,80 +5,91 @@ import duplicate from "../../../assets/create-survey/duplicate.png";
 import trash from "../../../assets/create-survey/trash.png";
 import dragHandle from "../../../assets/create-survey/drag-handle.png";
 
-const SurveySection = props => {
-  const [data, setData] = useState({});
+class SurveySection extends Component {
+  state = {
+    data: {}
+  };
 
-  const handleChange = data => {
-    setData(data);
-    console.log(props.data);
-    props.handleChange(
+  handleChange = data => {
+    this.props.handleChange(
       data,
-      props.isTitleForm || props.isRequired,
-      props.index
+      this.props.isTitleForm || this.props.isRequired,
+      this.props.index
+    );
+    this.setState({ data });
+  };
+
+  handleChecked = () => {
+    this.props.handleChange(
+      this.state.data,
+      !this.props.isRequired,
+      this.props.index
     );
   };
 
-  const handleChecked = () => {
-    props.handleChange(data, !props.isRequired, props.index);
-  };
-
-  return (
-    <Draggable
-      onClick={props.handleClick}
-      key={props.index}
-      style={{ height: props.height }}
-    >
-      <div className={"widget-form " + (props.active ? "active" : " inactive")}>
-        {!props.isTitleForm && (
-          <div className="drag-handle-selector">
-            <img
-              className="drag-handle-img"
-              src={dragHandle}
-              alt="Drag handle"
-            />
-          </div>
-        )}
-        <div className="contents">
-          <props.form
-            name={props.name}
-            data={props.data}
-            onChange={handleChange}
-          />
-        </div>
-        {!props.isTitleForm && props.active && (
-          <div className="footer">
-            <hr className="horizontal-seperator" />
-            <div className="items">
-              <Switch
-                className="switch"
-                onChange={handleChecked}
-                checked={props.isRequired}
-                width={30}
-                height={14}
-                uncheckedIcon={false}
-                checkedIcon={false}
-                offColor="#C1C2C2"
-                onColor="#00a4d8"
-              />
-              <p className="required-text">Required</p>
+  render() {
+    return (
+      <Draggable
+        onClick={this.props.handleClick}
+        key={this.props.index}
+        style={{ height: this.props.height }}
+      >
+        <div
+          className={
+            "widget-form " + (this.props.active ? "active" : " inactive")
+          }
+        >
+          {!this.props.isTitleForm && (
+            <div className="drag-handle-selector">
               <img
-                className="duplicate-img"
-                onClick={props.handleDuplicate}
-                src={duplicate}
-                alt="duplicate"
-              />
-              <img
-                className="trash-img"
-                onClick={props.handleDelete}
-                src={trash}
-                alt="trash"
+                className="drag-handle-img"
+                src={dragHandle}
+                alt="Drag handle"
               />
             </div>
+          )}
+          <div className="contents">
+            <this.props.form
+              name={this.props.name}
+              data={this.props.data}
+              onChange={this.handleChange}
+            />
           </div>
-        )}
-      </div>
-    </Draggable>
-  );
-};
+          {!this.props.isTitleForm && this.props.active && (
+            <div className="footer">
+              <hr className="horizontal-seperator" />
+              <div className="items">
+                <Switch
+                  className="switch"
+                  onChange={this.handleChecked}
+                  checked={this.props.isRequired}
+                  width={30}
+                  height={14}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  offColor="#C1C2C2"
+                  onColor="#00a4d8"
+                />
+                <p className="required-text">Required</p>
+                <img
+                  className="duplicate-img"
+                  onClick={this.props.handleDuplicate}
+                  src={duplicate}
+                  alt="duplicate"
+                />
+                <img
+                  className="trash-img"
+                  onClick={this.props.handleDelete}
+                  src={trash}
+                  alt="trash"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </Draggable>
+    );
+  }
+}
 
 export default SurveySection;
