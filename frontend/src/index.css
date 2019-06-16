@@ -10,6 +10,7 @@
 
 /** IMPORT COMMON STYLES **/
 @import "styles/common/input.css";
+@import "styles/common/section-form.css";
 
 /** IMPORT AUTH STYLES **/
 @import "styles/auth/signin.css";
@@ -23,7 +24,8 @@
 @import "components/create-survey/navigator.css";
 /** IMPORT WIDGET FORM STYLES **/
 @import "components/create-survey/widget-forms/short-answer/short-answer.css";
-@import "components/create-survey/widget-forms/common.css";
+@import "components/create-survey/widget-forms/survey-section.css";
+@import "components/create-survey/widget-forms/title/title.css";
 
 /** IMPORT DASHBOARD STYLES **/
 @import "styles/dashboard/dashboard.css";

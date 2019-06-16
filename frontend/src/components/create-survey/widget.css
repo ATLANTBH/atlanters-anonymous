@@ -19,6 +19,11 @@
   max-width: 22px;
   max-height: 22px;
   justify-content: center;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .widget-container > img.left-img {

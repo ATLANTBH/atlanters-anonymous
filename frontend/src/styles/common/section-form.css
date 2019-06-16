@@ -1,0 +1,48 @@
+@-webkit-keyframes input-focus {
+  from {
+    border-bottom: 1px solid #c8d5e6;
+  }
+  to {
+    border-bottom: 1px solid #00a3da;
+  }
+}
+
+/* Standard syntax */
+@keyframes input-focus {
+  from {
+    border-bottom: 1px solid #c8d5e6;
+  }
+  to {
+    border-bottom: 1px solid #00a3da;
+  }
+}
+
+.section-form-title {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.section-form-title .text-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid #c8d5e6;
+  width: 100%;
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  margin: 12px 0px 0px 0px;
+}
+
+.section-form-title .text-input.large {
+  font-size: 24px;
+}
+
+.section-form-title .text-input:focus {
+  -webkit-animation-name: input-focus;
+  -webkit-animation-duration: 0.3s;
+  animation-name: input-focus;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
