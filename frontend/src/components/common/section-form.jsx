@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
 class SectionForm extends Component {
+  handleChange({ currentTarget }) {
+    const { name, value } = currentTarget;
+    console.log(name, value);
+  }
+
   renderTextInput(name, placeholder, type = "text", large = false) {
     return (
       <input
@@ -9,6 +14,7 @@ class SectionForm extends Component {
         name={name}
         placeholder={placeholder}
         autoComplete={"off"}
+        onChange={this.handleChange}
       />
     );
   }
