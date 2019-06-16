@@ -7,11 +7,28 @@ export default class Title extends SectionForm {
     description: ""
   };
 
+  handleChange({ currentTarget }) {
+    const { name, value } = currentTarget;
+    this.state[name] = value;
+    this.setState(this.state);
+    this.props.onChange(this.state);
+  }
+
   render() {
     return (
       <div className="section-form-title">
-        {this.renderTextInput("title", "Survey Title", "text", true)}
-        {this.renderTextInput("description", "Survey description (optional)")}
+        {this.renderTextInput(
+          "title",
+          "Survey Title",
+          this.handleChange.bind(this),
+          "text",
+          true
+        )}
+        {this.renderTextInput(
+          "description",
+          "Survey description (optional)",
+          this.handleChange.bind(this)
+        )}
       </div>
     );
   }

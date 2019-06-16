@@ -55,15 +55,19 @@ class CreateSurvey extends Component {
     widgetObjects: [],
     formData: {
       forms: [],
-      activeItemIndex: 0
+      activeItemIndex: 0,
+      formResult: []
     }
   };
 
   widgetOnClick = Form => {
-    let { forms, activeItemIndex } = this.state.formData;
+    let { forms, activeItemIndex, formResult } = this.state.formData;
+
     forms.push(Form);
+    formResult.push(this.getDefaultFormResult(Form.props.name));
+
     activeItemIndex = forms.length - 1;
-    this.setState({ formData: { forms, activeItemIndex } });
+    this.setState({ formData: { forms, activeItemIndex, formResult } });
   };
 
   componentDidMount() {
@@ -76,11 +80,15 @@ class CreateSurvey extends Component {
           this.widgetOnClick(<Widget key={index} id={index} {...element} />);
         }}
         isTitleForm={index === 0 ? false : true}
+        data={{}}
       />
     ));
     const formData = this.state.formData;
+
     // add title form
     formData.forms.push(widgetObjects[0]);
+    formData.formResult = this.getUpdatedFormResult(formData.forms);
+
     this.setState({ widgetObjects, formData });
   }
 
@@ -91,18 +99,47 @@ class CreateSurvey extends Component {
   applyOnDrop(arr, dropResult) {
     let { removedIndex, addedIndex, payload } = dropResult;
     const result = [...arr];
-    let { activeItemIndex, forms } = this.state.formData;
+    let { activeItemIndex, forms, formResult } = this.state.formData;
     if (removedIndex !== null) {
       payload = result.splice(removedIndex, 1)[0];
     }
     if (addedIndex !== null) {
       // prevents adding a form above the title form
       if (addedIndex === 0) addedIndex = forms.length;
+
       result.splice(addedIndex, 0, payload);
+      formResult.splice(
+        addedIndex,
+        0,
+        this.getDefaultFormResult(payload.props.name)
+      );
     }
     activeItemIndex = forms.length === 0 ? 0 : addedIndex;
+
     forms = result;
-    this.setState({ formData: { forms, activeItemIndex } });
+    formResult = this.getUpdatedFormResult(forms);
+
+    this.setState({ formData: { forms, activeItemIndex, formResult } });
+  }
+
+  getUpdatedFormResult(forms) {
+    const { formResult } = this.state.formData;
+    for (let i = 0; i < forms.length; i++) {
+      formResult[i] = {
+        type: forms[i].props.name,
+        data: formResult[i] ? formResult[i].data : {},
+        required: formResult[i] ? formResult[i].required : false
+      };
+    }
+    return formResult;
+  }
+
+  getDefaultFormResult(type) {
+    return {
+      type,
+      data: {},
+      required: false
+    };
   }
 
   shouldAcceptDrop(sourceContainerOptions, payload) {
@@ -122,7 +159,10 @@ class CreateSurvey extends Component {
   onDelete = index => {
     this.setState(state => {
       const formData = state.formData;
+
       formData.forms.splice(index, 1);
+      formData.formResult.splice(index, 1);
+
       if (formData.activeItemIndex >= formData.forms.length)
         formData.activeItemIndex--;
       return { formData };
@@ -131,7 +171,23 @@ class CreateSurvey extends Component {
 
   onDuplicate = (item, index) => {
     const { formData } = this.state;
-    formData.forms.splice(index, 0, item);
+
+    formData.forms.splice(index + 1, 0, item);
+    formData.formResult.splice(
+      index + 1,
+      0,
+      this.getDefaultFormResult(item.props.name)
+    );
+
+    this.setState({ formData });
+  };
+
+  onChange = (data, required, index) => {
+    const formData = { ...this.state.formData };
+
+    formData.formResult[index].data = data;
+    formData.formResult[index].required = required;
+
     this.setState({ formData });
   };
 
@@ -158,10 +214,13 @@ class CreateSurvey extends Component {
                   this.onDuplicate(item, index);
                 }
           }
+          handleChange={this.onChange}
           {...item.props}
           index={index}
           active={formData.activeItemIndex === index}
           isTitleForm={index === 0}
+          isRequired={formData.formResult[index].required ? true : false}
+          data={formData.formResult[index].data}
         />
       );
     });
@@ -180,7 +239,7 @@ class CreateSurvey extends Component {
         </Container>
 
         <div className="navigator-container">
-          <Navigator survey={formData.forms} />
+          <Navigator survey={formData.formResult} />
         </div>
 
         <Container
