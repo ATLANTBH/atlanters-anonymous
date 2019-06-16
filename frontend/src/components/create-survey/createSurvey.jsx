@@ -96,6 +96,8 @@ class CreateSurvey extends Component {
       payload = result.splice(removedIndex, 1)[0];
     }
     if (addedIndex !== null) {
+      // prevents adding a form above the title form
+      if (addedIndex === 0) addedIndex = forms.length;
       result.splice(addedIndex, 0, payload);
     }
     activeItemIndex = forms.length === 0 ? 0 : addedIndex;

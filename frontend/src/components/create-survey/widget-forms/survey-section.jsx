@@ -33,7 +33,6 @@ const SurveySection = props => {
             <div className="items">
               <Switch
                 className="switch"
-                // onChange={this.handleChange.bind(this)}
                 onChange={() => setChecked(!checked)}
                 checked={checked}
                 width={30}
