@@ -22,7 +22,7 @@
   border-radius: 6px;
   background-color: #ffffff;
   display: grid;
-  grid-template-rows: 1fr 4fr 1fr;
+  grid-template-rows: 1fr 4fr 45px;
 }
 
 .widget-form.active {
@@ -43,6 +43,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.drag-handle-selector .drag-handle-img {
+  width: 22px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 div.footer {

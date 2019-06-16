@@ -4,11 +4,17 @@ import Widget from "./widget";
 import widgetImages from "../../assets/create-survey/widgets";
 import Navigator from "./navigator";
 import widgetForms from "./widget-forms";
-import Common from "./widget-forms/common";
+import SurveySection from "./widget-forms/survey-section";
 
 class CreateSurvey extends Component {
   state = {
     widgets: [
+      {
+        name: "Title",
+        image: widgetImages.shortAnswer,
+        form: widgetForms.Title,
+        height: "113px"
+      },
       {
         name: "Short Answer",
         image: widgetImages.shortAnswer,
@@ -69,9 +75,13 @@ class CreateSurvey extends Component {
         onClick={() => {
           this.widgetOnClick(<Widget key={index} id={index} {...element} />);
         }}
+        isTitleForm={index === 0 ? false : true}
       />
     ));
-    this.setState({ widgetObjects });
+    const formData = this.state.formData;
+    // add title form
+    formData.forms.push(widgetObjects[0]);
+    this.setState({ widgetObjects, formData });
   }
 
   renderWidgets() {
@@ -111,7 +121,8 @@ class CreateSurvey extends Component {
     this.setState(state => {
       const formData = state.formData;
       formData.forms.splice(index, 1);
-      if (--formData.activeItemIndex < 0) ++formData.activeItemIndex;
+      if (formData.activeItemIndex >= formData.forms.length)
+        formData.activeItemIndex--;
       return { formData };
     });
   };
@@ -122,12 +133,44 @@ class CreateSurvey extends Component {
     this.setState({ formData });
   };
 
+  renderForms = formData => {
+    return formData.forms.map((item, index) => {
+      // title (index=0) must be first form
+      return (
+        <SurveySection
+          key={index}
+          handleDelete={
+            index === 0
+              ? null
+              : () => {
+                  this.onDelete(index);
+                }
+          }
+          handleClick={() => {
+            this.onClick(index);
+          }}
+          handleDuplicate={
+            index === 0
+              ? null
+              : () => {
+                  this.onDuplicate(item, index);
+                }
+          }
+          {...item.props}
+          index={index}
+          active={formData.activeItemIndex === index}
+          isTitleForm={index === 0}
+        />
+      );
+    });
+  };
+
   render() {
     const { widgetObjects, formData } = this.state;
     return (
       <div className="create-survey-container">
         <Container
-          getChildPayload={i => widgetObjects[i]}
+          getChildPayload={i => widgetObjects[i + 1]}
           orientation={"horizontal"}
           behaviour="copy"
         >
@@ -146,25 +189,11 @@ class CreateSurvey extends Component {
           shouldAcceptDrop={this.shouldAcceptDrop}
           lockAxis="y"
           shouldAnimateDrop={this.shouldAnimateDrop}
+          onDragStart={this.onDragStart}
           behaviour="contain"
           dragHandleSelector=".drag-handle-selector"
         >
-          {formData.forms.map((item, index) => (
-            <Common
-              key={index}
-              handleDelete={() => {
-                this.onDelete(index);
-              }}
-              handleClick={() => {
-                this.onClick(index);
-              }}
-              handleDuplicate={() => {
-                this.onDuplicate(item, index);
-              }}
-              {...item.props}
-              active={formData.activeItemIndex === index}
-            />
-          ))}
+          {this.renderForms(formData)}
         </Container>
       </div>
     );

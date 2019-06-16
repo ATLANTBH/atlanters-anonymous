@@ -1,2 +1,3 @@
 import ShortAnswer from "./short-answer/short-answer";
-export default { ShortAnswer };
+import Title from "./title/title";
+export default { ShortAnswer, Title };

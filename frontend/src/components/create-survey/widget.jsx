@@ -6,17 +6,19 @@ class Widget extends Component {
   state = {};
   render() {
     return (
-      <Draggable key={this.props.id} onClick={this.props.onClick}>
-        <div className="widget-container">
-          <img
-            className="left-img"
-            src={this.props.image}
-            alt={this.props.name}
-          />
-          <p>{this.props.name}</p>
-          <img className="move" src={movableIndicator} alt="Move" />
-        </div>
-      </Draggable>
+      this.props.isTitleForm && (
+        <Draggable key={this.props.id} onClick={this.props.onClick}>
+          <div className="widget-container">
+            <img
+              className="left-img"
+              src={this.props.image}
+              alt={this.props.name}
+            />
+            <p>{this.props.name}</p>
+            <img className="move" src={movableIndicator} alt="Move" />
+          </div>
+        </Draggable>
+      )
     );
   }
 }
