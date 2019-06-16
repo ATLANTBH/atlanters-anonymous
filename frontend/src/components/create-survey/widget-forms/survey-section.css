@@ -54,6 +54,11 @@
   -ms-user-select: none;
 }
 
+.contents {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 div.footer {
   width: 100%;
   grid-row: 3;

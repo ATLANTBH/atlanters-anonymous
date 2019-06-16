@@ -1,20 +1,42 @@
 import React, { Component } from "react";
 
 class SectionForm extends Component {
-  handleChange({ currentTarget }) {
-    const { name, value } = currentTarget;
-    console.log(name, value);
-  }
-
-  renderTextInput(name, placeholder, type = "text", large = false) {
+  renderTextInput(
+    name,
+    placeholder,
+    handleChange = null,
+    type = "text",
+    large = false,
+    value = ""
+  ) {
     return (
       <input
-        className={"text-input " + (large ? "large" : "")}
+        className={"input text-input " + (large ? "large" : "")}
         type={type}
         name={name}
         placeholder={placeholder}
-        autoComplete={"off"}
-        onChange={this.handleChange}
+        onChange={handleChange}
+        value={value}
+      />
+    );
+  }
+
+  renderQuestionInput(
+    name,
+    placeholder,
+    handleChange,
+    type = "text",
+    value = ""
+  ) {
+    return (
+      <input
+        className={"input question-input"}
+        type={type}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+        readOnly={false}
       />
     );
   }

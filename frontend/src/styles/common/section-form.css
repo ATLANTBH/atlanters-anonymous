@@ -17,12 +17,11 @@
   }
 }
 
-.section-form-title {
-  padding-left: 24px;
-  padding-right: 24px;
+input.input:placeholder-shown {
+  font-weight: normal;
 }
 
-.section-form-title .text-input {
+.input {
   border: 0;
   outline: 0;
   background: transparent;
@@ -30,19 +29,28 @@
   width: 100%;
   color: #333333;
   font-family: SourceSansPro;
-  font-size: 13px;
   margin: 12px 0px 0px 0px;
 }
 
-.section-form-title .text-input.large {
-  font-size: 24px;
-}
-
-.section-form-title .text-input:focus {
+.input:focus {
   -webkit-animation-name: input-focus;
   -webkit-animation-duration: 0.3s;
   animation-name: input-focus;
   animation-duration: 0.3s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
+}
+
+.text-input {
+  font-size: 13px;
+}
+
+.text-input.large {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.input.question-input {
+  font-size: 16px;
+  font-weight: bold;
 }
