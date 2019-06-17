@@ -12,6 +12,7 @@ import Dashboard from "./components/dashboard/dashboard";
 import auth from "./services/authService";
 import ProtectedRoute from "./components/common/protectedRoute";
 import CreateSurvey from "./components/create-survey/createSurvey";
+import Feedback from "./components/feedback";
 
 class App extends Component {
   state = {};
@@ -26,18 +27,14 @@ class App extends Component {
         <NavBar user={user} />
         <main className="container-fluid">
           <Switch>
-            <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
+            <Route path="/feedback" component={Feedback} />
+            <ProtectedRoute path="/signin" component={SignIn} />
             <ProtectedRoute path="/signout" component={SignOut} />
-            <Route path="/forgotPassword" component={ForgotPassword} />
-            <Route path="/pwEmailSent" component={PwEmailSent} />
-
-            <ProtectedRoute path="/dashboard" component={Dashboard} />
-            <ProtectedRoute path="/createSurvey" component={CreateSurvey} />
-
             <Route path="/not-found" component={NotFound} />
 
-            <Redirect from="/" exact to="/dashboard" />
+            <ProtectedRoute path="/dashboard" component={Dashboard} />
+
+            <Redirect from="/" exact to="/feedback" />
             <Redirect to="/not-found" />
           </Switch>
         </main>

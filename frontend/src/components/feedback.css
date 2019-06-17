@@ -1,0 +1,10 @@
+.feedback-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin-top: 150px;
+}
+
+div.form.feedback-form {
+  width: 100%;
+  grid-column: 2;
+}

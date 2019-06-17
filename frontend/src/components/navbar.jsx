@@ -6,19 +6,16 @@ import { Navbar, Nav } from "react-bootstrap";
 const NavBar = ({ user }) => {
   return (
     <Navbar bg="light" expand="lg">
-      <Link className="navbar-brand" to={user ? "/" : "/signin"}>
+      <Link className="navbar-brand" to={user ? "/" : "/feedback"}>
         <Logo />
       </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        {user ? (
+        {user && (
           <React.Fragment>
             <Nav>
               <NavLink className="nav-item nav-link mr-sm-2" to="/dashboard">
                 DASHBOARD
-              </NavLink>
-              <NavLink className="nav-item nav-link mr-sm-2" to="/createSurvey">
-                CREATE SURVEY
               </NavLink>
             </Nav>
             <Nav className="ml-auto">
@@ -27,15 +24,6 @@ const NavBar = ({ user }) => {
               </NavLink>
             </Nav>
           </React.Fragment>
-        ) : (
-          <Nav className="mr-auto">
-            <NavLink className="nav-item nav-link" to="/signin">
-              SIGN IN
-            </NavLink>
-            <NavLink className="nav-item nav-link" to="/signup">
-              SIGN UP
-            </NavLink>
-          </Nav>
         )}
       </Navbar.Collapse>
     </Navbar>
