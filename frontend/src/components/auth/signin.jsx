@@ -40,13 +40,13 @@ class SignIn extends Form {
     }
     if (redirect) {
       const { state } = this.props.location;
-      this.handleRedirectHard(state ? state.from.pathname : "/");
+      this.handleRedirectHard(state ? state.from.pathname : "/dashboard");
     }
     this.toggleSubmitFlag(this.state.submitPressed);
   };
 
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/" />;
+    if (auth.getCurrentUser()) return <Redirect to="/dashboard" />;
 
     return (
       <div className="container-fluid">

@@ -9,12 +9,18 @@ class Dashboard extends Component {
 
   async componentDidMount() {
     const allFeedback = await getAllFeedback();
-    this.setState({ allFeedback: allFeedback.data });
+    this.setState({ allFeedback: allFeedback.data.reverse() });
   }
 
   formatTime(time) {
-    const date = new Date(time).toDateString();
-    return <div>{date}</div>;
+    const date = new Date(time);
+    const dateString = date.toDateString();
+    const timeString = date.toLocaleTimeString();
+    return (
+      <div>
+        {dateString} - {timeString}
+      </div>
+    );
   }
 
   render() {

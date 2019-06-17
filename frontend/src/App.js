@@ -28,11 +28,11 @@ class App extends Component {
         <main className="container-fluid">
           <Switch>
             <Route path="/feedback" component={Feedback} />
-            <ProtectedRoute path="/signin" component={SignIn} />
+            <ProtectedRoute path="/dashboard" component={Dashboard} />
+
+            <Route path="/signin" component={SignIn} />
             <ProtectedRoute path="/signout" component={SignOut} />
             <Route path="/not-found" component={NotFound} />
-
-            <ProtectedRoute path="/dashboard" component={Dashboard} />
 
             <Redirect from="/" exact to="/feedback" />
             <Redirect to="/not-found" />

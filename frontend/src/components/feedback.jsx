@@ -23,9 +23,9 @@ class Feedback extends Form {
     this.setState({ modalShow: true });
   };
 
-  render() {
-    let modalClose = () => this.setState({ modalShow: false });
+  modalClose = () => this.setState({ modalShow: false });
 
+  render() {
     return (
       <React.Fragment>
         <div className="feedback-container">
@@ -46,7 +46,7 @@ class Feedback extends Form {
         </div>
         <ConfirmationModal
           show={this.state.modalShow}
-          onHide={modalClose}
+          onHide={this.modalClose}
           data={this.state.data.feedback}
         />
       </React.Fragment>
