@@ -2,6 +2,9 @@
 @import "styles/fonts.css";
 @import "styles/animations.css";
 
+/** IMPORT FEEDBACK **/
+@import "components/feedback.css";
+
 /** IMPORT NAV STYLE **/
 @import "styles/navbar.css";
 
@@ -11,6 +14,7 @@
 /** IMPORT COMMON STYLES **/
 @import "styles/common/input.css";
 @import "styles/common/section-form.css";
+@import "components/common/confirmation-modal.css";
 
 /** IMPORT AUTH STYLES **/
 @import "styles/auth/signin.css";

@@ -46,3 +46,7 @@ p.show-all:hover {
 .loader {
   width: 100%;
 }
+
+.dashboard-container .main-view {
+  width: 100%;
+}

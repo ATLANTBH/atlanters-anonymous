@@ -1,13 +1,37 @@
 import React, { Component } from "react";
 import SurveysContainer from "./containers/surveys-container";
+import { getAllFeedback } from "../../services/feedbackService";
 
 class Dashboard extends Component {
+  state = {
+    allFeedback: []
+  };
+
+  async componentDidMount() {
+    const allFeedback = await getAllFeedback();
+    this.setState({ allFeedback: allFeedback.data });
+  }
+
+  formatTime(time) {
+    const date = new Date(time).toDateString();
+    return <div>{date}</div>;
+  }
+
   render() {
     return (
       <div className="dashboard-container">
         <div className="main-view">
-          <SurveysContainer isDraft={false} />
-          <SurveysContainer isDraft={true} />
+          {this.state.allFeedback.map(element => (
+            <div
+              className="form text-center"
+              key={element.id}
+              style={{ marginTop: "30px" }}
+            >
+              <div>{this.formatTime(element.createdAt)}</div>
+              <hr />
+              {element.data}
+            </div>
+          ))}
         </div>
       </div>
     );
