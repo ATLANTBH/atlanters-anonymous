@@ -14,7 +14,8 @@
 /** IMPORT COMMON STYLES **/
 @import "styles/common/input.css";
 @import "styles/common/section-form.css";
-@import "components/common/confirmation-modal.css";
+@import "components/common/modal.css";
+@import "styles/common/buttons.css";
 
 /** IMPORT AUTH STYLES **/
 @import "styles/auth/signin.css";

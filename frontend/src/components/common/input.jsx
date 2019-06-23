@@ -16,7 +16,6 @@ const Input = ({ name, label, error, ...rest }) => {
           name={name}
           id={name}
           className={error ? "form-control error" : "form-control"}
-          placeholder={label}
         />
       ) : (
         <input
@@ -24,7 +23,6 @@ const Input = ({ name, label, error, ...rest }) => {
           name={name}
           id={name}
           className={error ? "form-control error" : "form-control"}
-          placeholder={label}
         />
       )}
       {error && <div className="error-text">{error}</div>}

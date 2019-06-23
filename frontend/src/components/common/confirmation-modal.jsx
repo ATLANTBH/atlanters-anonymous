@@ -1,5 +1,5 @@
-import { Modal, Button } from "react-bootstrap";
-import React, { Component } from "react";
+import { Modal } from "react-bootstrap";
+import React from "react";
 import Form from "./form";
 import { sendFeedback } from "../../services/feedbackService";
 
@@ -12,11 +12,10 @@ class ConfirmationModal extends Form {
   schema = {};
 
   doSubmit = async () => {
-    const { submitPressed, cancelPressed } = this.state;
+    const { submitPressed } = this.state;
     const { data } = this.props;
     let redirect = true;
     try {
-      console.log("a");
       this.toggleSubmitFlag(submitPressed);
       await sendFeedback(data);
     } catch (err) {
@@ -31,10 +30,7 @@ class ConfirmationModal extends Form {
     this.toggleSubmitFlag(submitPressed);
 
     if (redirect) {
-      alert("Message sent, thanks for your feedback");
-      this.props.onHide();
-      // const { state } = this.props.location;
-      // this.handleRedirectHard(state ? state.from.pathname : "/");
+      this.props.onSubmit();
     }
   };
 
@@ -45,27 +41,22 @@ class ConfirmationModal extends Form {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className="modal-container"
       >
         <div className="form modal-form">
           <div className="title text-center">Are you sure?</div>
-
-          <div className="body text-center">{this.props.data}</div>
-          <div className="modal-btns-form text-right">
+          <div className="modal-btns-form text-center">
             <form className="modal-btns" onSubmit={this.handleSubmit}>
-              {this.renderButton(
-                "Send",
-                "sign-in btn yes-btn",
-                this.submitPressed
-              )}
               <button
                 type="button"
                 name="Cancel"
                 disabled={this.cancelPressed}
-                className="sign-in btn cancel-btn"
+                className="btn btn-primary empty1"
                 onClick={this.props.onHide}
               >
-                <div className="sign-text">Cancel</div>
+                <div className="empty1-text">Go Back</div>
               </button>
+              {this.renderButton("Send", "filled1", this.submitPressed)}
             </form>
           </div>
         </div>
