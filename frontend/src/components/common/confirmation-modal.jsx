@@ -12,11 +12,10 @@ class ConfirmationModal extends Form {
   schema = {};
 
   doSubmit = async () => {
-    const { submitPressed } = this.state;
     const { data } = this.props;
     let redirect = true;
     try {
-      this.toggleSubmitFlag(submitPressed);
+      this.toggleSubmitFlag(this.state.submitPressed);
       await sendFeedback(data);
     } catch (err) {
       if (err.response && err.response.status === 400) {
@@ -27,10 +26,10 @@ class ConfirmationModal extends Form {
       }
       redirect = false;
     }
-    this.toggleSubmitFlag(submitPressed);
+    this.toggleSubmitFlag(this.state.submitPressed);
 
     if (redirect) {
-      this.props.onSubmit();
+      this.props.confirm();
     }
   };
 
@@ -56,7 +55,7 @@ class ConfirmationModal extends Form {
               >
                 <div className="empty1-text">Go Back</div>
               </button>
-              {this.renderButton("Send", "filled1", this.submitPressed)}
+              {this.renderButton("Send", "filled1", this.state.submitPressed)}
             </form>
           </div>
         </div>
