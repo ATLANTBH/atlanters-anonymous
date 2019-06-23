@@ -39,7 +39,7 @@ class Feedback extends Sequelize.Model {
         pass: process.env.EMAIL_FEEDBACK_PW,
       },
     });
-    await transporter.sendMail({
+    return await transporter.sendMail({
       from: process.env.EMAIL_FEEDBACK,
       to: process.env.EMAIL_FEEDBACK,
       subject: createdAt,

@@ -1,0 +1,43 @@
+.modal.fade .modal-dialog {
+  width: auto;
+  max-width: 350px;
+}
+
+.form.modal-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.form.modal-form .title {
+  font-family: SourceSansPro;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  grid-row: 1;
+}
+
+.form.modal-form .modal-btns-form {
+  grid-row: 2;
+}
+
+.form.modal-form .modal-btns-form .btn {
+  margin-right: 10px;
+}
+
+form.modal-btns {
+  align-items: center;
+}
+
+form.modal-btns .btn {
+  width: 100px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+  padding: 0px;
+}
