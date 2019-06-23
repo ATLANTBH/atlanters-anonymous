@@ -15,6 +15,7 @@ class ConfirmationModal extends Form {
     const { data } = this.props;
     let redirect = true;
     try {
+      this.props.submitClicked();
       this.toggleSubmitFlag(this.state.submitPressed);
       await sendFeedback(data);
     } catch (err) {
@@ -27,10 +28,7 @@ class ConfirmationModal extends Form {
       redirect = false;
     }
     this.toggleSubmitFlag(this.state.submitPressed);
-
-    if (redirect) {
-      this.props.confirm();
-    }
+    this.props.confirm(redirect);
   };
 
   render() {

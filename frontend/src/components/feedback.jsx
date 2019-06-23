@@ -23,7 +23,6 @@ class Feedback extends Form {
 
   triggerModal = e => {
     e.preventDefault();
-    this.toggleSubmitFlag(this.state.submitPressed);
     this.setState({ modalShow: true });
   };
 
@@ -32,9 +31,16 @@ class Feedback extends Form {
   successClose = () =>
     this.setState({ successShow: false, submitPressed: false });
 
-  handleConfirm = () => {
-    console.log("SET STATE");
-    this.setState({ modalShow: false, successShow: true, submitPressed: true });
+  handleConfirm = successShow => {
+    this.setState({
+      modalShow: false,
+      successShow,
+      submitPressed: false
+    });
+  };
+
+  handleSubmitClicked = () => {
+    this.setState({ submitPressed: true });
   };
 
   render() {
@@ -69,6 +75,7 @@ class Feedback extends Form {
           onHide={this.modalClose}
           data={this.state.data.feedback}
           confirm={this.handleConfirm}
+          submitClicked={this.handleSubmitClicked}
         />
         <SuccessModal
           show={this.state.successShow}
