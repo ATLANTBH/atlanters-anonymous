@@ -51,7 +51,7 @@ class Feedback extends Form {
             <div className="form feedback-form">
               {this.renderInput(
                 "feedback",
-                "Feedback",
+                "Help us become even better",
                 "A penny for your thoughts...",
                 "textarea",
                 {
