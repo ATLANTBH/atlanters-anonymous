@@ -4,6 +4,10 @@
   margin-top: 200px;
 }
 
+.feedback-container .form-group {
+  text-align: center;
+}
+
 div.form.feedback-form {
   width: 100%;
   grid-column: 3;
@@ -12,13 +16,14 @@ div.form.feedback-form {
 }
 
 div.form.feedback-form label {
-  font-size: 16px;
-  margin-bottom: 10px;
+  font-size: 24px;
   font-family: SourceSansPro;
+  width: 100%;
 }
 
 div.form.feedback-form textarea {
   font-family: SourceSansPro;
+  margin-top: 22px;
 }
 
 div .feedback-container .invis-container {
