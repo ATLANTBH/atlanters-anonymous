@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
+import classNames from "classnames";
 
 class Form extends Component {
   state = {
@@ -109,23 +110,25 @@ class Form extends Component {
   };
 
   renderSubmitButton(label, className, buttonPressed = false) {
-    const btnClassName = "btn btn-primary " + className;
     return (
       <button
         type="submit"
         disabled={this.validate() || buttonPressed}
-        className={btnClassName}
+        className={classNames("btn btn-primary", className)}
       >
-        <div className={className + "-text"}>{label}</div>
+        <div className={classNames(className + "-text")}>{label}</div>
       </button>
     );
   }
 
   renderButton(label, className, onClick) {
-    const btnClassName = "btn btn-primary " + className;
     return (
-      <button type="button" onClick={onClick} className={btnClassName}>
-        <div className={className + "-text"}>{label}</div>
+      <button
+        type="button"
+        onClick={onClick}
+        className={classNames("btn btn-primary", className)}
+      >
+        <div className={classNames(className + "-text")}>{label}</div>
       </button>
     );
   }

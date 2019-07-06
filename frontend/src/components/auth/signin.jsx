@@ -3,6 +3,9 @@ import Joi from "joi-browser";
 import Form from "../common/form";
 import auth from "../../services/authService";
 import { Redirect } from "react-router-dom";
+import Utils from "../../utils";
+
+const { signUp, forgotPassword, dashboard } = Utils.string.PATHS;
 
 class SignIn extends Form {
   state = {
@@ -40,13 +43,13 @@ class SignIn extends Form {
     }
     if (redirect) {
       const { state } = this.props.location;
-      this.handleRedirectHard(state ? state.from.pathname : "/dashboard");
+      this.handleRedirectHard(state ? state.from.pathname : dashboard);
     }
     this.toggleSubmitFlag(this.state.submitPressed);
   };
 
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/dashboard" />;
+    if (auth.getCurrentUser()) return <Redirect to={dashboard} />;
 
     return (
       <div className="container-fluid">
@@ -61,7 +64,7 @@ class SignIn extends Form {
                   <a
                     className="forgot-password"
                     onClick={() => {
-                      this.handleRedirect("forgotPassword");
+                      this.handleRedirect(forgotPassword);
                     }}
                   >
                     Forgot password?
@@ -95,7 +98,7 @@ class SignIn extends Form {
                 </div>
               </div>
               {this.renderButton("SIGN UP", "sign-up empty1", () => {
-                this.handleRedirect("signup");
+                this.handleRedirect(signUp);
               })}
             </form>
           </div>

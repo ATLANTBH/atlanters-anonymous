@@ -11,7 +11,7 @@ class SectionForm extends Component {
   ) {
     return (
       <input
-        className={"input text-input " + (large ? "large" : "")}
+        className={classNames("input text-input", { large: large })}
         type={type}
         name={name}
         placeholder={placeholder}

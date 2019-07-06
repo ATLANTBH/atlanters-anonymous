@@ -1,5 +1,7 @@
 import { Component } from "react";
 import auth from "../../services/authService";
+import Utils from "../../utils";
+const { empty, signIn } = Utils.string.PATHS;
 
 export default class SignOut extends Component {
   async componentDidMount() {
@@ -9,10 +11,10 @@ export default class SignOut extends Component {
       if (err.response && err.response.status === 400) {
         alert("Sign out not successful: " + err.response.data.message);
       }
-      window.location = "/";
+      window.location = empty;
       return;
     }
-    window.location = "/signin";
+    window.location = signIn;
   }
 
   render() {

@@ -3,6 +3,9 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import auth from "../../services/authService";
 import { Redirect } from "react-router-dom";
+import Utils from "../../utils";
+
+const { empty } = Utils.string.PATHS;
 
 class SignUp extends Form {
   state = {
@@ -49,13 +52,13 @@ class SignUp extends Form {
     }
     if (redirect) {
       const { state } = this.props.location;
-      this.handleRedirectHard(state ? state.from.pathname : "/");
+      this.handleRedirectHard(state ? state.from.pathname : empty);
     }
     this.toggleSubmitFlag(this.state.submitPressed);
   };
 
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/" />;
+    if (auth.getCurrentUser()) return <Redirect to={empty} />;
 
     return (
       <div className="container-fluid">

@@ -6,6 +6,15 @@ import auth from "./services/authService";
 import Feedback from "./components/feedback/feedback";
 import FeedbackConfirm from "./components/feedback/feedback-confirm";
 import FeedbackSend from "./components/feedback/feedback-send";
+import Utils from "./utils";
+
+const {
+  feedbackSend,
+  feedback,
+  feedbackConfirm,
+  notFound,
+  empty
+} = Utils.string.PATHS;
 
 class App extends Component {
   state = {};
@@ -20,15 +29,15 @@ class App extends Component {
         <NavBar user={user} />
         <main className="container-fluid">
           <Switch>
-            <Route path="/feedback-send" component={FeedbackSend} />
+            <Route path={feedbackSend} component={FeedbackSend} />
 
-            <Route path="/feedback" component={Feedback} />
-            <Route path="/feedback-confirm" component={FeedbackConfirm} />
+            <Route path={feedback} component={Feedback} />
+            <Route path={feedbackConfirm} component={FeedbackConfirm} />
 
-            <Route path="/not-found" component={NotFound} />
+            <Route path={notFound} component={NotFound} />
 
-            <Redirect from="/" exact to="/feedback" />
-            <Redirect to="/not-found" />
+            <Redirect from={empty} exact to={feedback} />
+            <Redirect to={notFound} />
           </Switch>
         </main>
       </React.Fragment>
