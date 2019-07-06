@@ -49,9 +49,10 @@ class Feedback extends Form {
         <div className="feedback-container">
           <form className="invis-container" onSubmit={this.triggerModal}>
             <div className="form feedback-form">
+              <div className="title">Help us become even better</div>
               {this.renderInput(
                 "feedback",
-                "Help us become even better",
+                "How can we improve?",
                 "A penny for your thoughts...",
                 false,
                 "textarea",
