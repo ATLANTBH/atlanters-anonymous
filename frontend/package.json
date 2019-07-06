@@ -9,6 +9,7 @@
     "jwt-decode": "^2.2.0",
     "raven-js": "^3.27.2",
     "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.4",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
     "react-infinite-scroller": "^1.2.1",

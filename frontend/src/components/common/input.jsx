@@ -1,10 +1,6 @@
 import React from "react";
 
 const Input = ({ name, label, error, ...rest }) => {
-  const getInput = () => {
-    return rest.type === "textarea" ? <textarea /> : <input />;
-  };
-
   return (
     <div className="form-group">
       <label className="basic" htmlFor={name}>

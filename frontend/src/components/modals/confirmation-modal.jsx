@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import React from "react";
-import Form from "./form";
+import Form from "../common/form";
 import { sendFeedback } from "../../services/feedbackService";
 
 class ConfirmationModal extends Form {
@@ -47,7 +47,7 @@ class ConfirmationModal extends Form {
               <button
                 type="button"
                 name="Cancel"
-                disabled={this.cancelPressed}
+                disabled={this.state.cancelPressed}
                 className="btn btn-primary empty1"
                 onClick={this.props.onHide}
               >
