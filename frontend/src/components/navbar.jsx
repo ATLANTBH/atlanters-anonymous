@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Navbar, Nav } from "react-bootstrap";
 
 const NavBar = ({ user }) => {

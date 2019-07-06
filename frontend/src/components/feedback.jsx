@@ -53,6 +53,7 @@ class Feedback extends Form {
                 "feedback",
                 "Help us become even better",
                 "A penny for your thoughts...",
+                false,
                 "textarea",
                 {
                   wrap: "hard",
@@ -61,11 +62,16 @@ class Feedback extends Form {
                   disabled: this.state.submitPressed
                 }
               )}
-              {this.renderButton(
-                "SEND",
-                "submit filled1",
-                this.state.submitPressed
-              )}
+              <small className="form-text">
+                *Everything you send us will be completely anonymous
+              </small>
+              <div className="submit-container">
+                {this.renderButton(
+                  "SEND",
+                  "submit filled1",
+                  this.state.submitPressed
+                )}
+              </div>
             </div>
           </form>
         </div>
