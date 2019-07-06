@@ -1,0 +1,13 @@
+.result-container {
+  margin: 5px;
+}
+
+.result-container .header {
+  display: flex;
+}
+
+.status-image {
+  width: 24px;
+  height: 24px;
+  margin: 6px 8px 5px 1px;
+}

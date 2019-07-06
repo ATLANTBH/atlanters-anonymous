@@ -1,62 +1,39 @@
 import { Modal } from "react-bootstrap";
 import React from "react";
 import Form from "../common/form";
-import { sendFeedback } from "../../services/feedbackService";
 
 class ConfirmationModal extends Form {
-  state = {
-    submitPressed: false,
-    cancelPressed: false,
-    errors: {}
-  };
+  state = {};
   schema = {};
 
-  doSubmit = async () => {
-    const { data } = this.props;
-    let redirect = true;
-    try {
-      this.props.submitClicked();
-      this.toggleSubmitFlag(this.state.submitPressed);
-      await sendFeedback(data);
-    } catch (err) {
-      if (err.response && err.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.email = " ";
-        errors.password = err.response.data.message;
-        this.setState({ errors });
-      }
-      redirect = false;
-    }
-    this.toggleSubmitFlag(this.state.submitPressed);
-    this.props.confirm(redirect);
+  onSubmit = async () => {
+    this.props.onConfirm();
   };
 
   render() {
+    const { onHide, show } = this.props;
     return (
       <Modal
-        {...this.props}
+        onHide={onHide}
+        show={show}
         size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
+        aria-labelledby="modal"
         centered
         className="modal-container"
       >
-        <div className="form modal-form">
-          <div className="title text-center">Are you sure?</div>
-          <div className="modal-btns-form text-center">
-            <form className="modal-btns" onSubmit={this.handleSubmit}>
-              <button
-                type="button"
-                name="Cancel"
-                disabled={this.state.cancelPressed}
-                className="btn btn-primary empty1"
-                onClick={this.props.onHide}
-              >
-                <div className="empty1-text">Go Back</div>
-              </button>
-              {this.renderButton("Send", "filled1", this.state.submitPressed)}
-            </form>
+        <form className="invis-container" onSubmit={this.onSubmit}>
+          <div className="form confirm-form">
+            <div className="title">Are you sure?</div>
+            <div className="text">
+              Last chance to edit your comment. Are you sure you want to send
+              your feedback?
+            </div>
+            <div className="submit-container">
+              {this.renderButton("GO BACK", "submit empty1", onHide)}
+              {this.renderSubmitButton("SEND", "submit filled1")}
+            </div>
           </div>
-        </div>
+        </form>
       </Modal>
     );
   }
