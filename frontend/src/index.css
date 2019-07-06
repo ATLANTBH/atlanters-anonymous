@@ -3,7 +3,7 @@
 @import "styles/animations.css";
 
 /** IMPORT FEEDBACK **/
-@import "components/feedback.css";
+@import "styles/feedback.css";
 
 /** IMPORT NAV STYLE **/
 @import "styles/navbar.css";
@@ -13,28 +13,16 @@
 
 /** IMPORT COMMON STYLES **/
 @import "styles/common/input.css";
-@import "styles/common/section-form.css";
-@import "components/common/modal.css";
 @import "styles/common/buttons.css";
+
+/** IMPORT MODAL STYLES **/
+@import "styles/modals/modal.css";
 
 /** IMPORT AUTH STYLES **/
 @import "styles/auth/signin.css";
 @import "styles/auth/signup.css";
 @import "styles/auth/forgot-password.css";
 @import "styles/auth/pw-email-sent.css";
-
-/** IMPORT CREATE SURVEY STYLES **/
-@import "components/create-survey/create-survey.css";
-@import "components/create-survey/widget.css";
-@import "components/create-survey/navigator.css";
-/** IMPORT WIDGET FORM STYLES **/
-@import "components/create-survey/widget-forms/short-answer/short-answer.css";
-@import "components/create-survey/widget-forms/survey-section.css";
-@import "components/create-survey/widget-forms/title/title.css";
-
-/** IMPORT DASHBOARD STYLES **/
-@import "styles/dashboard/dashboard.css";
-@import "styles/dashboard/cards/poll-card.css";
 
 body {
   margin: 0;

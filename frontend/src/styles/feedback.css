@@ -6,31 +6,33 @@
 
 .feedback-container .form-group {
   text-align: center;
+  margin: 0px;
 }
 
-div.form.feedback-form {
+.form.feedback-form {
   width: 100%;
   grid-column: 3;
   margin: 0px;
-  padding: 24px 24px 10px 24px;
+  padding: 24px 24px 24px 24px;
+  height: 252px;
 }
 
-div.form.feedback-form label {
+.form.feedback-form label {
   font-size: 24px;
   font-family: SourceSansPro;
   width: 100%;
 }
 
-div.form.feedback-form textarea {
+.form.feedback-form textarea {
   font-family: SourceSansPro;
   margin-top: 22px;
 }
 
-div .feedback-container .invis-container {
+.feedback-container .invis-container {
   grid-column: 3;
 }
 
-button.submit.filled1 {
+.submit.filled1 {
+  margin-top: 12px;
   float: right;
-  margin-top: 8px;
 }

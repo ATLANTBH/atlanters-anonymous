@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import React from "react";
-import Form from "./form";
+import Form from "../common/form";
 
 class SuccessModal extends Form {
   state = {

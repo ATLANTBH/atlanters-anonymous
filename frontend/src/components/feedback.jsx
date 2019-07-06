@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Form from "./common/form";
 import Joi from "joi-browser";
 import { sendFeedback } from "../services/feedbackService";
-import ConfirmationModal from "./common/confirmation-modal";
-import SuccessModal from "./common/success-modal";
+import ConfirmationModal from "./modals/confirmation-modal";
+import SuccessModal from "./modals/success-modal";
 
 class Feedback extends Form {
   state = {
@@ -61,12 +61,12 @@ class Feedback extends Form {
                   disabled: this.state.submitPressed
                 }
               )}
+              {this.renderButton(
+                "SEND",
+                "submit filled1",
+                this.state.submitPressed
+              )}
             </div>
-            {this.renderButton(
-              "SEND",
-              "submit filled1",
-              this.state.submitPressed
-            )}
           </form>
         </div>
 

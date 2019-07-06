@@ -1,6 +1,6 @@
 button.filled1 {
   background-color: #00a3da;
-  margin-top: 18px;
+  margin: 0px;
   height: 28px;
   width: 100px;
   color: #ffffff;
@@ -16,6 +16,8 @@ button.filled1 {
 button.filled1:disabled {
   background-color: #c1c2c2 !important;
   border-color: #c1c2c2 !important;
+  opacity: 1;
+  box-shadow: 0 6px 6px -6px #c1c2c2;
 }
 
 button.filled1:hover:disabled {
