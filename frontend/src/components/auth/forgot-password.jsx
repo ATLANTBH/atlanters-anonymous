@@ -3,6 +3,9 @@ import Joi from "joi-browser";
 import Form from "../common/form";
 import { Redirect } from "react-router-dom";
 import auth from "../../services/authService";
+import Utils from "../../utils";
+
+const { signIn, passwordSent } = Utils.string.PATHS;
 
 class SignIn extends Form {
   state = {
@@ -20,7 +23,7 @@ class SignIn extends Form {
 
   doSubmit = () => {
     const { email } = this.state.data;
-    this.handleRedirect("pwEmailSent", { email });
+    this.handleRedirect(passwordSent, { email });
   };
 
   render() {
@@ -38,7 +41,7 @@ class SignIn extends Form {
                 <div className="col form-group text-center return-sign-in-text">
                   <a
                     onClick={() => {
-                      this.handleRedirect("signin");
+                      this.handleRedirect(signIn);
                     }}
                   >
                     Return to sign in

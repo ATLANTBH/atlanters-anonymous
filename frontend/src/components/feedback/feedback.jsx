@@ -2,6 +2,9 @@ import React from "react";
 import Form from "../common/form";
 import Joi from "joi-browser";
 import ConfirmationModal from "../modals/confirmation-modal";
+import Utils from "../../utils";
+
+const { feedbackSend } = Utils.string.PATHS;
 
 class Feedback extends Form {
   state = {
@@ -29,7 +32,7 @@ class Feedback extends Form {
 
   handleConfirm = () => {
     const { feedback } = this.state.data;
-    this.handleRedirect("feedback-send", { feedback });
+    this.handleRedirect(feedbackSend, { feedback });
   };
 
   componentDidMount = () => {

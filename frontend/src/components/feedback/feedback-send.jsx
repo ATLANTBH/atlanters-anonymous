@@ -3,6 +3,9 @@ import Form from "../common/form";
 import { sendFeedback } from "../../services/feedbackService";
 import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
+import Utils from "../../utils";
+
+const { feedback } = Utils.string.PATHS;
 
 class FeedbackSend extends Form {
   state = {
@@ -13,11 +16,11 @@ class FeedbackSend extends Form {
 
   async componentDidMount() {
     const { state } = this.props.location;
-    if (!state) return this.handleRedirect("feedback");
-    const { feedback } = state.params;
+    if (!state) return this.handleRedirect(feedback);
+    const feedbackText = state.params.feedback;
     let error = null;
     try {
-      await sendFeedback(feedback);
+      await sendFeedback(feedbackText);
     } catch (err) {
       error = err.message;
       if (err.response && err.response.status === 400) {

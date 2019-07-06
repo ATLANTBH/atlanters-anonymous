@@ -1,5 +1,8 @@
 import React from "react";
 import Form from "../common/form";
+import Utils from "../../utils";
+
+const { feedback, feedbackSend } = Utils.string.PATHS;
 
 class FeedbackConfirm extends Form {
   state = {
@@ -9,11 +12,11 @@ class FeedbackConfirm extends Form {
   schema = {};
 
   doSubmit = async () => {
-    this.handleRedirect("feedback-send");
+    this.handleRedirect(feedbackSend);
   };
 
   onBackPressed = () => {
-    this.handleRedirect("feedback");
+    this.handleRedirect(feedback);
   };
 
   render() {

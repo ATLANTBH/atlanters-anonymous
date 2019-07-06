@@ -1,8 +1,11 @@
 import http from "./httpService";
 import { apiUrl } from "../config.json";
 import jwtDecode from "jwt-decode";
+import Utils from "../utils";
 
-const apiEndpoint = apiUrl + "/auth";
+const { TOKEN_HEADER, PATHS } = Utils.string;
+const { auth, signUp, signIn, signOut } = PATHS;
+const apiEndpoint = apiUrl + auth;
 
 http.setJwt(getJwt());
 
@@ -11,28 +14,28 @@ export function getJwt() {
 }
 
 export async function register(user) {
-  const { headers } = await http.post(apiEndpoint + "/sign-up", {
+  const { headers } = await http.post(apiEndpoint + signUp, {
     email: user.email,
     password: user.signUpPassword,
     name: user.fullName,
     surname: user.fullName
   });
-  localStorage.setItem("token", headers["x-auth"]);
+  localStorage.setItem("token", headers[TOKEN_HEADER]);
 }
 
 export async function login(user) {
-  const { headers } = await http.post(apiEndpoint + "/sign-in", {
+  const { headers } = await http.post(apiEndpoint + signIn, {
     email: user.email,
     password: user.password
   });
-  localStorage.setItem("token", headers["x-auth"]);
+  localStorage.setItem("token", headers[TOKEN_HEADER]);
 }
 
 export async function logout() {
   const jwt = localStorage.getItem("token");
-  await http.delete(apiEndpoint + "/sign-out", {
+  await http.delete(apiEndpoint + signOut, {
     headers: {
-      "x-auth": jwt
+      TOKEN_HEADER: jwt
     }
   });
   localStorage.removeItem("token");

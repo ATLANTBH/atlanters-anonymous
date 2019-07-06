@@ -2,10 +2,13 @@ import React from "react";
 import Form from "../common/form";
 import { Redirect } from "react-router-dom";
 import auth from "../../services/authService";
+import Utils from "../../utils";
 
-class PwEmailSent extends Form {
+const { empty, signIn } = Utils.string.PATHS;
+
+class PasswordSent extends Form {
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/" />;
+    if (auth.getCurrentUser()) return <Redirect to={empty} />;
 
     const state = this.props.location.state;
     return (
@@ -22,13 +25,13 @@ class PwEmailSent extends Form {
                 </p>
                 <p className="p2 title">Didn't receive the email?</p>
                 <p className="par">
-                  Check spam or bulk folders for a message coming from{" "}
+                  Check spam or bulk folders for a message coming from
                   <b>account-noreply@atlantbh.com</b>
                 </p>
                 <div className="col form-group text-center return-sign-in-text">
                   <a
                     onClick={() => {
-                      this.handleRedirect("signin");
+                      this.handleRedirect(signIn);
                     }}
                   >
                     Return to sign in
@@ -43,4 +46,4 @@ class PwEmailSent extends Form {
   }
 }
 
-export default PwEmailSent;
+export default PasswordSent;
