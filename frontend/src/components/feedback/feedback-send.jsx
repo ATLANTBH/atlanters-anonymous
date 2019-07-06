@@ -31,7 +31,7 @@ class FeedbackSend extends Form {
     const { isBeingSent, error } = this.state;
     return (
       <div className="feedback-container send">
-        <div className="form feedback-form">
+        <div className="form feedback-card">
           {isBeingSent ? (
             <div className="result-container">
               <div className="title">Please wait...</div>
@@ -58,7 +58,7 @@ class FeedbackSend extends Form {
               <div className="text">
                 {error
                   ? "Error: " + error
-                  : "Your feedback is greatly appreciated"}
+                  : "Thank you! Your feedback is greatly appreciated."}
               </div>
             </div>
           )}

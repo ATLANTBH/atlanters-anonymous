@@ -3,7 +3,11 @@
   height: 0;
 }
 
-.form.feedback-form .title {
+.form.feedback-card {
+  grid-column: 3;
+}
+
+.form.feedback-card .title {
   text-align: left;
 }
 
@@ -19,4 +23,10 @@
   width: 24px;
   height: 24px;
   margin: 6px 8px 5px 1px;
+}
+
+@media only screen and (max-width: 1300px) {
+  .form.feedback-card {
+    grid-column: 2;
+  }
 }

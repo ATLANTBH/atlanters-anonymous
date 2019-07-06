@@ -20,7 +20,7 @@ class FeedbackConfirm extends Form {
     return (
       <div className="feedback-container">
         <form className="invis-container" onSubmit={this.onSubmit}>
-          <div className="form feedback-form">
+          <div className="form feedback-card">
             <div className="title">Are you sure?</div>
             <div className="text">
               Last chance to edit your comment. Are you sure you want to send

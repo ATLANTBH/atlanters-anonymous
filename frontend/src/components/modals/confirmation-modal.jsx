@@ -22,7 +22,7 @@ class ConfirmationModal extends Form {
         className="modal-container"
       >
         <form className="invis-container" onSubmit={this.onSubmit}>
-          <div className="form feedback-form confirm">
+          <div className="form feedback-card confirm">
             <div className="title">Are you sure?</div>
             <div className="text">
               Last chance to edit your comment. Are you sure you want to send
