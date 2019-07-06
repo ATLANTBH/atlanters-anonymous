@@ -1,33 +1,3 @@
-.confirm-container {
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
-  margin-top: 200px;
-}
-
-.confirm-container .invis-container {
-  grid-column: 3;
-}
-
-.confirm-container .form-group {
-  margin: 0px;
-}
-
-.form.confirm-form {
-  color: #333333;
-  font-family: SourceSansPro;
-  text-align: left;
-  width: 100%;
-  grid-column: 3;
-  margin: 0px;
-  padding: 20px 24px 24px 24px;
-}
-
-.form.confirm-form .title {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
 .form.confirm-form .text {
   font-size: 16px;
 }

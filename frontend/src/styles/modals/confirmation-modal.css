@@ -1,0 +1,8 @@
+.feedback-form.confirm .title {
+  text-align: left;
+}
+
+.feedback-form.confirm .text {
+  color: #333333;
+  font-family: SourceSansPro;
+}
