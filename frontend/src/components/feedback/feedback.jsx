@@ -48,7 +48,7 @@ class Feedback extends Form {
       <React.Fragment>
         <div className="feedback-container">
           <form className="invis-container" onSubmit={this.onSubmit}>
-            <div className="form feedback-form">
+            <div className="form feedback-card">
               <div className="title">Help us become even better</div>
               {this.renderInput(
                 "feedback",
