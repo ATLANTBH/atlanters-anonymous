@@ -19,6 +19,7 @@
 
 /** IMPORT MODAL STYLES **/
 @import "styles/modals/modal.css";
+@import "styles/modals/confirmation-modal.css";
 
 /** IMPORT AUTH STYLES **/
 @import "styles/auth/signin.css";

@@ -30,14 +30,14 @@ class FeedbackSend extends Form {
   render() {
     const { isBeingSent, error } = this.state;
     return (
-      <div className="confirm-container">
-        <div className="form confirm-form">
+      <div className="feedback-container send">
+        <div className="form feedback-form">
           {isBeingSent ? (
-            <div>
-              <div className="title">Please wait</div>
+            <div className="result-container">
+              <div className="title">Please wait...</div>
               <hr />
               <div className="text">
-                Do not close this window. Sending your feedback...
+                Sending your feedback. Please do not close this window.
               </div>
             </div>
           ) : (

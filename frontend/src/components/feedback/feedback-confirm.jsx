@@ -18,9 +18,9 @@ class FeedbackConfirm extends Form {
 
   render() {
     return (
-      <div className="confirm-container">
+      <div className="feedback-container">
         <form className="invis-container" onSubmit={this.onSubmit}>
-          <div className="form confirm-form">
+          <div className="form feedback-form">
             <div className="title">Are you sure?</div>
             <div className="text">
               Last chance to edit your comment. Are you sure you want to send
