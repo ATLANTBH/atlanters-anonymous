@@ -1,6 +1,7 @@
 import React from "react";
 
-const Input = ({ name, label, error, ...rest }) => {
+const Input = ({ name, label, error, validateOnChange, ...rest }) => {
+  const validate = validateOnChange && error;
   return (
     <div className="form-group">
       <label className="basic" htmlFor={name}>
@@ -11,17 +12,17 @@ const Input = ({ name, label, error, ...rest }) => {
           {...rest}
           name={name}
           id={name}
-          className={error ? "form-control error" : "form-control"}
+          className={validate ? "form-control error" : "form-control"}
         />
       ) : (
         <input
           {...rest}
           name={name}
           id={name}
-          className={error ? "form-control error" : "form-control"}
+          className={validate ? "form-control error" : "form-control"}
         />
       )}
-      {error && <div className="error-text">{error}</div>}
+      {validate && <div className="error-text">{error}</div>}
     </div>
   );
 };

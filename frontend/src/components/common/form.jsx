@@ -121,7 +121,14 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label, placeholder, type = "text", opts = {}) {
+  renderInput(
+    name,
+    label,
+    placeholder,
+    validateOnChange = true,
+    type = "text",
+    opts = {}
+  ) {
     const { data, errors } = this.state;
     return (
       <Input
@@ -132,6 +139,7 @@ class Form extends Component {
         error={errors[name]}
         onChange={this.handleChange}
         placeholder={placeholder}
+        validateOnChange={validateOnChange}
         {...opts}
       />
     );
