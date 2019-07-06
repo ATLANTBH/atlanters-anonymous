@@ -1,9 +1,9 @@
 @font-face {
   font-family: Overpass;
-  src: url(../fonts/overpass-regular.otf);
+  src: url(../assets/fonts/overpass-regular.otf);
 }
 
 @font-face {
   font-family: SourceSansPro;
-  src: url(../fonts/SourceSansPro-Regular.otf);
+  src: url(../assets/fonts/SourceSansPro-Regular.otf);
 }

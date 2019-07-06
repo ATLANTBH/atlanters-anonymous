@@ -52,11 +52,17 @@ button.filled1:active {
 
 button.empty1 {
   width: 100%;
+  margin: 0px;
   background-color: transparent;
   border-color: #00a4d8;
-  border-width: 2px;
-  margin-top: 10px;
+  border-width: 1px;
   color: #00a4d8;
+  width: 100px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.66px;
+  line-height: 15px;
 }
 
 button.empty1:hover {
@@ -70,7 +76,7 @@ button.empty1:active {
   border-color: #0a90bd !important;
 }
 
-div.empty1-text {
+.empty1-text {
   font-family: SourceSansPro;
   font-weight: bold;
   letter-spacing: 0.3px;

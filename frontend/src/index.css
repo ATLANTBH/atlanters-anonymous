@@ -3,7 +3,9 @@
 @import "styles/animations.css";
 
 /** IMPORT FEEDBACK **/
-@import "styles/feedback.css";
+@import "styles/feedback/feedback.css";
+@import "styles/feedback/feedback-confirm.css";
+@import "styles/feedback/feedback-send.css";
 
 /** IMPORT NAV STYLE **/
 @import "styles/navbar.css";

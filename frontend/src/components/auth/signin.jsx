@@ -53,10 +53,10 @@ class SignIn extends Form {
         <div className="form-row row">
           <div className="col-lg-3">
             <form onSubmit={this.handleSubmit} className="form sign-in">
-              <h1 className="sign-in text-center">Sign in</h1>
+              <h1 className="header sign-in text-center">Sign in</h1>
               {this.renderInput("email", "Email", "Email", "email")}
               {this.renderInput("password", "Password", "Password", "password")}
-              <small className="form-text text-muted text-right">
+              <small className="info form-text text-muted text-right">
                 <ins>
                   <a
                     className="forgot-password"
@@ -68,7 +68,7 @@ class SignIn extends Form {
                   </a>
                 </ins>
               </small>
-              {this.renderButton(
+              {this.renderSubmitButton(
                 "SIGN IN",
                 "sign-in filled1",
                 this.state.submitPressed
@@ -94,15 +94,9 @@ class SignIn extends Form {
                   <hr />
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  this.handleRedirect("signup");
-                }}
-                className="btn btn-primary empty1"
-              >
-                <div className="empty1-text">SIGN UP</div>
-              </button>
+              {this.renderButton("SIGN UP", "sign-up empty1", () => {
+                this.handleRedirect("signup");
+              })}
             </form>
           </div>
         </div>

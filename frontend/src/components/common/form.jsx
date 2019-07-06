@@ -108,7 +108,7 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label, className, buttonPressed = false) {
+  renderSubmitButton(label, className, buttonPressed = false) {
     const btnClassName = "btn btn-primary " + className;
     return (
       <button
@@ -116,7 +116,16 @@ class Form extends Component {
         disabled={this.validate() || buttonPressed}
         className={btnClassName}
       >
-        <div className="sign-text">{label}</div>
+        <div className={className + "-text"}>{label}</div>
+      </button>
+    );
+  }
+
+  renderButton(label, className, onClick) {
+    const btnClassName = "btn btn-primary " + className;
+    return (
+      <button type="button" onClick={onClick} className={btnClassName}>
+        <div className={className + "-text"}>{label}</div>
       </button>
     );
   }

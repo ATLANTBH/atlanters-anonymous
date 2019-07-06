@@ -71,7 +71,7 @@ class SignUp extends Form {
                 "Confirm Password*",
                 "password"
               )}
-              {this.renderButton(
+              {this.renderSubmitButton(
                 "SIGN UP",
                 "sign-up",
                 this.state.submitPressed

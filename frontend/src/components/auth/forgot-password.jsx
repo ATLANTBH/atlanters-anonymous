@@ -33,7 +33,7 @@ class SignIn extends Form {
             <form onSubmit={this.handleSubmit} className="form forgot-password">
               <h1 className="forgot-password text-center">Forgot password?</h1>
               {this.renderInput("email", "Enter your email", "email")}
-              {this.renderButton("SUBMIT", "forgot-password")}
+              {this.renderSubmitButton("SUBMIT", "forgot-password")}
               <div className="row no-account-row">
                 <div className="col form-group text-center return-sign-in-text">
                   <a

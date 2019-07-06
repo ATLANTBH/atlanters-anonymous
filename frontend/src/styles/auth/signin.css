@@ -1,4 +1,4 @@
-h1.sign-in {
+.header .sign-in {
   height: 54px;
   color: #333333;
   font-family: SourceSansPro;
@@ -6,7 +6,7 @@ h1.sign-in {
   font-weight: bold;
 }
 
-small.form-text {
+.info.form-text.text-muted.text-right {
   margin-top: -10px;
   margin-bottom: 7px;
 }
@@ -18,12 +18,12 @@ small.form-text {
   line-height: 18px;
 }
 
-a.forgot-password:hover {
+.forgot-password:hover {
   color: #1b1b1b !important;
   cursor: pointer;
 }
 
-form button.sign-in {
+.form .sign-in.filled1 {
   width: 100%;
   background-color: #00a4d8;
   border-color: transparent;
@@ -34,33 +34,40 @@ form button.sign-in {
   font-weight: bold;
 }
 
-div.sign-text {
+.form .sign-up.empty1 {
+  width: 100%;
+  height: 42px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sign-text {
   color: #ffffff;
   font-family: SourceSansPro;
   font-weight: bold;
   letter-spacing: 0.3px;
 }
 
-label.keep-signed-in {
+.keep-signed-in {
   color: #333333;
   font-family: Overpass;
   font-size: 12px;
   letter-spacing: 0.25px;
 }
 
-input.keep-signed-in {
+.form-check-input.keep-signed-in {
   margin-top: 7px;
 }
 
-div.no-account-row {
+.no-account-row {
   align-items: center;
 }
 
-div.no-account-row hr {
+.no-account-row hr {
   background-color: #c1c2c2 !important;
 }
 
-div.no-account-text {
+.no-account-text {
   color: #333333;
   font-family: SourceSansPro;
   font-size: 13px;
