@@ -8,10 +8,16 @@ User feedback is sent to the backend server which routes the message to an e-mai
 
 ## Setup
 
-1. Install nodejs https://nodejs.org/en/
-2. Install postgreSQL https://www.postgresql.org/download/
-3. Setup backend
-4. Setup frontend
+1. Install nodejs
+```
+sudo apt install nodejs
+```
+2. Install npm
+```
+sudo apt install npm
+```
+3. Setup [backend](backend/README.md)
+4. Setup [frontend](frontend/README.md)
 
 ## Contributing
 
