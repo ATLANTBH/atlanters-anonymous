@@ -37,7 +37,7 @@ class FeedbackSend extends Form {
         <div className="form feedback-card">
           {isBeingSent ? (
             <div className="result-container">
-              <div className="title">Please wait...</div>
+              <div className="title send-title">Please wait...</div>
               <hr />
               <div className="text">
                 Sending your feedback. Please do not close this window.
@@ -51,7 +51,7 @@ class FeedbackSend extends Form {
                   src={error ? xmark : checkmark}
                   alt="Success"
                 />
-                <div className="title">
+                <div className="title send-title">
                   {error
                     ? "Failed to send your feedback"
                     : "Message sent successfully"}
