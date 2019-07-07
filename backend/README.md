@@ -4,11 +4,12 @@
 
 ## Setup
 
-1. Install postgres
+### 1. Install postgres
 ```
 sudo apt-get install postgresql-10
 ```
-2. Create a postgres database:
+---
+### 2. Create a postgres database:
 ```
 createdb {db_name}
 ```
@@ -41,7 +42,8 @@ CREATE DATABASE {db_name};
 ```
 For other errors check out [this link](https://www.postgresql.org/docs/10/tutorial-createdb.html)
 
-3. Create .env file:
+---
+### 3. Create .env file:
 ```
 cp example.env .env
 ```
@@ -62,12 +64,10 @@ EMAIL_SERVICE=yahoo
 ```
 Change the port if taken and no need to change any other values.
 
-4. Install dependencies:
+---
+### 4. Install dependencies and start express server:
 ```
 npm install
-```
-5. Start express server:
-```
 npm start
 ```
 Start postman and trigger a REST call. If you changed the PORT value, also modify the 'local' variable.
