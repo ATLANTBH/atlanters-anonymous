@@ -67,7 +67,7 @@ Change the port if taken and no need to change any other values.
 ---
 ### 4. Install dependencies and start express server:
 ```
-npm install
+sudo npm install
 npm start
 ```
 Start postman and trigger a REST call. If you changed the PORT value, also modify the 'local' variable.
