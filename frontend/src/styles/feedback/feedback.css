@@ -20,17 +20,29 @@
   padding: 20px 24px 24px 24px;
 }
 
-.form.feedback-card .title {
+.form.feedback-card .title{
   color: #333333;
   font-family: SourceSansPro;
   font-size: 24px;
   font-weight: 600;
-  text-align: center;
   margin-bottom: 13px;
+}
+
+.form.feedback-card .title.form-title {
+  text-align: center;
 }
 
 .form.feedback-card .form-control {
   font-family: SourceSansPro;
+  color: #333333;
+}
+
+.form.feedback-card .form-control::placeholder {
+  color: #94a8c2;
+}
+
+.form.feedback-card .form-control:focus {
+  box-shadow: none;
 }
 
 .form.feedback-card .form-text {
@@ -45,7 +57,7 @@
   text-align: right;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1600px) {
   .feedback-container {
     grid-template-columns: 1fr 2fr 1fr;
   }
