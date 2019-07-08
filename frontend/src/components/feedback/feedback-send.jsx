@@ -5,7 +5,6 @@ import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
 import Utils from "../../utils";
 import classNames from 'classnames';
-import { MoonLoader } from 'react-spinners';
 import Loader from 'react-loader-spinner'
 
 const { feedback } = Utils.string.PATHS;
