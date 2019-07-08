@@ -12,6 +12,8 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",
+    "react-infinite-scroller": "^1.2.1",
+    "react-loader-spinner": "^2.3.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "react-smooth-dnd": "^0.11.0",

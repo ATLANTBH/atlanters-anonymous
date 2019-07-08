@@ -52,7 +52,7 @@ class Feedback extends Form {
         <div className="feedback-container">
           <form className="invis-container" onSubmit={this.onSubmit}>
             <div className="form feedback-card">
-              <div className="title">Help us become even better</div>
+              <div className="title form-title">Help us become even better</div>
               {this.renderInput(
                 "feedback",
                 "How can we improve?",
@@ -70,7 +70,7 @@ class Feedback extends Form {
                 *Everything you send us will be completely anonymous
               </small>
               <div className="submit-container">
-                {this.renderSubmitButton("SEND", "submit filled1", sendPressed)}
+                {this.renderSubmitButton("NEXT", "submit filled1", sendPressed)}
               </div>
             </div>
           </form>
