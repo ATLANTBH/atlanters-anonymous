@@ -6,7 +6,7 @@ import xmark from "../../assets/images/feedback/xmark.png";
 import Utils from "../../utils";
 import classNames from 'classnames';
 import Loader from 'react-loader-spinner'
-
+import PropTypes from 'prop-types';
 const { feedback } = Utils.string.PATHS;
 
 class FeedbackSend extends Form {
@@ -72,3 +72,6 @@ class FeedbackSend extends Form {
 }
 
 export default FeedbackSend;
+FeedbackSend.propTypes = {
+  location: PropTypes.object.isRequired
+}

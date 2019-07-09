@@ -1,6 +1,7 @@
 import { Modal } from "react-bootstrap";
 import React from "react";
 import Form from "../common/form";
+import PropTypes from 'prop-types';
 
 class ConfirmationModal extends Form {
   state = {};
@@ -40,3 +41,7 @@ class ConfirmationModal extends Form {
 }
 
 export default ConfirmationModal;
+
+ConfirmationModal.propTypes = {
+  onConfirm: PropTypes.func.isRequired
+};
