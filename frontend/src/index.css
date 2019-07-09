@@ -21,11 +21,6 @@
 @import "styles/modals/modal.css";
 @import "styles/modals/confirmation-modal.css";
 
-/** IMPORT AUTH STYLES **/
-@import "styles/auth/signin.css";
-@import "styles/auth/signup.css";
-@import "styles/auth/forgot-password.css";
-@import "styles/auth/pw-email-sent.css";
 
 body {
   margin: 0;
