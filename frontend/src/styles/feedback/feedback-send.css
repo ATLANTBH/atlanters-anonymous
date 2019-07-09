@@ -1,7 +1,7 @@
 .feedback-container.send {
   display: grid;
-  margin-top: 200px;
-  height: 0;
+  height: 50vh;
+  margin-top: 0px;
   grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
 }
 
@@ -34,7 +34,6 @@
 .moon-loader-wrapper {
   grid-column: 3;
   text-align: center;
-  margin-top: 10vh;
 }
 
 @media only screen and (max-width: 600px) {
