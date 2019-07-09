@@ -1,8 +1,8 @@
 .feedback-container {
   display: grid;
   grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
-  margin-top: 200px;
-  height: 100vh;
+  align-items: center;
+  height: 70vh;
 }
 
 .feedback-container .invis-container {
