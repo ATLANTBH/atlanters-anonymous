@@ -3,6 +3,7 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import ConfirmationModal from "../modals/confirmation-modal";
 import Utils from "../../utils";
+import PropTypes from 'prop-types';
 
 const { feedbackSend } = Utils.string.PATHS;
 
@@ -85,3 +86,7 @@ class Feedback extends Form {
 }
 
 export default Feedback;
+
+Feedback.propTypes = {
+  location: PropTypes.object
+}
