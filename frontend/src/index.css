@@ -7,9 +7,6 @@
 @import "styles/feedback/feedback-confirm.css";
 @import "styles/feedback/feedback-send.css";
 
-/** IMPORT NAV STYLE **/
-@import "styles/navbar.css";
-
 /** IMPORT NOT FOUND PAGE STYLE **/
 @import "styles/not-found.css";
 
