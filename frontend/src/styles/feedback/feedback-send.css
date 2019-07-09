@@ -1,7 +1,6 @@
 .feedback-container.send {
   display: grid;
   height: 50vh;
-  margin-top: 0px;
   grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
 }
 
