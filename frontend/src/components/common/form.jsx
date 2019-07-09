@@ -94,7 +94,6 @@ class Form extends Component {
       if (errorMessage) errors[name] = errorMessage;
       else this.deleteProperty(errors, name);
       if (name === "signUpPassword" && confirmPassword.length > 0) {
-        // validate confirm password while password is being changed
         this.validateConfirmPassword(
           value,
           confirmPassword,

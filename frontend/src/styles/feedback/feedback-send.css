@@ -2,6 +2,7 @@
   display: grid;
   height: 50vh;
   grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
+  justify-items: center;
 }
 
 .form.feedback-card.feedback-send.error {

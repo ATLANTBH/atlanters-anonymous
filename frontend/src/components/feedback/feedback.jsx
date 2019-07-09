@@ -21,9 +21,6 @@ class Feedback extends Form {
   };
 
   onSubmit = e => {
-    // TODO Vedad: DELETE THIS
-    // const { feedback } = this.state.data;
-    // this.handleRedirect("feedback-confirm", { feedback });
     e.preventDefault();
     this.setState({ modalShow: true, sendPressed: true });
   };

@@ -42,7 +42,8 @@ class FeedbackSend extends Form {
           height="60"
           width="60"
         />
-        </div> : <div className={classNames("form feedback-card feedback-send", { 'error': error })}>
+        </div> :
+          <div className={classNames("form feedback-card feedback-send", { 'error': error })}>
             <div className="result-container">
               <div className="header">
                 <img
