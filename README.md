@@ -25,12 +25,9 @@ sudo apt install npm
 2. Checkout to develop branch
    `git checkout develop`
 3. Create your branch
-
-- Bug: `git checkout -b bug/myBug`
-- Feature: `git checkout -b feature/myFeature`
-
+   `git checkout -b myBranch`
 3. Commit your changes
    `git commit -m 'Add some beautiful code'`
 4. Push to the branch
-   `git push origin {feature/bug}/{myFeature/myBug}`
+   `git push origin myBranch`
 5. Create a new Pull Request
