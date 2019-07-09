@@ -15,7 +15,13 @@ const PATHS = {
 
 const TOKEN_HEADER = "x-auth";
 
+const FORM_NAMES = {
+  confirmPassword: "confirmPassword",
+  signUpPassword: "signUpPassword"
+}
+
 export default {
   PATHS,
-  TOKEN_HEADER
+  TOKEN_HEADER,
+  FORM_NAMES
 };
