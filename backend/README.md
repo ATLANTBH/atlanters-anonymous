@@ -71,3 +71,10 @@ sudo npm install
 npm start
 ```
 Start postman and trigger a REST call. If you changed the PORT value, also modify the 'local' variable.
+
+# Tests
+
+To run tests with coverage report:
+```
+npm run coverage
+```
