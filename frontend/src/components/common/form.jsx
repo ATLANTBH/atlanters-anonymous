@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
 import classNames from "classnames";
+import Utils from "../../utils";
 
 class Form extends Component {
   state = {
@@ -85,7 +86,7 @@ class Form extends Component {
     const errors = { ...this.state.errors };
     const { name, value } = currentTarget;
     const { signUpPassword, confirmPassword } = this.state.data;
-    const confirmPasswordName = "confirmPassword";
+    const { signUpPasswordName, confirmPasswordName } = Utils.string.FORM_NAMES;
 
     if (name === confirmPasswordName && value === signUpPassword) {
       this.deleteProperty(errors, name);
@@ -93,7 +94,7 @@ class Form extends Component {
       const errorMessage = this.validateProperty(currentTarget);
       if (errorMessage) errors[name] = errorMessage;
       else this.deleteProperty(errors, name);
-      if (name === "signUpPassword" && confirmPassword.length > 0) {
+      if (name === signUpPasswordName && confirmPassword.length > 0) {
         this.validateConfirmPassword(
           value,
           confirmPassword,
