@@ -1,3 +1,5 @@
+const API = "/api";
+
 const PATHS = {
   empty: "/",
   feedbackSend: "/feedback-send",
@@ -18,9 +20,10 @@ const TOKEN_HEADER = "x-auth";
 const FORM_NAMES = {
   confirmPassword: "confirmPassword",
   signUpPassword: "signUpPassword"
-}
+};
 
 export default {
+  API,
   PATHS,
   TOKEN_HEADER,
   FORM_NAMES

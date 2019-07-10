@@ -3,7 +3,7 @@ import routes from '../routes';
 export default async app => {
   const { expressApp } = app;
 
-  expressApp.use(routes(app));
+  expressApp.use('/api', routes(app));
 
   expressApp.use(function(err, req, res, next) {
     res.status(400);
