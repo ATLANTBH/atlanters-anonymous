@@ -1,9 +1,9 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
 import Utils from "../utils";
 
-const { feedback } = Utils.string.PATHS;
-const apiEndpoint = apiUrl + feedback;
+const { string } = Utils;
+const { feedback } = string.PATHS;
+const apiEndpoint = string.API + feedback;
 
 export async function sendFeedback(data) {
   return await http.post(apiEndpoint, {
