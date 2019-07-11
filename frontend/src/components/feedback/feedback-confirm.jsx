@@ -1,6 +1,6 @@
 import React from "react";
-import Form from "../common/form";
 import Utils from "../../utils";
+import Form from "../common/form";
 
 const { feedback, feedbackSend } = Utils.string.PATHS;
 
