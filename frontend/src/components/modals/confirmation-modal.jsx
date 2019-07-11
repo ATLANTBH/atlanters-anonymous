@@ -1,7 +1,7 @@
-import { Modal } from "react-bootstrap";
+import PropTypes from "prop-types";
 import React from "react";
+import { Modal } from "react-bootstrap";
 import Form from "../common/form";
-import PropTypes from 'prop-types';
 
 class ConfirmationModal extends Form {
   state = {};

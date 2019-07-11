@@ -1,12 +1,12 @@
+import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
-import Form from "../common/form";
-import { sendFeedback } from "../../services/feedbackService";
+import Loader from "react-loader-spinner";
 import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
+import { sendFeedback } from "../../services/feedbackService";
 import Utils from "../../utils";
-import classNames from "classnames";
-import Loader from "react-loader-spinner";
-import PropTypes from "prop-types";
+import Form from "../common/form";
 const { feedback } = Utils.string.PATHS;
 
 class FeedbackSend extends Form {

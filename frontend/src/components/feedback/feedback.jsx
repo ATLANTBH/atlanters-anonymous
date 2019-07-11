@@ -1,9 +1,9 @@
-import React from "react";
-import Form from "../common/form";
 import Joi from "joi-browser";
-import ConfirmationModal from "../modals/confirmation-modal";
+import PropTypes from "prop-types";
+import React from "react";
 import Utils from "../../utils";
-import PropTypes from 'prop-types';
+import Form from "../common/form";
+import ConfirmationModal from "../modals/confirmation-modal";
 
 const { feedbackSend } = Utils.string.PATHS;
 
@@ -89,4 +89,4 @@ export default Feedback;
 
 Feedback.propTypes = {
   location: PropTypes.object
-}
+};

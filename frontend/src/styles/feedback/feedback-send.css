@@ -6,7 +6,7 @@
 }
 
 .form.feedback-card.feedback-send.error {
-  border-top: 6px solid #9e0022;
+  border-top: 6px solid #f34a43;
 }
 
 .form.feedback-card.feedback-send {
@@ -48,7 +48,6 @@
     grid-column: 1;
   }
 }
-
 
 @media only screen and (min-width: 600px) {
   .feedback-container.send {
