@@ -7,7 +7,8 @@ class ConfirmationModal extends Form {
   state = {};
   schema = {};
 
-  onSubmit = async () => {
+  onSubmit = async e => {
+    e.preventDefault();
     this.props.onConfirm();
   };
 
