@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.54056bf2.chunk.css",
+    "main.js": "/static/js/main.4b92f9b4.chunk.js",
+    "main.js.map": "/static/js/main.4b92f9b4.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.a9deb57b.chunk.css": "/static/css/2.a9deb57b.chunk.css",
+    "static/js/2.3342a4b5.chunk.js": "/static/js/2.3342a4b5.chunk.js",
+    "static/js/2.3342a4b5.chunk.js.map": "/static/js/2.3342a4b5.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.d6a31d5a2de55c96c1c97b8571a48998.js": "/precache-manifest.d6a31d5a2de55c96c1c97b8571a48998.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.a9deb57b.chunk.css.map": "/static/css/2.a9deb57b.chunk.css.map",
+    "static/css/main.54056bf2.chunk.css.map": "/static/css/main.54056bf2.chunk.css.map",
+    "static/media/index.css": "/static/media/overpass-regular.71096f93.otf",
+    "static/media/xmark.png": "/static/media/xmark.6ec73873.png"
+  }
+}
