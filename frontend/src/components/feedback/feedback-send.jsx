@@ -7,8 +7,8 @@ import xmark from "../../assets/images/feedback/xmark.png";
 import { sendFeedback } from "../../services/feedbackService";
 import Utils from "../../utils";
 import Form from "../common/form";
-const { feedback } = Utils.string.PATHS;
 
+const { feedback } = Utils.string.PATHS;
 class FeedbackSend extends Form {
   state = {
     isBeingSent: true,
@@ -16,20 +16,24 @@ class FeedbackSend extends Form {
   };
   schema = {};
 
+  sendFeedbackSuccess(res) {
+    this.setState({ isBeingSent: false });
+  }
+
+  sendFeedbackFailure(error) {
+    this.setState({ isBeingSent: false, error });
+  }
+
   async componentDidMount() {
     const { state } = this.props.location;
     if (!state) return this.handleRedirect(feedback);
-    const feedbackText = state.params.feedback;
-    let error = null;
-    try {
-      await sendFeedback(feedbackText);
-    } catch (err) {
-      error = err.message;
-      if (err.response && err.response.status === 400) {
-        error = err.response.message;
-      }
-    }
-    this.setState({ isBeingSent: false, error });
+    sendFeedback({ data: state.params.feedback })
+      .then(res => {
+        this.sendFeedbackSuccess(res);
+      })
+      .catch(err => {
+        this.sendFeedbackFailure(err);
+      });
   }
 
   render() {
@@ -62,7 +66,7 @@ class FeedbackSend extends Form {
 
               <div className="text">
                 {error
-                  ? "Error: " + error
+                  ? error.toString()
                   : "Thank you! Your feedback is greatly appreciated."}
               </div>
             </div>
