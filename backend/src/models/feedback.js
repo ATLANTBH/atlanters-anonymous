@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer';
 import Sequelize from 'sequelize';
 class Feedback extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -29,9 +28,9 @@ class Feedback extends Sequelize.Model {
   }
 
   static async sendMail({ createdAt, data }) {
+    console.log(createdAt);
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
-      service: process.env.EMAIL_SERVICE,
       port: parseInt(process.env.EMAIL_PORT),
       secure: true,
       auth: {
@@ -42,7 +41,7 @@ class Feedback extends Sequelize.Model {
     return await transporter.sendMail({
       from: process.env.EMAIL_FEEDBACK,
       to: process.env.EMAIL_FEEDBACK,
-      subject: createdAt,
+      subject: `Feedback: ${createdAt.toString()}`,
       text: data,
     });
   }
