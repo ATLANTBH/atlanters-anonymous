@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
 import nodemailer from 'nodemailer';
+import Sequelize from 'sequelize';
 class Feedback extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init(
@@ -33,9 +33,9 @@ class Feedback extends Sequelize.Model {
       host: process.env.EMAIL_HOST,
       service: process.env.EMAIL_SERVICE,
       port: parseInt(process.env.EMAIL_PORT),
-      secure: false,
+      secure: true,
       auth: {
-        user: process.env.EMAIL_FEEDBACK,
+        user: process.env.EMAIL_FEEDBACK_USER,
         pass: process.env.EMAIL_FEEDBACK_PW,
       },
     });
