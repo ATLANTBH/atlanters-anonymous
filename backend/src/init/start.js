@@ -1,6 +1,6 @@
 import express from 'express';
-import init from './index';
 import path from 'path';
+import init from './index';
 
 export default async () => {
   const eraseDatabaseOnSync = process.env.MODE === 'development';
@@ -12,7 +12,7 @@ export default async () => {
     res.sendFile('index.html', { root });
   });
   console.log('Connecting to the database...');
-  const sequelize = await init.db(eraseDatabaseOnSync);
+  const sequelize = await init.db();
   console.log('Initiating models...');
   const models = await init.models(sequelize, eraseDatabaseOnSync);
   console.log('Starting express app...');
