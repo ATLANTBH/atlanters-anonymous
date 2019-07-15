@@ -13,11 +13,10 @@ services:
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: postgres
-      EMAIL_FEEDBACK: email@email.com
-      EMAIL_FEEDBACK_PW: password
+      EMAIL_FEEDBACK: 
+      EMAIL_FEEDBACK_PW: 
       EMAIL_PORT: 465
       EMAIL_HOST: smtp.mail.yahoo.com
-      EMAIL_SERVICE: yahoo
 
   postgres:
     image: postgres:11.2-alpine
