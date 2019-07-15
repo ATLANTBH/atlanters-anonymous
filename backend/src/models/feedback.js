@@ -42,7 +42,7 @@ class Feedback extends Sequelize.Model {
     return await transporter.sendMail({
       from: process.env.EMAIL_FEEDBACK,
       to: process.env.EMAIL_FEEDBACK,
-      subject: `Feedback: ${createdAt.toString()}`,
+      subject: 'Feedback Received',
       text: data,
     });
   }
