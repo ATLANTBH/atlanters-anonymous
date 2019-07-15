@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import nodemailer from 'nodemailer';
 class Feedback extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init(
