@@ -8,7 +8,11 @@ services:
       - "3000:3000"
     environment: 
       PORT: 3000
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      DB_USERNAME: postgres
+      DB_USER_PASSWORD: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: postgres
       EMAIL_FEEDBACK: email@email.com
       EMAIL_FEEDBACK_PW: password
       EMAIL_PORT: 465
