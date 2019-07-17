@@ -4,7 +4,7 @@ podTemplate(label: label,
     serviceAccount: 'jenkins',
     containers: [
         containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
-        //containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.13.0', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.13.0', command: 'cat', ttyEnabled: true),
         containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.11.10', command: 'cat', ttyEnabled: true)
     ],
     //imagePullSecrets: ['placelab-registry-tls'],
@@ -14,15 +14,22 @@ podTemplate(label: label,
     node(label) {
         script {
             stage('Pull') {
-                sh 'echo "**** Deploying ${ENVIRONMENT} with branch ${BRANCH}"'
+                sh 'echo "**** Deploying with branch ${BRANCH}"'
                 checkout scm
             }
             stage('Build') {
                 container('docker') {
-                    docker.withRegistry('https://hub.docker.com', 'abhdocker') {
-                        def image = docker.build("atlantbh/atlanters-anonymous", "--network=host .")
+                    docker.withRegistry('', 'abhdocker') {
+                        def image = docker.build("atlantbh/atlanters-anonymous:deploy", "--network=host .")
                         //base.push(env.BUILD_NUMBER)
-                        image.push(env.BRANCH)
+                        image.push('deploy')
+                    }
+                }
+            }
+            stage('Deploy Demo') {
+                withCredentials([file(credentialsId: 'placelab-demo', variable: 'HELM_VALUES')]){
+                    container('helm') {
+                        sh 'helm upgrade aa-deploy --namespace aa --install -f ops/helm/values.deploy.yaml ops/helm/'
                     }
                 }
             }
