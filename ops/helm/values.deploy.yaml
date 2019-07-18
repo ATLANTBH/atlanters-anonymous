@@ -9,7 +9,7 @@ ingress:
   hosts:
     - atlantersanonymous.dev.k8s.abhapp.com
   tls:
-   - secretName: atlanters-anonymous
+   - secretName: atlanters-anonymous-deploy
      hosts:
        - atlantersanonymous.dev.k8s.abhapp.com
 
