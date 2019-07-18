@@ -7,11 +7,11 @@ image:
 
 ingress:
   hosts:
-    - atlanters-anonymous.dev.k8s.abhapp.com
+    - atlantersanonymous.dev.k8s.abhapp.com
   tls:
    - secretName: atlanters-anonymous
      hosts:
-       - atlanters-anonymous.dev.k8s.abhapp.com
+       - atlantersanonymous.dev.k8s.abhapp.com
 
 config:
   dbHost: atlanters-anonymous-pg-deploy-postgresql
