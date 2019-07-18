@@ -42,8 +42,7 @@ spec:
                     container('docker') {
                         docker.withRegistry('', 'abhdocker') {
                             def image = docker.build("atlantbh/atlanters-anonymous:${IMAGE_TAG}", "--network=host .")
-                            //base.push(env.BUILD_NUMBER)
-                            image.push('deploy')
+                            image.push(IMAGE_TAG)
                         }
                     }
                 }
