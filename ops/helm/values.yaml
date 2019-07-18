@@ -20,11 +20,11 @@ ingress:
   paths:
   - /
   hosts:
-    - atlanters-anonymous.abhapp.com
+    - atlantersanonymous.abhapp.com
   tls:
    - secretName: atlanters-anonymous
      hosts:
-       - atlanters-anonymous.abhapp.com
+       - atlantersanonymous.abhapp.com
 
 config:
   dbHost: atlanters-anonymous-pg-postgresql
