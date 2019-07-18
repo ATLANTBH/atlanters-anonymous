@@ -1,0 +1,20 @@
+# Default values for atlanters-anonymous.
+
+replicaCount: 1
+
+image:
+  tag: deploy
+
+ingress:
+  hosts:
+    - atlantersanonymous.dev.k8s.abhapp.com
+  tls:
+   - secretName: atlanters-anonymous
+     hosts:
+       - atlantersanonymous.dev.k8s.abhapp.com
+
+config:
+  dbHost: atlanters-anonymous-pg-deploy-postgresql
+  dbSecret: atlanters-anonymous-pg-deploy-postgresql
+  smtpSecret: atlanters-anonymous-smtp-deploy
+

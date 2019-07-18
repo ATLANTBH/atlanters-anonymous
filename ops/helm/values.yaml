@@ -1,0 +1,40 @@
+# Default values for atlanters-anonymous.
+
+replicaCount: 1
+
+image:
+  repository: atlantbh/atlanters-anonymous
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: 77.77.214.216/30
+  paths:
+  - /
+  hosts:
+    - atlanters-anonymous.abhapp.com
+  tls:
+   - secretName: atlanters-anonymous
+     hosts:
+       - atlanters-anonymous.abhapp.com
+
+config:
+  dbHost: atlanters-anonymous-pg-postgresql
+  dbSecret: atlanters-anonymous-pg-postgresql
+  smtpSecret: atlanters-anonymous-smtp
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
