@@ -1,38 +1,84 @@
-def label = "jenkins-worker-${UUID.randomUUID().toString()}"
-
-podTemplate(label: label,
-    serviceAccount: 'jenkins',
-    containers: [
-        containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
-        containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.13.0', command: 'cat', ttyEnabled: true),
-        containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.11.10', command: 'cat', ttyEnabled: true)
-    ],
-    //imagePullSecrets: ['placelab-registry-tls'],
-    volumes: [
-        hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
-    ]) {
-    node(label) {
-        script {
-            stage('Pull') {
-                sh 'echo "**** Deploying with branch ${BRANCH}"'
-                checkout scm
+pipeline {
+  agent {
+    kubernetes {
+      defaultContainer 'jnlp'
+      serviceAccount 'jenkins'
+      yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: docker
+    image: docker
+    command: ['cat']
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: dockersocket
+  - name: helm
+    image: lachlanevenson/k8s-helm:v2.13.0
+    command: ['cat']
+    tty: true  
+  - name: kubectl
+    image: lachlanevenson/k8s-kubectl:v1.12.8
+    command: ['cat']
+    tty: true
+  volumes:
+  - name: dockersocket
+    hostPath:
+      path: /var/run/docker.sock
+"""
+    }
+  }
+    stages {
+        stage('Pull') {
+            steps {
+            checkout scm
             }
-            stage('Build') {
-                container('docker') {
-                    docker.withRegistry('', 'abhdocker') {
-                        def image = docker.build("atlantbh/atlanters-anonymous:deploy", "--network=host .")
-                        //base.push(env.BUILD_NUMBER)
-                        image.push('deploy')
+        }
+        stage('Build') {
+            steps {
+                script {
+                    container('docker') {
+                        docker.withRegistry('', 'abhdocker') {
+                            def image = docker.build("atlantbh/atlanters-anonymous:${IMAGE_TAG}", "--network=host .")
+                            //base.push(env.BUILD_NUMBER)
+                            image.push('deploy')
+                        }
                     }
                 }
             }
-            stage('Deploy Demo') {
-                withCredentials([file(credentialsId: 'placelab-demo', variable: 'HELM_VALUES')]){
-                    container('helm') {
-                        sh 'helm upgrade aa-deploy --namespace aa --install -f ops/helm/values.deploy.yaml ops/helm/'
-                    }
+        }
+        stage('Deploy Demo') {
+            steps {
+                container('helm') {
+                    sh '''
+                    #!/bin/bash
+                    
+                    if [[ "$ENVIRONMENT" == "deploy" ]]; then
+                        values_arg="-f ops/helm/values.deploy.yaml"
+                    fi;
+                    helm upgrade aa-${ENVIRONMENT} --recreate-pods --namespace aa --install $values_arg --set image.tag=${IMAGE_TAG} ops/helm/
+                    '''
                 }
             }
+        }
+    }
+    post {
+        // only triggered when blue or green sign
+        success {
+            slackSend color: 'good', message: """
+Job ${JOB_NAME} [${env.BUILD_NUMBER}] finished successfully. (<${env.BUILD_URL}|Open - Jenkins>)
+Endpoint: ${ENDPOINT}
+Environment: ${ENVIRONMENT}
+"""
+        }
+        // triggered when red sign
+        failure {
+            slackSend color: 'danger', message: """
+Job ${JOB_NAME} [${env.BUILD_NUMBER}] FAILED. (<${env.BUILD_URL}|Open - Jenkins>)
+Endpoint: ${ENDPOINT}
+Environment: ${ENVIRONMENT}
         }
     }
 }
