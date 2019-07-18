@@ -16,8 +16,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     kubernetes.io/tls-acme: "true"
-    # whitelist ABH and GitHub hooks ranges
-    nginx.ingress.kubernetes.io/whitelist-source-range: 77.77.214.216/30,192.30.252.0/22,185.199.108.0/22,140.82.112.0/20
+    nginx.ingress.kubernetes.io/whitelist-source-range: 77.77.214.216/30
   paths:
   - /
   hosts:
