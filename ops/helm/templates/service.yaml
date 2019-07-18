@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "atlanters-anonymous.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "atlanters-anonymous.name" . }}
+    helm.sh/chart: {{ include "atlanters-anonymous.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "atlanters-anonymous.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
