@@ -79,6 +79,7 @@ Environment: ${ENVIRONMENT}
 Job ${JOB_NAME} [${env.BUILD_NUMBER}] FAILED. (<${env.BUILD_URL}|Open - Jenkins>)
 Endpoint: ${ENDPOINT}
 Environment: ${ENVIRONMENT}
+"""
         }
     }
 }
