@@ -62,7 +62,6 @@ EMAIL_PORT=465,
 EMAIL_HOST=smtp.mail.yahoo.com
 EMAIL_SERVICE=yahoo
 ```
-Change the port if taken and no need to change any other values.
 
 ---
 ### 4. Install dependencies and start express server:
@@ -70,7 +69,7 @@ Change the port if taken and no need to change any other values.
 npm install
 npm start
 ```
-Start postman and trigger a REST call. If you changed the PORT value, also modify the 'local' variable.
+Start postman and trigger a REST call. If you changed the PORT environment variable, also modify the 'local' variable.
 
 ### Tests
 
