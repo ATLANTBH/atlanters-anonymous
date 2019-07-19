@@ -39,10 +39,30 @@ If you want to setup your local environment manually or develop backend or front
 # Deployment
 
 To deploy to Kubernetes using Helm with the default values, run the following:  
+- deploy postgresql
+``` 
+helm install --name atlanters-anonymous-pg --namespace aa stable/postgresql
 ```
-helm install ops/helm
+- create a secret with SMTP connection details
 ```
-To modify the default values, take look at [ops/helm/values.yaml](ops/helm/values.yaml)
+cat <<EOF | kubectl apply --namespace aa -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: atlanters-anonymous-smtp
+type: Opaque
+data:
+  username: $(echo -n "smtp_username" | base64 -w0)
+  password: $(echo -n "smtp_password" | base64 -w0)
+  email_feedback: $(echo -n "email@example.com" | base64 -w0)
+  email_host: $(echo -n "smtp.example.com" | base64 -w0)
+EOF
+```
+- deploy the app:
+```
+helm install --name atlanters-anonymous --namespace aa ops/helm
+```  
+To modify the default values, take a look at [ops/helm/values.yaml](ops/helm/values.yaml)
 
 # Contributing
 
