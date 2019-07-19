@@ -2,7 +2,7 @@
 
 > Backend for atlanters anonymous written in nodejs
 
-## Setup
+## Local Setup
 
 ### 1. Install postgres
 ```
@@ -67,12 +67,12 @@ Change the port if taken and no need to change any other values.
 ---
 ### 4. Install dependencies and start express server:
 ```
-sudo npm install
+npm install
 npm start
 ```
 Start postman and trigger a REST call. If you changed the PORT value, also modify the 'local' variable.
 
-# Tests
+### Tests
 
 To run tests with coverage report:
 ```

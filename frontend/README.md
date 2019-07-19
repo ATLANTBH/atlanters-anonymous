@@ -2,10 +2,10 @@
 
 > Frontend for atlanters anonymous written in reactjs
 
-## Setup
+## Local Setup
 
 ### 1. Install dependencies and start
 ```
-sudo npm install
+npm install
 npm run dev
 ```
