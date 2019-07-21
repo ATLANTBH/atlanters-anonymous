@@ -94,14 +94,3 @@ EMAIL_SERVICE=yahoo
 npm install
 npm start
 ```
-<<<<<<< HEAD
-=======
-Start postman and trigger a REST call. If you changed the PORT environment variable, also modify the 'local' variable.
-
-### Tests
-
-To run tests with coverage report:
-```
-npm run coverage
-```
->>>>>>> 9649738d0e7d18b405e5af1f837d6f8da2989234

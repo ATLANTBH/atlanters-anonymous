@@ -9,17 +9,16 @@ User feedback is sent to the backend server which routes the message to an e-mai
 # Develop using docker compose
 
 You can use docker compose to spin up your local environment. Execute (in root):
+
 ```
 docker-compose up --build
-<<<<<<< HEAD
-``` 
-=======
 ```
->>>>>>> 9649738d0e7d18b405e5af1f837d6f8da2989234
+
 `--build` will ensure that any changes you made locally are propagated inside the app container running in docker compose.
 
 Simply put, this will build the frontend, copy the build folder to the backend and will run 'npm start' in the backend root.
 Then, in your browser:
+
 ```
 localhost:3000
 ```
@@ -27,28 +26,34 @@ localhost:3000
 # Develop both ends seperately
 
 - Install nodejs
+
 ```
 sudo apt install nodejs
 ```
+
 - Install npm
+
 ```
 sudo apt install npm
 ```
+
 If you want to setup your local environment manually or develop backend or frontend seperately, follow the specific setup guides:
 
 - Setup [backend](backend/README.md)
 - Setup [frontend](frontend/README.md)
 
-
 # Deployment
 
-<<<<<<< HEAD
-To deploy to Kubernetes using Helm with the default values, run the following:  
+To deploy to Kubernetes using Helm with the default values, run the following:
+
 - deploy postgresql
-``` 
+
+```
 helm install --name atlanters-anonymous-pg --namespace aa stable/postgresql
 ```
+
 - create a secret with SMTP connection details
+
 ```
 cat <<EOF | kubectl apply --namespace aa -f -
 apiVersion: v1
@@ -63,18 +68,14 @@ data:
   email_host: $(echo -n "smtp.example.com" | base64 -w0)
 EOF
 ```
+
 - deploy the app:
+
 ```
 helm install --name atlanters-anonymous --namespace aa ops/helm
-```  
+```
+
 To modify the default values, take a look at [ops/helm/values.yaml](ops/helm/values.yaml)
-=======
-To deploy to Kubernetes using Helm with the default values, run the following:
-```
-helm install ops/helm
-```
-To modify the default values, take look at [ops/helm/values.yaml](ops/helm/values.yaml)
->>>>>>> 9649738d0e7d18b405e5af1f837d6f8da2989234
 
 # Contributing
 
