@@ -11,7 +11,11 @@ User feedback is sent to the backend server which routes the message to an e-mai
 You can use docker compose to spin up your local environment. Execute (in root):
 ```
 docker-compose up --build
+<<<<<<< HEAD
 ``` 
+=======
+```
+>>>>>>> 9649738d0e7d18b405e5af1f837d6f8da2989234
 `--build` will ensure that any changes you made locally are propagated inside the app container running in docker compose.
 
 Simply put, this will build the frontend, copy the build folder to the backend and will run 'npm start' in the backend root.
@@ -38,6 +42,7 @@ If you want to setup your local environment manually or develop backend or front
 
 # Deployment
 
+<<<<<<< HEAD
 To deploy to Kubernetes using Helm with the default values, run the following:  
 - deploy postgresql
 ``` 
@@ -63,6 +68,13 @@ EOF
 helm install --name atlanters-anonymous --namespace aa ops/helm
 ```  
 To modify the default values, take a look at [ops/helm/values.yaml](ops/helm/values.yaml)
+=======
+To deploy to Kubernetes using Helm with the default values, run the following:
+```
+helm install ops/helm
+```
+To modify the default values, take look at [ops/helm/values.yaml](ops/helm/values.yaml)
+>>>>>>> 9649738d0e7d18b405e5af1f837d6f8da2989234
 
 # Contributing
 
