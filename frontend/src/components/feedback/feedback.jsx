@@ -50,7 +50,7 @@ class Feedback extends Form {
         <div className="feedback-container">
           <form className="invis-container" onSubmit={this.onSubmit}>
             <div className="form feedback-card">
-              <div className="title form-title">Help us become even better</div>
+              <div className="title form-title">Help us become better</div>
               {this.renderInput(
                 "feedback",
                 "How can we improve?",
