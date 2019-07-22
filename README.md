@@ -28,14 +28,10 @@ localhost:3000
 - Install nodejs
 
 ```
-sudo apt install nodejs
+brew install node
 ```
 
-- Install npm
-
-```
-sudo apt install npm
-```
+For solving node installation errors, check out [this link](https://www.dyclassroom.com/howto-mac/how-to-install-nodejs-and-npm-on-mac-using-homebrew).
 
 If you want to setup your local environment manually or develop backend or frontend seperately, follow the specific setup guides:
 
