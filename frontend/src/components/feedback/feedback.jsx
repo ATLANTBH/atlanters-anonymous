@@ -21,6 +21,11 @@ class Feedback extends Form {
     feedback: Joi.string().label("Feedback")
   };
 
+  outputLatestCommitSha = () => {
+    const { GIT_COMMIT } = process.env;
+    GIT_COMMIT && console.log(GIT_COMMIT);
+  };
+
   onSubmit = e => {
     e.preventDefault();
     this.setState({ modalShow: true, sendPressed: true });
@@ -34,6 +39,7 @@ class Feedback extends Form {
   };
 
   componentDidMount = () => {
+    this.outputLatestCommitSha();
     const { state } = this.props.location;
     if (state) {
       const { feedback } = state.params;
