@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import NotFound from "./components/not-found";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Feedback from "./components/feedback/feedback";
 import FeedbackConfirm from "./components/feedback/feedback-confirm";
 import FeedbackSend from "./components/feedback/feedback-send";
+import NotFound from "./components/not-found";
 import Utils from "./utils";
 
 const {
