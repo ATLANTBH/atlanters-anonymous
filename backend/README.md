@@ -7,7 +7,7 @@
 ### 1. Install postgres
 
 ```
-sudo apt-get install postgresql-10
+brew install postgres
 ```
 
 ---
@@ -35,33 +35,33 @@ In that case it is necessary to create a user with the name given in the error a
 - Connect to psql:
 
 ```
-sudo -u postgres psql
+psql postgres
 ```
 
 - Create the user and add a role
 
 ```
-CREATE USER {name};
+postgres=# CREATE USER {name};
 ```
 
 Note: {name} is provided in your error message.
 
 ```
-ALTER USER {name} PASSWORD '{password}';
-ALTER USER {name} SUPERUSER CREATEDB;
+postgres=# ALTER USER {name} PASSWORD '{password}';
+postgres=# ALTER USER {name} SUPERUSER CREATEDB;
 ```
 
 - Create your database
 
 ```
-CREATE DATABASE {db_name};
+postgres=# CREATE DATABASE {db_name};
 ```
 
 For other errors check out [this link](https://www.postgresql.org/docs/10/tutorial-createdb.html)
 
 ---
 
-### 3. Create .env file:
+### 3. In backend root directory create .env file:
 
 ```
 cp example.env .env
