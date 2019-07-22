@@ -1,6 +1,7 @@
 FROM node:12.6-alpine
 EXPOSE 3000 9229
 
+ARG REACT_APP_GIT_SHA=unset
 WORKDIR /home/app
 
 RUN apk --no-cache add --virtual builds-deps build-base python
