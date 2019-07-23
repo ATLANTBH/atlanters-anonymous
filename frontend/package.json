@@ -29,6 +29,7 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
   },
+  "proxy": "http://localhost:65534",
   "eslintConfig": {
     "extends": "abh-poll"
   },
