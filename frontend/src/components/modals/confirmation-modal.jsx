@@ -3,6 +3,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import Form from "../common/form";
 
+// TODO(kklisura): No need for form here.
 class ConfirmationModal extends Form {
   state = {};
   schema = {};
@@ -41,8 +42,10 @@ class ConfirmationModal extends Form {
   }
 }
 
+// TODO(kklisura): Just export it above.
 export default ConfirmationModal;
 
+// TODO(kklisura): Move this to static props.
 ConfirmationModal.propTypes = {
   onConfirm: PropTypes.func.isRequired
 };
