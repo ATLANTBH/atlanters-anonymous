@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Feedback from "./components/feedback/feedback";
 import FeedbackConfirm from "./components/feedback/feedback-confirm";
 import FeedbackSend from "./components/feedback/feedback-send";
 import NotFound from "./components/not-found";
 import Utils from "./utils";
+import { FEEDBACK_ROUTE } from "./utils/routes";
+import Feedback from "./pages/Feedback";
 
 const {
   feedbackSend,
@@ -22,9 +23,10 @@ class App extends Component {
       <React.Fragment>
         <main className="container-fluid">
           <Switch>
+            <Route path={FEEDBACK_ROUTE} component={Feedback} />
+
             <Route path={feedbackSend} component={FeedbackSend} />
 
-            <Route path={feedback} component={Feedback} />
             <Route path={feedbackConfirm} component={FeedbackConfirm} />
 
             <Route path={notFound} component={NotFound} />
