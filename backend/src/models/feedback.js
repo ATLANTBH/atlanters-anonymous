@@ -28,8 +28,7 @@ class Feedback extends Sequelize.Model {
     return user;
   }
 
-  static async sendMail({ createdAt, data }) {
-    console.log(createdAt);
+  static async sendMail({ data }) {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: parseInt(process.env.EMAIL_PORT),

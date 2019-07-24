@@ -3,10 +3,8 @@ export default ({ models }) => {
   return async (req, res, next) => {
     const feedbackReq = req.body;
     try {
-      const feedback = await Feedback.create(feedbackReq);
-      const sendEmail = await Feedback.sendMail(feedback);
-      console.log('Email sent: ', sendEmail);
-      res.send(feedback);
+      await Feedback.sendMail(feedbackReq);
+      res.send();
     } catch (error) {
       next(new Error(error));
     }
