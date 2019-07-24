@@ -71,9 +71,11 @@ Alter the following values:
 
 ```
 PORT=65534
-PGDATABASE={db_name}
-PGUSER={user}
-PGPASSWORD={password}
+DB_USERNAME={user}
+DB_USER_PASSWORD={password}
+DB_HOST={host} (ex. localhost)
+DB_PORT={db_port} (ex. 5432)
+DB_NAME={db_name}
 ```
 
 If you want to work with feedback submission, change the following values according to the e-mail you want to use:
