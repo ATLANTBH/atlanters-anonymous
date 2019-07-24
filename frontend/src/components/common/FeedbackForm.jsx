@@ -16,13 +16,36 @@ export default class FeedbackForm extends PureComponent {
     /**
      * Called when submission of feedback is requested.
      */
-    onSubmit: PropTypes.func.isRequired
+    onNextClicked: PropTypes.func.isRequired
   };
 
   render() {
-    const { value, onChange, onSubmit } = this.props;
-
-    // TODO(kklisura): Render just a basic form with single text area and a footer with buttons.
-    return null;
+    const { value, onChange, onNextClicked } = this.props;
+    return (
+      <form className="form feedback-card" onSubmit={onNextClicked}>
+        <div className="title form-title">Help us become better</div>
+        <label className="basic" htmlFor={"feedback"}>
+          How can we improve?
+        </label>
+        <textarea
+          className="form-control"
+          name="feedback"
+          placeholder="A penny for your thoughts..."
+          onChange={onChange}
+          value={value}
+          wrap="hard"
+          rows="4"
+          cols="20"
+        />
+        <small className="form-text">
+          *Everything you send us will be completely anonymous
+        </small>
+        <div className="submit-container">
+          <button className="btn btn-primary submit filled1" disabled={!value}>
+            <div className="filled1-text">NEXT</div>
+          </button>
+        </div>
+      </form>
+    );
   }
 }

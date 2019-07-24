@@ -1,21 +1,17 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Joi from "joi-browser";
-
-// NOTE(kklisura): All pages go in pages/. All components go in components/. Shared ui components go
-// in components/ui - those are non-domain components ie Input TextArea Button or LoadingSpinner etc.
-
-// NOTE(kklisura): No need for form at the moment.
+import FeedbackForm from "../components/common/FeedbackForm";
+import ConfirmationModal from "../components/modals/confirmation-modal";
+import { submitFeedback } from "../services/feedbackService";
+import LoadingSpinner from "../components/common/ui/LoadingSpinner";
+import FeedbackResult from "../components/common/FeedbackResult";
 
 export default class Feedback extends Component {
-  static propTypes = {
-    // Prop types goes here
-  };
-
   state = {
     isSubmitting: false,
     isConfirmationShown: false,
+    isSubmited: false,
 
+    submitError: "",
     feedback: ""
   };
 
@@ -27,49 +23,64 @@ export default class Feedback extends Component {
   /**
    * Called when feedback gets changed.
    */
-  onFeedbackChange = feedback => this.setState({ feedback });
+  onFeedbackChange = e => {
+    this.setState({ feedback: e.target.value });
+  };
 
-  onSubmitFeedback = () => {
-    this.setState({ isSubmitting: true });
+  onNextClicked = e => {
+    e.preventDefault();
+    this.setState({ isConfirmationShown: true });
+  };
 
-    // TODO(kklisura): Implement this in services.
-    submitFeedback()
+  onSubmitFeedback = e => {
+    e.preventDefault();
+    this.setState({ isConfirmationShown: false, isSubmitting: true });
+    submitFeedback({ data: this.state.feedback })
       .then(() => this.onFeedbackSentSuccessfully())
-      .then(err => this.onFeedbackError(err));
+      .catch(err => this.onFeedbackError(err));
   };
 
   onFeedbackSentSuccessfully() {
-    // TODO(kklisura): Set state to display successful submission
+    this.setState({ isSubmitting: false, isSubmited: true });
   }
 
-  onFeedbackError(er) {
-    // TODO(kklisura): Set state to display correct error.
+  onFeedbackError(err) {
+    this.setState({
+      isSubmitting: false,
+      isSubmited: true,
+      submitError: err.message
+    });
   }
 
   render() {
-    const { isConfirmationShown, isSubmitting, feedback } = this.state;
+    const {
+      isConfirmationShown,
+      isSubmitting,
+      isSubmited,
+      submitError,
+      feedback
+    } = this.state;
 
     return (
-      <section>
-        {isSubmitting &&
-          {
-            /* TODO(kklisura): Render loading spinner. */
-          }}
+      <section className="feedback-container">
+        {isSubmitting && <LoadingSpinner />}
 
-        {!isSubmitting && (
-          <FeedbackForm
-            value={feedback}
-            onChange={this.onFeedbackChange}
-            onSubmit={this.onSubmitFeedback}
-          />
-        )}
+        {!isSubmitting &&
+          (isSubmited ? (
+            <FeedbackResult submitResult={submitError} />
+          ) : (
+            <FeedbackForm
+              value={feedback}
+              onChange={this.onFeedbackChange}
+              onNextClicked={this.onNextClicked}
+            />
+          ))}
 
         {isConfirmationShown && (
           <ConfirmationModal
-            show={modalShow}
+            show={isConfirmationShown}
             onHide={this.onModalClose}
-            data={data.feedback}
-            onConfirm={this.handleConfirm}
+            onConfirm={this.onSubmitFeedback}
           />
         )}
       </section>

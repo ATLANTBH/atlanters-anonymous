@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import FeedbackConfirm from "./components/feedback/feedback-confirm";
-import FeedbackSend from "./components/feedback/feedback-send";
 import NotFound from "./components/not-found";
-import Utils from "./utils";
-import { FEEDBACK_ROUTE } from "./utils/routes";
+import { FEEDBACK_ROUTE, NOT_FOUND_ROUTE } from "./constants/routes";
 import Feedback from "./pages/Feedback";
-
-const {
-  feedbackSend,
-  feedback,
-  feedbackConfirm,
-  notFound,
-  empty
-} = Utils.string.PATHS;
 
 class App extends Component {
   state = {};
@@ -24,15 +13,10 @@ class App extends Component {
         <main className="container-fluid">
           <Switch>
             <Route path={FEEDBACK_ROUTE} component={Feedback} />
+            <Route path={NOT_FOUND_ROUTE} component={NotFound} />
 
-            <Route path={feedbackSend} component={FeedbackSend} />
-
-            <Route path={feedbackConfirm} component={FeedbackConfirm} />
-
-            <Route path={notFound} component={NotFound} />
-
-            <Redirect from={empty} exact to={feedback} />
-            <Redirect to={notFound} />
+            <Redirect from="/" exact to={FEEDBACK_ROUTE} />
+            <Redirect to={NOT_FOUND_ROUTE} />
           </Switch>
         </main>
       </React.Fragment>

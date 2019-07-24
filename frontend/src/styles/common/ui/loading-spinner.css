@@ -1,0 +1,16 @@
+.moon-loader-wrapper {
+  grid-column: 3;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1600px) {
+  .moon-loader-wrapper {
+    grid-column: 2;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .moon-loader-wrapper {
+    grid-column: 1;
+  }
+}

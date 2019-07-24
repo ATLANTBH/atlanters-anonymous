@@ -1,26 +1,11 @@
-.feedback-container {
-  display: grid;
-  grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
-  align-items: center;
-  height: 70vh;
-}
-
-.feedback-container .invis-container {
-  grid-column: 3;
-}
-
-.feedback-container .form-group {
-  margin: 0px;
-}
-
+/**IN FEEDBACKFORM*/
 .form.feedback-card {
   width: 100%;
   grid-column: 3;
   margin: 0px;
   padding: 20px 24px 24px 24px;
 }
-
-.form.feedback-card .title{
+.form.feedback-card .title {
   color: #333333;
   font-family: SourceSansPro;
   font-size: 24px;
@@ -58,11 +43,13 @@
 }
 
 @media only screen and (max-width: 1600px) {
-  .feedback-container {
-    grid-template-columns: 1fr 2fr 1fr;
-  }
-
-  .feedback-container .invis-container {
+  .form.feedback-card {
     grid-column: 2;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .form.feedback-card {
+    grid-column: 1;
   }
 }

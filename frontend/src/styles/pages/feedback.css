@@ -1,0 +1,25 @@
+.feedback-container {
+  display: grid;
+  height: 50vh;
+  grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
+  justify-items: center;
+}
+
+@media only screen and (max-width: 1600px) {
+  .feedback-container {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .feedback-container {
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .feedback-container {
+    align-items: center;
+  }
+}
