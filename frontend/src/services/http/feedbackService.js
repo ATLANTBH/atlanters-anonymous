@@ -1,4 +1,4 @@
-import { post } from "./http/base";
+import { post } from "./base";
 
 export async function submitFeedback(data) {
   return post("/api/feedback", data).then(res => {

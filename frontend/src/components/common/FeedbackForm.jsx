@@ -1,5 +1,5 @@
-import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
 
 export default class FeedbackForm extends PureComponent {
   static propTypes = {
@@ -16,13 +16,13 @@ export default class FeedbackForm extends PureComponent {
     /**
      * Called when submission of feedback is requested.
      */
-    onNextClicked: PropTypes.func.isRequired
+    onNext: PropTypes.func.isRequired
   };
 
   render() {
-    const { value, onChange, onNextClicked } = this.props;
+    const { value, onChange, onNext } = this.props;
     return (
-      <form className="form feedback-card" onSubmit={onNextClicked}>
+      <form className="form feedback-card" onSubmit={onNext}>
         <div className="title form-title">Help us become better</div>
         <label className="basic" htmlFor={"feedback"}>
           How can we improve?
@@ -31,7 +31,7 @@ export default class FeedbackForm extends PureComponent {
           className="form-control"
           name="feedback"
           placeholder="A penny for your thoughts..."
-          onChange={onChange}
+          onChange={e => onChange(e.target.value)}
           value={value}
           wrap="hard"
           rows="4"

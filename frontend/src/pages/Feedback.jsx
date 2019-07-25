@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import FeedbackForm from "../components/common/FeedbackForm";
-import ConfirmationModal from "../components/modals/confirmation-modal";
-import { submitFeedback } from "../services/feedbackService";
-import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import FeedbackResult from "../components/common/FeedbackResult";
+import LoadingSpinner from "../components/common/ui/LoadingSpinner";
+import ConfirmationModal from "../components/modals/confirmation-modal";
+import { submitFeedback } from "../services/http/feedbackService";
 
 export default class Feedback extends Component {
   state = {
@@ -23,11 +23,11 @@ export default class Feedback extends Component {
   /**
    * Called when feedback gets changed.
    */
-  onFeedbackChange = e => {
-    this.setState({ feedback: e.target.value });
+  onFeedbackChange = value => {
+    this.setState({ feedback: value });
   };
 
-  onNextClicked = e => {
+  onNext = e => {
     e.preventDefault();
     this.setState({ isConfirmationShown: true });
   };
@@ -72,7 +72,7 @@ export default class Feedback extends Component {
             <FeedbackForm
               value={feedback}
               onChange={this.onFeedbackChange}
-              onNextClicked={this.onNextClicked}
+              onNext={this.onNext}
             />
           ))}
 
