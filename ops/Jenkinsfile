@@ -57,7 +57,15 @@ spec:
                     if [[ "$ENVIRONMENT" == "deploy" ]]; then
                         values_arg="-f ops/helm/values.deploy.yaml"
                     fi;
-                    helm upgrade aa-${ENVIRONMENT} --recreate-pods --namespace aa --install $values_arg --set image.tag=${IMAGE_TAG} ops/helm/
+                    helm upgrade aa-${ENVIRONMENT} \
+                         --recreate-pods \
+                         --namespace aa \
+                         --install $values_arg \
+                         --set image.tag=${IMAGE_TAG} \
+                         --set ingress.annotations."nginx\\.ingress\\.kubernetes\\.io/whitelist-source-range"=${IP_WHITELIST} \
+                         --set ingress.hosts[0]=${ENDPOINT} \
+                         --set ingress.tls[0].hosts[0]=${ENDPOINT} \
+                         ops/helm/
                     '''
                 }
             }
@@ -68,7 +76,7 @@ spec:
         success {
             slackSend color: 'good', message: """
 Job ${JOB_NAME} [${env.BUILD_NUMBER}] finished successfully. (<${env.BUILD_URL}|Open - Jenkins>)
-Endpoint: ${ENDPOINT}
+Endpoint: https://${ENDPOINT}
 Environment: ${ENVIRONMENT}
 """
         }
@@ -76,7 +84,7 @@ Environment: ${ENVIRONMENT}
         failure {
             slackSend color: 'danger', message: """
 Job ${JOB_NAME} [${env.BUILD_NUMBER}] FAILED. (<${env.BUILD_URL}|Open - Jenkins>)
-Endpoint: ${ENDPOINT}
+Endpoint: https://${ENDPOINT}
 Environment: ${ENVIRONMENT}
 """
         }
