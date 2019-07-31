@@ -65,6 +65,7 @@ spec:
                          --set ingress.annotations."nginx\\.ingress\\.kubernetes\\.io/whitelist-source-range"=${IP_WHITELIST} \
                          --set ingress.hosts[0]=${ENDPOINT} \
                          --set ingress.tls[0].hosts[0]=${ENDPOINT} \
+                         --set ingress.tls[0].secretName=aa-${ENVIRONMENT} \
                          ops/helm/
                     '''
                 }
