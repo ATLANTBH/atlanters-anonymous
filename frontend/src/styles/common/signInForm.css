@@ -1,0 +1,35 @@
+.form.sign-in .sign-in.title {
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form.sign-in .filled1.sign-in {
+  width: 100%;
+  height: 42px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.form.sign-in .filled1.sign-in .button-text {
+  font-size: 18px;
+  font-family: SourceSansPro;
+  font-weight: bold;
+}
+
+.form.sign-in .redirect-sign-up {
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.form.sign-in .error-text.big {
+  font-size: 14px;
+}
+
+.form.sign-in .moon-loader-wrapper {
+  margin-top: 30px;
+}

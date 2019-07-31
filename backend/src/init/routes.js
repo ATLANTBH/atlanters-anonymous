@@ -10,6 +10,7 @@ export default async app => {
     const errorStack = process.env.MODE === 'development' ? err.stack : {};
     console.log(err.message);
     res.json({
+      status: 400,
       message: err.message,
       error: errorStack,
     });

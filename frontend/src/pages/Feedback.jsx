@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FeedbackForm from "../components/common/FeedbackForm";
 import FeedbackResult from "../components/common/FeedbackResult";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
-import ConfirmationModal from "../components/modals/confirmation-modal";
+import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { submitFeedback } from "../services/http/feedbackService";
 
 export default class Feedback extends Component {
@@ -63,7 +63,7 @@ export default class Feedback extends Component {
 
     return (
       <section className="feedback-container">
-        {isSubmitting && <LoadingSpinner />}
+        {isSubmitting && <LoadingSpinner height={60} width={60} />}
 
         {!isSubmitting &&
           (isSubmited ? (

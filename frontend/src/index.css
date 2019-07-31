@@ -2,23 +2,24 @@
 @import "styles/fonts.css";
 @import "styles/animations.css";
 
-/** IMPORT NOT FOUND PAGE STYLE **/
-@import "styles/not-found.css";
-
 /** IMPORT COMMON STYLES **/
+@import "styles/common/feedbackForm.css";
+@import "styles/common/feedbackResult.css";
+@import "styles/common/signUpForm.css";
+@import "styles/common/signInForm.css";
+@import "styles/common/navbar.css";
 /** UI **/
-@import "styles/common/ui/loading-spinner.css";
-@import "styles/common/input.css";
-@import "styles/common/buttons.css";
-@import "styles/common/feedback-form.css";
-@import "styles/common/feedback-result.css";
+@import "styles/common/ui/loadingSpinner.css";
+@import "styles/common/ui/buttons.css";
+@import "styles/common/ui/input.css";
 
 /** IMPORT MODAL STYLES **/
 @import "styles/modals/modal.css";
-@import "styles/modals/confirmation-modal.css";
+@import "styles/modals/confirmationModal.css";
 
 /** IMPORT PAGE STYLES **/
 @import "styles/pages/feedback.css";
+@import "styles/pages/notFound.css";
 
 body {
   margin: 0;
