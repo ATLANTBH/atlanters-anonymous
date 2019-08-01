@@ -2,7 +2,9 @@ import fetch from "node-fetch";
 
 function checkStatus(result) {
   const { status, message } = result;
-  if (status) throw new Error(message);
+  if (status) {
+    throw new Error(message);
+  }
 }
 
 async function resolveResult(res) {
@@ -47,7 +49,9 @@ export function deleteCall(path, data, query = {}) {
     headers: data.headers
   };
   return fetch(path, request).then(async res => {
-    if (res.status !== 200) return await resolveResult(res);
+    if (res.status !== 200) {
+      return await resolveResult(res);
+    }
     return res;
   });
 }

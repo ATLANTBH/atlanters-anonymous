@@ -1,12 +1,12 @@
-import React from "react";
-import Form from "./ui/form/Form";
 import Joi from "joi-browser";
-import inputNames from "../../constants/form/names/input";
-import labels from "../../constants/form/labels";
 import PropTypes from "prop-types";
+import React from "react";
 import { Link } from "react-router-dom";
+import { SIGNIN } from "../../constants/form/labels/button";
+import { EMAIL_LABEL, PASSWORD_LABEL } from "../../constants/form/labels/input";
+import { EMAIL, SIGNIN_PASSWORD } from "../../constants/form/names/input";
+import Form from "./ui/form/Form";
 import LoadingSpinner from "./ui/LoadingSpinner";
-const { buttonLabels, inputLabels } = labels;
 
 export default class SignInForm extends Form {
   static propTypes = {
@@ -33,10 +33,10 @@ export default class SignInForm extends Form {
   schema = {
     email: Joi.string()
       .required()
-      .label("Email"),
+      .label(EMAIL_LABEL),
     password: Joi.string()
       .required()
-      .label("Password")
+      .label(PASSWORD_LABEL)
   };
 
   onSubmit = e => {
@@ -52,20 +52,19 @@ export default class SignInForm extends Form {
             <form onSubmit={this.onSubmit} className="form sign-in">
               <h1 className="sign-in title text-center">Sign in</h1>
               {this.renderInput(
-                inputNames.EMAIL,
-                inputLabels.EMAIL,
-                inputLabels.EMAIL,
+                EMAIL,
+                EMAIL_LABEL,
+                EMAIL_LABEL,
                 isSubmitting,
                 "email"
               )}
               {this.renderInput(
-                inputNames.SIGNIN_PASSWORD,
-                inputLabels.PASSWORD,
-                inputLabels.PASSWORD,
+                SIGNIN_PASSWORD,
+                PASSWORD_LABEL,
+                PASSWORD_LABEL,
                 isSubmitting,
                 "password"
               )}
-
               {isSubmitting && (
                 <LoadingSpinner
                   text="Signin you in..."
@@ -78,7 +77,7 @@ export default class SignInForm extends Form {
                   <div className="error-text big">{error.message}</div>
                   <div className="text-center">
                     {this.renderButton(
-                      buttonLabels.SIGNIN,
+                      SIGNIN,
                       "sign-in",
                       "submit",
                       this.state.submitPressed

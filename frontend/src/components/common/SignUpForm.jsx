@@ -1,12 +1,22 @@
-import React from "react";
-import Form from "./ui/form/Form";
 import Joi from "joi-browser";
-import LoadingSpinner from "./ui/LoadingSpinner";
-import inputNames from "../../constants/form/names/input";
-import labels from "../../constants/form/labels";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-const { buttonLabels, inputLabels } = labels;
+import React from "react";
+import { Link } from "react-router-dom";
+import { SIGNUP } from "../../constants/form/labels/button";
+import {
+  CONFIRM_PASSWORD_LABEL,
+  EMAIL_LABEL,
+  FULL_NAME_LABEL,
+  PASSWORD_LABEL
+} from "../../constants/form/labels/input";
+import {
+  CONFIRM_PASSWORD,
+  EMAIL,
+  FULL_NAME,
+  SIGNUP_PASSWORD
+} from "../../constants/form/names/input";
+import Form from "./ui/form/Form";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 export default class SignUpForm extends Form {
   static propTypes = {
@@ -35,19 +45,19 @@ export default class SignUpForm extends Form {
   schema = {
     fullName: Joi.string()
       .required()
-      .label(inputLabels.FULL_NAME),
+      .label(FULL_NAME_LABEL),
     email: Joi.string()
       .required()
-      .label(inputLabels.EMAIL),
+      .label(EMAIL_LABEL),
     signUpPassword: Joi.string()
       .required()
-      .label(inputLabels.PASSWORD)
+      .label(PASSWORD_LABEL)
       .min(8),
-    confirmPassword: Joi.valid(Joi.ref(inputNames.SIGNUP_PASSWORD))
+    confirmPassword: Joi.valid(Joi.ref(SIGNUP_PASSWORD))
       .options({
         language: { any: { allowOnly: "must match password" } }
       })
-      .label(inputLabels.CONFIRM_PASSWORD)
+      .label(CONFIRM_PASSWORD_LABEL)
   };
 
   onSubmit = e => {
@@ -63,33 +73,33 @@ export default class SignUpForm extends Form {
             <form onSubmit={this.onSubmit} className="form sign-up">
               <h1 className="sign-up title text-center">Sign Up</h1>
               {this.renderInput(
-                inputNames.FULL_NAME,
-                inputLabels.FULL_NAME,
-                inputLabels.FULL_NAME,
+                FULL_NAME,
+                FULL_NAME_LABEL,
+                FULL_NAME_LABEL,
                 isSubmitting,
                 "text",
                 true
               )}
               {this.renderInput(
-                inputNames.EMAIL,
-                inputLabels.EMAIL,
-                inputLabels.EMAIL,
+                EMAIL,
+                EMAIL_LABEL,
+                EMAIL_LABEL,
                 isSubmitting,
                 "email",
                 true
               )}
               {this.renderInput(
-                inputNames.SIGNUP_PASSWORD,
-                inputLabels.PASSWORD,
-                inputLabels.PASSWORD,
+                SIGNUP_PASSWORD,
+                PASSWORD_LABEL,
+                PASSWORD_LABEL,
                 isSubmitting,
                 "password",
                 true
               )}
               {this.renderInput(
-                inputNames.CONFIRM_PASSWORD,
-                inputLabels.CONFIRM_PASSWORD,
-                inputLabels.CONFIRM_PASSWORD,
+                CONFIRM_PASSWORD,
+                CONFIRM_PASSWORD_LABEL,
+                CONFIRM_PASSWORD_LABEL,
                 isSubmitting,
                 "password",
                 true
@@ -106,7 +116,7 @@ export default class SignUpForm extends Form {
                   <div className="error-text big">{error.message}</div>
                   <div className="text-center">
                     {this.renderButton(
-                      buttonLabels.SIGNUP,
+                      SIGNUP,
                       "sign-up",
                       "submit",
                       this.state.submitPressed
