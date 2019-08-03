@@ -5,11 +5,13 @@ import {
   FEEDBACK_ROUTE,
   SIGNUP_ROUTE,
   SIGNIN_ROUTE,
-  NOT_FOUND_ROUTE
+  NOT_FOUND_ROUTE,
+  CREATE_SURVEY_ROUTE
 } from "./constants/routes";
 import Feedback from "./pages/Feedback";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import CreateSurvey from "./pages/CreateSurvey";
 import Navbar from "./components/common/Navbar";
 import { getCurrentUser } from "./services/http/authService";
 
@@ -31,6 +33,8 @@ class App extends Component {
             <Route path={SIGNUP_ROUTE} component={SignUp} />
             <Route path={SIGNIN_ROUTE} component={SignIn} />
             <Route path={FEEDBACK_ROUTE} component={Feedback} />
+            <Route path={CREATE_SURVEY_ROUTE} component={CreateSurvey} />
+
             <Route path={NOT_FOUND_ROUTE} component={NotFound} />
 
             <Redirect from="/" exact to={SIGNIN_ROUTE} />

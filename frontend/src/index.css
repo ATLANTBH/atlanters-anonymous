@@ -22,6 +22,7 @@
 /** IMPORT PAGE STYLES **/
 @import "styles/pages/feedback.css";
 @import "styles/pages/notFound.css";
+@import "styles/pages/createSurvey.css";
 
 body {
   margin: 0;

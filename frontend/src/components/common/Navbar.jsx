@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Button from "./ui/form/Button";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
-import { FEEDBACK_ROUTE } from "../../constants/routes";
+import { FEEDBACK_ROUTE, CREATE_SURVEY_ROUTE } from "../../constants/routes";
 import { TOKEN_HEADER } from "../../constants/headers";
 
 export default class NavBar extends Component {
@@ -46,11 +46,13 @@ export default class NavBar extends Component {
           <React.Fragment>
             <Nav />
             <Nav className="ml-auto">
-              <Button
-                type="button"
-                label="CREATE SURVEY"
-                className="nav-create-survey"
-              />
+              <Link to={CREATE_SURVEY_ROUTE}>
+                <Button
+                  type="button"
+                  label="CREATE SURVEY"
+                  className="nav-create-survey"
+                />
+              </Link>
               <p
                 className="nav-item nav-link sign-out"
                 onClick={this.onSignOut}
