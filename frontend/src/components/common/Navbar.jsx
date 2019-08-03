@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
+import Button from "./ui/form/Button";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
 import { FEEDBACK_ROUTE } from "../../constants/routes";
@@ -45,6 +46,11 @@ export default class NavBar extends Component {
           <React.Fragment>
             <Nav />
             <Nav className="ml-auto">
+              <Button
+                type="button"
+                label="CREATE SURVEY"
+                className="nav-create-survey"
+              />
               <p
                 className="nav-item nav-link sign-out"
                 onClick={this.onSignOut}

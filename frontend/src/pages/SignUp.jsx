@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SignUpForm from "../components/common/SignUpForm";
+import SignUpForm from "../components/common/auth/SignUpForm";
 import { TOKEN_HEADER } from "../constants/headers";
 import { FEEDBACK_ROUTE } from "../constants/routes";
 import { getJwt, setJwt, signUp } from "../services/http/authService";

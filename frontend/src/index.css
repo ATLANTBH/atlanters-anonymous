@@ -3,10 +3,12 @@
 @import "styles/animations.css";
 
 /** IMPORT COMMON STYLES **/
-@import "styles/common/feedbackForm.css";
-@import "styles/common/feedbackResult.css";
-@import "styles/common/signUpForm.css";
-@import "styles/common/signInForm.css";
+/** FEEDBACK **/
+@import "styles/common/feedback/feedbackForm.css";
+@import "styles/common/feedback/feedbackResult.css";
+/** AUTH **/
+@import "styles/common/auth/signUpForm.css";
+@import "styles/common/auth/signInForm.css";
 @import "styles/common/navbar.css";
 /** UI **/
 @import "styles/common/ui/loadingSpinner.css";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SignInForm from "../components/common/SignInForm";
+import SignInForm from "../components/common/auth/SignInForm";
 import { TOKEN_HEADER } from "../constants/headers";
 import { FEEDBACK_ROUTE } from "../constants/routes";
 import { getJwt, setJwt, signIn } from "../services/http/authService";

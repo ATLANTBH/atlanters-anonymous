@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import checkmark from "../../assets/images/feedback/checkmark.png";
-import xmark from "../../assets/images/feedback/xmark.png";
+import checkmark from "../../../assets/images/feedback/checkmark.png";
+import xmark from "../../../assets/images/feedback/xmark.png";
 import PropTypes from "prop-types";
 
 export default class FeedbackResult extends Component {

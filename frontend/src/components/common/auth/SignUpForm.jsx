@@ -2,23 +2,23 @@ import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { SIGNUP } from "../../constants/form/labels/button";
+import { SIGNUP } from "../../../constants/form/labels/button";
 import {
   CONFIRM_PASSWORD_LABEL,
   EMAIL_LABEL,
   NAME_LABEL,
   SURNAME_LABEL,
   PASSWORD_LABEL
-} from "../../constants/form/labels/input";
+} from "../../../constants/form/labels/input";
 import {
   CONFIRM_PASSWORD,
   EMAIL,
   NAME,
   SURNAME,
   SIGNUP_PASSWORD
-} from "../../constants/form/names/input";
-import Form from "./ui/form/Form";
-import LoadingSpinner from "./ui/LoadingSpinner";
+} from "../../../constants/form/names/input";
+import Form from "../ui/form/Form";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default class SignUpForm extends Form {
   static propTypes = {

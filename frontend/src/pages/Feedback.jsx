@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import FeedbackForm from "../components/common/FeedbackForm";
-import FeedbackResult from "../components/common/FeedbackResult";
+import FeedbackForm from "../components/common/feedback/FeedbackForm";
+import FeedbackResult from "../components/common/feedback/FeedbackResult";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { submitFeedback } from "../services/http/feedbackService";
