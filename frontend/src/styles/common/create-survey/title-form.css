@@ -1,0 +1,6 @@
+.widget-form.title {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  padding: 0px 24px 24px 24px;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+}

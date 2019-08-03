@@ -1,0 +1,112 @@
+@-webkit-keyframes border-fade {
+  from {
+    border-top: 6px solid #c8d5e6;
+  }
+  to {
+    border-top: 6px solid #00a4d8;
+  }
+}
+
+/* Standard syntax */
+@keyframes border-fade {
+  from {
+    border-top: 6px solid #c8d5e6;
+  }
+  to {
+    border-top: 6px solid #00a4d8;
+  }
+}
+
+.widget-form {
+  height: 100%;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.widget-form.active {
+  -webkit-animation-name: border-fade;
+  -webkit-animation-duration: 0.4s;
+  animation-name: border-fade;
+  animation-duration: 0.6s;
+  border-top: 6px solid #00a4d8;
+}
+
+.widget-form.inactive {
+  border-top: 6px solid #c8d5e6;
+}
+
+.drag-handle-selector {
+  cursor: move;
+  height: 22px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.drag-handle-selector .img {
+  width: 22px;
+}
+
+.contents {
+  padding: 0px 24px 0px 24px;
+}
+
+.footer {
+  margin-top: 30px;
+  width: 100%;
+  grid-row: 3;
+}
+
+.footer .switch-label {
+  background-color: black;
+  float: right;
+}
+
+.switch {
+  float: right;
+  margin: 5.5px 7px 7px 3px;
+}
+
+.footer > .items {
+  float: right;
+  width: 100%;
+  padding-right: 18px;
+  padding-bottom: 7px;
+}
+
+.footer > .items > img {
+  max-width: 24px;
+  max-height: 24px;
+  float: right;
+}
+
+.footer .switch-label {
+  background-color: black;
+  float: right;
+}
+
+.footer .required-text {
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 13px;
+  float: right;
+  margin: 3px 0px 0px 7px;
+}
+
+.footer img.trash-img {
+  margin-right: 3px;
+}
+
+.footer img.trash-img:hover {
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.footer img.duplicate-img:hover {
+  cursor: pointer;
+}
+
+.footer hr.horizontal-seperator {
+  margin-bottom: 7px;
+  margin-top: 7px;
+}

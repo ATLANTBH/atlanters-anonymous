@@ -11,7 +11,7 @@ import {
 import Feedback from "./pages/Feedback";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
-import CreateSurvey from "./pages/CreateSurvey";
+import CreateSurvey from "./pages/CreateSurveyPage";
 import Navbar from "./components/common/Navbar";
 import { getCurrentUser } from "./services/http/authService";
 

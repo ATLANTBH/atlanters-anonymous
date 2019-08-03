@@ -14,6 +14,15 @@
 @import "styles/common/ui/loadingSpinner.css";
 @import "styles/common/ui/buttons.css";
 @import "styles/common/ui/input.css";
+@import "styles/common/ui/create-survey/input.css";
+/** CREATE SURVEY **/
+@import "styles/common/create-survey/create-survey.css";
+@import "styles/common/create-survey/navigator.css";
+@import "styles/common/create-survey/widget.css";
+@import "styles/common/create-survey/title-form.css";
+/** WIDGET FORMS **/
+@import "styles/common/create-survey/widget-forms/common.css";
+@import "styles/common/create-survey/widget-forms/short-answer.css";
 
 /** IMPORT MODAL STYLES **/
 @import "styles/modals/modal.css";
