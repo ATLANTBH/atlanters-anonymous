@@ -1,14 +1,13 @@
 import fetch from "node-fetch";
 
-function checkStatus(result) {
+function validateStatus(result) {
   const { status, message } = result;
   if (status) throw new Error(message);
 }
 
-async function resolveResult(res) {
-  const { headers } = res;
-  const result = await res.json();
-  checkStatus(result);
+function resolveResult(res, headers) {
+  const result = JSON.parse(res);
+  validateStatus(result);
   return {
     result,
     headers
@@ -29,7 +28,11 @@ export function post(path, data, query = {}) {
     headers: { "Content-Type": "application/json" }
   };
   return fetch(path, request).then(async res => {
-    return await resolveResult(res);
+    const { headers } = res;
+    res = await res.text();
+    if (res.includes("ECONNREFUSED"))
+      throw new Error("Could not connect to server");
+    return resolveResult(res, headers);
   });
 }
 
