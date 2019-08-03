@@ -6,13 +6,15 @@ import { SIGNUP } from "../../constants/form/labels/button";
 import {
   CONFIRM_PASSWORD_LABEL,
   EMAIL_LABEL,
-  FULL_NAME_LABEL,
+  NAME_LABEL,
+  SURNAME_LABEL,
   PASSWORD_LABEL
 } from "../../constants/form/labels/input";
 import {
   CONFIRM_PASSWORD,
   EMAIL,
-  FULL_NAME,
+  NAME,
+  SURNAME,
   SIGNUP_PASSWORD
 } from "../../constants/form/names/input";
 import Form from "./ui/form/Form";
@@ -34,18 +36,22 @@ export default class SignUpForm extends Form {
   state = {
     submitPressed: false,
     data: {
-      fullName: "Vedad",
-      email: "vedad_fejzagic@yahoo.com",
-      signUpPassword: "123456789",
-      confirmPassword: "123456789"
+      name: "",
+      surname: "",
+      email: "",
+      signUpPassword: "",
+      confirmPassword: ""
     },
     errors: {}
   };
 
   schema = {
-    fullName: Joi.string()
+    name: Joi.string()
       .required()
-      .label(FULL_NAME_LABEL),
+      .label(NAME_LABEL),
+    surname: Joi.string()
+      .required()
+      .label(SURNAME_LABEL),
     email: Joi.string()
       .required()
       .label(EMAIL_LABEL),
@@ -73,9 +79,17 @@ export default class SignUpForm extends Form {
             <form onSubmit={this.onSubmit} className="form sign-up">
               <h1 className="sign-up title text-center">Sign Up</h1>
               {this.renderInput(
-                FULL_NAME,
-                FULL_NAME_LABEL,
-                FULL_NAME_LABEL,
+                NAME,
+                NAME_LABEL,
+                NAME_LABEL,
+                isSubmitting,
+                "text",
+                true
+              )}
+              {this.renderInput(
+                SURNAME,
+                SURNAME_LABEL,
+                SURNAME_LABEL,
                 isSubmitting,
                 "text",
                 true

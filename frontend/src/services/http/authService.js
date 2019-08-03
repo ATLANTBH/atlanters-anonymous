@@ -5,8 +5,8 @@ import { TOKEN_HEADER } from "../../constants/headers";
 export function signUp(data) {
   return post("/api/auth/sign-up", {
     email: data.email,
-    name: data.fullName,
-    surname: data.fullName,
+    name: data.name,
+    surname: data.surname,
     password: data.signUpPassword
   }).then(res => {
     return res;
