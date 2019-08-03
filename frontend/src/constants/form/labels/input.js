@@ -1,11 +1,4 @@
-export const FULL_NAME = "Full Name";
-export const PASSWORD = "Password";
-export const CONFIRM_PASSWORD = "Confirm Password";
-export const EMAIL = "Email";
-
-export default {
-  FULL_NAME,
-  PASSWORD,
-  CONFIRM_PASSWORD,
-  EMAIL
-};
+export const FULL_NAME_LABEL = "Full Name";
+export const PASSWORD_LABEL = "Password";
+export const CONFIRM_PASSWORD_LABEL = "Confirm Password";
+export const EMAIL_LABEL = "Email";

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import SignUpForm from "../components/common/SignUpForm";
-import { signUp, setJwt, getJwt } from "../services/http/authService";
-import { FEEDBACK_ROUTE } from "../constants/routes";
-import { newWindowLocation } from "../utils/navigate";
 import { TOKEN_HEADER } from "../constants/headers";
+import { FEEDBACK_ROUTE } from "../constants/routes";
+import { getJwt, setJwt, signUp } from "../services/http/authService";
+import { newWindowLocation } from "../utils/navigate";
 
 export default class SignUp extends Component {
   state = {
@@ -34,7 +34,9 @@ export default class SignUp extends Component {
   };
 
   render() {
-    if (getJwt()) newWindowLocation(FEEDBACK_ROUTE);
+    if (getJwt()) {
+      newWindowLocation(FEEDBACK_ROUTE);
+    }
 
     const { isSubmitting, error } = this.state;
     return (

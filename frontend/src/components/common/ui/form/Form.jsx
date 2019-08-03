@@ -1,11 +1,11 @@
-import React, { Component } from "react";
 import Joi from "joi-browser";
-import Input from "./Input";
-import Button from "./Button";
+import React, { Component } from "react";
 import {
   CONFIRM_PASSWORD,
   SIGNUP_PASSWORD
 } from "../../../../constants/form/names/input";
+import Button from "./Button";
+import Input from "./Input";
 
 export default class Form extends Component {
   state = {
@@ -19,10 +19,14 @@ export default class Form extends Component {
       abortEarly: false
     };
     const { error } = Joi.validate(this.state.data, this.schema, options);
-    if (!error) return null;
+    if (!error) {
+      return null;
+    }
 
     const errors = {};
-    for (let item of error.details) errors[item.path[0]] = item.message;
+    for (let item of error.details) {
+      errors[item.path[0]] = item.message;
+    }
     return errors ? errors : null;
   };
 
@@ -40,7 +44,9 @@ export default class Form extends Component {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
-    if (errors) return;
+    if (errors) {
+      return;
+    }
 
     onSubmit(this.state.data);
   };
@@ -80,8 +86,11 @@ export default class Form extends Component {
       this.deleteProperty(errors, name);
     } else {
       const errorMessage = this.validateProperty(currentTarget);
-      if (errorMessage) errors[name] = errorMessage;
-      else this.deleteProperty(errors, name);
+      if (errorMessage) {
+        errors[name] = errorMessage;
+      } else {
+        this.deleteProperty(errors, name);
+      }
       if (name === SIGNUP_PASSWORD && confirmPassword.length > 0) {
         this.validateConfirmPassword(
           value,
