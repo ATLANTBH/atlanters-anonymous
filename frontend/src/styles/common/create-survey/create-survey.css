@@ -8,9 +8,10 @@
 .create-survey-container .smooth-dnd-container.horizontal {
   grid-column: 2;
   grid-row: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  grid-gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
 }
 
 .create-survey-container .smooth-dnd-container.vertical {
@@ -41,9 +42,6 @@
   grid-template-columns: repeat(6, 1fr);
 }
 
-@media only screen and (max-height: 1200) {
-}
-
 @media screen and (max-width: 1750px) {
   .create-survey-container .smooth-dnd-container.horizontal {
     grid-column: 2;
@@ -66,7 +64,7 @@
   }
 
   .navigator-container {
-    grid-column: 3;
+    grid-column: 3 !important;
   }
 
   .create-survey-container .smooth-dnd-container.vertical {
