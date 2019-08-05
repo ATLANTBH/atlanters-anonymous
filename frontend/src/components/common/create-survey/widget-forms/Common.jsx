@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Draggable } from "react-smooth-dnd";
-import MovableIndicator from "../../../../assets/images/create-survey/widgets/movable-indicator.png";
+import Switch from "react-switch";
 import Duplicate from "../../../../assets/images/create-survey/duplicate.png";
 import Trash from "../../../../assets/images/create-survey/trash.png";
-import Switch from "react-switch";
+import MovableIndicator from "../../../../assets/images/create-survey/widgets/movable-indicator.png";
 import {
+  SWITCH_HEIGHT,
   SWITCH_OFF_COLOR,
   SWITCH_ON_COLOR,
-  SWITCH_WIDTH,
-  SWITCH_HEIGHT
+  SWITCH_WIDTH
 } from "../../../../constants/survey";
 
 class Common extends Component {
@@ -23,6 +23,7 @@ class Common extends Component {
    */
   onSwitch = () => {
     let { data, required } = this.state;
+    data = data == null ? data : { id: this.props.uuid };
     required = !required;
     this.props.getData({
       ...data,

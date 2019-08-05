@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
-import Common from "../widget-forms/Common";
-import uuid from "uuid";
-import TitleForm from "../TitleForm";
 import { Container } from "react-smooth-dnd";
+import uuid from "uuid";
 import {
+  DROP_CONTAINER_BORDER,
   TITLE_INDEX,
-  TITLE_INIT_VALUE,
-  DROP_CONTAINER_BORDER
+  TITLE_INIT_VALUE
 } from "../../../../constants/survey";
+import TitleForm from "../TitleForm";
+import Common from "../widget-forms/Common";
 
 export default class SurveyContainer extends Component {
   state = {
