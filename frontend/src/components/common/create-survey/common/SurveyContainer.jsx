@@ -18,6 +18,11 @@ export default class SurveyContainer extends Component {
     activeItemIndex: TITLE_INDEX
   };
 
+  componentDidMount() {
+    const { titleData } = this.state;
+    this.props.updateResult({ titleData });
+  }
+
   /**
    * On form duplicate
    * @param {Object} item
