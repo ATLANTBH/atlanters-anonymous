@@ -25,6 +25,13 @@ class Message extends Sequelize.Model {
     Message.belongsTo(models.User);
   }
 
+  static async findByFeedbackId(feedbackId) {
+    const messages = await Message.findAll({
+      where: { FeedbackId: feedbackId },
+    });
+    return messages;
+  }
+
   static async findById(id) {
     const user = await Feedback.findOne({
       where: { id: id },

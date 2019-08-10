@@ -25,6 +25,19 @@ class Feedback extends Sequelize.Model {
             },
           },
         },
+        isClosed: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+          allowNull: false,
+          validate: {
+            notEmpty: {
+              msg: 'Unexpected that isOpen field is empty',
+            },
+            notNull: {
+              msg: 'Field isOpen must be set',
+            },
+          },
+        },
       },
       { sequelize }
     );
