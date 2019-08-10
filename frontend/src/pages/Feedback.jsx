@@ -11,7 +11,7 @@ export default class Feedback extends Component {
     isConfirmationShown: false,
     isSubmited: false,
 
-    submitError: "",
+    submitResult: {},
     feedback: ""
   };
 
@@ -36,19 +36,23 @@ export default class Feedback extends Component {
     e.preventDefault();
     this.setState({ isConfirmationShown: false, isSubmitting: true });
     submitFeedback({ data: this.state.feedback })
-      .then(() => this.onFeedbackSentSuccessfully())
+      .then(res => this.onFeedbackSentSuccessfully(res))
       .catch(err => this.onFeedbackError(err));
   };
 
-  onFeedbackSentSuccessfully() {
-    this.setState({ isSubmitting: false, isSubmited: true });
+  onFeedbackSentSuccessfully(res) {
+    this.setState({
+      isSubmitting: false,
+      isSubmited: true,
+      submitResult: { message: res.result.id }
+    });
   }
 
   onFeedbackError(err) {
     this.setState({
       isSubmitting: false,
       isSubmited: true,
-      submitError: err.message
+      submitResult: { error: err.message }
     });
   }
 
@@ -57,7 +61,7 @@ export default class Feedback extends Component {
       isConfirmationShown,
       isSubmitting,
       isSubmited,
-      submitError,
+      submitResult,
       feedback
     } = this.state;
 
@@ -67,7 +71,7 @@ export default class Feedback extends Component {
 
         {!isSubmitting &&
           (isSubmited ? (
-            <FeedbackResult submitResult={submitError} />
+            <FeedbackResult submitResult={submitResult} />
           ) : (
             <FeedbackForm
               value={feedback}
