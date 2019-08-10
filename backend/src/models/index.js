@@ -4,6 +4,7 @@ import PollModel from './poll';
 import PollTemplateModel from './poll-template';
 import UserModel from './user';
 import FeedbackModel from './feedback';
+import MessageModel from './message';
 
 function initModels(sequelize) {
   const models = {
@@ -12,6 +13,7 @@ function initModels(sequelize) {
     Answer: AnswerModel.init(sequelize, Sequelize),
     Poll: PollModel.init(sequelize, Sequelize),
     Feedback: FeedbackModel.init(sequelize, Sequelize),
+    Message: MessageModel.init(sequelize, Sequelize),
   };
 
   Object.keys(models).forEach(key => {

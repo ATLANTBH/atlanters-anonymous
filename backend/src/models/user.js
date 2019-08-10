@@ -59,6 +59,7 @@ class User extends Sequelize.Model {
   static associate(models) {
     User.hasMany(models.PollTemplate);
     User.hasMany(models.Poll);
+    User.hasMany(models.Message);
   }
 
   static async findAllWithAssoc(associations = []) {

@@ -82,8 +82,18 @@ const createUsersWithMessages = async models => {
     ],
   });
 
+  const feedback = await models.Feedback.create({
+    data: 'Feedback example',
+    key: 'test',
+  });
+
+  const message = await models.Message.create({
+    text: 'This is a message',
+  });
+
   await user.setPollTemplates([pollTemplate]);
   await user.setPolls([poll]);
+  await feedback.setMessages([message]);
   await pollTemplate.setPolls([poll]);
   await poll.setAnswers([answer]);
 };

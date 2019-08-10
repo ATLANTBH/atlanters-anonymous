@@ -4,6 +4,15 @@ class Feedback extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init(
       {
+        id: {
+          type: DataTypes.UUID,
+          defaultValue: Sequelize.UUIDV4,
+          primaryKey: true,
+          allowNull: false,
+          validate: {
+            notNull: true,
+          },
+        },
         data: {
           type: DataTypes.STRING,
           allowNull: false,
@@ -19,6 +28,10 @@ class Feedback extends Sequelize.Model {
       },
       { sequelize }
     );
+  }
+
+  static associate(models) {
+    Feedback.hasMany(models.Message, { onDelete: 'CASCADE' });
   }
 
   static async findById(id) {
