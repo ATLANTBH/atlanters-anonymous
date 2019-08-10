@@ -9,8 +9,8 @@ import createMessage from './feedback.messages.post';
 export default app => {
   const router = Router();
 
-  router.get('/:id', verifyToken(app), getFeedbackById(app));
-  router.get('/:id/messages', verifyToken(app), getMessagesByFeedbackId(app));
+  router.get('/:id', getFeedbackById(app));
+  router.get('/:id/messages', getMessagesByFeedbackId(app));
   router.get('/', verifyToken(app), getAllFeedback(app));
   router.post('/', feedback(app));
   router.post('/:id/user/:userId?/messages', createMessage(app));

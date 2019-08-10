@@ -16,6 +16,24 @@ function resolveResult(res, headers) {
   };
 }
 
+async function handleResponse(res) {
+  const { headers } = res;
+  res = await res.text();
+  if (res.includes("ECONNREFUSED"))
+    throw new Error("Could not connect to server");
+  return resolveResult(res, headers);
+}
+
+export function get(path) {
+  const request = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  };
+  return fetch(path, request).then(async res => {
+    return await handleResponse(res);
+  });
+}
+
 /**
  * POST request
  *
@@ -30,11 +48,7 @@ export function post(path, data, query = {}) {
     headers: { "Content-Type": "application/json" }
   };
   return fetch(path, request).then(async res => {
-    const { headers } = res;
-    res = await res.text();
-    if (res.includes("ECONNREFUSED"))
-      throw new Error("Could not connect to server");
-    return resolveResult(res, headers);
+    return await handleResponse(res);
   });
 }
 

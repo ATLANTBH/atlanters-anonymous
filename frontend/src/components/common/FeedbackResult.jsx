@@ -3,7 +3,6 @@ import classNames from "classnames";
 import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 export default class FeedbackResult extends Component {
   static propTypes = {
@@ -42,8 +41,8 @@ export default class FeedbackResult extends Component {
             ) : (
               <div>
                 Thank you! Your feedback is greatly appreciated.{" "}
-                <Link to={`/feedback/${message}`}>Click here</Link> to access
-                your ticket.
+                <a href={`/feedback/${message}`}>Click here</a> to access your
+                ticket.
                 <br />
                 <br />
                 Do not lose your ticket key:

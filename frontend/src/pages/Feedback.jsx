@@ -3,17 +3,43 @@ import FeedbackForm from "../components/common/FeedbackForm";
 import FeedbackResult from "../components/common/FeedbackResult";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
-import { submitFeedback } from "../services/http/feedbackService";
+import { getFeedback, submitFeedback } from "../services/http/feedbackService";
+import FeedbackTicket from "../components/common/FeedbackTicket";
 
 export default class Feedback extends Component {
   state = {
-    isSubmitting: false,
+    isLoading: false,
     isConfirmationShown: false,
     isSubmited: false,
+    isFeedbackTicketShown: false,
 
+    feedbackTicketResult: {},
     submitResult: {},
     feedback: ""
   };
+
+  componentDidMount() {
+    const { feedbackId } = this.props.match.params;
+    if (feedbackId) {
+      this.setState({ isLoading: true });
+      getFeedback(feedbackId)
+        .then(res => this.onFeedbackGetSuccess(res.result))
+        .catch(err => this.onFeedbackGetError(err));
+    }
+  }
+
+  onFeedbackGetSuccess(res) {
+    this.setState({
+      isLoading: false,
+      isFeedbackTicketShown: true,
+      isSubmited: false,
+      feedbackTicketResult: res
+    });
+  }
+
+  onFeedbackGetError(err) {
+    this.setState({ isLoading: false, feedbackTicketResult: err });
+  }
 
   /**
    * Called when confirmation modal gets closed.
@@ -34,23 +60,23 @@ export default class Feedback extends Component {
 
   onSubmitFeedback = e => {
     e.preventDefault();
-    this.setState({ isConfirmationShown: false, isSubmitting: true });
+    this.setState({ isConfirmationShown: false, isLoading: true });
     submitFeedback({ data: this.state.feedback })
-      .then(res => this.onFeedbackSentSuccessfully(res))
+      .then(res => this.onFeedbackSentSuccessfully(res.result))
       .catch(err => this.onFeedbackError(err));
   };
 
   onFeedbackSentSuccessfully(res) {
     this.setState({
-      isSubmitting: false,
+      isLoading: false,
       isSubmited: true,
-      submitResult: { message: res.result.id }
+      submitResult: { message: res.id }
     });
   }
 
   onFeedbackError(err) {
     this.setState({
-      isSubmitting: false,
+      isLoading: false,
       isSubmited: true,
       submitResult: { error: err.message }
     });
@@ -59,19 +85,23 @@ export default class Feedback extends Component {
   render() {
     const {
       isConfirmationShown,
-      isSubmitting,
+      isLoading,
       isSubmited,
+      isFeedbackTicketShown,
+      feedbackTicketResult,
       submitResult,
       feedback
     } = this.state;
 
     return (
       <section className="feedback-container">
-        {isSubmitting && <LoadingSpinner height={60} width={60} />}
+        {isLoading && <LoadingSpinner height={60} width={60} />}
 
-        {!isSubmitting &&
+        {!isLoading &&
           (isSubmited ? (
             <FeedbackResult submitResult={submitResult} />
+          ) : isFeedbackTicketShown ? (
+            <FeedbackTicket info={feedbackTicketResult} />
           ) : (
             <FeedbackForm
               value={feedback}
