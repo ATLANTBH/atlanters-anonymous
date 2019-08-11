@@ -83,6 +83,7 @@ const createUsersWithMessages = async models => {
   });
 
   const feedback = await models.Feedback.create({
+    id: '48b436b4-fa33-42fd-a448-6f6bcf27e644',
     data: 'Feedback example',
   });
 

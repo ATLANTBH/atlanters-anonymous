@@ -61,7 +61,7 @@ export default class Feedback extends Component {
   onSubmitFeedback = e => {
     e.preventDefault();
     this.setState({ isConfirmationShown: false, isLoading: true });
-    submitFeedback({ data: this.state.feedback })
+    submitFeedback({ text: this.state.feedback })
       .then(res => this.onFeedbackSentSuccessfully(res.result))
       .catch(err => this.onFeedbackError(err));
   };

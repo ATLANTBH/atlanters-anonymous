@@ -38,9 +38,15 @@ class Message extends Sequelize.Model {
     return messages;
   }
 
-  static async findById(id) {
-    const user = await Feedback.findOne({
+  static async findById(id, User) {
+    const user = await Message.findOne({
       where: { id: id },
+      include: [
+        {
+          model: User,
+          attributes: ['name', 'surname'],
+        },
+      ],
     });
     return user;
   }

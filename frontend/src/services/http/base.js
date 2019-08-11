@@ -24,6 +24,11 @@ async function handleResponse(res) {
   return resolveResult(res, headers);
 }
 
+/**
+ * GET request
+ *
+ * @param {String} path Path to get
+ */
 export function get(path) {
   const request = {
     method: "GET",
@@ -59,7 +64,6 @@ export function post(path, data, query = {}) {
  * @param {Object} data Data containing headers
  * @param {Object} query Query params
  */
-
 export function deleteCall(path, data, query = {}) {
   const request = {
     method: "DELETE",

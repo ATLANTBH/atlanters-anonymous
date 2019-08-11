@@ -19,7 +19,6 @@ export default class SignIn extends Component {
   };
 
   onSignInSuccessful = res => {
-    console.log(res);
     setJwt(res.headers.get(TOKEN_HEADER));
     this.setState({ isSubmitting: false });
     newWindowLocation(FEEDBACK_ROUTE);

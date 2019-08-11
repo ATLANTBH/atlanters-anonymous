@@ -13,9 +13,10 @@ export default ({ models }) => {
         user = await User.findById(userId);
         if (!user) throw new Error(`User with id ${userId} does not exist`);
       }
-      const message = await Message.create(messageReq);
-      if (user) user.addMessage(message);
+      let message = await Message.create(messageReq);
+      if (user) await user.addMessage(message);
       await feedback.addMessage(message);
+      message = await Message.findById(message.id, User);
       res.send(message);
     } catch (error) {
       next(new Error(error));

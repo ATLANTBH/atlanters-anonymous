@@ -13,18 +13,6 @@ class Feedback extends Sequelize.Model {
             notNull: true,
           },
         },
-        data: {
-          type: DataTypes.STRING,
-          allowNull: false,
-          validate: {
-            notEmpty: {
-              msg: 'Unexpected that data field is empty',
-            },
-            notNull: {
-              msg: 'Feedback data must be provided',
-            },
-          },
-        },
         isClosed: {
           type: DataTypes.BOOLEAN,
           defaultValue: false,
@@ -54,7 +42,7 @@ class Feedback extends Sequelize.Model {
     return user;
   }
 
-  static async sendMail({ data }) {
+  static async sendMail({ text }) {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: parseInt(process.env.EMAIL_PORT),
@@ -68,7 +56,7 @@ class Feedback extends Sequelize.Model {
       from: process.env.EMAIL_FEEDBACK,
       to: process.env.EMAIL_FEEDBACK,
       subject: 'Feedback Received',
-      text: data,
+      text: text,
     });
   }
 }
