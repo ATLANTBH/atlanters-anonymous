@@ -101,7 +101,7 @@ export default class Feedback extends Component {
           (isSubmited ? (
             <FeedbackResult submitResult={submitResult} />
           ) : isFeedbackTicketShown ? (
-            <FeedbackTicket info={feedbackTicketResult} />
+            <FeedbackTicket feedbackInfo={feedbackTicketResult} />
           ) : (
             <FeedbackForm
               value={feedback}

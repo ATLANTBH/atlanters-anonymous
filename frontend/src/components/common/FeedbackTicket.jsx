@@ -3,14 +3,18 @@ import { getFeedbackMessages } from "../../services/http/feedbackService";
 import TicketMessage from "./TicketMessage";
 import { getCurrentUser } from "../../services/http/authService";
 import PropTypes from "prop-types";
-import { DEFAULT_USERNAME, CHAT_EVENT } from "../../constants/strings";
-import { onMessageReceived, emitMessage } from "../../services/socket/chat";
+import { DEFAULT_USERNAME } from "../../constants/strings";
+import {
+  onMessageReceived,
+  onErrorReceived,
+  emitMessage
+} from "../../services/socket/chat";
 import { connectSocket } from "../../services/socket/base";
 
 export default class FeedbackTicket extends Component {
   static propTypes = {
     /**
-     * Result returned from server after feedback is created
+     * Feedback info returned from server after it is initially created
      */
     feedbackInfo: PropTypes.isRequired,
     feedbackInfo: PropTypes.shape({
@@ -29,18 +33,31 @@ export default class FeedbackTicket extends Component {
     isMessageSubmitting: false
   };
 
+  /**
+   * Scroll to bottom of chat container
+   */
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
+  /**
+   * Called when server emits a message through socket
+   *
+   * @param {Object} data corresponds to message model from the server
+   */
   onChatMessageReceived = data => {
-    if (data.error) {
-      alert(data.error);
-    } else {
-      const { messages } = this.state;
-      messages.push(data);
-      this.setState({ messages, newMessage: "" });
-    }
+    const { messages } = this.state;
+    messages.push(data);
+    this.setState({ messages, newMessage: "", isMessageSubmitting: false });
+  };
+
+  /**
+   * Called when server emits an error through socket
+   *
+   * @param {String} error error message
+   */
+  onChatErrorReceived = error => {
+    alert(error);
     this.setState({ isMessageSubmitting: false });
   };
 
@@ -56,7 +73,7 @@ export default class FeedbackTicket extends Component {
       }
     });
     getFeedbackMessages(feedbackInfo.id)
-      .then(res => this.onGetMessagesSuccess(res.result, feedbackInfo.id))
+      .then(res => this.onGetMessagesSuccess(res.result))
       .catch(err => this.onGetMessagesError(err));
   }
 
@@ -64,15 +81,33 @@ export default class FeedbackTicket extends Component {
     this.scrollToBottom();
   }
 
+  /**
+   * Called when messages successfully received on component mount
+   *
+   * @param {Array} res array of messages from the server
+   */
   onGetMessagesSuccess(res) {
     this.setState({ messages: res });
+    const { user } = this.state;
     onMessageReceived(this.props.feedbackInfo.id, this.onChatMessageReceived);
+    onErrorReceived(
+      user.name === DEFAULT_USERNAME ? -1 : user.id,
+      this.onChatErrorReceived
+    );
   }
 
+  /**
+   * Called on error when fetching messages on component mount
+   *
+   * @param {Object} err
+   */
   onGetMessagesError(err) {
     alert(err.message);
   }
 
+  /**
+   * Called when new message is submited
+   */
   onSendMessage = e => {
     e.preventDefault();
     const { newMessage, user } = this.state;

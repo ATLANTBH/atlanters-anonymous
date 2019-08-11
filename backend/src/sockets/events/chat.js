@@ -10,7 +10,7 @@ export default (io, models, socket) => {
       const message = await postMessage(models, feedbackId, userId, text);
       io.sockets.emit(feedbackId, message);
     } catch (err) {
-      io.sockets.emit(feedbackId, { error: err.toString() });
+      io.sockets.emit(userId, err.toString());
     }
   });
 };
