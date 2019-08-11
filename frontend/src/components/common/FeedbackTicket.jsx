@@ -1,18 +1,22 @@
 import React, { Component } from "react";
-import {
-  getFeedbackMessages,
-  submitMessage
-} from "../../services/http/feedbackService";
+import { getFeedbackMessages } from "../../services/http/feedbackService";
 import TicketMessage from "./TicketMessage";
 import { getCurrentUser } from "../../services/http/authService";
 import PropTypes from "prop-types";
-import { DEFAULT_USERNAME } from "../../constants/strings";
+import { DEFAULT_USERNAME, CHAT_EVENT } from "../../constants/strings";
+import { onMessageReceived, emitMessage } from "../../services/socket/chat";
+import { connectSocket } from "../../services/socket/base";
+
 export default class FeedbackTicket extends Component {
   static propTypes = {
     /**
      * Result returned from server after feedback is created
      */
-    info: PropTypes.object.isRequired
+    feedbackInfo: PropTypes.isRequired,
+    feedbackInfo: PropTypes.shape({
+      id: PropTypes.string,
+      isClosed: PropTypes.bool
+    })
   };
 
   state = {
@@ -29,9 +33,21 @@ export default class FeedbackTicket extends Component {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
+  onChatMessageReceived = data => {
+    if (data.error) {
+      alert(data.error);
+    } else {
+      const { messages } = this.state;
+      messages.push(data);
+      this.setState({ messages, newMessage: "" });
+    }
+    this.setState({ isMessageSubmitting: false });
+  };
+
   componentDidMount() {
     this.scrollToBottom();
-    const { info } = this.props;
+    connectSocket();
+    const { feedbackInfo } = this.props;
     const user = getCurrentUser();
     this.setState({
       user: {
@@ -39,8 +55,8 @@ export default class FeedbackTicket extends Component {
         id: user ? user.id : null
       }
     });
-    getFeedbackMessages(info.id)
-      .then(res => this.onGetMessagesSuccess(res.result))
+    getFeedbackMessages(feedbackInfo.id)
+      .then(res => this.onGetMessagesSuccess(res.result, feedbackInfo.id))
       .catch(err => this.onGetMessagesError(err));
   }
 
@@ -50,6 +66,7 @@ export default class FeedbackTicket extends Component {
 
   onGetMessagesSuccess(res) {
     this.setState({ messages: res });
+    onMessageReceived(this.props.feedbackInfo.id, this.onChatMessageReceived);
   }
 
   onGetMessagesError(err) {
@@ -60,27 +77,14 @@ export default class FeedbackTicket extends Component {
     e.preventDefault();
     const { newMessage, user } = this.state;
     if (newMessage === "") return;
-    const { id } = this.props.info;
+    const { id } = this.props.feedbackInfo;
     this.setState({ isMessageSubmitting: true });
-    submitMessage(id, user.id, { text: newMessage })
-      .then(res => this.onSendMessageSuccess(res.result))
-      .catch(err => this.onSendMessageError(err));
-  };
-
-  onSendMessageSuccess = res => {
-    const { messages } = this.state;
-    messages.push(res);
-    this.setState({ newMessage: "", messages, isMessageSubmitting: false });
-  };
-
-  onSendMessageError = err => {
-    alert(err);
-    this.setState({ isMessageSubmitting: false });
+    emitMessage(newMessage, user.id, id);
   };
 
   render() {
     const { newMessage, messages, isMessageSubmitting } = this.state;
-    const { info } = this.props;
+    const { feedbackInfo } = this.props;
     return (
       <div className="form feedback-card">
         <div
@@ -124,8 +128,8 @@ export default class FeedbackTicket extends Component {
               gridColumn: "1",
               borderRadius: "4px"
             }}
-            value={info.isClosed ? "This ticket is closed" : newMessage}
-            disabled={info.isClosed}
+            value={feedbackInfo.isClosed ? "This ticket is closed" : newMessage}
+            disabled={feedbackInfo.isClosed}
             onChange={e => this.setState({ newMessage: e.target.value })}
           />
           <button

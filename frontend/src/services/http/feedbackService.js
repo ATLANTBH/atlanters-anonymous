@@ -6,15 +6,6 @@ export function submitFeedback(data) {
   });
 }
 
-export function submitMessage(feedbackId, userId, data) {
-  return post(
-    `/api/feedback/${feedbackId}/user/${userId ? userId : ""}/messages`,
-    data
-  ).then(res => {
-    return res;
-  });
-}
-
 export function getFeedback(feedbackId) {
   return get(`/api/feedback/${feedbackId}`).then(res => {
     return res;
