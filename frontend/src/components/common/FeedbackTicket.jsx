@@ -25,7 +25,7 @@ export default class FeedbackTicket extends Component {
 
   state = {
     messages: [],
-    newMessage: "",
+    inputMessage: "",
     user: {
       name: "",
       id: ""
@@ -41,14 +41,28 @@ export default class FeedbackTicket extends Component {
   };
 
   /**
+   * Checks if the client is the author of received chat message
+   *
+   * @param {String} messageAuthor received message author name
+   * @param {String} currentClient name of current client
+   */
+  isAuthorCurrentClient = (messageAuthor, currentClient) => {
+    return messageAuthor === currentClient;
+  };
+
+  /**
    * Called when server emits a message through socket
    *
    * @param {Object} data corresponds to message model from the server
    */
   onChatMessageReceived = data => {
-    const { messages } = this.state;
+    const { messages, user } = this.state;
+    if (data.User == null) data.User = { name: DEFAULT_USERNAME };
+    if (this.isAuthorCurrentClient(data.User.name, user.name)) {
+      this.setState({ inputMessage: "" });
+    }
     messages.push(data);
-    this.setState({ messages, newMessage: "", isMessageSubmitting: false });
+    this.setState({ messages, isMessageSubmitting: false });
   };
 
   /**
@@ -110,15 +124,15 @@ export default class FeedbackTicket extends Component {
    */
   onSendMessage = e => {
     e.preventDefault();
-    const { newMessage, user } = this.state;
-    if (newMessage === "") return;
+    const { inputMessage, user } = this.state;
+    if (inputMessage === "") return;
     const { id } = this.props.feedbackInfo;
     this.setState({ isMessageSubmitting: true });
-    emitMessage(newMessage, user.id, id);
+    emitMessage(inputMessage, user.id, id);
   };
 
   render() {
-    const { newMessage, messages, isMessageSubmitting } = this.state;
+    const { inputMessage, messages, isMessageSubmitting } = this.state;
     const { feedbackInfo } = this.props;
     return (
       <div className="form feedback-card">
@@ -163,9 +177,11 @@ export default class FeedbackTicket extends Component {
               gridColumn: "1",
               borderRadius: "4px"
             }}
-            value={feedbackInfo.isClosed ? "This ticket is closed" : newMessage}
+            value={
+              feedbackInfo.isClosed ? "This ticket is closed" : inputMessage
+            }
             disabled={feedbackInfo.isClosed}
-            onChange={e => this.setState({ newMessage: e.target.value })}
+            onChange={e => this.setState({ inputMessage: e.target.value })}
           />
           <button
             style={{

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import {
-  FEEDBACK_ROUTE,
+  FEEDBACK_ROUTE_PARAMS,
   SIGNUP_ROUTE,
   SIGNIN_ROUTE,
   NOT_FOUND_ROUTE
@@ -30,7 +30,7 @@ class App extends Component {
           <Switch>
             <Route path={SIGNUP_ROUTE} component={SignUp} />
             <Route path={SIGNIN_ROUTE} component={SignIn} />
-            <Route path={FEEDBACK_ROUTE} component={Feedback} />
+            <Route path={FEEDBACK_ROUTE_PARAMS} component={Feedback} />
             <Route path={NOT_FOUND_ROUTE} component={NotFound} />
 
             <Redirect from="/" exact to={SIGNIN_ROUTE} />
