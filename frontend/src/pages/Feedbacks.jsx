@@ -66,6 +66,7 @@ export default class Feedbacks extends Component {
         feedbacks={this.state.currentFeedbacks}
         feedbackClosed={this.feedbackClosed}
         totalPages={this.state.totalPages}
+        currentPage={this.state.currentPage}
         onPageChange={this.onPageChange}
         history={this.props.history}
       />

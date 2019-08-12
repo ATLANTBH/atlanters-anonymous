@@ -45,8 +45,7 @@ export default class FeedbackList extends Component {
   };
 
   render() {
-    const { feedbacks, totalPages } = this.props;
-
+    const { feedbacks, totalPages, currentPage } = this.props;
     return (
       <div
         className="feedbacks-container"
@@ -66,7 +65,7 @@ export default class FeedbackList extends Component {
               <li
                 style={{
                   cursor: "pointer",
-                  color: "blue",
+                  color: currentPage == number ? "red" : "blue",
                   marginRight: "15px",
                   fontSize: "18px",
                   userSelect: "none"
