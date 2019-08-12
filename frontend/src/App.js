@@ -3,10 +3,10 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import {
   FEEDBACK_ROUTE_PARAMS,
+  FEEDBACKS_ROUTE_PARAMS,
   SIGNUP_ROUTE,
   SIGNIN_ROUTE,
-  NOT_FOUND_ROUTE,
-  FEEDBACKS_ROUTE
+  NOT_FOUND_ROUTE
 } from "./constants/routes";
 import Feedback from "./pages/Feedback";
 import Feedbacks from "./pages/Feedbacks";
@@ -35,7 +35,10 @@ class App extends Component {
             <Route path={SIGNIN_ROUTE} component={SignIn} />
             <Route path={FEEDBACK_ROUTE_PARAMS} component={Feedback} />
             <Route path={NOT_FOUND_ROUTE} component={NotFound} />
-            <ProtectedRoute path={FEEDBACKS_ROUTE} component={Feedbacks} />
+            <ProtectedRoute
+              path={FEEDBACKS_ROUTE_PARAMS}
+              component={Feedbacks}
+            />
 
             <Redirect from="/" exact to={SIGNIN_ROUTE} />
             <Redirect to={NOT_FOUND_ROUTE} />

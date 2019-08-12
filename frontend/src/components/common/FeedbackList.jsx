@@ -35,16 +35,54 @@ export default class FeedbackList extends Component {
     );
   };
 
+  onPageChange = e => {
+    let currentUrlParams = new URLSearchParams(window.location.search);
+    currentUrlParams.set("page", e.target.id);
+    this.props.history.push(
+      window.location.pathname + "?" + currentUrlParams.toString()
+    );
+    this.props.onPageChange(e.target.id);
+  };
+
   render() {
-    const { feedbacks } = this.props;
+    const { feedbacks, totalPages } = this.props;
+
     return (
       <div
         className="feedbacks-container"
         style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
       >
-        {feedbacks
-          .reverse()
-          .map((item, index) => this.renderFeedback(item, index))}
+        <div style={{ gridColumn: 2 }}>
+          <div
+            style={{
+              listStyle: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "8px"
+            }}
+          >
+            {totalPages.map(number => (
+              <li
+                style={{
+                  cursor: "pointer",
+                  color: "blue",
+                  marginRight: "15px",
+                  fontSize: "18px",
+                  userSelect: "none"
+                }}
+                key={number}
+                id={number}
+                onClick={this.onPageChange}
+              >
+                {number}
+              </li>
+            ))}
+          </div>
+          <div>
+            {feedbacks.map((item, index) => this.renderFeedback(item, index))}
+          </div>
+        </div>
       </div>
     );
   }

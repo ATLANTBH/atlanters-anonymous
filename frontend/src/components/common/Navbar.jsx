@@ -5,7 +5,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
-import { FEEDBACK_ROUTE, FEEDBACKS_ROUTE } from "../../constants/routes";
+import { FEEDBACK_ROUTE, FEEDBACKS_ROUTE_PAGE } from "../../constants/routes";
 import { TOKEN_HEADER } from "../../constants/headers";
 
 export default class NavBar extends Component {
@@ -46,7 +46,7 @@ export default class NavBar extends Component {
             <Nav>
               <NavLink
                 className="nav-item nav-link mr-sm-2"
-                to={FEEDBACKS_ROUTE}
+                to={FEEDBACKS_ROUTE_PAGE(1)}
               >
                 FEEDBACK
               </NavLink>

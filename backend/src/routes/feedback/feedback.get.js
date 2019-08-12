@@ -4,6 +4,7 @@ export default ({ models }) => {
     try {
       const allFeedback = await Feedback.findAll({
         include: [{ model: Message }],
+        order: [['createdAt', 'ASC']],
       });
       res.send(allFeedback);
     } catch (error) {
