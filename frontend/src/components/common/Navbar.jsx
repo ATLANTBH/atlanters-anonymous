@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
-import { FEEDBACK_ROUTE } from "../../constants/routes";
+import { FEEDBACK_ROUTE, FEEDBACKS_ROUTE } from "../../constants/routes";
 import { TOKEN_HEADER } from "../../constants/headers";
 
 export default class NavBar extends Component {
@@ -43,7 +43,14 @@ export default class NavBar extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <React.Fragment>
-            <Nav />
+            <Nav>
+              <NavLink
+                className="nav-item nav-link mr-sm-2"
+                to={FEEDBACKS_ROUTE}
+              >
+                FEEDBACK
+              </NavLink>
+            </Nav>
             <Nav className="ml-auto">
               <p
                 className="nav-item nav-link sign-out"

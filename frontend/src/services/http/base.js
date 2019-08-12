@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { getJwt } from "./authService";
 
 function validateStatus(result) {
   const { status, message } = result;
@@ -30,9 +31,10 @@ async function handleResponse(res) {
  * @param {String} path Path to get
  */
 export function get(path) {
+  const token = getJwt() || "";
   const request = {
     method: "GET",
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json", "x-auth": token }
   };
   return fetch(path, request).then(async res => {
     return await handleResponse(res);
@@ -74,5 +76,18 @@ export function deleteCall(path, data, query = {}) {
       return await resolveResult(res);
     }
     return res;
+  });
+}
+
+export function put(path) {
+  const token = getJwt() || "";
+  const request = {
+    method: "PUT",
+    headers: {
+      "x-auth": token
+    }
+  };
+  return fetch(path, request).then(async res => {
+    return await handleResponse(res);
   });
 }

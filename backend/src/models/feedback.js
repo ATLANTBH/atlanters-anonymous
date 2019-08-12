@@ -59,6 +59,10 @@ class Feedback extends Sequelize.Model {
       text: text,
     });
   }
+
+  close() {
+    this.isClosed = true;
+  }
 }
 
 export default Feedback;

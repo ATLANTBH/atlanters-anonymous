@@ -1,4 +1,16 @@
-import { get, post } from "./base";
+import { get, post, put } from "./base";
+
+export function getAllFeedback() {
+  return get("/api/feedback").then(res => {
+    return res;
+  });
+}
+
+export function closeFeedback(feedbackId) {
+  return put(`/api/feedback/${feedbackId}/close`).then(res => {
+    return res;
+  });
+}
 
 export function submitFeedback(data) {
   return post("/api/feedback", data).then(res => {

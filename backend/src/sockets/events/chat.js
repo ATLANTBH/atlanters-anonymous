@@ -5,8 +5,9 @@ export default (io, models, socket) => {
   socket.on(CHAT_EVENT, async data => {
     const { feedbackId, userId, text } = data;
     try {
-      if (!(await models.Feedback.findById(feedbackId)))
-        throw new Error('Feedback does not exist');
+      const feedback = await models.Feedback.findById(feedbackId);
+      if (!feedback) throw new Error('Feedback does not exist');
+      if (feedback.isClosed) throw new Error('This case is closed');
       const message = await postMessage(models, feedbackId, userId, text);
       io.sockets.emit(feedbackId, message);
     } catch (err) {

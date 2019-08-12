@@ -36,11 +36,11 @@ export default class SignUpForm extends Form {
   state = {
     submitPressed: false,
     data: {
-      name: "",
-      surname: "",
-      email: "",
-      signUpPassword: "",
-      confirmPassword: ""
+      name: "Vedad",
+      surname: "Fejzagic",
+      email: "vedad_fejzagic@yahoo.com",
+      signUpPassword: "12345678",
+      confirmPassword: "12345678"
     },
     errors: {}
   };

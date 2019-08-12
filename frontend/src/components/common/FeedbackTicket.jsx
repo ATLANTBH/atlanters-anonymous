@@ -10,6 +10,7 @@ import {
   emitMessage
 } from "../../services/socket/chat";
 import { connectSocket } from "../../services/socket/base";
+import { newWindowLocation } from "../../utils/navigate";
 
 export default class FeedbackTicket extends Component {
   static propTypes = {
@@ -73,6 +74,7 @@ export default class FeedbackTicket extends Component {
   onChatErrorReceived = error => {
     alert(error);
     this.setState({ isMessageSubmitting: false });
+    window.location.reload();
   };
 
   componentDidMount() {
