@@ -12,6 +12,12 @@ export function closeFeedback(feedbackId) {
   });
 }
 
+export function updateSeenAt(feedbackId, payload) {
+  return put(`/api/feedback/${feedbackId}/seen`, payload).then(res => {
+    return res;
+  });
+}
+
 export function submitFeedback(data) {
   return post("/api/feedback", data).then(res => {
     return res;

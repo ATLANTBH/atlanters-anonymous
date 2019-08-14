@@ -26,6 +26,20 @@ class Feedback extends Sequelize.Model {
             },
           },
         },
+        anonymLastSeenAt: {
+          type: DataTypes.DATE,
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+          allowNull: false,
+          validate: {
+            notNull: {
+              msg: 'Field anonymSeenAt must be set',
+            },
+          },
+        },
+        userLastSeenAt: {
+          type: DataTypes.DATE,
+          defaultValue: null,
+        },
       },
       { sequelize }
     );

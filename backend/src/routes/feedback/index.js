@@ -6,6 +6,7 @@ import getFeedbackById from './feedback.id.get';
 import getMessagesByFeedbackId from './feedback.messages.get';
 import createMessage from './feedback.messages.post';
 import closeFeedback from './feedback.close.put';
+import seenFeedback from './feedback.seen.put';
 
 export default app => {
   const router = Router();
@@ -16,6 +17,7 @@ export default app => {
   router.post('/', feedback(app));
   router.post('/:id/user/:userId?/messages', createMessage(app));
   router.put('/:id/close', verifyToken(app), closeFeedback(app));
+  router.put('/:id/seen', seenFeedback(app));
 
   return router;
 };

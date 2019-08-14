@@ -79,13 +79,15 @@ export function deleteCall(path, data, query = {}) {
   });
 }
 
-export function put(path) {
+export function put(path, data = {}) {
   const token = getJwt() || "";
   const request = {
     method: "PUT",
     headers: {
+      "Content-Type": "application/json",
       "x-auth": token
-    }
+    },
+    body: JSON.stringify(data)
   };
   return fetch(path, request).then(async res => {
     return await handleResponse(res);

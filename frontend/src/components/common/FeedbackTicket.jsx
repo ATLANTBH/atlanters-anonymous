@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { getFeedbackMessages } from "../../services/http/feedbackService";
+import {
+  getFeedbackMessages,
+  updateSeenAt
+} from "../../services/http/feedbackService";
 import TicketMessage from "./TicketMessage";
 import { getCurrentUser } from "../../services/http/authService";
 import PropTypes from "prop-types";
@@ -7,10 +10,11 @@ import { DEFAULT_USERNAME } from "../../constants/strings";
 import {
   onMessageReceived,
   onErrorReceived,
-  emitMessage
+  emitMessage,
+  emitSeen,
+  onSeen
 } from "../../services/socket/chat";
 import { connectSocket } from "../../services/socket/base";
-import { newWindowLocation } from "../../utils/navigate";
 
 export default class FeedbackTicket extends Component {
   static propTypes = {
@@ -66,6 +70,14 @@ export default class FeedbackTicket extends Component {
     this.setState({ messages, isMessageSubmitting: false });
   };
 
+  onSeen = data => {
+    const { user } = this.state;
+    if (data.name !== user.name) {
+      console.log(data.name + " has seen");
+      console.log(user.name + " is current");
+    }
+  };
+
   /**
    * Called when server emits an error through socket
    *
@@ -97,6 +109,11 @@ export default class FeedbackTicket extends Component {
     this.scrollToBottom();
   }
 
+  componentWilUnmount() {
+    console.log("WIll unmount");
+    window.removeEventListener("focus", this.onFocus);
+  }
+
   /**
    * Called when messages successfully received on component mount
    *
@@ -105,11 +122,36 @@ export default class FeedbackTicket extends Component {
   onGetMessagesSuccess(res) {
     this.setState({ messages: res });
     const { user } = this.state;
+    emitSeen(user, this.props.feedbackInfo.id);
     onMessageReceived(this.props.feedbackInfo.id, this.onChatMessageReceived);
     onErrorReceived(
       user.name === DEFAULT_USERNAME ? -1 : user.id,
       this.onChatErrorReceived
     );
+    onSeen(this.props.feedbackInfo.id, this.onSeen);
+    window.addEventListener("focus", this.onFocus);
+  }
+
+  onFocus = () => {
+    const { user } = this.state;
+    const payload = {
+      [user.name !== DEFAULT_USERNAME
+        ? "userLastSeenAt"
+        : "anonymLastSeenAt"]: new Date()
+    };
+    updateSeenAt(this.props.feedbackInfo.id, payload)
+      .then(res =>
+        this.onUpdateSeenSuccess(res.result, user, this.props.feedbackInfo.id)
+      )
+      .catch(err => this.onUpdateSeenError(err));
+  };
+
+  onUpdateSeenSuccess(res, user, feedbackId) {
+    emitSeen(user, feedbackId);
+  }
+
+  onUpdateSeenError(err) {
+    alert(err);
   }
 
   /**
@@ -118,7 +160,9 @@ export default class FeedbackTicket extends Component {
    * @param {Object} err
    */
   onGetMessagesError(err) {
-    alert(err.message);
+    console.log("ON GET MESSAGES");
+    console.log(err);
+    alert(err.message + "Please try again");
   }
 
   /**
