@@ -1,0 +1,29 @@
+.feedbacks-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.feedbacks-container .page {
+  grid-column: 2;
+}
+
+.feedbacks-container .pagination {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.feedbacks-container .pagination .number {
+  cursor: pointer;
+  margin-right: 15px;
+  font-size: 18px;
+  user-select: none;
+  color: #00a4d8;
+}
+
+.feedbacks-container .pagination .number.selected {
+  color: #003c4e;
+  text-decoration: underline;
+}

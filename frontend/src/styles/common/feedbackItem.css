@@ -1,0 +1,59 @@
+.feedback-item-container {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: auto auto 0.8fr auto;
+  background-color: white;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 10px;
+  grid-gap: 30px;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-item-container:hover {
+  cursor: pointer;
+}
+
+.feedback-item-container.info {
+  height: 40px;
+  padding: 5px 15px 0px 15px;
+}
+
+.feedback-item-container.info:hover {
+  cursor: auto;
+}
+
+.feedback-item-container.info .text {
+  font-weight: 600;
+}
+
+.feedback-item-container .text {
+  font-family: SourceSansPro;
+  color: #333333;
+  margin-top: 3px;
+}
+
+.feedback-item-container .text.created-at {
+  grid-column: 1;
+}
+
+.feedback-item-container .text.user-seen-at {
+  grid-column: 2;
+}
+
+.feedback-item-container .text.message {
+  margin-left: 30px;
+  grid-column: 3;
+}
+
+.feedback-item-container .closed {
+  width: 100px;
+}
+
+.feedback-item-container .closed .button {
+  grid-column: 4;
+}
+
+.feedback-item-container .closed .text {
+  color: #f34a43;
+}

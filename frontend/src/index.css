@@ -9,6 +9,8 @@
 @import "styles/common/signUpForm.css";
 @import "styles/common/signInForm.css";
 @import "styles/common/navbar.css";
+@import "styles/common/feedbackList.css";
+@import "styles/common/feedbackItem.css";
 /** UI **/
 @import "styles/common/ui/loadingSpinner.css";
 @import "styles/common/ui/buttons.css";

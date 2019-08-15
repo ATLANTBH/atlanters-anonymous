@@ -15,40 +15,29 @@ export default class FeedbackItem extends Component {
   };
 
   outputMessage = message => {
-    return message.length > 20 ? message.slice(0, 20) + "..." : message;
+    return message.length > 40 ? message.slice(0, 40) + "..." : message;
   };
 
   render() {
     const { createdAt, message, isClosed, userSeenAt } = this.props;
     return (
-      <div
-        className="feedback-item-container"
-        style={{
-          gridColumn: 2,
-          display: "grid",
-          gridTemplateColumns: "auto auto 1fr auto",
-          backgroundColor: "white",
-          borderRadius: "6px",
-          padding: "15px",
-          marginBottom: "10px",
-          gridGap: "30px"
-        }}
-        onClick={this.onFeedback}
-      >
-        <div style={{ gridColumn: 1 }}>
+      <div className="feedback-item-container" onClick={this.onFeedback}>
+        <div className="text created-at">
           {dateformat(createdAt, "dd/mm/yyyy HH:MM")}
         </div>
-        <div style={{ gridColumn: 2 }}>
+        <div className="text user-seen-at">
           {dateformat(userSeenAt, "dd/mm/yyyy HH:MM")}
         </div>
-        <div style={{ gridColumn: 3 }}>{this.outputMessage(message)}</div>
-        {!isClosed ? (
-          <div style={{ gridColumn: 4 }} className="text-right">
-            <button onClick={e => this.onClose(e)}>Close Ticket</button>
-          </div>
-        ) : (
-          <div style={{ color: "darkred" }}>Closed</div>
-        )}
+        <div className="text message">{this.outputMessage(message)}</div>
+        <div className="closed">
+          {!isClosed ? (
+            <div className="button text-center">
+              <button onClick={e => this.onClose(e)}>Close</button>
+            </div>
+          ) : (
+            <div className="text text-center">Closed</div>
+          )}
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FeedbackItem from "./FeedbackItem";
 import { closeFeedback } from "../../services/http/feedbackService";
-
+import classNames from "classnames";
 export default class FeedbackList extends Component {
   state = {};
 
@@ -47,29 +47,15 @@ export default class FeedbackList extends Component {
   render() {
     const { feedbacks, totalPages, currentPage } = this.props;
     return (
-      <div
-        className="feedbacks-container"
-        style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
-      >
-        <div style={{ gridColumn: 2 }}>
-          <div
-            style={{
-              listStyle: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "8px"
-            }}
-          >
+      <div className="feedbacks-container">
+        <div className="page">
+          <div className="pagination">
             {totalPages.map(number => (
               <li
-                style={{
-                  cursor: "pointer",
-                  color: currentPage === number ? "red" : "blue",
-                  marginRight: "15px",
-                  fontSize: "18px",
-                  userSelect: "none"
-                }}
+                className={classNames(
+                  "number",
+                  currentPage == number ? "selected" : ""
+                )}
                 key={number}
                 id={number}
                 onClick={this.onPageChange}
@@ -79,6 +65,17 @@ export default class FeedbackList extends Component {
             ))}
           </div>
           <div>
+            <div
+              className="feedback-item-container info"
+              onClick={this.onFeedback}
+            >
+              <div className="text created-at">Feedback Created</div>
+              <div className="text user-seen-at">User last seen</div>
+              <div className="text message">First message</div>
+              <div className="text closed">
+                <div className="text-center">Ticket Closed</div>
+              </div>
+            </div>
             {feedbacks.map((item, index) => this.renderFeedback(item, index))}
           </div>
         </div>
