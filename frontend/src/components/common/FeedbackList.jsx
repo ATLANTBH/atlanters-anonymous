@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import FeedbackItem from "./FeedbackItem";
 import { closeFeedback } from "../../services/http/feedbackService";
 
@@ -31,6 +30,7 @@ export default class FeedbackList extends Component {
         message={messages[messages.length - 1].text}
         isClosed={feedback.isClosed}
         onCloseFeedback={this.onCloseFeedback}
+        userSeenAt={feedback.anonymLastSeenAt}
       />
     );
   };
@@ -65,7 +65,7 @@ export default class FeedbackList extends Component {
               <li
                 style={{
                   cursor: "pointer",
-                  color: currentPage == number ? "red" : "blue",
+                  color: currentPage === number ? "red" : "blue",
                   marginRight: "15px",
                   fontSize: "18px",
                   userSelect: "none"

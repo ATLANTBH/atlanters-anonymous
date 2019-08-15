@@ -14,10 +14,14 @@ export default class Feedbacks extends Component {
     itemsPerPage: 10
   };
 
-  componentDidMount() {
+  getAllFeedbackRequest() {
     getAllFeedback()
       .then(res => this.onGetFeedbackSuccess(res.result))
       .catch(err => this.onGetFeedbackError(err));
+  }
+
+  componentDidMount() {
+    this.getAllFeedbackRequest();
   }
 
   calcTotalPages = res => {
@@ -38,8 +42,10 @@ export default class Feedbacks extends Component {
   };
 
   onGetFeedbackError = err => {
-    alert(err);
-    newWindowLocation(FEEDBACK_ROUTE);
+    this.getAllFeedbackRequest().catch(err => {
+      alert(err);
+      newWindowLocation(FEEDBACK_ROUTE);
+    });
   };
 
   feedbackClosed = feedbackId => {

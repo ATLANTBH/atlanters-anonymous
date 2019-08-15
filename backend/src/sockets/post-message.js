@@ -1,5 +1,5 @@
 async function resolveUser(User, userId) {
-  if (!userId) return null;
+  if (userId === -1) return null;
   const user = await User.findById(userId);
   if (!user) throw new Error(`User with id ${userId} does not exist`);
   return user;

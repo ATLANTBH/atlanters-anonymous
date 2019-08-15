@@ -27,8 +27,14 @@ export default class TicketMessage extends Component {
     }
   };
 
+  displaySeen(index, totalMessages, seen) {
+    if (index === totalMessages - 1 && seen) {
+      return "seen";
+    }
+  }
+
   render() {
-    const { text } = this.props;
+    const { text, seen, index, totalMessages, info } = this.props;
     const column = this.getColumn();
     return (
       <div
@@ -48,6 +54,8 @@ export default class TicketMessage extends Component {
         >
           {text}
         </div>
+        {this.displaySeen(index, totalMessages, seen)}
+        {info && info}
       </div>
     );
   }

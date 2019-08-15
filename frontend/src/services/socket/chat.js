@@ -36,6 +36,6 @@ export const emitMessage = (text, userId, feedbackId) => {
   emit(CHAT_EVENT, { text, userId, feedbackId });
 };
 
-export const emitSeen = (user, feedbackId) => {
-  emit(SEEN_EVENT, { user, feedbackId });
+export const emitSeen = (user, feedbackId, date) => {
+  emit(SEEN_EVENT, { user, feedbackId, date });
 };

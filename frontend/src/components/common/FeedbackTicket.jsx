@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import {
-  getFeedbackMessages,
-  updateSeenAt
-} from "../../services/http/feedbackService";
+import { updateSeenAt } from "../../services/http/feedbackService";
 import TicketMessage from "./TicketMessage";
 import { getCurrentUser } from "../../services/http/authService";
 import PropTypes from "prop-types";
@@ -21,8 +18,7 @@ export default class FeedbackTicket extends Component {
     /**
      * Feedback info returned from server after it is initially created
      */
-    feedbackInfo: PropTypes.isRequired,
-    feedbackInfo: PropTypes.shape({
+    feedback: PropTypes.shape({
       id: PropTypes.string,
       isClosed: PropTypes.bool
     })
@@ -31,11 +27,28 @@ export default class FeedbackTicket extends Component {
   state = {
     messages: [],
     inputMessage: "",
+    latestAuthorName: "",
     user: {
       name: "",
       id: ""
     },
-    isMessageSubmitting: false
+    isMessageSubmitting: false,
+    seen: false
+  };
+
+  anonymUser = () => {
+    return {
+      name: DEFAULT_USERNAME,
+      id: -1
+    };
+  };
+
+  resolveCurrentUser = () => {
+    return getCurrentUser() ? getCurrentUser() : this.anonymUser();
+  };
+
+  resolveAuthorName = message => {
+    return message.User ? message.User.name : this.anonymUser().name;
   };
 
   /**
@@ -67,15 +80,14 @@ export default class FeedbackTicket extends Component {
       this.setState({ inputMessage: "" });
     }
     messages.push(data);
-    this.setState({ messages, isMessageSubmitting: false });
-  };
-
-  onSeen = data => {
-    const { user } = this.state;
-    if (data.name !== user.name) {
-      console.log(data.name + " has seen");
-      console.log(user.name + " is current");
-    }
+    const lastMessage = messages[messages.length - 1];
+    const latestAuthorName = this.resolveAuthorName(lastMessage);
+    this.setState({
+      messages,
+      isMessageSubmitting: false,
+      seen: false,
+      latestAuthorName
+    });
   };
 
   /**
@@ -89,80 +101,91 @@ export default class FeedbackTicket extends Component {
     window.location.reload();
   };
 
+  onSeenReceived = ({ user, date }) => {
+    const currentUser = this.resolveCurrentUser();
+    const { latestAuthorName } = this.state;
+    if (
+      user.name !== currentUser.name &&
+      latestAuthorName === currentUser.name
+    ) {
+      this.setState({ seen: true });
+    }
+  };
+
+  isSeen = (
+    messageCreatedAt,
+    latestAuthorName,
+    feedbackSeenAt,
+    currentUser
+  ) => {
+    if (
+      new Date(feedbackSeenAt) >= new Date(messageCreatedAt) &&
+      latestAuthorName === currentUser
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   componentDidMount() {
     this.scrollToBottom();
     connectSocket();
-    const { feedbackInfo } = this.props;
-    const user = getCurrentUser();
+    const { feedback, messages } = this.props;
+    const user = this.resolveCurrentUser();
+    const lastMessage = messages[messages.length - 1];
+    const latestAuthorName = this.resolveAuthorName(lastMessage);
     this.setState({
-      user: {
-        name: user ? user.name : DEFAULT_USERNAME,
-        id: user ? user.id : null
-      }
+      user,
+      messages,
+      latestAuthorName,
+      seen: this.isSeen(
+        lastMessage.createdAt,
+        latestAuthorName,
+        user.name === DEFAULT_USERNAME
+          ? feedback.anonymLastSeenAt
+          : feedback.userLastSeenAt,
+        user.name
+      )
     });
-    getFeedbackMessages(feedbackInfo.id)
-      .then(res => this.onGetMessagesSuccess(res.result))
-      .catch(err => this.onGetMessagesError(err));
+    onMessageReceived(feedback.id, this.onChatMessageReceived);
+    onErrorReceived(user ? user.id : -1, this.onChatErrorReceived);
+    onSeen(feedback.id, this.onSeenReceived);
+    this.updateSeenInfo();
+    window.addEventListener("focus", this.onFocus);
   }
+
+  updateSeenInfo = () => {
+    const user = this.resolveCurrentUser();
+    const { id } = this.props.feedback;
+    const date = new Date();
+    const payload = {
+      [user.name !== DEFAULT_USERNAME
+        ? "userLastSeenAt"
+        : "anonymLastSeenAt"]: date
+    };
+    updateSeenAt(id, payload)
+      .then(res => this.onUpdateSeenSuccess(res.result, user, id, date))
+      .catch(err => this.onUpdateSeenError(err));
+  };
 
   componentDidUpdate() {
     this.scrollToBottom();
   }
 
   componentWilUnmount() {
-    console.log("WIll unmount");
     window.removeEventListener("focus", this.onFocus);
   }
 
-  /**
-   * Called when messages successfully received on component mount
-   *
-   * @param {Array} res array of messages from the server
-   */
-  onGetMessagesSuccess(res) {
-    this.setState({ messages: res });
-    const { user } = this.state;
-    emitSeen(user, this.props.feedbackInfo.id);
-    onMessageReceived(this.props.feedbackInfo.id, this.onChatMessageReceived);
-    onErrorReceived(
-      user.name === DEFAULT_USERNAME ? -1 : user.id,
-      this.onChatErrorReceived
-    );
-    onSeen(this.props.feedbackInfo.id, this.onSeen);
-    window.addEventListener("focus", this.onFocus);
-  }
-
   onFocus = () => {
-    const { user } = this.state;
-    const payload = {
-      [user.name !== DEFAULT_USERNAME
-        ? "userLastSeenAt"
-        : "anonymLastSeenAt"]: new Date()
-    };
-    updateSeenAt(this.props.feedbackInfo.id, payload)
-      .then(res =>
-        this.onUpdateSeenSuccess(res.result, user, this.props.feedbackInfo.id)
-      )
-      .catch(err => this.onUpdateSeenError(err));
+    this.updateSeenInfo();
   };
 
-  onUpdateSeenSuccess(res, user, feedbackId) {
-    emitSeen(user, feedbackId);
+  onUpdateSeenSuccess(res, user, feedbackId, date) {
+    emitSeen(user, feedbackId, date);
   }
 
   onUpdateSeenError(err) {
-    alert(err);
-  }
-
-  /**
-   * Called on error when fetching messages on component mount
-   *
-   * @param {Object} err
-   */
-  onGetMessagesError(err) {
-    console.log("ON GET MESSAGES");
-    console.log(err);
-    alert(err.message + "Please try again");
+    this.updateSeenInfo().catch(err => alert(err));
   }
 
   /**
@@ -172,14 +195,14 @@ export default class FeedbackTicket extends Component {
     e.preventDefault();
     const { inputMessage, user } = this.state;
     if (inputMessage === "") return;
-    const { id } = this.props.feedbackInfo;
-    this.setState({ isMessageSubmitting: true });
+    const { id } = this.props.feedback;
+    this.setState({ isMessageSubmitting: true, seen: false });
     emitMessage(inputMessage, user.id, id);
   };
 
   render() {
-    const { inputMessage, messages, isMessageSubmitting } = this.state;
-    const { feedbackInfo } = this.props;
+    const { inputMessage, messages, isMessageSubmitting, seen } = this.state;
+    const { feedback } = this.props;
     return (
       <div className="form feedback-card">
         <div
@@ -195,9 +218,12 @@ export default class FeedbackTicket extends Component {
           {messages.map((item, index) => (
             <TicketMessage
               key={index}
+              totalMessages={messages.length}
               index={index}
               text={item.text}
+              info={item.info}
               userName={item.User ? item.User.name : DEFAULT_USERNAME}
+              seen={seen}
             />
           ))}
           <div
@@ -223,10 +249,8 @@ export default class FeedbackTicket extends Component {
               gridColumn: "1",
               borderRadius: "4px"
             }}
-            value={
-              feedbackInfo.isClosed ? "This ticket is closed" : inputMessage
-            }
-            disabled={feedbackInfo.isClosed}
+            value={feedback.isClosed ? "This ticket is closed" : inputMessage}
+            disabled={feedback.isClosed}
             onChange={e => this.setState({ inputMessage: e.target.value })}
           />
           <button

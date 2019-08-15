@@ -3,7 +3,10 @@ import FeedbackForm from "../components/common/FeedbackForm";
 import FeedbackResult from "../components/common/FeedbackResult";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
-import { getFeedback, submitFeedback } from "../services/http/feedbackService";
+import {
+  submitFeedback,
+  getFeedbackMessages
+} from "../services/http/feedbackService";
 import FeedbackTicket from "../components/common/FeedbackTicket";
 
 export default class Feedback extends Component {
@@ -13,32 +16,38 @@ export default class Feedback extends Component {
     isSubmited: false,
     isFeedbackTicketShown: false,
 
-    feedbackTicketResult: {},
+    feedback: {},
+    feedbackMessages: [],
     submitResult: {},
-    feedback: ""
+    feedbackValue: ""
   };
+
+  getFeedbackMessagesRequest(feedbackId) {
+    getFeedbackMessages(feedbackId)
+      .then(res => this.onGetMessagesSuccess(res.result))
+      .catch(err => this.onGetMessagesError(err, feedbackId));
+  }
 
   componentDidMount() {
     const { feedbackId } = this.props.match.params;
     if (feedbackId) {
       this.setState({ isLoading: true });
-      getFeedback(feedbackId)
-        .then(res => this.onFeedbackGetSuccess(res.result))
-        .catch(err => this.onFeedbackGetError(err));
+      this.getFeedbackMessagesRequest(feedbackId);
     }
   }
 
-  onFeedbackGetSuccess(res) {
+  onGetMessagesSuccess(res) {
     this.setState({
       isLoading: false,
       isFeedbackTicketShown: true,
       isSubmited: false,
-      feedbackTicketResult: res
+      feedback: res.feedback,
+      feedbackMessages: res.messages
     });
   }
 
-  onFeedbackGetError(err) {
-    this.setState({ isLoading: false, feedbackTicketResult: err });
+  onGetMessagesError(err, feedbackId) {
+    this.getFeedbackMessagesRequest(feedbackId).catch(err => alert(err));
   }
 
   /**
@@ -50,7 +59,7 @@ export default class Feedback extends Component {
    * Called when feedback gets changed.
    */
   onFeedbackChange = value => {
-    this.setState({ feedback: value });
+    this.setState({ feedbackValue: value });
   };
 
   onNext = e => {
@@ -61,7 +70,7 @@ export default class Feedback extends Component {
   onSubmitFeedback = e => {
     e.preventDefault();
     this.setState({ isConfirmationShown: false, isLoading: true });
-    submitFeedback({ text: this.state.feedback })
+    submitFeedback({ text: this.state.feedbackValue })
       .then(res => this.onFeedbackSentSuccessfully(res.result))
       .catch(err => this.onFeedbackError(err));
   };
@@ -88,9 +97,10 @@ export default class Feedback extends Component {
       isLoading,
       isSubmited,
       isFeedbackTicketShown,
-      feedbackTicketResult,
+      feedback,
+      feedbackMessages,
       submitResult,
-      feedback
+      feedbackValue
     } = this.state;
 
     return (
@@ -101,10 +111,10 @@ export default class Feedback extends Component {
           (isSubmited ? (
             <FeedbackResult submitResult={submitResult} />
           ) : isFeedbackTicketShown ? (
-            <FeedbackTicket feedbackInfo={feedbackTicketResult} />
+            <FeedbackTicket feedback={feedback} messages={feedbackMessages} />
           ) : (
             <FeedbackForm
-              value={feedback}
+              value={feedbackValue}
               onChange={this.onFeedbackChange}
               onNext={this.onNext}
             />
