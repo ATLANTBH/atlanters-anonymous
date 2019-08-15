@@ -15,8 +15,8 @@
 }
 
 .feedback-item-container.info {
-  height: 40px;
-  padding: 5px 15px 0px 15px;
+  height: auto;
+  padding: 5px 15px 5px 15px;
 }
 
 .feedback-item-container.info:hover {

@@ -173,7 +173,7 @@ export default class FeedbackTicket extends Component {
     this.scrollToBottom();
   }
 
-  componentWilUnmount() {
+  componentWillUnmount() {
     window.removeEventListener("focus", this.onFocus);
   }
 
@@ -202,7 +202,7 @@ export default class FeedbackTicket extends Component {
   };
 
   render() {
-    const { inputMessage, messages, isMessageSubmitting, seen } = this.state;
+    const { inputMessage, messages, seen } = this.state;
     const { feedback } = this.props;
     return (
       <div className="form feedback-card">

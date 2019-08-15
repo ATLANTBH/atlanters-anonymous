@@ -45,7 +45,7 @@ export default class FeedbackList extends Component {
   };
 
   render() {
-    const { feedbacks, totalPages, currentPage } = this.props;
+    let { feedbacks, totalPages, currentPage } = this.props;
     return (
       <div className="feedbacks-container">
         <div className="page">

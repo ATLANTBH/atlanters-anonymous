@@ -37,9 +37,9 @@ export default class NavBar extends Component {
   render() {
     return (
       <Navbar bg="light" expand="lg">
-        <Link className="navbar-brand" to={FEEDBACK_ROUTE}>
+        <a className="navbar-brand" href={FEEDBACK_ROUTE}>
           <Logo />
-        </Link>
+        </a>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <React.Fragment>

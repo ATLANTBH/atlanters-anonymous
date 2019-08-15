@@ -10,6 +10,7 @@ import {
 import FeedbackTicket from "../components/common/FeedbackTicket";
 import FeedbackIdForm from "../components/common/FeedbackIdForm";
 import { removeSpaces } from "../utils/strings";
+import { FEEDBACK_ROUTE } from "../constants/routes";
 
 export default class Feedback extends Component {
   state = {
@@ -49,7 +50,7 @@ export default class Feedback extends Component {
       feedbackMessages: res.messages,
       feedbackIdError: null
     });
-    this.props.feedbackhistory.push("/feedback/" + res.feedback.id);
+    this.props.history.push(FEEDBACK_ROUTE + "/" + res.feedback.id);
   }
 
   onGetMessagesError(err, feedbackId) {
@@ -107,7 +108,6 @@ export default class Feedback extends Component {
   onFeedbackIdNext = e => {
     e.preventDefault();
     this.getFeedbackMessagesRequest(this.state.feedbackIdValue);
-    // this.setState({ isConfirmationShown: true });
   };
 
   render() {

@@ -32,13 +32,20 @@ export default class Feedbacks extends Component {
     return totalPages;
   };
 
+  validatePage = page => {
+    if (typeof currentPage != "number") {
+      return 1;
+    }
+    return page;
+  };
+
   onGetFeedbackSuccess = res => {
     const { page } = queryString.parse(this.props.location.search);
     this.setState({
       feedbacks: res.reverse(),
       totalPages: this.calcTotalPages(res)
     });
-    this.onPageChange(page);
+    this.onPageChange(this.validatePage(page));
   };
 
   onGetFeedbackError = err => {
