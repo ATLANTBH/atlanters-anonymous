@@ -5,7 +5,7 @@ class Message extends Sequelize.Model {
     return super.init(
       {
         text: {
-          type: DataTypes.STRING,
+          type: DataTypes.STRING(1000),
           allowNull: false,
           validate: {
             notEmpty: {
@@ -13,6 +13,10 @@ class Message extends Sequelize.Model {
             },
             notNull: {
               msg: 'Message text must be provided',
+            },
+            len: {
+              args: [1, 1000],
+              msg: 'Messages greater than 1000 characters are not allowed',
             },
           },
         },

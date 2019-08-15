@@ -1,0 +1,41 @@
+.messages-container {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  overflow: auto;
+  border-radius: 4px;
+  padding: 16px 16px 0px 16px;
+}
+
+.submit-message-container {
+  display: grid;
+  grid-template-columns: 4fr auto;
+  margin-top: 15px;
+  background-color: #f1f1f1;
+  border-radius: 50px;
+}
+
+.submit-message-container .input {
+  border: 0;
+  width: 100%;
+  grid-column: 1;
+  border-radius: 50px;
+  background-color: #f1f1f1;
+  padding-left: 13px;
+  height: 35px;
+}
+
+.submit-message-container .input:focus {
+  outline: 0;
+}
+
+.submit-message-container .image:focus {
+  outline: 0;
+}
+
+.submit-message-container .image {
+  grid-column: 2;
+  width: 30px;
+  margin-top: 2.5px;
+  margin-right: 10px;
+}

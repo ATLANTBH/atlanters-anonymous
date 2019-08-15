@@ -12,6 +12,7 @@ import {
   onSeen
 } from "../../services/socket/chat";
 import { connectSocket } from "../../services/socket/base";
+import send from "../../assets/images/feedback/send.png";
 
 export default class FeedbackTicket extends Component {
   static propTypes = {
@@ -205,16 +206,7 @@ export default class FeedbackTicket extends Component {
     const { feedback } = this.props;
     return (
       <div className="form feedback-card">
-        <div
-          style={{
-            width: "100%",
-            height: "300px",
-            border: "1px solid #94a8c2",
-            overflow: "auto",
-            borderRadius: "4px",
-            padding: "16px 16px 0px 16px"
-          }}
-        >
+        <div className="messages-container">
           {messages.map((item, index) => (
             <TicketMessage
               key={index}
@@ -234,36 +226,25 @@ export default class FeedbackTicket extends Component {
           />
         </div>
         <form
-          style={{
-            display: "grid",
-            gridTemplateColumns: "4fr 1fr"
-          }}
+          className="submit-message-container"
           onSubmit={this.onSendMessage}
         >
           <input
+            className="input"
             type="text"
-            style={{
-              border: "1px solid #94a8c2",
-              borderTop: 0,
-              width: "100%",
-              gridColumn: "1",
-              borderRadius: "4px"
-            }}
             value={feedback.isClosed ? "This ticket is closed" : inputMessage}
             disabled={feedback.isClosed}
+            placeholder="Type a message..."
             onChange={e => this.setState({ inputMessage: e.target.value })}
           />
-          <button
-            style={{
-              gridColumn: "2",
-              border: "1px solid #94a8c2",
-              borderTop: 0,
-              borderLeft: 0
-            }}
-            disabled={isMessageSubmitting}
-          >
-            Send
-          </button>
+          <input
+            className="image"
+            type="image"
+            name="submit"
+            border="0"
+            alt="Submit"
+            src={send}
+          />
         </form>
       </div>
     );

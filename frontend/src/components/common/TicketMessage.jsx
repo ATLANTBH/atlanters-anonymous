@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { getCurrentUser } from "../../services/http/authService";
 import PropTypes from "prop-types";
 import { DEFAULT_USERNAME } from "../../constants/strings";
+import classNames from "classnames";
+import seenImg from "../../assets/images/feedback/seen.png";
 
 export default class TicketMessage extends Component {
   static propTypes = {
@@ -29,7 +31,11 @@ export default class TicketMessage extends Component {
 
   displaySeen(index, totalMessages, seen) {
     if (index === totalMessages - 1 && seen) {
-      return "seen";
+      return (
+        <div className="seen-container text-right">
+          <img className="seen" src={seenImg} alt="Seen" />
+        </div>
+      );
     }
   }
 
@@ -38,19 +44,16 @@ export default class TicketMessage extends Component {
     const column = this.getColumn();
     return (
       <div
-        style={{
-          display: "block",
-          float: column === 2 ? "right" : "left",
-          clear: "both"
-        }}
+        className={classNames(
+          "message-container",
+          column === 2 ? "right" : "left"
+        )}
       >
         <div
-          style={{
-            marginBottom: "5px",
-            padding: "4px 12px 4px 12px",
-            backgroundColor: column === 2 ? "lightblue" : "lightgray",
-            borderRadius: "1.3em"
-          }}
+          className={classNames(
+            "message-text",
+            column === 2 ? "right" : "left"
+          )}
         >
           {text}
         </div>

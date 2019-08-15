@@ -1,0 +1,40 @@
+.message-container {
+  display: block;
+  clear: both;
+}
+
+.message-container.right {
+  float: right;
+}
+
+.message-container.left {
+  float: left;
+}
+
+.message-container .message-text {
+  margin-bottom: 7px;
+  padding: 4px 12px 4px 12px;
+  border-radius: 1.3em;
+  font-style: SourceSansPro;
+}
+
+.message-container .message-text.right {
+  background-color: #00a4d8;
+  color: #ffffff;
+}
+
+.message-container .message-text.left {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.message-container .seen-container {
+  width: 100%;
+  margin-top: -10px;
+  padding-right: 5px;
+}
+
+.message-container .seen {
+  width: 10px;
+  margin: 0;
+}

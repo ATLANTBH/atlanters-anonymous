@@ -41,16 +41,15 @@ export default class FeedbackResult extends Component {
               error
             ) : (
               <div>
-                Thank you! Your feedback is greatly appreciated.{" "}
-                <a href={FEEDBACK_CHAT(message)}>Click here</a> to access your
-                ticket.
+                Thank you! Your feedback is greatly appreciated. <br />
+                <a href={FEEDBACK_CHAT(message)}>Access my ticket</a>
                 <br />
-                <br />
-                Do not lose your ticket key:
-                <br />
+                Don't forget to save your ticket key!
+                <hr />
                 <p className="text-center">
                   <b>{message}</b>
                 </p>
+                <hr />
               </div>
             )}
           </div>
