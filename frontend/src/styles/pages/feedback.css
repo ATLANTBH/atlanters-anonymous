@@ -1,6 +1,7 @@
 .feedback-container {
   display: grid;
   height: 50vh;
+  grid-gap: 15px;
   grid-template-columns: 2fr 2fr 3fr 2fr 2fr;
   justify-items: center;
   margin-top: 120px;

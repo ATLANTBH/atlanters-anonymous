@@ -8,6 +8,8 @@ import {
   getFeedbackMessages
 } from "../services/http/feedbackService";
 import FeedbackTicket from "../components/common/FeedbackTicket";
+import FeedbackIdForm from "../components/common/FeedbackIdForm";
+import { removeSpaces } from "../utils/strings";
 
 export default class Feedback extends Component {
   state = {
@@ -19,11 +21,13 @@ export default class Feedback extends Component {
     feedback: {},
     feedbackMessages: [],
     submitResult: {},
-    feedbackValue: ""
+    feedbackValue: "",
+    feedbackIdValue: "",
+    feedbackIdError: null
   };
 
   getFeedbackMessagesRequest(feedbackId) {
-    getFeedbackMessages(feedbackId)
+    getFeedbackMessages(removeSpaces(feedbackId))
       .then(res => this.onGetMessagesSuccess(res.result))
       .catch(err => this.onGetMessagesError(err, feedbackId));
   }
@@ -42,12 +46,17 @@ export default class Feedback extends Component {
       isFeedbackTicketShown: true,
       isSubmited: false,
       feedback: res.feedback,
-      feedbackMessages: res.messages
+      feedbackMessages: res.messages,
+      feedbackIdError: null
     });
+    this.props.feedbackhistory.push("/feedback/" + res.feedback.id);
   }
 
   onGetMessagesError(err, feedbackId) {
-    this.getFeedbackMessagesRequest(feedbackId).catch(err => alert(err));
+    let { message } = err;
+    if (message.includes("SequelizeDatabaseError"))
+      message = "Error: Invalid id";
+    this.setState({ isLoading: false, feedbackIdError: message });
   }
 
   /**
@@ -91,6 +100,16 @@ export default class Feedback extends Component {
     });
   }
 
+  onFeedbackIdChange = value => {
+    this.setState({ feedbackIdValue: value });
+  };
+
+  onFeedbackIdNext = e => {
+    e.preventDefault();
+    this.getFeedbackMessagesRequest(this.state.feedbackIdValue);
+    // this.setState({ isConfirmationShown: true });
+  };
+
   render() {
     const {
       isConfirmationShown,
@@ -100,7 +119,9 @@ export default class Feedback extends Component {
       feedback,
       feedbackMessages,
       submitResult,
-      feedbackValue
+      feedbackValue,
+      feedbackIdValue,
+      feedbackIdError
     } = this.state;
 
     return (
@@ -113,11 +134,19 @@ export default class Feedback extends Component {
           ) : isFeedbackTicketShown ? (
             <FeedbackTicket feedback={feedback} messages={feedbackMessages} />
           ) : (
-            <FeedbackForm
-              value={feedbackValue}
-              onChange={this.onFeedbackChange}
-              onNext={this.onNext}
-            />
+            <React.Fragment>
+              <FeedbackForm
+                value={feedbackValue}
+                onChange={this.onFeedbackChange}
+                onNext={this.onNext}
+              />
+              <FeedbackIdForm
+                value={feedbackIdValue}
+                onChange={this.onFeedbackIdChange}
+                onNext={this.onFeedbackIdNext}
+                error={feedbackIdError}
+              />
+            </React.Fragment>
           ))}
 
         {isConfirmationShown && (

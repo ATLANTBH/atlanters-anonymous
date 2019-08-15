@@ -4,6 +4,7 @@
 
 /** IMPORT COMMON STYLES **/
 @import "styles/common/feedbackForm.css";
+@import "styles/common/feedbackIdForm.css";
 @import "styles/common/feedbackResult.css";
 @import "styles/common/signUpForm.css";
 @import "styles/common/signInForm.css";
