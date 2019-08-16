@@ -1,9 +1,16 @@
 import dateformat from "dateformat";
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { FEEDBACK_CHAT } from "../../constants/routes";
 import { newWindowLocation } from "../../utils/navigate";
-
 export default class FeedbackItem extends Component {
+  static propTypes = {
+    createdAt: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isClosed: PropTypes.bool.isRequired,
+    userSeenAt: PropTypes.string.isRequired
+  };
+
   onFeedback = () => {
     const { id } = this.props;
     newWindowLocation(FEEDBACK_CHAT(id));
