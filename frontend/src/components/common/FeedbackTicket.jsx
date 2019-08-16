@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { updateSeenAt } from "../../services/http/feedbackService";
-import TicketMessage from "./TicketMessage";
-import { getCurrentUser } from "../../services/http/authService";
 import PropTypes from "prop-types";
+import React, { Component } from "react";
+import send from "../../assets/images/feedback/send.png";
 import { DEFAULT_USERNAME } from "../../constants/strings";
+import { getCurrentUser } from "../../services/http/authService";
+import { updateSeenAt } from "../../services/http/feedbackService";
+import { connectSocket } from "../../services/socket/base";
 import {
-  onMessageReceived,
-  onErrorReceived,
   emitMessage,
   emitSeen,
+  onErrorReceived,
+  onMessageReceived,
   onSeen
 } from "../../services/socket/chat";
-import { connectSocket } from "../../services/socket/base";
-import send from "../../assets/images/feedback/send.png";
+import TicketMessage from "./TicketMessage";
 
 export default class FeedbackTicket extends Component {
   static propTypes = {
@@ -142,7 +142,7 @@ export default class FeedbackTicket extends Component {
       seen: this.isSeen(
         lastMessage.createdAt,
         latestAuthorName,
-        user.name === DEFAULT_USERNAME
+        user.name !== DEFAULT_USERNAME
           ? feedback.anonymLastSeenAt
           : feedback.userLastSeenAt,
         user.name

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { newWindowLocation } from "../../utils/navigate";
-import { FEEDBACK_CHAT } from "../../constants/routes";
 import dateformat from "dateformat";
+import React, { Component } from "react";
+import { FEEDBACK_CHAT } from "../../constants/routes";
+import { newWindowLocation } from "../../utils/navigate";
 
 export default class FeedbackItem extends Component {
   onFeedback = () => {
@@ -32,7 +32,12 @@ export default class FeedbackItem extends Component {
         <div className="closed">
           {!isClosed ? (
             <div className="button text-center">
-              <button onClick={e => this.onClose(e)}>Close</button>
+              <button
+                className="btn btn-danger button"
+                onClick={e => this.onClose(e)}
+              >
+                <div className="close-text">Close</div>
+              </button>
             </div>
           ) : (
             <div className="text text-center">Closed</div>

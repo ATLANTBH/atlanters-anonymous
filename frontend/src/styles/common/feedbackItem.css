@@ -57,3 +57,7 @@
 .feedback-item-container .closed .text {
   color: #f34a43;
 }
+
+.feedback-item-container .closed .button .close-text {
+  font-size: 10px;
+}

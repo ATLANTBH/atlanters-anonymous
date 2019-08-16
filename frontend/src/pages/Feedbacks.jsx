@@ -1,9 +1,9 @@
+import queryString from "query-string";
 import React, { Component } from "react";
+import FeedbackList from "../components/common/FeedbackList";
+import { FEEDBACK_ROUTE } from "../constants/routes";
 import { getAllFeedback } from "../services/http/feedbackService";
 import { newWindowLocation } from "../utils/navigate";
-import { FEEDBACK_ROUTE } from "../constants/routes";
-import FeedbackList from "../components/common/FeedbackList";
-import queryString from "query-string";
 
 export default class Feedbacks extends Component {
   state = {
@@ -49,10 +49,9 @@ export default class Feedbacks extends Component {
   };
 
   onGetFeedbackError = err => {
-    this.getAllFeedbackRequest().catch(err => {
-      alert(err);
-      newWindowLocation(FEEDBACK_ROUTE);
-    });
+    if (err.message.includes("Failed to fetch")) return;
+    alert(err);
+    newWindowLocation(FEEDBACK_ROUTE);
   };
 
   feedbackClosed = feedbackId => {
