@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import NotFound from "./pages/NotFound";
+import Navbar from "./components/common/Navbar";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 import {
-  FEEDBACK_ROUTE_PARAMS,
   FEEDBACKS_ROUTE_PARAMS,
-  SIGNUP_ROUTE,
+  FEEDBACK_ROUTE,
+  FEEDBACK_ROUTE_PARAMS,
+  NOT_FOUND_ROUTE,
   SIGNIN_ROUTE,
-  NOT_FOUND_ROUTE
+  SIGNUP_ROUTE
 } from "./constants/routes";
 import Feedback from "./pages/Feedback";
 import Feedbacks from "./pages/Feedbacks";
-import SignUp from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
-import Navbar from "./components/common/Navbar";
+import SignUp from "./pages/SignUp";
 import { getCurrentUser } from "./services/http/authService";
-import ProtectedRoute from "./components/common/ProtectedRoute";
 
 class App extends Component {
   state = {};
@@ -40,7 +41,7 @@ class App extends Component {
               component={Feedbacks}
             />
 
-            <Redirect from="/" exact to={SIGNIN_ROUTE} />
+            <Redirect from="/" exact to={FEEDBACK_ROUTE} />
             <Redirect to={NOT_FOUND_ROUTE} />
           </Switch>
         </main>
