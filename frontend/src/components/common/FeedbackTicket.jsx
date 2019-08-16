@@ -22,7 +22,12 @@ export default class FeedbackTicket extends Component {
     feedback: PropTypes.shape({
       id: PropTypes.string,
       isClosed: PropTypes.bool
-    })
+    }),
+
+    /**
+     * Messages related to specific feedback
+     */
+    messages: PropTypes.array.isRequired
   };
 
   state = {

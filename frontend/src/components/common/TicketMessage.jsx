@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { getCurrentUser } from "../../services/http/authService";
-import PropTypes from "prop-types";
-import { DEFAULT_USERNAME } from "../../constants/strings";
 import classNames from "classnames";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import seenImg from "../../assets/images/feedback/seen.png";
+import { DEFAULT_USERNAME } from "../../constants/strings";
+import { getCurrentUser } from "../../services/http/authService";
 
 export default class TicketMessage extends Component {
   static propTypes = {
@@ -16,7 +16,22 @@ export default class TicketMessage extends Component {
     /**
      * Message to display
      */
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+
+    /**
+     * If user on other end saw the message
+     */
+    seen: PropTypes.bool.isRequired,
+
+    /**
+     * Current message index
+     */
+    index: PropTypes.number.isRequired,
+
+    /**
+     * Total number of messages
+     */
+    totalMessages: PropTypes.number.isRequired
   };
 
   getColumn = () => {

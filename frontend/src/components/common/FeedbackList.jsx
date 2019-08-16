@@ -1,8 +1,26 @@
-import React, { Component } from "react";
-import FeedbackItem from "./FeedbackItem";
-import { closeFeedback } from "../../services/http/feedbackService";
 import classNames from "classnames";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { closeFeedback } from "../../services/http/feedbackService";
+import FeedbackItem from "./FeedbackItem";
+
 export default class FeedbackList extends Component {
+  static propTypes = {
+    /**
+     * Array of all feedbacks
+     */
+    feedbacks: PropTypes.array.isRequired,
+
+    /**
+     * Total number of pages
+     */
+    totalPages: PropTypes.array.isRequired,
+
+    /**
+     * Current page number
+     */
+    currentPage: PropTypes.number.isRequired
+  };
   state = {};
 
   onCloseFeedback = feedbackId => {

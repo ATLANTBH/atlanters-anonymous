@@ -1,5 +1,5 @@
-import postMessage from '../post-message';
 import { CHAT_EVENT } from '../../constants/socket';
+import postMessage from '../post-message';
 
 export default (io, models, socket) => {
   socket.on(CHAT_EVENT, async data => {

@@ -5,9 +5,24 @@ import { FEEDBACK_CHAT } from "../../constants/routes";
 import { newWindowLocation } from "../../utils/navigate";
 export default class FeedbackItem extends Component {
   static propTypes = {
+    /**
+     * Feedback creation date
+     */
     createdAt: PropTypes.string.isRequired,
+
+    /**
+     * Latest message from ticket
+     */
     message: PropTypes.string.isRequired,
+
+    /**
+     * Is ticket closed
+     */
     isClosed: PropTypes.bool.isRequired,
+
+    /**
+     * Latest date user had seen the ticket
+     */
     userSeenAt: PropTypes.string.isRequired
   };
 

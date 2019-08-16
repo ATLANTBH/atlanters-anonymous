@@ -1,9 +1,31 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 export default class FeedbackIdForm extends Component {
+  static propTypes = {
+    /**
+     * Value of a feedback.
+     */
+    value: PropTypes.string.isRequired,
+
+    /**
+     * Called when value gets changed.
+     */
+    onChange: PropTypes.func.isRequired,
+
+    /**
+     * Called when submission of feedback is requested.
+     */
+    onNext: PropTypes.func.isRequired,
+
+    /**
+     * Show an error if not null
+     */
+    error: PropTypes.string
+  };
+
   render() {
     const { value, onChange, onNext, error } = this.props;
-
     return (
       <form className="form feedback-card feedback-id" onSubmit={onNext}>
         <div className="title form-title feedback-id">
