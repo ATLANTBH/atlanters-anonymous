@@ -1,4 +1,3 @@
-import postMessage from '../post-message';
 import { SEEN_EVENT } from '../../constants/socket';
 
 export default (io, models, socket) => {

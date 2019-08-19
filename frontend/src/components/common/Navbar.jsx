@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assets/images/logo.svg";
-import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Nav, Navbar } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/images/logo.svg";
+import { TOKEN_HEADER } from "../../constants/headers";
+import { FEEDBACKS_ROUTE_PAGE, FEEDBACK_ROUTE } from "../../constants/routes";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
-import { FEEDBACK_ROUTE, FEEDBACKS_ROUTE_PAGE } from "../../constants/routes";
-import { TOKEN_HEADER } from "../../constants/headers";
 
 export default class NavBar extends Component {
   static propTypes = {

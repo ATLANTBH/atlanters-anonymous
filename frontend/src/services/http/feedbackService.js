@@ -35,3 +35,11 @@ export function getFeedbackMessages(feedbackId) {
     return res;
   });
 }
+
+export function postFeedbackMessage(feedbackId, userId, data) {
+  return post(`/api/feedback/${feedbackId}/user/${userId}/messages`, data).then(
+    res => {
+      return res;
+    }
+  );
+}
