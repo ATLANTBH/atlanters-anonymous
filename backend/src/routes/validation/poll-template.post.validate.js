@@ -1,5 +1,5 @@
-import { questionTypes } from './utils';
 import _ from 'lodash';
+import { questionTypes } from '../utils';
 
 const validateOptionFields = options => {
   for (let option in options) {

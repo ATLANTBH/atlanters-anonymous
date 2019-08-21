@@ -7,6 +7,21 @@
   padding: 16px 16px 0px 16px;
 }
 
+.form.feedback-card .bottom-text {
+  margin-top: 5px;
+  margin-left: 10px;
+  font-style: italic;
+  font-size: 10px;
+  font-family: SourceSansPro;
+}
+
+.messages-container .bottom-message {
+  float: left;
+  clear: both;
+  font-style: italic;
+  color: #f34a43;
+}
+
 .submit-message-container {
   display: grid;
   grid-template-columns: 4fr auto;

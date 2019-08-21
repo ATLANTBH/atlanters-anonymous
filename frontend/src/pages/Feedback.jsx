@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import FeedbackForm from "../components/common/FeedbackForm";
+import FeedbackIdForm from "../components/common/FeedbackIdForm";
 import FeedbackResult from "../components/common/FeedbackResult";
+import FeedbackTicket from "../components/common/FeedbackTicket";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
-import {
-  submitFeedback,
-  getFeedbackMessages
-} from "../services/http/feedbackService";
-import FeedbackTicket from "../components/common/FeedbackTicket";
-import FeedbackIdForm from "../components/common/FeedbackIdForm";
-import { removeSpaces } from "../utils/strings";
 import { FEEDBACK_ROUTE } from "../constants/routes";
+import {
+  getFeedbackMessages,
+  submitFeedback
+} from "../services/http/feedbackService";
+import { removeSpaces, validateInputMessage } from "../utils/strings";
 
 export default class Feedback extends Component {
   state = {
@@ -20,6 +20,7 @@ export default class Feedback extends Component {
     isFeedbackTicketShown: false,
 
     feedback: {},
+    error: "",
     feedbackMessages: [],
     submitResult: {},
     feedbackValue: "",
@@ -74,6 +75,11 @@ export default class Feedback extends Component {
 
   onNext = e => {
     e.preventDefault();
+    const error = validateInputMessage(this.state.feedbackValue);
+    if (error) {
+      this.setState({ error });
+      return;
+    }
     this.setState({ isConfirmationShown: true });
   };
 
@@ -117,6 +123,7 @@ export default class Feedback extends Component {
       isSubmited,
       isFeedbackTicketShown,
       feedback,
+      error,
       feedbackMessages,
       submitResult,
       feedbackValue,
@@ -139,6 +146,7 @@ export default class Feedback extends Component {
                 value={feedbackValue}
                 onChange={this.onFeedbackChange}
                 onNext={this.onNext}
+                error={error}
               />
               <FeedbackIdForm
                 value={feedbackIdValue}

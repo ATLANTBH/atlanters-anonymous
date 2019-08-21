@@ -1,3 +1,19 @@
+import { formatDate } from '../utils';
+
+const getDetailedMessage = (feedback, { text }) => {
+  const details =
+    'Ticket id: ' +
+    feedback.id +
+    '\n' +
+    'Ticket created at: ' +
+    formatDate(feedback.createdAt) +
+    '\n' +
+    'Message sent at: ' +
+    formatDate(new Date()) +
+    '\n\n';
+  return { text: details + text };
+};
+
 export default ({ models }) => {
   const { Feedback, Message, User } = models;
   return async (req, res, next) => {
@@ -13,8 +29,7 @@ export default ({ models }) => {
         user = await User.findById(userId);
         if (!user) throw new Error(`User with id ${userId} does not exist`);
       } else {
-        // TODO(Vedad): add info for specific feedback
-        await Feedback.sendMail(messageReq);
+        await Feedback.sendMail(getDetailedMessage(feedback, messageReq));
       }
       let message = await Message.create(messageReq);
       if (user) await user.addMessage(message);

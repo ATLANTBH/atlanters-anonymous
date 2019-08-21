@@ -6,7 +6,7 @@ export default (io, models, socket) => {
     try {
       io.sockets.emit(feedbackId, message);
     } catch (err) {
-      io.sockets.emit(userId, err.toString());
+      io.sockets.emit(message.User.id, err.toString());
     }
   });
 };

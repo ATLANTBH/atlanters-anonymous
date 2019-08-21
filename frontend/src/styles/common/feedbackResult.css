@@ -14,8 +14,55 @@
   margin: 5px;
 }
 
+.result-container .body {
+  display: grid;
+  grid-template-rows: 2;
+}
+
 .result-container .header {
   display: flex;
+}
+
+.result-container .text {
+  font-family: SourceSansPro;
+}
+
+.result-container .text .access-link-container {
+  grid-row: 2;
+  width: 100%;
+}
+
+.result-container .text .access-link {
+  width: 120px;
+  margin-top: 15px;
+}
+
+.result-container .text .copy-image {
+  width: 30px;
+  height: 30px;
+}
+
+.result-container .key-all {
+  display: inline-block;
+  grid-row: 1;
+}
+
+.result-container .key-all .key-info {
+  float: left;
+}
+
+.result-container .key-all .key {
+  float: left;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.result-container .key-all .copy-key {
+  color: #00a4d8;
+  float: left;
+  margin-left: 10px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .status-image {

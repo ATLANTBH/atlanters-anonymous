@@ -1,6 +1,5 @@
-import { questionTypes } from './utils';
-
 import _ from 'lodash';
+import { questionTypes } from '../utils';
 
 const checkBoxValuesMatch = (answer, options) => {
   if (answer.length > options.length) return false;
