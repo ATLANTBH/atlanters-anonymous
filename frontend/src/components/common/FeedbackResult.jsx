@@ -8,10 +8,6 @@ import { FEEDBACK_CHAT } from "../../constants/routes";
 import { newWindowLocation } from "../../utils/navigate";
 
 export default class FeedbackResult extends Component {
-  state = {
-    copied: false
-  };
-
   static propTypes = {
     /**
      * Result received after submitting feedback
@@ -51,12 +47,7 @@ export default class FeedbackResult extends Component {
                   Thank you! Your feedback is greatly appreciated. <hr />
                   <div className="key-info">Your ticket key: </div>
                   <div className="key">{message}</div>
-                  <CopyToClipboard
-                    text={message}
-                    onCopy={() => {
-                      this.setState({ copied: true });
-                    }}
-                  >
+                  <CopyToClipboard text={message}>
                     <div className="copy-key">copy key</div>
                   </CopyToClipboard>
                 </div>
