@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { questionTypes } from '../utils';
+import { QUESTION_TYPES } from '../utils';
 
 const checkBoxValuesMatch = (answer, options) => {
   if (answer.length > options.length) return false;
@@ -50,17 +50,17 @@ const validateByType = (questionObj, answer) => {
   const question = questionObj.question;
   const baseError = `Answer for question '${question}' `;
   switch (type) {
-    case questionTypes.radio:
+    case QUESTION_TYPES.radio:
       validateRadio(answer, baseError, required);
       break;
-    case questionTypes.checkbox:
+    case QUESTION_TYPES.checkbox:
       validateCheckbox(answer, baseError, questionObj.options, required);
       break;
-    case questionTypes.shortAnswer:
-    case questionTypes.paragraph:
+    case QUESTION_TYPES.shortAnswer:
+    case QUESTION_TYPES.paragraph:
       validateText(answer, baseError, required);
       break;
-    case questionTypes.linearScale:
+    case QUESTION_TYPES.linearScale:
       validateLinearScale(answer, questionObj, baseError, required);
       break;
   }

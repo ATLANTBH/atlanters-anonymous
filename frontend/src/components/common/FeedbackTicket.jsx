@@ -1,12 +1,9 @@
+import dateformat from "dateformat";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import send from "../../assets/images/feedback/send.png";
-import { DEFAULT_USER_ID } from "../../constants/integers";
-import {
-  ANONYM_LAST_SEEN,
-  DEFAULT_USERNAME,
-  USER_LAST_SEEN
-} from "../../constants/strings";
+import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../../constants/strings";
+import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../../constants/user";
 import { getCurrentUser } from "../../services/http/authService";
 import {
   postFeedbackMessage,
@@ -21,7 +18,7 @@ import {
   onSeen
 } from "../../services/socket/chat";
 import { validateInputMessage } from "../../utils/strings";
-import { anonymUser } from "../../utils/user";
+import { ANONYMOUS_USER } from "../../utils/user";
 import TicketMessage from "./TicketMessage";
 
 export default class FeedbackTicket extends Component {
@@ -54,11 +51,11 @@ export default class FeedbackTicket extends Component {
   };
 
   resolveCurrentUser = () => {
-    return getCurrentUser() ? getCurrentUser() : anonymUser;
+    return getCurrentUser() ? getCurrentUser() : ANONYMOUS_USER;
   };
 
   resolveAuthorName = message => {
-    return message.User ? message.User.name : anonymUser.name;
+    return message.User ? message.User.name : ANONYMOUS_USER.name;
   };
 
   /**
@@ -191,7 +188,9 @@ export default class FeedbackTicket extends Component {
     const { id } = this.props.feedback;
     const date = new Date();
     const payload = {
-      [user.name !== DEFAULT_USERNAME ? USER_LAST_SEEN : ANONYM_LAST_SEEN]: date
+      [user.name !== DEFAULT_USERNAME
+        ? USER_LAST_SEEN
+        : ANONYMOUS_LAST_SEEN]: date
     };
     updateSeenAt(id, payload)
       .catch(err => this.onUpdateSeenError(err))
@@ -246,7 +245,7 @@ export default class FeedbackTicket extends Component {
 
   onPostFeedbackMessageSuccess = res => {
     const { messages } = this.state;
-    if (res.User == null) res.User = anonymUser;
+    if (res.User == null) res.User = ANONYMOUS_USER;
     messages.push(res);
     const lastMessage = messages[messages.length - 1];
     const latestAuthorName = this.resolveAuthorName(lastMessage);
@@ -275,6 +274,10 @@ export default class FeedbackTicket extends Component {
     const { feedback } = this.props;
     return (
       <div className="form feedback-card">
+        <div className="ticket-title text-center">
+          Created at: {dateformat(feedback.createdAt, "dd.mm.yyyy. HH:MM")}
+        </div>
+        <hr />
         <div className="messages-container">
           {messages.map((item, index) => (
             <TicketMessage
@@ -318,9 +321,6 @@ export default class FeedbackTicket extends Component {
             src={send}
           />
         </form>
-        {isMessageSubmitting && (
-          <div className="bottom-text">Sending your message...</div>
-        )}
       </div>
     );
   }

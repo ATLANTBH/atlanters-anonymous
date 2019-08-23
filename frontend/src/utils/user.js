@@ -1,7 +1,6 @@
-import { DEFAULT_USER_ID } from "../constants/integers";
-import { DEFAULT_USERNAME } from "../constants/strings";
+import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../constants/user";
 
-export const anonymUser = {
+export const ANONYMOUS_USER = {
   name: DEFAULT_USERNAME,
   id: DEFAULT_USER_ID
 };

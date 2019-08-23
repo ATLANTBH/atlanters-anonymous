@@ -1,6 +1,6 @@
 import dateformat from 'dateformat';
 
-export const questionTypes = {
+export const QUESTION_TYPES = {
   radio: 'radio',
   checkbox: 'checkbox',
   shortAnswer: 'shortAnswer',
@@ -8,6 +8,16 @@ export const questionTypes = {
   linearScale: 'linearScale',
 };
 
-export const formatDate = date => {
+export const FORMAT_DATE = date => {
   return dateformat(date, 'dd/mm/yyyy HH:MM');
+};
+
+export const GET_DETAILED_MESSAGE = (feedback, { text }) => {
+  const ticketId = `Ticket id: ${feedback.id}\n`;
+  const ticketCreatedAt = `Ticket created at: ${FORMAT_DATE(
+    feedback.createdAt
+  )}\n`;
+  const messageSentAt = `Message sent at: ${FORMAT_DATE(new Date())}\n\n`;
+  const details = ticketId + ticketCreatedAt + messageSentAt;
+  return { text: details + text };
 };

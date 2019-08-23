@@ -1,10 +1,12 @@
+import { GET_DETAILED_MESSAGE } from '../utils';
+
 export default ({ models }) => {
   const { Feedback, Message } = models;
   return async (req, res, next) => {
     const messageReq = req.body;
     try {
-      await Feedback.sendMail(messageReq);
       let feedback = await Feedback.create();
+      await Feedback.sendMail(GET_DETAILED_MESSAGE(feedback, messageReq));
       const message = await Message.create(messageReq);
       feedback = await feedback.addMessage(message);
       res.send(feedback);

@@ -1,18 +1,4 @@
-import { formatDate } from '../utils';
-
-const getDetailedMessage = (feedback, { text }) => {
-  const details =
-    'Ticket id: ' +
-    feedback.id +
-    '\n' +
-    'Ticket created at: ' +
-    formatDate(feedback.createdAt) +
-    '\n' +
-    'Message sent at: ' +
-    formatDate(new Date()) +
-    '\n\n';
-  return { text: details + text };
-};
+import { GET_DETAILED_MESSAGE } from '../utils';
 
 export default ({ models }) => {
   const { Feedback, Message, User } = models;
@@ -29,7 +15,7 @@ export default ({ models }) => {
         user = await User.findById(userId);
         if (!user) throw new Error(`User with id ${userId} does not exist`);
       } else {
-        await Feedback.sendMail(getDetailedMessage(feedback, messageReq));
+        Feedback.sendMail(GET_DETAILED_MESSAGE(feedback, messageReq));
       }
       let message = await Message.create(messageReq);
       if (user) await user.addMessage(message);

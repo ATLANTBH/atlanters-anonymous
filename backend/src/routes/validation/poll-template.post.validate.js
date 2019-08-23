@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { questionTypes } from '../utils';
+import { QUESTION_TYPES } from '../utils';
 
 const validateOptionFields = options => {
   for (let option in options) {
@@ -8,19 +8,19 @@ const validateOptionFields = options => {
   return true;
 };
 
-const validateType = (type, questionTypes, questionString) => {
+const validateType = (type, QUESTION_TYPES, questionString) => {
   if (!type)
     throw new Error(
       `Unexpected that type is not defined in '${questionString}'`
     );
-  else if (!(type in questionTypes)) {
+  else if (!(type in QUESTION_TYPES)) {
     throw new Error(`Type ${type} is not supported`);
   }
 };
 
-const validateOptions = (type, question, questionTypes, questionString) => {
+const validateOptions = (type, question, QUESTION_TYPES, questionString) => {
   // short answer and paragraph types do not need special validation
-  if (type === questionTypes.radio || type === questionTypes.checkbox) {
+  if (type === QUESTION_TYPES.radio || type === QUESTION_TYPES.checkbox) {
     const options = question.options;
     if (!options)
       throw new Error(
@@ -36,7 +36,7 @@ const validateOptions = (type, question, questionTypes, questionString) => {
           `Options must be an array of strings in '${questionString}'`
         );
     }
-  } else if (type === questionTypes.linearScale) {
+  } else if (type === QUESTION_TYPES.linearScale) {
     const keys = Object.keys(question);
     const linearScaleKeys = ['minIndex', 'maxIndex', 'minChoice', 'maxChoice'];
     if (_.difference(linearScaleKeys, keys) != 0)
@@ -72,10 +72,10 @@ const validateQuestion = question => {
     throw new Error(`Question must of type string in ${questionString}`);
 
   const type = question.type;
-  validateType(type, questionTypes, questionString);
+  validateType(type, QUESTION_TYPES, questionString);
 
   const options = question.options;
-  validateOptions(type, question, questionTypes, questionString);
+  validateOptions(type, question, QUESTION_TYPES, questionString);
 
   const required = question.required;
   validateRequired(required, questionString);

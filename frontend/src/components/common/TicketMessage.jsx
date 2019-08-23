@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import seenImg from "../../assets/images/feedback/seen.png";
-import { DEFAULT_USERNAME } from "../../constants/strings";
+import { DEFAULT_USERNAME } from "../../constants/user";
 import { getCurrentUser } from "../../services/http/authService";
 
 export default class TicketMessage extends Component {
@@ -49,6 +49,7 @@ export default class TicketMessage extends Component {
       return (
         <div className="seen-container text-right">
           <img className="seen" src={seenImg} alt="Seen" />
+          <div className="seen-msg">Seen</div>
         </div>
       );
     }
