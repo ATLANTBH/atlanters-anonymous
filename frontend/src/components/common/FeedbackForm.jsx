@@ -16,11 +16,16 @@ export default class FeedbackForm extends PureComponent {
     /**
      * Called when submission of feedback is requested.
      */
-    onNext: PropTypes.func.isRequired
+    onNext: PropTypes.func.isRequired,
+
+    /**
+     * Error value
+     */
+    error: PropTypes.string.isRequired
   };
 
   render() {
-    const { value, onChange, onNext } = this.props;
+    const { value, onChange, onNext, error } = this.props;
     return (
       <form className="form feedback-card" onSubmit={onNext}>
         <div className="title form-title">Help us become better</div>
@@ -40,6 +45,7 @@ export default class FeedbackForm extends PureComponent {
         <small className="form-text">
           *Everything you send us will be completely anonymous
         </small>
+        <small className="error">{error}</small>
         <div className="submit-container">
           <button className="btn btn-primary submit filled1" disabled={!value}>
             <div className="filled1-text">NEXT</div>

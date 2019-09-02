@@ -37,6 +37,13 @@
   font-family: SourceSansPro;
 }
 
+.form.feedback-card .error {
+  color: #f34a43;
+  font-size: 14px;
+  font-family: SourceSansPro;
+  font-style: italic;
+}
+
 .submit-container {
   text-align: right;
 }

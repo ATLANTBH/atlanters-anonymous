@@ -1,5 +1,4 @@
 import socketIOClient from "socket.io-client";
-import { newWindowLocation } from "../../utils/navigate";
 import packageJson from "../../../package.json";
 
 let socket = null;
@@ -10,10 +9,9 @@ let socket = null;
 export const connectSocket = () => {
   socket = socketIOClient(packageJson.proxy.toString());
   socket.on("connect_error", err => {
-    alert("Failed to connect to server");
     socket.disconnect();
-    newWindowLocation("/feedback");
   });
+  return socket;
 };
 
 /**
@@ -23,7 +21,7 @@ export const connectSocket = () => {
  * @param {Function} callback handles result
  */
 export const on = (event, callback) => {
-  if (!socket) throw new Error("Socket not connected");
+  if (!socket) return;
   socket.on(event, callback);
 };
 
@@ -34,6 +32,6 @@ export const on = (event, callback) => {
  * @param {Object} data data to emit
  */
 export const emit = (event, data) => {
-  if (!socket) throw new Error("Socket not connected");
+  if (!socket) return;
   socket.emit(event, data);
 };

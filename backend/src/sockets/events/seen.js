@@ -1,4 +1,3 @@
-import postMessage from '../post-message';
 import { SEEN_EVENT } from '../../constants/socket';
 
 export default (io, models, socket) => {
@@ -7,7 +6,7 @@ export default (io, models, socket) => {
     try {
       io.sockets.emit(SEEN_EVENT + feedbackId, { user, date });
     } catch (err) {
-      io.sockets.emit(userId, err.toString());
+      io.sockets.emit(user.id, err.toString());
     }
   });
 };

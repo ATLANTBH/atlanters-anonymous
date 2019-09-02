@@ -1,5 +1,5 @@
-import { on, emit } from "./base";
 import { CHAT_EVENT, SEEN_EVENT } from "../../constants/strings";
+import { emit, on } from "./base";
 
 /**
  * Called when server emits message
@@ -32,8 +32,8 @@ export const onSeen = (feedbackId, callback) => {
  * @param {Number} userId id of user sending the message (null if anonymous)
  * @param {String} feedbackId uuid of feedback object
  */
-export const emitMessage = (text, userId, feedbackId) => {
-  emit(CHAT_EVENT, { text, userId, feedbackId });
+export const emitMessage = (feedbackId, message) => {
+  emit(CHAT_EVENT, { feedbackId, message });
 };
 
 export const emitSeen = (user, feedbackId, date) => {

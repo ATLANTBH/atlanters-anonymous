@@ -1,9 +1,11 @@
-import React, { Component } from "react";
 import classNames from "classnames";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
-import PropTypes from "prop-types";
 import { FEEDBACK_CHAT } from "../../constants/routes";
+import { newWindowLocation } from "../../utils/navigate";
 
 export default class FeedbackResult extends Component {
   static propTypes = {
@@ -40,16 +42,26 @@ export default class FeedbackResult extends Component {
             {error ? (
               error
             ) : (
-              <div>
-                Thank you! Your feedback is greatly appreciated. <br />
-                <a href={FEEDBACK_CHAT(message)}>Access my ticket</a>
-                <br />
-                Don't forget to save your ticket key!
-                <hr />
-                <p className="text-center">
-                  <b>{message}</b>
-                </p>
-                <hr />
+              <div className="body">
+                <div className="key-all">
+                  Thank you! Your feedback is greatly appreciated. <hr />
+                  <div className="key-info">Your ticket key: </div>
+                  <div className="key">{message}</div>
+                  <CopyToClipboard text={message}>
+                    <div className="copy-key">copy key</div>
+                  </CopyToClipboard>
+                </div>
+                <div className="access-link-container text-center">
+                  <button
+                    type="submit"
+                    className="btn btn-primary access-link filled1"
+                    onClick={() => {
+                      newWindowLocation(FEEDBACK_CHAT(message));
+                    }}
+                  >
+                    <div className="filled1-text">Access my ticket</div>
+                  </button>
+                </div>
               </div>
             )}
           </div>

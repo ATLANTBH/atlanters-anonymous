@@ -7,15 +7,15 @@ import {
   CONFIRM_PASSWORD_LABEL,
   EMAIL_LABEL,
   NAME_LABEL,
-  SURNAME_LABEL,
-  PASSWORD_LABEL
+  PASSWORD_LABEL,
+  SURNAME_LABEL
 } from "../../constants/form/labels/input";
 import {
   CONFIRM_PASSWORD,
   EMAIL,
   NAME,
-  SURNAME,
-  SIGNUP_PASSWORD
+  SIGNUP_PASSWORD,
+  SURNAME
 } from "../../constants/form/names/input";
 import Form from "./ui/form/Form";
 import LoadingSpinner from "./ui/LoadingSpinner";
@@ -36,11 +36,11 @@ export default class SignUpForm extends Form {
   state = {
     submitPressed: false,
     data: {
-      name: "Vedad",
-      surname: "Fejzagic",
-      email: "vedad_fejzagic@yahoo.com",
-      signUpPassword: "12345678",
-      confirmPassword: "12345678"
+      name: "",
+      surname: "",
+      email: "",
+      signUpPassword: "",
+      confirmPassword: ""
     },
     errors: {}
   };
