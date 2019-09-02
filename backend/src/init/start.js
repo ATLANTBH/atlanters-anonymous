@@ -10,11 +10,6 @@ export default async () => {
   const expressApp = express();
   expressApp.use(express.static(root));
 
-  if (MODE !== 'development') {
-    expressApp.get('*', (req, res) => {
-      res.sendFile('index.html', { root });
-    });
-  }
   console.log('Connecting to the database...');
   const sequelize = await init.db();
   console.log('Initiating models...');

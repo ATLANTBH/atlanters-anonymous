@@ -25,5 +25,7 @@ export function getFeedbackMessages(feedbackId) {
 }
 
 export function postFeedbackMessage(feedbackId, userId, data) {
-  return post(`/api/feedback/${feedbackId}/user/${userId}/messages`, data);
+  let userIdPath = "";
+  if (userId && userId !== "") userIdPath = `/${userId}`;
+  return post(`/api/feedback/${feedbackId}/user${userIdPath}/messages`, data);
 }

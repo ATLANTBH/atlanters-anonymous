@@ -1,5 +1,4 @@
 import socketIOClient from "socket.io-client";
-import packageJson from "../../../package.json";
 
 let socket = null;
 
@@ -7,7 +6,10 @@ let socket = null;
  * Creates a socket instance
  */
 export const connectSocket = () => {
-  socket = socketIOClient(packageJson.proxy.toString());
+  socket = socketIOClient("http://localhost:3000", {
+    transports: ["websocket"],
+    rejectUnauthorized: false
+  });
   socket.on("connect_error", err => {
     socket.disconnect();
   });

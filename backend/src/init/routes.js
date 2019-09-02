@@ -1,3 +1,4 @@
+import path from 'path';
 import routes from '../routes';
 
 export default async app => {
@@ -14,5 +15,9 @@ export default async app => {
       message: err.message,
       error: errorStack,
     });
+  });
+
+  expressApp.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../build/index.html'));
   });
 };
