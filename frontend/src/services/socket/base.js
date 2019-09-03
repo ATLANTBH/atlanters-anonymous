@@ -6,7 +6,7 @@ let socket = null;
  * Creates a socket instance
  */
 export const connectSocket = () => {
-  socket = socketIOClient("https://localhost:3000", {
+  socket = socketIOClient("https://" + window.location.host, {
     transports: ["websocket"],
     rejectUnauthorized: false
   });
