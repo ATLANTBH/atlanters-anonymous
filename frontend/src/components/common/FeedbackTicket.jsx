@@ -47,6 +47,10 @@ export default class FeedbackTicket extends Component {
     },
     isMessageSubmitting: false,
     seen: false,
+    /**
+     * Checks if this client is the author of received chat message
+     */
+    isAuthorCurrentClient: false,
     error: ""
   };
 
@@ -66,23 +70,13 @@ export default class FeedbackTicket extends Component {
   };
 
   /**
-   * Checks if the client is the author of received chat message
-   *
-   * @param {String} messageAuthor received message author name
-   * @param {String} currentClient name of current client
-   */
-  isAuthorCurrentClient = (messageAuthor, currentClient) => {
-    return messageAuthor === currentClient;
-  };
-
-  /**
    * Called when server emits a message through socket
    *
    * @param {Object} data corresponds to message model from the server
    */
   onChatMessageReceived = data => {
     const { messages, user } = this.state;
-    if (!this.isAuthorCurrentClient(data.User.name, user.name)) {
+    if (!this.state.isAuthorCurrentClient) {
       messages.push(data);
       const latestAuthorName = this.resolveAuthorName(data);
       this.setState({
@@ -252,6 +246,7 @@ export default class FeedbackTicket extends Component {
     this.setState({
       messages,
       isMessageSubmitting: false,
+      isAuthorCurrentClient: true,
       seen: false,
       latestAuthorName,
       inputMessage: ""
