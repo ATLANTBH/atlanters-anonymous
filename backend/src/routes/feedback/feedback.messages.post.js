@@ -1,4 +1,4 @@
-import { GET_DETAILED_MESSAGE } from '../utils';
+import { GET_DETAILED_MESSAGE_HTML } from '../utils';
 
 export default ({ models }) => {
   const { Feedback, Message, User } = models;
@@ -15,7 +15,7 @@ export default ({ models }) => {
         user = await User.findById(userId);
         if (!user) throw new Error(`User with id ${userId} does not exist`);
       } else {
-        Feedback.sendMail(GET_DETAILED_MESSAGE(feedback, messageReq));
+        Feedback.sendMail(GET_DETAILED_MESSAGE_HTML(feedback, messageReq));
       }
       let message = await Message.create(messageReq);
       if (user) await user.addMessage(message);

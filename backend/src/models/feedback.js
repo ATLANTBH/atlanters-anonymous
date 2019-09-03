@@ -70,7 +70,7 @@ class Feedback extends Sequelize.Model {
       from: process.env.EMAIL_FEEDBACK,
       to: process.env.EMAIL_FEEDBACK,
       subject: 'Feedback Received',
-      text: text,
+      html: text,
     });
   }
 
