@@ -6,12 +6,12 @@ let socket = null;
  * Creates a socket instance
  */
 export const connectSocket = () => {
-  socket = socketIOClient("https://" + window.location.host, {
+  socket = socketIOClient("http://" + window.location.host, {
     transports: ["websocket"],
     rejectUnauthorized: false
   });
   socket.on("connect_error", err => {
-    console.log(err);
+    console.log("Socket connect error", err);
     socket.disconnect();
   });
   return socket;
