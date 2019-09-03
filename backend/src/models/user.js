@@ -1,6 +1,6 @@
-import Sequelize from 'sequelize';
-import jwt from 'jsonwebtoken';
 import { compare, hash } from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import Sequelize from 'sequelize';
 
 class User extends Sequelize.Model {
   static init(sequelize, DataTypes) {
@@ -183,7 +183,9 @@ class User extends Sequelize.Model {
       name: user.name,
       surname: user.surname,
     };
+    console.log(objToSign);
     const token = jwt.sign(objToSign, process.env.JWT_SECRET).toString();
+    console.log('Token', token);
     user.tokens.push(token);
     await user.update({ tokens: user.tokens });
     return token;
