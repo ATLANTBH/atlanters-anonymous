@@ -11,6 +11,7 @@ export const connectSocket = () => {
     rejectUnauthorized: false
   });
   socket.on("connect_error", err => {
+    console.log(err);
     socket.disconnect();
   });
   return socket;
