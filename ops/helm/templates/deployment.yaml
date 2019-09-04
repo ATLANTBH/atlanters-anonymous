@@ -65,6 +65,12 @@ spec:
             value: "465"
           - name: PORT
             value: "3000"
+          - name: JWT_SECRET
+            value: {{ .Values.config.jwtSecret }}
+          - name: COOKIE_S
+            value: {{ .Values.config.cookieS }}
+          - name: SALT_ROUNDS
+            value: 10
           livenessProbe:
             httpGet:
               path: /

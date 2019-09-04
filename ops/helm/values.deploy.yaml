@@ -17,4 +17,6 @@ config:
   dbHost: atlanters-anonymous-pg-deploy-postgresql
   dbSecret: atlanters-anonymous-pg-deploy-postgresql
   smtpSecret: atlanters-anonymous-smtp-deploy
+  jwtSecret: jwt-secret-deploy
+  cookieS: cookie-s-deploy
 

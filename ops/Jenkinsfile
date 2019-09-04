@@ -48,26 +48,31 @@ spec:
                 }
             }
         }
+
         stage('Deploy helm chart') {
             steps {
-                container('helm') {
-                    sh '''
-                    #!/bin/bash
-                    
-                    if [[ "$ENVIRONMENT" == "deploy" ]]; then
-                        values_arg="-f ops/helm/values.deploy.yaml"
-                    fi;
-                    helm upgrade aa-${ENVIRONMENT} \
-                         --recreate-pods \
-                         --namespace aa \
-                         --install $values_arg \
-                         --set image.tag=${IMAGE_TAG} \
-                         --set ingress.annotations."nginx\\.ingress\\.kubernetes\\.io/whitelist-source-range"=${IP_WHITELIST} \
-                         --set ingress.hosts[0]=${ENDPOINT} \
-                         --set ingress.tls[0].hosts[0]=${ENDPOINT} \
-                         --set ingress.tls[0].secretName=aa-${ENVIRONMENT} \
-                         ops/helm/
-                    '''
+                withCredentials([string(credentialsId: 'JWT_SECRET', variable: 'JWT_SECRET'), string(credentialsId: 'COOKIE_S', variable: 'COOKIE_S')]) {
+                    container('helm') {
+                        sh '''
+                        #!/bin/bash
+                        
+                        if [[ "$ENVIRONMENT" == "deploy" ]]; then
+                            values_arg="-f ops/helm/values.deploy.yaml"
+                        fi;
+                        helm upgrade aa-${ENVIRONMENT} \
+                             --recreate-pods \
+                             --namespace aa \
+                             --install $values_arg \
+                             --set image.tag=${IMAGE_TAG} \
+                             --set ingress.annotations."nginx\\.ingress\\.kubernetes\\.io/whitelist-source-range"=${IP_WHITELIST} \
+                             --set ingress.hosts[0]=${ENDPOINT} \
+                             --set ingress.tls[0].hosts[0]=${ENDPOINT} \
+                             --set ingress.tls[0].secretName=aa-${ENVIRONMENT} \
+                             --set config.jwtSecret=${JWT_SECRET} \
+                             --set config.cookieS=${COOKIE_S} \
+                             ops/helm/
+                        '''
+                    }
                 }
             }
         }
