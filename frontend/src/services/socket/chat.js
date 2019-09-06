@@ -32,8 +32,8 @@ export const onSeen = (feedbackId, callback) => {
  * @param {Number} userId id of user sending the message (null if anonymous)
  * @param {String} feedbackId uuid of feedback object
  */
-export const emitMessage = (feedbackId, message) => {
-  emit(CHAT_EVENT, { feedbackId, message });
+export const emitMessage = (feedbackId, messages) => {
+  emit(CHAT_EVENT, { feedbackId, messages });
 };
 
 export const emitSeen = (user, feedbackId, date) => {

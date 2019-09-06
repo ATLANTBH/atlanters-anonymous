@@ -7,3 +7,8 @@ export const validateInputMessage = message => {
     return "Messages greater than 1000 characters are not allowed";
   return null;
 };
+
+export const getHostnameWithProtocol = ({ location }) => {
+  const { protocol, host } = location;
+  return protocol + "//" + host;
+};

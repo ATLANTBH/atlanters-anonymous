@@ -1,4 +1,4 @@
-import { GET_DETAILED_MESSAGE_HTML } from '../utils';
+import { GET_DETAILED_MESSAGE_HTML, GET_FEEDBACK_URL } from '../utils';
 
 export default ({ models }) => {
   const { Feedback, Message } = models;
@@ -6,7 +6,10 @@ export default ({ models }) => {
     const messageReq = req.body;
     try {
       let feedback = await Feedback.create();
-      await Feedback.sendMail(GET_DETAILED_MESSAGE_HTML(feedback, messageReq));
+      const feedbackUrl = GET_FEEDBACK_URL(req, feedback.id);
+      await Feedback.sendMail(
+        GET_DETAILED_MESSAGE_HTML(feedback, feedbackUrl, messageReq)
+      );
       const message = await Message.create(messageReq);
       feedback = await feedback.addMessage(message);
       res.send(feedback);

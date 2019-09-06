@@ -12,10 +12,12 @@ export const FORMAT_DATE = date => {
   return dateformat(date, 'dd/mm/yyyy HH:MM');
 };
 
-export const GET_DETAILED_MESSAGE_HTML = (feedback, { text }) => {
-  const ticketId = `Ticket id: <a href="/feedback/${feedback.id}"><b>${
-    feedback.id
-  }</b></a><br>`;
+export const GET_FEEDBACK_URL = (req, feedbackId) => {
+  return req.protocol + '://' + req.get('host') + '/feedback/' + feedbackId;
+};
+
+export const GET_DETAILED_MESSAGE_HTML = (feedback, feedbackUrl, { text }) => {
+  const ticketId = `Ticket id: <a href="${feedbackUrl}"><b>${feedback.id}</b></a><br>`;
   const ticketCreatedAt = `Ticket created at: <b>${FORMAT_DATE(
     feedback.createdAt
   )}</b><br>`;

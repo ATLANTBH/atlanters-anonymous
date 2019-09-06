@@ -75,17 +75,13 @@ export default class FeedbackTicket extends Component {
    * @param {Object} data corresponds to message model from the server
    */
   onChatMessageReceived = data => {
-    const { messages, user } = this.state;
-    if (!this.state.isAuthorCurrentClient) {
-      messages.push(data);
-      const latestAuthorName = this.resolveAuthorName(data);
-      this.setState({
-        messages,
-        isMessageSubmitting: false,
-        seen: false,
-        latestAuthorName
-      });
-    }
+    const latestAuthorName = this.resolveAuthorName(data[data.length - 1]);
+    this.setState({
+      messages: data,
+      isMessageSubmitting: false,
+      seen: false,
+      latestAuthorName
+    });
   };
 
   /**
@@ -251,7 +247,7 @@ export default class FeedbackTicket extends Component {
       latestAuthorName,
       inputMessage: ""
     });
-    emitMessage(this.props.feedback.id, res);
+    emitMessage(this.props.feedback.id, messages);
   };
 
   onPostFeedbackMessageError = err => {

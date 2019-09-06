@@ -48,7 +48,7 @@ class Message extends Sequelize.Model {
       include: [
         {
           model: User,
-          attributes: ['name', 'surname'],
+          attributes: ['id', 'name', 'surname'],
         },
       ],
     });

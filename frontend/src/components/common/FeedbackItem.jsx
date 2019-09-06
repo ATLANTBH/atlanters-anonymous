@@ -11,11 +11,6 @@ export default class FeedbackItem extends Component {
     createdAt: PropTypes.string.isRequired,
 
     /**
-     * Latest message from ticket
-     */
-    message: PropTypes.string.isRequired,
-
-    /**
      * Is ticket closed
      */
     isClosed: PropTypes.bool.isRequired,
@@ -36,12 +31,8 @@ export default class FeedbackItem extends Component {
     this.props.onCloseFeedback(this.props.id);
   };
 
-  outputMessage = message => {
-    return message.length > 40 ? message.slice(0, 40) + "..." : message;
-  };
-
   render() {
-    const { createdAt, message, isClosed, userSeenAt } = this.props;
+    const { createdAt, isClosed, userSeenAt } = this.props;
     return (
       <div className="feedback-item-container" onClick={this.onFeedback}>
         <div className="text created-at">
@@ -50,7 +41,6 @@ export default class FeedbackItem extends Component {
         <div className="text user-seen-at">
           {dateformat(userSeenAt, "dd/mm/yyyy HH:MM")}
         </div>
-        <div className="text message">{this.outputMessage(message)}</div>
         <div className="closed">
           {!isClosed ? (
             <div className="button text-center">

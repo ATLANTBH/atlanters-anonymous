@@ -1,7 +1,7 @@
 .feedback-item-container {
   grid-column: 2;
   display: grid;
-  grid-template-columns: auto auto 0.8fr auto;
+  grid-template-columns: auto auto 0.8fr;
   background-color: white;
   border-radius: 6px;
   padding: 15px;
@@ -47,7 +47,7 @@
 }
 
 .feedback-item-container .closed {
-  width: 100px;
+  width: 100%;
 }
 
 .feedback-item-container .closed .button {
