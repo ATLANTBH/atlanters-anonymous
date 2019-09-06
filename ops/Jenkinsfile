@@ -48,13 +48,12 @@ spec:
                 }
             }
         }
-
         stage('Deploy helm chart') {
             steps {
                 container('helm') {
                     sh '''
                     #!/bin/bash
-
+                    
                     if [[ "$ENVIRONMENT" == "deploy" ]]; then
                         values_arg="-f ops/helm/values.deploy.yaml"
                     fi;
