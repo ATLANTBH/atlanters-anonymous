@@ -69,6 +69,8 @@
   font-family: SourceSansPro;
   font-size: 14px;
   text-decoration: underline !important;
+  border: 0;
+  background-color: transparent;
 }
 
 .close-ticket-container .close-ticket:hover {

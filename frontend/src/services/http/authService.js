@@ -7,7 +7,8 @@ export function signUp(data) {
     email: data.email,
     name: data.name,
     surname: data.surname,
-    password: data.signUpPassword
+    password: data.signUpPassword,
+    key: data.key
   }).then(res => {
     return res;
   });

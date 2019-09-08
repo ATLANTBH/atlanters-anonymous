@@ -47,7 +47,6 @@ export default class Form extends Component {
     if (errors) {
       return;
     }
-
     onSubmit(this.state.data);
   };
 

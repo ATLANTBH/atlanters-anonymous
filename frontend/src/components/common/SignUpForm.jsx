@@ -8,14 +8,16 @@ import {
   EMAIL_LABEL,
   NAME_LABEL,
   PASSWORD_LABEL,
-  SURNAME_LABEL
+  SURNAME_LABEL,
+  KEY_LABEL
 } from "../../constants/form/labels/input";
 import {
   CONFIRM_PASSWORD,
   EMAIL,
   NAME,
   SIGNUP_PASSWORD,
-  SURNAME
+  SURNAME,
+  KEY
 } from "../../constants/form/names/input";
 import Form from "./ui/form/Form";
 import LoadingSpinner from "./ui/LoadingSpinner";
@@ -40,7 +42,8 @@ export default class SignUpForm extends Form {
       surname: "",
       email: "",
       signUpPassword: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      key: ""
     },
     errors: {}
   };
@@ -63,7 +66,10 @@ export default class SignUpForm extends Form {
       .options({
         language: { any: { allowOnly: "must match password" } }
       })
-      .label(CONFIRM_PASSWORD_LABEL)
+      .label(CONFIRM_PASSWORD_LABEL),
+    key: Joi.string()
+      .required()
+      .label(KEY_LABEL)
   };
 
   onSubmit = e => {
@@ -114,6 +120,14 @@ export default class SignUpForm extends Form {
                 CONFIRM_PASSWORD,
                 CONFIRM_PASSWORD_LABEL,
                 CONFIRM_PASSWORD_LABEL,
+                isSubmitting,
+                "password",
+                true
+              )}
+              {this.renderInput(
+                KEY,
+                KEY_LABEL,
+                KEY_LABEL,
                 isSubmitting,
                 "password",
                 true

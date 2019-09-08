@@ -38,6 +38,12 @@ export default class FeedbackTicket extends Component {
     messages: PropTypes.array.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+    this.focus = this.focus.bind(this);
+  }
+
   state = {
     messages: [],
     inputMessage: "",
@@ -274,11 +280,19 @@ export default class FeedbackTicket extends Component {
       inputMessage: ""
     });
     emitMessage(this.props.feedback.id, messages);
+    this.focus();
   };
 
   onPostFeedbackMessageError = err => {
     this.setState({ error: err.message, isMessageSubmitting: false });
   };
+
+  /**
+   * focus on message input field
+   */
+  focus() {
+    this.textInput.current.focus();
+  }
 
   render() {
     const {
@@ -329,6 +343,7 @@ export default class FeedbackTicket extends Component {
             disabled={isClosed || isMessageSubmitting}
             placeholder="Type a message..."
             onChange={e => this.setState({ inputMessage: e.target.value })}
+            ref={this.textInput}
           />
           <input
             className="image"
@@ -343,9 +358,9 @@ export default class FeedbackTicket extends Component {
         {user.id !== DEFAULT_USER_ID && (
           <div className="close-ticket-container text-center">
             {!isClosed && (
-              <a className="close-ticket" onClick={this.onCloseFeedback}>
+              <button className="close-ticket" onClick={this.onCloseFeedback}>
                 Close this ticket
-              </a>
+              </button>
             )}
           </div>
         )}

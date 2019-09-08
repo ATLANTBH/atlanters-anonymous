@@ -10,6 +10,7 @@ export default ({ models }) => {
       const feedback = await Feedback.findById(feedbackId);
       if (!feedback)
         throw new Error(`Feedback with id ${feedbackId} does not exist`);
+      if (feedback.isClosed) throw new Error('This ticket is closed');
       let user = null;
       if (userId) {
         user = await User.findById(userId);
