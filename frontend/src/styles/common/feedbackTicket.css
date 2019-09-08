@@ -60,3 +60,19 @@
   margin-top: 2.5px;
   margin-right: 10px;
 }
+
+.close-ticket-container {
+  margin-top: 15px;
+}
+
+.close-ticket-container .close-ticket {
+  font-family: SourceSansPro;
+  font-size: 14px;
+  text-decoration: underline !important;
+}
+
+.close-ticket-container .close-ticket:hover {
+  cursor: pointer;
+  color: #555454 !important;
+  text-decoration: underline !important;
+}

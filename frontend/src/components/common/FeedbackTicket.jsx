@@ -7,7 +7,8 @@ import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../../constants/user";
 import { getCurrentUser } from "../../services/http/authService";
 import {
   postFeedbackMessage,
-  updateSeenAt
+  updateSeenAt,
+  closeFeedback
 } from "../../services/http/feedbackService";
 import { connectSocket } from "../../services/socket/base";
 import {
@@ -41,6 +42,9 @@ export default class FeedbackTicket extends Component {
     messages: [],
     inputMessage: "",
     latestAuthorName: "",
+    /**
+     * Current user (anonymous or logged in)
+     */
     user: {
       name: "",
       id: ""
@@ -51,6 +55,7 @@ export default class FeedbackTicket extends Component {
      * Checks if this client is the author of received chat message
      */
     isAuthorCurrentClient: false,
+    isClosed: false,
     error: ""
   };
 
@@ -140,7 +145,11 @@ export default class FeedbackTicket extends Component {
     return false;
   };
 
+  /**
+   * Sets states of necessary properties on mount
+   */
   updateMountState = (socket, user, { feedback, messages }) => {
+    const { isClosed } = feedback;
     const lastMessage = messages[messages.length - 1];
     const latestAuthorName = this.resolveAuthorName(lastMessage);
     this.setState({
@@ -156,6 +165,7 @@ export default class FeedbackTicket extends Component {
         user.name
       ),
       socket,
+      isClosed,
       error: ""
     });
   };
@@ -215,6 +225,22 @@ export default class FeedbackTicket extends Component {
     this.setState({ error: err.message });
   }
 
+  onCloseFeedback = () => {
+    const { id } = this.props.feedback;
+    closeFeedback(id)
+      .then(res => this.onCloseFeedbackSuccess())
+      .catch(err => this.onCloseFeedbackError(err));
+  };
+
+  onCloseFeedbackSuccess = () => {
+    this.setState({ isClosed: true });
+  };
+
+  onCloseFeedbackError = err => {
+    alert(err);
+    window.location.reload();
+  };
+
   onSendMessage = e => {
     e.preventDefault();
     const { inputMessage, user } = this.state;
@@ -260,7 +286,9 @@ export default class FeedbackTicket extends Component {
       messages,
       seen,
       isMessageSubmitting,
-      error
+      error,
+      isClosed,
+      user
     } = this.state;
     const { feedback } = this.props;
     return (
@@ -297,8 +325,8 @@ export default class FeedbackTicket extends Component {
           <input
             className="input"
             type="text"
-            value={feedback.isClosed ? "This ticket is closed" : inputMessage}
-            disabled={feedback.isClosed || isMessageSubmitting}
+            value={isClosed ? "This ticket is closed" : inputMessage}
+            disabled={isClosed || isMessageSubmitting}
             placeholder="Type a message..."
             onChange={e => this.setState({ inputMessage: e.target.value })}
           />
@@ -312,6 +340,15 @@ export default class FeedbackTicket extends Component {
             src={send}
           />
         </form>
+        {user.id !== DEFAULT_USER_ID && (
+          <div className="close-ticket-container text-center">
+            {!isClosed && (
+              <a className="close-ticket" onClick={this.onCloseFeedback}>
+                Close this ticket
+              </a>
+            )}
+          </div>
+        )}
       </div>
     );
   }

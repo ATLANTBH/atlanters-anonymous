@@ -19,7 +19,17 @@ export default class FeedbackList extends Component {
     /**
      * Current page number
      */
-    currentPage: PropTypes.number.isRequired
+    currentPage: PropTypes.number.isRequired,
+
+    /**
+     * Handles pagination
+     */
+    onPageChange: PropTypes.func.isRequired,
+
+    /**
+     * Handles feedback when successfully closed
+     */
+    feedbackClosed: PropTypes.func.isRequired
   };
   state = {};
 
@@ -53,6 +63,9 @@ export default class FeedbackList extends Component {
     );
   };
 
+  /**
+   * When page number is clicked
+   */
   onPageChange = e => {
     let currentUrlParams = new URLSearchParams(window.location.search);
     currentUrlParams.set("page", e.target.id);

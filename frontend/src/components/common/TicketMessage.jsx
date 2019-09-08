@@ -34,6 +34,9 @@ export default class TicketMessage extends Component {
     totalMessages: PropTypes.number.isRequired
   };
 
+  /**
+   * Used to output message on the left or the right of chat
+   */
   getColumn = () => {
     const user = getCurrentUser();
     const { userName } = this.props;

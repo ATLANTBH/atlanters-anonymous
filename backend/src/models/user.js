@@ -183,9 +183,7 @@ class User extends Sequelize.Model {
       name: user.name,
       surname: user.surname,
     };
-    console.log(objToSign);
     const token = jwt.sign(objToSign, process.env.JWT_SECRET).toString();
-    console.log('Token', token);
     user.tokens.push(token);
     await user.update({ tokens: user.tokens });
     return token;

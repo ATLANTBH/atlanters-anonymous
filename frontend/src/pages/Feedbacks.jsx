@@ -14,17 +14,16 @@ export default class Feedbacks extends Component {
     itemsPerPage: 10
   };
 
-  getAllFeedbackRequest() {
+  componentDidMount() {
     getAllFeedback()
       .then(res => this.onGetFeedbackSuccess(res.result))
       .catch(err => this.onGetFeedbackError(err));
   }
 
-  componentDidMount() {
-    this.getAllFeedbackRequest();
-  }
-
-  calcTotalPages = res => {
+  /**
+   * Returns total pages based on number of feedbacks
+   */
+  calculateTotalPages = res => {
     const { itemsPerPage, totalPages } = this.state;
     for (let i = 1; i <= Math.ceil(res.length / itemsPerPage); i++) {
       totalPages.push(i);
@@ -32,6 +31,9 @@ export default class Feedbacks extends Component {
     return totalPages;
   };
 
+  /**
+   * Checks if page passed to url is a valid number
+   */
   validatePage = page => {
     if (typeof currentPage != "number") {
       return 1;
@@ -43,7 +45,7 @@ export default class Feedbacks extends Component {
     const { page } = queryString.parse(this.props.location.search);
     this.setState({
       feedbacks: res.reverse(),
-      totalPages: this.calcTotalPages(res)
+      totalPages: this.calculateTotalPages(res)
     });
     this.onPageChange(this.validatePage(page));
   };
@@ -54,6 +56,9 @@ export default class Feedbacks extends Component {
     newWindowLocation(FEEDBACK_ROUTE);
   };
 
+  /**
+   * When feedback successfully closed
+   */
   feedbackClosed = feedbackId => {
     const { currentFeedbacks } = this.state;
     const index = currentFeedbacks.findIndex(item => item.id === feedbackId);
@@ -61,6 +66,9 @@ export default class Feedbacks extends Component {
     this.setState({ currentFeedbacks });
   };
 
+  /**
+   * Handles pagination
+   */
   onPageChange = page => {
     const { feedbacks, itemsPerPage } = this.state;
     const indexOfLastFeedback = page * itemsPerPage;
@@ -73,12 +81,13 @@ export default class Feedbacks extends Component {
   };
 
   render() {
+    const { currentFeedbacks, totalPages, currentPage } = this.state;
     return (
       <FeedbackList
-        feedbacks={this.state.currentFeedbacks}
+        feedbacks={currentFeedbacks}
         feedbackClosed={this.feedbackClosed}
-        totalPages={this.state.totalPages}
-        currentPage={this.state.currentPage}
+        totalPages={totalPages}
+        currentPage={currentPage}
         onPageChange={this.onPageChange}
         history={this.props.history}
       />

@@ -8,7 +8,6 @@ export default ({ models }) => {
       if (!feedback)
         throw new Error(`Feedback with id ${feedbackId} does not exist`);
       const updateResult = await feedback.update(feedbackReq);
-      console.log(feedbackReq);
       res.send(updateResult);
     } catch (error) {
       next(new Error(error));
