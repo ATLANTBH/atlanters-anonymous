@@ -66,9 +66,15 @@ spec:
           - name: PORT
             value: "3000"
           - name: JWT_SECRET
-            value: {{ .Values.config.jwtSecret }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.appSecret }}
+                key: jwt_secret
           - name: COOKIE_S
-            value: {{ .Values.config.cookieS }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.appSecret }}
+                key: cookie_s
           - name: SALT_ROUNDS
             value: "10"
           livenessProbe:

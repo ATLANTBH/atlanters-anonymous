@@ -9,14 +9,12 @@ ingress:
   hosts:
     - atlantersanonymous.dev.example.com
   tls:
-   - secretName: atlanters-anonymous-deploy
-     hosts:
-       - atlantersanonymous.dev.example.com
+    - secretName: atlanters-anonymous-deploy
+      hosts:
+        - atlantersanonymous.dev.example.com
 
 config:
   dbHost: atlanters-anonymous-pg-deploy-postgresql
   dbSecret: atlanters-anonymous-pg-deploy-postgresql
   smtpSecret: atlanters-anonymous-smtp-deploy
-  jwtSecret: jwt-secret-deploy
-  cookieS: cookie-s-deploy
-
+  appSecret: atlanters-anonymous-app-deploy

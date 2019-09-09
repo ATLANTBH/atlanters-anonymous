@@ -19,20 +19,19 @@ ingress:
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
     nginx.ingress.kubernetes.io/enable-access-log: "false"
   paths:
-  - /
+    - /
   hosts:
     - atlantersanonymous.example.com
   tls:
-   - secretName: atlanters-anonymous
-     hosts:
-       - atlantersanonymous.example.com
+    - secretName: atlanters-anonymous
+      hosts:
+        - atlantersanonymous.example.com
 
 config:
   dbHost: atlanters-anonymous-pg-postgresql
   dbSecret: atlanters-anonymous-pg-postgresql
   smtpSecret: atlanters-anonymous-smtp
-  jwtSecret: jwt-secret
-  cookieS: cookie-s
+  appSecret: atlanters-anonymous-app
 
 resources: {}
 
