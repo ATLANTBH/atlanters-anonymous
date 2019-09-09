@@ -48,7 +48,6 @@ spec:
                 }
             }
         }
-
         stage('Deploy helm chart') {
             steps {
                 container('helm') {
