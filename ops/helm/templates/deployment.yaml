@@ -70,11 +70,26 @@ spec:
               secretKeyRef:
                 name: {{ .Values.config.appSecret }}
                 key: jwt_secret
+          - name: JWT_SECRET_SIGNUP
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.appSecret }}
+                key: jwt_secret_signup
           - name: COOKIE_S
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.config.appSecret }}
                 key: cookie_s
+          - name: GITHUB_APP_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.appSecret }}
+                key: github_app_secret
+          - name: GITHUB_APP_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.appSecret }}
+                key: github_app_client_id
           - name: SALT_ROUNDS
             value: "10"
           livenessProbe:
