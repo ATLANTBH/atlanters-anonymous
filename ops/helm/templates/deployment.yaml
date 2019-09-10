@@ -91,7 +91,10 @@ spec:
                 name: {{ .Values.config.appSecret }}
                 key: github_app_client_id
           - name: SALT_ROUNDS
-            value: "10"
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.appSecret }}
+                key: salt_rounds
           livenessProbe:
             httpGet:
               path: /
