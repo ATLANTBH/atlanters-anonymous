@@ -1,4 +1,4 @@
-import { post, deleteCall } from "./base";
+import { post, deleteCall, put } from "./base";
 import jwtDecode from "jwt-decode";
 import { TOKEN_HEADER } from "../../constants/headers";
 
@@ -7,8 +7,7 @@ export function signUp(data) {
     email: data.email,
     name: data.name,
     surname: data.surname,
-    password: data.signUpPassword,
-    key: data.key
+    password: data.signUpPassword
   }).then(res => {
     return res;
   });
@@ -18,6 +17,15 @@ export function signIn(data) {
   return post("/api/auth/sign-in", {
     email: data.email,
     password: data.password
+  }).then(res => {
+    return res;
+  });
+}
+
+export function updateUser(data) {
+  const { userId, password } = data;
+  return put(`/api/users/${userId}`, {
+    password
   }).then(res => {
     return res;
   });

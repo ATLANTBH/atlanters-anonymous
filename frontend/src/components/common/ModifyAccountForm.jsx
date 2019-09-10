@@ -1,26 +1,19 @@
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router-dom";
-import { SIGNUP } from "../../constants/form/labels/button";
+import Form from "./ui/form/Form";
 import {
   CONFIRM_PASSWORD_LABEL,
-  EMAIL_LABEL,
-  NAME_LABEL,
-  PASSWORD_LABEL,
-  SURNAME_LABEL
+  NEW_PASSWORD_LABEL
 } from "../../constants/form/labels/input";
 import {
   CONFIRM_PASSWORD,
-  EMAIL,
-  NAME,
-  SIGNUP_PASSWORD,
-  SURNAME
+  NEW_PASSWORD
 } from "../../constants/form/names/input";
-import Form from "./ui/form/Form";
 import LoadingSpinner from "./ui/LoadingSpinner";
+import { CHANGE } from "../../constants/form/labels/button";
 
-export default class SignUpForm extends Form {
+export default class ModifyAccountForm extends Form {
   static propTypes = {
     /**
      * Error to display if submit was a failure
@@ -36,30 +29,18 @@ export default class SignUpForm extends Form {
   state = {
     submitPressed: false,
     data: {
-      name: "",
-      surname: "",
-      email: "",
-      signUpPassword: "",
+      newPassword: "",
       confirmPassword: ""
     },
     errors: {}
   };
 
   schema = {
-    name: Joi.string()
+    newPassword: Joi.string()
       .required()
-      .label(NAME_LABEL),
-    surname: Joi.string()
-      .required()
-      .label(SURNAME_LABEL),
-    email: Joi.string()
-      .required()
-      .label(EMAIL_LABEL),
-    signUpPassword: Joi.string()
-      .required()
-      .label(PASSWORD_LABEL)
+      .label(NEW_PASSWORD_LABEL)
       .min(8),
-    confirmPassword: Joi.valid(Joi.ref(SIGNUP_PASSWORD))
+    confirmPassword: Joi.valid(Joi.ref(NEW_PASSWORD))
       .options({
         language: { any: { allowOnly: "must match password" } }
       })
@@ -71,41 +52,17 @@ export default class SignUpForm extends Form {
   };
 
   render() {
-    const { error, isSubmitting } = this.props;
+    const { error, isSubmitting, success } = this.props;
     return (
       <div className="container-fluid">
         <div className="form-row row">
           <div className="col-lg-3">
             <form onSubmit={this.onSubmit} className="form sign-up">
-              <h1 className="sign-up title text-center">Sign Up</h1>
+              <h1 className="sign-up title text-center">Change Password</h1>
               {this.renderInput(
-                NAME,
-                NAME_LABEL,
-                NAME_LABEL,
-                isSubmitting,
-                "text",
-                true
-              )}
-              {this.renderInput(
-                SURNAME,
-                SURNAME_LABEL,
-                SURNAME_LABEL,
-                isSubmitting,
-                "text",
-                true
-              )}
-              {this.renderInput(
-                EMAIL,
-                EMAIL_LABEL,
-                EMAIL_LABEL,
-                isSubmitting,
-                "email",
-                true
-              )}
-              {this.renderInput(
-                SIGNUP_PASSWORD,
-                PASSWORD_LABEL,
-                PASSWORD_LABEL,
+                NEW_PASSWORD,
+                NEW_PASSWORD_LABEL,
+                NEW_PASSWORD_LABEL,
                 isSubmitting,
                 "password",
                 true
@@ -122,22 +79,20 @@ export default class SignUpForm extends Form {
                 <LoadingSpinner
                   height={50}
                   width={50}
-                  text="Signin you up..."
+                  text="Changing your password..."
                 />
               )}
               {!isSubmitting && (
                 <section>
                   <div className="error-text big">{error.message}</div>
+                  <div
+                    className="success-text big"
+                    style={{ color: "#28a745", marginBottom: "10px" }}
+                  >
+                    {success}
+                  </div>
                   <div className="text-center">
-                    {this.renderButton(
-                      SIGNUP,
-                      "sign-up",
-                      "submit",
-                      this.state.submitPressed
-                    )}
-                    <Link className="redirect-sign-in" to="/sign-in">
-                      Already have an account?
-                    </Link>
+                    {this.renderButton(CHANGE, "modify-account", "submit")}
                   </div>
                 </section>
               )}

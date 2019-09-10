@@ -8,13 +8,15 @@ import {
   FEEDBACK_ROUTE_PARAMS,
   NOT_FOUND_ROUTE,
   SIGNIN_ROUTE,
-  SIGNUP_ROUTE
+  SIGNUP_ROUTE,
+  ACCOUNT_ROUTE
 } from "./constants/routes";
 import Feedback from "./pages/Feedback";
 import Feedbacks from "./pages/Feedbacks";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Account from "./pages/Account";
 import { getCurrentUser } from "./services/http/authService";
 
 class App extends Component {
@@ -32,7 +34,8 @@ class App extends Component {
         {user && <Navbar user={user} />}
         <main className="container-fluid">
           <Switch>
-            <Route path={SIGNUP_ROUTE} component={SignUp} />
+            <ProtectedRoute path={SIGNUP_ROUTE} component={SignUp} />
+            <ProtectedRoute path={ACCOUNT_ROUTE} component={Account} />
             <Route path={SIGNIN_ROUTE} component={SignIn} />
             <Route path={FEEDBACK_ROUTE_PARAMS} component={Feedback} />
             <Route path={NOT_FOUND_ROUTE} component={NotFound} />

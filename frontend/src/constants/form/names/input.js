@@ -4,4 +4,5 @@ export const CONFIRM_PASSWORD = "confirmPassword";
 export const EMAIL = "email";
 export const NAME = "name";
 export const SURNAME = "surname";
-export const KEY = "key";
+export const NEW_PASSWORD = "newPassword";
+export const CONFIRM_NEW_PASSWORD = "confirmNewPassword";

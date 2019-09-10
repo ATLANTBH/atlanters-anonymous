@@ -4,7 +4,12 @@ import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { TOKEN_HEADER } from "../../constants/headers";
-import { FEEDBACKS_ROUTE_PAGE, FEEDBACK_ROUTE } from "../../constants/routes";
+import {
+  FEEDBACK_ROUTE,
+  SIGNUP_ROUTE,
+  FEEDBACKS_ROUTE,
+  ACCOUNT_ROUTE
+} from "../../constants/routes";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
 
@@ -46,12 +51,18 @@ export default class NavBar extends Component {
             <Nav>
               <NavLink
                 className="nav-item nav-link mr-sm-2"
-                to={FEEDBACKS_ROUTE_PAGE(1)}
+                to={FEEDBACKS_ROUTE}
               >
                 FEEDBACK
               </NavLink>
+              <NavLink className="nav-item nav-link mr-sm-2" to={SIGNUP_ROUTE}>
+                NEW USER
+              </NavLink>
             </Nav>
             <Nav className="ml-auto">
+              <NavLink className="nav-item nav-link mr-sm-2" to={ACCOUNT_ROUTE}>
+                ACCOUNT
+              </NavLink>
               <p
                 className="nav-item nav-link sign-out"
                 onClick={this.onSignOut}

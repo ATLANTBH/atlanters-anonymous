@@ -2,7 +2,8 @@ import Joi from "joi-browser";
 import React, { Component } from "react";
 import {
   CONFIRM_PASSWORD,
-  SIGNUP_PASSWORD
+  SIGNUP_PASSWORD,
+  NEW_PASSWORD
 } from "../../../../constants/form/names/input";
 import Button from "./Button";
 import Input from "./Input";
@@ -79,9 +80,12 @@ export default class Form extends Component {
   handleChange = ({ currentTarget }) => {
     const errors = { ...this.state.errors };
     const { name, value } = currentTarget;
-    const { signUpPassword, confirmPassword } = this.state.data;
+    const { signUpPassword, confirmPassword, newPassword } = this.state.data;
 
-    if (name === CONFIRM_PASSWORD && value === signUpPassword) {
+    if (
+      name === CONFIRM_PASSWORD &&
+      (value === signUpPassword || value === newPassword)
+    ) {
       this.deleteProperty(errors, name);
     } else {
       const errorMessage = this.validateProperty(currentTarget);
@@ -90,7 +94,10 @@ export default class Form extends Component {
       } else {
         this.deleteProperty(errors, name);
       }
-      if (name === SIGNUP_PASSWORD && confirmPassword.length > 0) {
+      if (
+        (name === SIGNUP_PASSWORD || name === NEW_PASSWORD) &&
+        confirmPassword.length > 0
+      ) {
         this.validateConfirmPassword(
           value,
           confirmPassword,

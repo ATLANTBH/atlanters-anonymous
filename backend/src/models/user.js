@@ -154,7 +154,7 @@ class User extends Sequelize.Model {
     }
     if (password) {
       User.checkPasswordValid(reqUser.password);
-      if (!User.isPasswordHashProper(password, userToUpdate.password))
+      if (await User.isPasswordHashProper(password, userToUpdate.password))
         throw new Error(`Password matches the one currently in use`);
       password = await User.getPasswordHash(password);
     }

@@ -77,7 +77,7 @@ export default class Feedbacks extends Component {
       indexOfFirstFeedback,
       indexOfLastFeedback
     );
-    this.setState({ currentPage: page, currentFeedbacks });
+    this.setState({ currentPage: parseInt(page), currentFeedbacks });
   };
 
   render() {
