@@ -6,6 +6,7 @@ import FeedbackTicket from "../components/common/FeedbackTicket";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { FEEDBACK_ROUTE } from "../constants/routes";
+import { getCurrentUser } from "../services/http/authService";
 import {
   getFeedbackMessages,
   submitFeedback
@@ -132,7 +133,10 @@ export default class Feedback extends Component {
     } = this.state;
 
     return (
-      <section className="feedback-container">
+      <section
+        className="feedback-container"
+        style={{ marginTop: getCurrentUser() ? "0px" : "120px" }}
+      >
         {isLoading && <LoadingSpinner height={60} width={60} />}
 
         {!isLoading &&

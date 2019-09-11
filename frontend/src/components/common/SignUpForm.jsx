@@ -1,7 +1,6 @@
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router-dom";
 import { SIGNUP } from "../../constants/form/labels/button";
 import {
   CONFIRM_PASSWORD_LABEL,
@@ -26,6 +25,11 @@ export default class SignUpForm extends Form {
      * Error to display if submit was a failure
      */
     error: PropTypes.object,
+
+    /**
+     * Success to display if submit was a success
+     */
+    success: PropTypes.string,
 
     /**
      * Is sign up info submitting
@@ -71,10 +75,10 @@ export default class SignUpForm extends Form {
   };
 
   render() {
-    const { error, isSubmitting } = this.props;
+    const { error, isSubmitting, success } = this.props;
     return (
       <div className="container-fluid">
-        <div className="form-row row">
+        <div className="form-row row sign-up">
           <div className="col-lg-3">
             <form onSubmit={this.onSubmit} className="form sign-up">
               <h1 className="sign-up title text-center">Sign Up</h1>
@@ -128,6 +132,12 @@ export default class SignUpForm extends Form {
               {!isSubmitting && (
                 <section>
                   <div className="error-text big">{error.message}</div>
+                  <div
+                    className="success-text big"
+                    style={{ color: "#28a745", marginBottom: "10px" }}
+                  >
+                    {success}
+                  </div>
                   <div className="text-center">
                     {this.renderButton(
                       SIGNUP,
@@ -135,9 +145,6 @@ export default class SignUpForm extends Form {
                       "submit",
                       this.state.submitPressed
                     )}
-                    <Link className="redirect-sign-in" to="/sign-in">
-                      Already have an account?
-                    </Link>
                   </div>
                 </section>
               )}

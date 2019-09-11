@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import SignUpForm from "../components/common/SignUpForm";
-import { TOKEN_HEADER } from "../constants/headers";
-import { FEEDBACK_ROUTE } from "../constants/routes";
-import { setJwt, signUp } from "../services/http/authService";
-import { newWindowLocation } from "../utils/navigate";
+import { signUp } from "../services/http/authService";
 
 export default class SignUp extends Component {
   state = {
     isSubmitting: false,
-    error: {}
+    error: {},
+    success: ""
   };
 
   /**
@@ -17,16 +15,17 @@ export default class SignUp extends Component {
    * @param {Object} data Data from input fields
    */
   onSubmit = data => {
-    this.setState({ isSubmitting: true, error: {} });
+    this.setState({ isSubmitting: true, error: {}, success: "" });
     signUp(data)
       .then(res => this.onSignUpSuccessful(res))
       .catch(err => this.onSignUpError(err));
   };
 
   onSignUpSuccessful = res => {
-    setJwt(res.headers.get(TOKEN_HEADER));
-    this.setState({ isSubmitting: false });
-    newWindowLocation(FEEDBACK_ROUTE);
+    this.setState({
+      isSubmitting: false,
+      success: "User registered successfully"
+    });
   };
 
   onSignUpError = error => {
@@ -34,12 +33,13 @@ export default class SignUp extends Component {
   };
 
   render() {
-    const { isSubmitting, error } = this.state;
+    const { isSubmitting, error, success } = this.state;
     return (
       <SignUpForm
         onSubmit={this.onSubmit}
         isSubmitting={isSubmitting}
         error={error}
+        success={success}
       />
     );
   }

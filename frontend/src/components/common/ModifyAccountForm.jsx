@@ -1,7 +1,7 @@
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import React from "react";
-import Form from "./ui/form/Form";
+import { CHANGE } from "../../constants/form/labels/button";
 import {
   CONFIRM_PASSWORD_LABEL,
   NEW_PASSWORD_LABEL
@@ -10,8 +10,8 @@ import {
   CONFIRM_PASSWORD,
   NEW_PASSWORD
 } from "../../constants/form/names/input";
+import Form from "./ui/form/Form";
 import LoadingSpinner from "./ui/LoadingSpinner";
-import { CHANGE } from "../../constants/form/labels/button";
 
 export default class ModifyAccountForm extends Form {
   static propTypes = {
@@ -19,6 +19,11 @@ export default class ModifyAccountForm extends Form {
      * Error to display if submit was a failure
      */
     error: PropTypes.object,
+
+    /**
+     * Success to display if submit was a success
+     */
+    success: PropTypes.string,
 
     /**
      * Is sign up info submitting
@@ -56,9 +61,14 @@ export default class ModifyAccountForm extends Form {
     return (
       <div className="container-fluid">
         <div className="form-row row">
-          <div className="col-lg-3">
+          <div className="col-lg-3" style={{ marginTop: "-120px" }}>
             <form onSubmit={this.onSubmit} className="form sign-up">
-              <h1 className="sign-up title text-center">Change Password</h1>
+              <h1
+                className="sign-up title text-center"
+                style={{ fontSize: "30px" }}
+              >
+                Change Password
+              </h1>
               {this.renderInput(
                 NEW_PASSWORD,
                 NEW_PASSWORD_LABEL,
