@@ -1,7 +1,6 @@
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router-dom";
 import { SIGNIN } from "../../constants/form/labels/button";
 import { EMAIL_LABEL, PASSWORD_LABEL } from "../../constants/form/labels/input";
 import { EMAIL, SIGNIN_PASSWORD } from "../../constants/form/names/input";
@@ -82,9 +81,6 @@ export default class SignInForm extends Form {
                       "submit",
                       this.state.submitPressed
                     )}
-                    <Link className="redirect-sign-up" to="/sign-up">
-                      Don't have an account?
-                    </Link>
                   </div>
                 </section>
               )}
