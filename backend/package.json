@@ -38,6 +38,7 @@
     "nodemailer": "^6.2.1",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
+    "quick-encrypt": "^1.0.8",
     "sequelize": "^5.1.0",
     "sequelize-cli": "^5.5.1",
     "sinon": "^7.3.2",

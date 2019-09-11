@@ -1,4 +1,5 @@
 import dateformat from 'dateformat';
+import quickEncrypt from 'quick-encrypt';
 
 export const QUESTION_TYPES = {
   radio: 'radio',
@@ -17,7 +18,9 @@ export const GET_FEEDBACK_URL = (req, feedbackId) => {
 };
 
 export const GET_DETAILED_MESSAGE_HTML = (feedback, feedbackUrl, { text }) => {
-  const ticketId = `Ticket id: <a href="${feedbackUrl}"><b>${feedback.id}</b></a><br>`;
+  const ticketId = `Ticket id: <a href="${feedbackUrl}"><b>${
+    feedback.id
+  }</b></a><br>`;
   const ticketCreatedAt = `Ticket created at: <b>${FORMAT_DATE(
     feedback.createdAt
   )}</b><br>`;
@@ -26,4 +29,12 @@ export const GET_DETAILED_MESSAGE_HTML = (feedback, feedbackUrl, { text }) => {
   )}</b><br><hr>`;
   const details = ticketId + ticketCreatedAt + messageSentAt;
   return { text: details + text };
+};
+
+export const ENCRYPT = text => {
+  return quickEncrypt.encrypt(text, process.env.PUBLIC_KEY);
+};
+
+export const DECRYPT = input => {
+  return quickEncrypt.decrypt(input, process.env.PRIVATE_KEY);
 };
