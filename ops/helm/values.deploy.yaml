@@ -1,6 +1,6 @@
 # Default values for atlanters-anonymous.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   tag: deploy
