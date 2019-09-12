@@ -6,14 +6,13 @@ import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../../constants/strings";
 import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../../constants/user";
 import { getCurrentUser } from "../../services/http/authService";
 import {
+  closeFeedback,
   postFeedbackMessage,
-  updateSeenAt,
-  closeFeedback
+  updateSeenAt
 } from "../../services/http/feedbackService";
 import { connectSocket } from "../../services/socket/base";
 import {
   emitMessage,
-  emitSeen,
   onErrorReceived,
   onMessageReceived,
   onSeen
@@ -162,14 +161,6 @@ export default class FeedbackTicket extends Component {
       user,
       messages,
       latestAuthorName,
-      seen: this.isSeen(
-        lastMessage.createdAt,
-        latestAuthorName,
-        user.name !== DEFAULT_USERNAME
-          ? feedback.anonymLastSeenAt
-          : feedback.userLastSeenAt,
-        user.name
-      ),
       socket,
       isClosed,
       error: ""
@@ -189,6 +180,9 @@ export default class FeedbackTicket extends Component {
     window.addEventListener("focus", this.onFocus);
   }
 
+  /**
+   * Updates latest user visit
+   */
   updateSeenInfo = () => {
     const user = this.resolveCurrentUser();
     const { id } = this.props.feedback;
@@ -216,9 +210,7 @@ export default class FeedbackTicket extends Component {
     this.updateSeenInfo();
   };
 
-  onUpdateSeenSuccess(res, user, feedbackId, date) {
-    emitSeen(user, feedbackId, date);
-  }
+  onUpdateSeenSuccess(res, user, feedbackId, date) {}
 
   /**
    * If error occured during REST call
@@ -355,15 +347,6 @@ export default class FeedbackTicket extends Component {
             src={send}
           />
         </form>
-        {user.id !== DEFAULT_USER_ID && (
-          <div className="close-ticket-container text-center">
-            {!isClosed && (
-              <button className="close-ticket" onClick={this.onCloseFeedback}>
-                Close this ticket
-              </button>
-            )}
-          </div>
-        )}
       </div>
     );
   }

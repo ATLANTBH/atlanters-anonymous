@@ -1,6 +1,7 @@
 import Joi from "joi-browser";
 import PropTypes from "prop-types";
 import React from "react";
+import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SIGNIN } from "../../constants/form/labels/button";
 import { EMAIL_LABEL, PASSWORD_LABEL } from "../../constants/form/labels/input";
 import { EMAIL, SIGNIN_PASSWORD } from "../../constants/form/names/input";
@@ -49,7 +50,9 @@ export default class SignInForm extends Form {
         <div className="form-row row">
           <div className="col-lg-3">
             <form onSubmit={this.onSubmit} className="form sign-in">
-              <h1 className="sign-in title text-center">Sign in</h1>
+              <div className="text-center" style={{ marginBottom: "20px" }}>
+                <Logo />
+              </div>
               {this.renderInput(
                 EMAIL,
                 EMAIL_LABEL,

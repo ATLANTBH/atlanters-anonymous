@@ -102,9 +102,6 @@ export default class FeedbackList extends Component {
             >
               <div className="text created-at">Feedback Created</div>
               <div className="text user-seen-at">Latest user visit</div>
-              <div className="text closed">
-                <div className="text-center">Manage ticket</div>
-              </div>
             </div>
             {feedbacks.map((item, index) => this.renderFeedback(item, index))}
           </div>

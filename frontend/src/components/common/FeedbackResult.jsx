@@ -44,11 +44,13 @@ export default class FeedbackResult extends Component {
             ) : (
               <div className="body">
                 <div className="key-all">
-                  Thank you! Your feedback is greatly appreciated. <hr />
-                  <div className="key-info">Your ticket key: </div>
+                  Thank you! Your feedback is greatly appreciated. Please
+                  remember to save your ticket id as it will not be shown again!
+                  <hr />
+                  <div className="key-info">Ticket id: </div>
                   <div className="key">{message}</div>
                   <CopyToClipboard text={message}>
-                    <div className="copy-key">copy key</div>
+                    <div className="copy-key">copy id</div>
                   </CopyToClipboard>
                 </div>
                 <div className="access-link-container text-center">
@@ -59,7 +61,7 @@ export default class FeedbackResult extends Component {
                       newWindowLocation(FEEDBACK_CHAT(message));
                     }}
                   >
-                    <div className="filled1-text">Access my ticket</div>
+                    <div className="filled1-text">Access this ticket</div>
                   </button>
                 </div>
               </div>

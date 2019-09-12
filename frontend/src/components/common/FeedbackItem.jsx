@@ -41,20 +41,6 @@ export default class FeedbackItem extends Component {
         <div className="text user-seen-at">
           {dateformat(userSeenAt, "dd/mm/yyyy HH:MM")}
         </div>
-        <div className="closed">
-          {!isClosed ? (
-            <div className="button text-center">
-              <button
-                className="btn btn-danger button"
-                onClick={e => this.onClose(e)}
-              >
-                <div className="close-text">Close</div>
-              </button>
-            </div>
-          ) : (
-            <div className="text text-center">Closed</div>
-          )}
-        </div>
       </div>
     );
   }

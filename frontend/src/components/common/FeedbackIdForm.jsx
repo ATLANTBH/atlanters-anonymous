@@ -35,7 +35,7 @@ export default class FeedbackIdForm extends Component {
           className="form-control"
           value={value}
           onChange={e => onChange(e.target.value)}
-          placeholder="Your ticket id..."
+          placeholder="Ticket id..."
         />
         <small className="form-text">
           *Example: 07b772c3-45b2-4d91-9149-84f842acd8f2
