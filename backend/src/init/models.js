@@ -10,10 +10,20 @@ export default async (sequelize, eraseDatabaseOnSync) => {
     console.log(error);
   }
   if (eraseDatabaseOnSync) {
+    await createFirstUser(models);
     await createUsersWithMessages(models);
   }
 
   return models;
+};
+
+const createFirstUser = async models => {
+  await models.User.create({
+    name: 'Admin',
+    surname: 'Admin',
+    email: 'atlantersanonymous@atlantbh.com',
+    password: '$2b$10$z186VQxBAHCxS9Ry6yJLJORMMHSgKfglSYz1wq/tgw0hw/tp4I7Zu',
+  });
 };
 
 const createUsersWithMessages = async models => {
