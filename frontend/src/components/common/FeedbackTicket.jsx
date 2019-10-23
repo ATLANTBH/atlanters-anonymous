@@ -1,7 +1,6 @@
 import dateformat from "dateformat";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import send from "../../assets/images/feedback/send.png";
 import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../../constants/strings";
 import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../../constants/user";
 import { getCurrentUser } from "../../services/http/authService";
@@ -279,6 +278,31 @@ export default class FeedbackTicket extends Component {
     this.setState({ error: err.message, isMessageSubmitting: false });
   };
 
+  onEnter = e => {
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      this.onSendMessage(e);
+    }
+  };
+
+  displayMessages = (messages, seen) => {
+    return messages
+      .sort((obj1, obj2) => {
+        return obj1.id > obj2.id ? 1 : -1;
+      })
+      .map((item, index) => (
+        <TicketMessage
+          key={index}
+          totalMessages={messages.length}
+          index={index}
+          text={item.text}
+          info={item.info}
+          userName={item.User ? item.User.name : DEFAULT_USERNAME}
+          seen={seen}
+        />
+      ));
+  };
+
   /**
    * focus on message input field
    */
@@ -304,17 +328,7 @@ export default class FeedbackTicket extends Component {
         </div>
         <hr />
         <div className="messages-container">
-          {messages.map((item, index) => (
-            <TicketMessage
-              key={index}
-              totalMessages={messages.length}
-              index={index}
-              text={item.text}
-              info={item.info}
-              userName={item.User ? item.User.name : DEFAULT_USERNAME}
-              seen={seen}
-            />
-          ))}
+          {this.displayMessages(messages, seen)}
           <div
             className="bottom-message"
             ref={el => {
@@ -327,24 +341,19 @@ export default class FeedbackTicket extends Component {
         <form
           className="submit-message-container"
           onSubmit={this.onSendMessage}
+          ref={el => (this.submitForm = el)}
         >
-          <input
+          <textarea
             className="input"
-            type="text"
-            value={isClosed ? "This ticket is closed" : inputMessage}
-            disabled={isClosed || isMessageSubmitting}
             placeholder="Type a message..."
             onChange={e => this.setState({ inputMessage: e.target.value })}
+            value={isClosed ? "This ticket is closed" : inputMessage}
+            disabled={isClosed || isMessageSubmitting}
             ref={this.textInput}
-          />
-          <input
-            className="image"
-            type="image"
-            name="submit"
-            border="0"
-            alt="Submit"
-            disabled={isMessageSubmitting}
-            src={send}
+            wrap="hard"
+            rows="2"
+            cols="20"
+            onKeyDown={this.onEnter}
           />
         </form>
       </div>

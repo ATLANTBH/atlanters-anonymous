@@ -49,16 +49,18 @@ export default class FeedbackList extends Component {
   };
 
   renderFeedback = (feedback, index) => {
-    return (
-      <FeedbackItem
-        key={feedback.id}
-        id={feedback.id}
-        createdAt={feedback.createdAt}
-        isClosed={feedback.isClosed}
-        onCloseFeedback={this.onCloseFeedback}
-        userSeenAt={feedback.anonymLastSeenAt}
-      />
-    );
+    const { Messages } = feedback;
+    if (Messages && Messages.length != 0)
+      return (
+        <FeedbackItem
+          key={feedback.id}
+          id={feedback.id}
+          createdAt={feedback.createdAt}
+          isClosed={feedback.isClosed}
+          onCloseFeedback={this.onCloseFeedback}
+          userSeenAt={feedback.anonymLastSeenAt}
+        />
+      );
   };
 
   /**
