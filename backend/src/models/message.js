@@ -1,12 +1,11 @@
 import Sequelize from 'sequelize';
-import { MAXIMUM_ALLOWED_CHARACTERS } from '../constants/string';
 import { DECRYPT, ENCRYPT } from '../routes/utils';
 class Message extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init(
       {
         text: {
-          type: DataTypes.STRING(MAXIMUM_ALLOWED_CHARACTERS),
+          type: DataTypes.TEXT,
           allowNull: false,
           validate: {
             notEmpty: {
@@ -14,10 +13,6 @@ class Message extends Sequelize.Model {
             },
             notNull: {
               msg: 'Message text must be provided',
-            },
-            len: {
-              args: [1, MAXIMUM_ALLOWED_CHARACTERS],
-              msg: `Messages greater than ${MAXIMUM_ALLOWED_CHARACTERS} characters are not allowed`,
             },
           },
         },
