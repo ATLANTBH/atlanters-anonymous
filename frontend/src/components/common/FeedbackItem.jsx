@@ -18,7 +18,12 @@ export default class FeedbackItem extends Component {
     /**
      * Latest date user had seen the ticket
      */
-    userSeenAt: PropTypes.string.isRequired
+    userSeenAt: PropTypes.string.isRequired,
+
+    /**
+     * Has unread messages
+     */
+    hasNewMessages: PropTypes.bool.isRequired,
   };
 
   onFeedback = () => {
@@ -26,22 +31,34 @@ export default class FeedbackItem extends Component {
     newWindowLocation(FEEDBACK_CHAT(id));
   };
 
-  onClose = e => {
+  onClose = (e) => {
     e.stopPropagation();
     this.props.onCloseFeedback(this.props.id);
   };
 
+  renderNotificationIcon = (hasNewMessages) => {
+    console.log(hasNewMessages);
+    if (hasNewMessages) {
+      return <span className="circle" style={{ color: "#00a4d8" }}></span>;
+    } else return <span className="circle" style={{ color: "#a9a9a9" }}></span>;
+  };
+
   render() {
-    const { createdAt, isClosed, userSeenAt } = this.props;
+    const { createdAt, isClosed, userSeenAt, hasNewMessages } = this.props;
     return (
-      <div className="feedback-item-container" onClick={this.onFeedback}>
-        <div className="text created-at">
-          {dateformat(createdAt, "dd/mm/yyyy HH:MM")}
-        </div>
-        <div className="text user-seen-at">
-          {dateformat(userSeenAt, "dd/mm/yyyy HH:MM")}
-        </div>
-      </div>
+      <tr className="feedback-item-container" onClick={this.onFeedback}>
+        <td>
+          <div className="text created-at">
+            {dateformat(createdAt, "dd/mm/yyyy HH:MM")}
+          </div>
+        </td>
+        <td>
+          <div className="text user-seen-at">
+            {dateformat(userSeenAt, "dd/mm/yyyy HH:MM")}
+          </div>
+        </td>
+        <td>{this.renderNotificationIcon(hasNewMessages)}</td>
+      </tr>
     );
   }
 }

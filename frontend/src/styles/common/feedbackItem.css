@@ -1,6 +1,6 @@
 .feedback-item-container {
-  grid-column: 2;
-  display: grid;
+  /* grid-column: 2; */
+  /* display: grid; */
   grid-template-columns: auto auto;
   background-color: white;
   border-radius: 6px;
@@ -39,6 +39,36 @@
 
 .feedback-item-container .text.user-seen-at {
   grid-column: 2;
+}
+
+.circle:before {
+  content: "\25CF";
+  font-size: 10px;
+  margin-top: -2px;
+}
+
+.table-head {
+  font-weight: 600;
+}
+
+.table-head td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.feedbacks-table {
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  border-right: 0px;
+}
+
+.feedbacks-table td {
+  border-top: 0px;
+}
+
+.table-body td:hover {
+  cursor: pointer;
 }
 
 .feedback-item-container .text.message {

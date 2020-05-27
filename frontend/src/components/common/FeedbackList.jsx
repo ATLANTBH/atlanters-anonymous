@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { Table } from "react-bootstrap";
 import { closeFeedback } from "../../services/http/feedbackService";
 import FeedbackItem from "./FeedbackItem";
 
@@ -29,21 +30,21 @@ export default class FeedbackList extends Component {
     /**
      * Handles feedback when successfully closed
      */
-    feedbackClosed: PropTypes.func.isRequired
+    feedbackClosed: PropTypes.func.isRequired,
   };
   state = {};
 
-  onCloseFeedback = feedbackId => {
+  onCloseFeedback = (feedbackId) => {
     closeFeedback(feedbackId)
-      .then(res => this.onCloseFeedbackSuccess(res.result, feedbackId))
-      .catch(err => this.onCloseFeedbackError(err));
+      .then((res) => this.onCloseFeedbackSuccess(res.result, feedbackId))
+      .catch((err) => this.onCloseFeedbackError(err));
   };
 
   onCloseFeedbackSuccess = (res, feedbackId) => {
     this.props.feedbackClosed(feedbackId);
   };
 
-  onCloseFeedbackError = err => {
+  onCloseFeedbackError = (err) => {
     alert(err);
     window.location.reload();
   };
@@ -59,6 +60,7 @@ export default class FeedbackList extends Component {
           isClosed={feedback.isClosed}
           onCloseFeedback={this.onCloseFeedback}
           userSeenAt={feedback.anonymLastSeenAt}
+          hasNewMessages={feedback.hasNewMessages}
         />
       );
   };
@@ -66,7 +68,7 @@ export default class FeedbackList extends Component {
   /**
    * When page number is clicked
    */
-  onPageChange = e => {
+  onPageChange = (e) => {
     let currentUrlParams = new URLSearchParams(window.location.search);
     currentUrlParams.set("page", e.target.id);
     this.props.history.push(
@@ -81,7 +83,7 @@ export default class FeedbackList extends Component {
       <div className="feedbacks-container">
         <div className="page">
           <div className="pagination">
-            {totalPages.map(number => (
+            {totalPages.map((number) => (
               <li
                 className={classNames(
                   "number",
@@ -96,14 +98,20 @@ export default class FeedbackList extends Component {
             ))}
           </div>
           <div>
-            <div
-              className="feedback-item-container info"
-              onClick={this.onFeedback}
-            >
-              <div className="text created-at">Feedback Created</div>
-              <div className="text user-seen-at">Latest user visit</div>
-            </div>
-            {feedbacks.map((item, index) => this.renderFeedback(item, index))}
+            <Table className="feedbacks-table">
+              <thead>
+                <tr className="feedback-item-container info table-head">
+                  <td>Feedback Created</td>
+                  <td>Latest User Visit</td>
+                  <td>New Messages</td>
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {feedbacks.map((item, index) =>
+                  this.renderFeedback(item, index)
+                )}
+              </tbody>
+            </Table>
           </div>
         </div>
       </div>
