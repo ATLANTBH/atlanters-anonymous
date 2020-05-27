@@ -37,7 +37,6 @@ export default class FeedbackItem extends Component {
   };
 
   renderNotificationIcon = (hasNewMessages) => {
-    console.log(hasNewMessages);
     if (hasNewMessages) {
       return <span className="circle" style={{ color: "#00a4d8" }}></span>;
     } else return <span className="circle" style={{ color: "#a9a9a9" }}></span>;
