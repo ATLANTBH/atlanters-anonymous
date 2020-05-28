@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { TOKEN_HEADER } from "../../constants/headers";
 import {
+  ACCOUNT_ROUTE,
+  FEEDBACKS_ROUTE,
   FEEDBACK_ROUTE,
   SIGNUP_ROUTE,
-  FEEDBACKS_ROUTE,
-  ACCOUNT_ROUTE
 } from "../../constants/routes";
 import { signOut } from "../../services/http/authService";
 import { newWindowLocation } from "../../utils/navigate";
@@ -18,13 +18,13 @@ export default class NavBar extends Component {
     /**
      * User that is currently signed in
      */
-    user: PropTypes.object
+    user: PropTypes.object,
   };
 
   onSignOut = () => {
     signOut()
-      .then(res => this.onSignOutSuccessful())
-      .catch(err => this.onSignOutError(err));
+      .then((res) => this.onSignOutSuccessful())
+      .catch((err) => this.onSignOutError(err));
   };
 
   onSignOutSuccessful = () => {
@@ -33,7 +33,7 @@ export default class NavBar extends Component {
     newWindowLocation(FEEDBACK_ROUTE);
   };
 
-  onSignOutError = error => {
+  onSignOutError = (error) => {
     alert(error);
     localStorage.removeItem(TOKEN_HEADER);
     newWindowLocation(FEEDBACK_ROUTE);
