@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import dateformat from "dateformat";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import seenImg from "../../assets/images/feedback/seen.png";
@@ -31,7 +32,12 @@ export default class TicketMessage extends Component {
     /**
      * Total number of messages
      */
-    totalMessages: PropTypes.number.isRequired
+    totalMessages: PropTypes.number.isRequired,
+
+    /**
+     * When the message was created
+     */
+    date: PropTypes.string.isRequired,
   };
 
   /**
@@ -59,7 +65,7 @@ export default class TicketMessage extends Component {
   }
 
   render() {
-    const { text, seen, index, totalMessages, info } = this.props;
+    const { text, seen, index, totalMessages, info, date } = this.props;
     const column = this.getColumn();
     return (
       <div
@@ -75,6 +81,9 @@ export default class TicketMessage extends Component {
           )}
         >
           {text}
+        </div>
+        <div className="seen-container text-right">
+          <div className="seen-msg">{dateformat(date, "dd/mm/yyyy HH:MM")}</div>
         </div>
         {this.displaySeen(index, totalMessages, seen)}
         {info && info}

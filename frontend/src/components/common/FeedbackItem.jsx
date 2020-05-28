@@ -46,6 +46,9 @@ export default class FeedbackItem extends Component {
     const { createdAt, isClosed, userSeenAt, hasNewMessages } = this.props;
     return (
       <tr className="feedback-item-container" onClick={this.onFeedback}>
+        <td className="notification-icon">
+          {this.renderNotificationIcon(hasNewMessages)}
+        </td>
         <td>
           <div className="text created-at">
             {dateformat(createdAt, "dd/mm/yyyy HH:MM")}
@@ -56,7 +59,6 @@ export default class FeedbackItem extends Component {
             {dateformat(userSeenAt, "dd/mm/yyyy HH:MM")}
           </div>
         </td>
-        <td>{this.renderNotificationIcon(hasNewMessages)}</td>
       </tr>
     );
   }

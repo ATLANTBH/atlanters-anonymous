@@ -1,4 +1,3 @@
-import dateformat from "dateformat";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../../constants/strings";
@@ -296,6 +295,7 @@ export default class FeedbackTicket extends Component {
         info={item.info}
         userName={item.User ? item.User.name : DEFAULT_USERNAME}
         seen={seen}
+        date={item.createdAt}
       />
     ));
   };
@@ -320,9 +320,7 @@ export default class FeedbackTicket extends Component {
     const { feedback } = this.props;
     return (
       <div className="form feedback-card">
-        <div className="ticket-title text-center">
-          Created at: {dateformat(feedback.createdAt, "dd.mm.yyyy. HH:MM")}
-        </div>
+        <div className="ticket-title text-center">Ticket id: {feedback.id}</div>
         <hr />
         <div className="messages-container">
           {this.displayMessages(messages, seen)}
@@ -342,7 +340,7 @@ export default class FeedbackTicket extends Component {
         >
           <textarea
             className="input"
-            placeholder="Type a message..."
+            placeholder="Type a message ..."
             onChange={(e) => this.setState({ inputMessage: e.target.value })}
             value={isClosed ? "This ticket is closed" : inputMessage}
             disabled={isClosed || isMessageSubmitting}

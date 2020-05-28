@@ -21,7 +21,7 @@ export default class FeedbackForm extends PureComponent {
     /**
      * Error value
      */
-    error: PropTypes.string.isRequired
+    error: PropTypes.string.isRequired,
   };
 
   render() {
@@ -36,7 +36,7 @@ export default class FeedbackForm extends PureComponent {
           className="form-control"
           name="feedback"
           placeholder="A penny for your thoughts..."
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           value={value}
           wrap="hard"
           rows="4"

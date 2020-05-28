@@ -101,9 +101,9 @@ export default class FeedbackList extends Component {
             <Table className="feedbacks-table">
               <thead>
                 <tr className="feedback-item-container info table-head">
+                  <td></td>
                   <td>Feedback Created</td>
                   <td>Latest User Visit</td>
-                  <td>New Messages</td>
                 </tr>
               </thead>
               <tbody className="table-body">

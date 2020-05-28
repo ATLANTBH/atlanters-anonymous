@@ -1,10 +1,10 @@
 .feedbacks-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
 }
 
 .feedbacks-container .page {
-  grid-column: 2;
+  grid-column: 3;
 }
 
 .feedbacks-container .pagination {

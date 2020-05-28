@@ -15,6 +15,7 @@
   margin-bottom: 7px;
   padding: 4px 12px 4px 12px;
   border-radius: 1.3em;
+  margin-top: 14px;
   font-style: SourceSansPro;
 }
 
@@ -42,9 +43,8 @@
 }
 
 .message-container .seen-msg {
-  font-style: italic;
   float: right;
   font-family: SourceSansPro;
   color: #777777;
-  font-size: 14px;
+  font-size: 10px;
 }
