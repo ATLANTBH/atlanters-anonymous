@@ -68,6 +68,7 @@
 td.notification-icon {
   text-align: right;
   padding-right: 0;
+  padding-top: 13px;
 }
 
 .table-body td:hover {
