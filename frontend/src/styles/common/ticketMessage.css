@@ -43,8 +43,15 @@
 }
 
 .message-container .seen-msg {
-  float: right;
   font-family: SourceSansPro;
   color: #777777;
   font-size: 10px;
+}
+
+.message-container .seen-msg.left {
+  float: left;
+}
+
+.message-container .seen-msg.right {
+  float: right;
 }

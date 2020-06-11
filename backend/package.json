@@ -52,9 +52,9 @@
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
-    "babel-jest": "^24.8.0",
-    "jest": "^24.8.0",
-    "nodemon": "^1.18.10",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
     "prettier": "1.16.4"
   }
 }

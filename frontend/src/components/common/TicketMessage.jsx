@@ -82,8 +82,12 @@ export default class TicketMessage extends Component {
         >
           {text}
         </div>
-        <div className="seen-container text-right">
-          <div className="seen-msg">{dateformat(date, "dd/mm/yyyy HH:MM")}</div>
+        <div className="seen-container">
+          <div
+            className={classNames("seen-msg", column === 2 ? "right" : "left")}
+          >
+            {dateformat(date, "dd/mm/yyyy HH:MM")}
+          </div>
         </div>
         {this.displaySeen(index, totalMessages, seen)}
         {info && info}
