@@ -4,11 +4,11 @@ import React from "react";
 import { CHANGE } from "../../constants/form/labels/button";
 import {
   CONFIRM_PASSWORD_LABEL,
-  NEW_PASSWORD_LABEL
+  NEW_PASSWORD_LABEL,
 } from "../../constants/form/labels/input";
 import {
   CONFIRM_PASSWORD,
-  NEW_PASSWORD
+  NEW_PASSWORD,
 } from "../../constants/form/names/input";
 import Form from "./ui/form/Form";
 import LoadingSpinner from "./ui/LoadingSpinner";
@@ -28,31 +28,28 @@ export default class ModifyAccountForm extends Form {
     /**
      * Is sign up info submitting
      */
-    isSubmitting: PropTypes.bool.isRequired
+    isSubmitting: PropTypes.bool.isRequired,
   };
 
   state = {
     submitPressed: false,
     data: {
       newPassword: "",
-      confirmPassword: ""
+      confirmPassword: "",
     },
-    errors: {}
+    errors: {},
   };
 
   schema = {
-    newPassword: Joi.string()
-      .required()
-      .label(NEW_PASSWORD_LABEL)
-      .min(8),
+    newPassword: Joi.string().required().label(NEW_PASSWORD_LABEL).min(8),
     confirmPassword: Joi.valid(Joi.ref(NEW_PASSWORD))
       .options({
-        language: { any: { allowOnly: "must match password" } }
+        language: { any: { allowOnly: "must match password" } },
       })
-      .label(CONFIRM_PASSWORD_LABEL)
+      .label(CONFIRM_PASSWORD_LABEL),
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     this.handleSubmit(e, this.props.onSubmit);
   };
 
@@ -61,7 +58,7 @@ export default class ModifyAccountForm extends Form {
     return (
       <div className="container-fluid">
         <div className="form-row row">
-          <div className="col-lg-3" style={{ marginTop: "-120px" }}>
+          <div className="col-lg-3">
             <form onSubmit={this.onSubmit} className="form sign-up">
               <h1
                 className="sign-up title text-center"
