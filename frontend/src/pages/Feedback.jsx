@@ -131,7 +131,6 @@ export default class Feedback extends Component {
       feedbackIdValue,
       feedbackIdError,
     } = this.state;
-
     return (
       <section
         className="feedback-container"

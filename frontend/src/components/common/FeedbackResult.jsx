@@ -12,7 +12,7 @@ export default class FeedbackResult extends Component {
     /**
      * Result received after submitting feedback
      */
-    submitResult: PropTypes.object.isRequired
+    submitResult: PropTypes.object.isRequired,
   };
 
   render() {
@@ -21,7 +21,7 @@ export default class FeedbackResult extends Component {
     return (
       <div
         className={classNames("form feedback-card feedback-send", {
-          error: error
+          error: error,
         })}
       >
         <div className="result-container">
