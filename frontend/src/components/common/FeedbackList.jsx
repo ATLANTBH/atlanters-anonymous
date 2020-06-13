@@ -51,7 +51,7 @@ export default class FeedbackList extends Component {
 
   renderFeedback = (feedback, index) => {
     const { Messages } = feedback;
-    if (Messages && Messages.length != 0)
+    if (Messages && Messages.length !== 0)
       return (
         <FeedbackItem
           key={feedback.id}
@@ -87,7 +87,7 @@ export default class FeedbackList extends Component {
               <li
                 className={classNames(
                   "number",
-                  currentPage == number ? "selected" : ""
+                  currentPage === number ? "selected" : ""
                 )}
                 key={number}
                 id={number}

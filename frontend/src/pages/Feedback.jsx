@@ -9,7 +9,7 @@ import { FEEDBACK_ROUTE } from "../constants/routes";
 import { getCurrentUser } from "../services/http/authService";
 import {
   getFeedbackMessages,
-  submitFeedback
+  submitFeedback,
 } from "../services/http/feedbackService";
 import { removeSpaces, validateInputMessage } from "../utils/strings";
 
@@ -26,13 +26,13 @@ export default class Feedback extends Component {
     submitResult: {},
     feedbackValue: "",
     feedbackIdValue: "",
-    feedbackIdError: null
+    feedbackIdError: null,
   };
 
   getFeedbackMessagesRequest(feedbackId) {
     getFeedbackMessages(removeSpaces(feedbackId))
-      .then(res => this.onGetMessagesSuccess(res.result))
-      .catch(err => this.onGetMessagesError(err, feedbackId));
+      .then((res) => this.onGetMessagesSuccess(res.result))
+      .catch((err) => this.onGetMessagesError(err, feedbackId));
   }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ export default class Feedback extends Component {
       isSubmited: false,
       feedback: res.feedback,
       feedbackMessages: res.messages,
-      feedbackIdError: null
+      feedbackIdError: null,
     });
     this.props.history.push(FEEDBACK_ROUTE + "/" + res.feedback.id);
   }
@@ -70,11 +70,11 @@ export default class Feedback extends Component {
   /**
    * Called when feedback gets changed.
    */
-  onFeedbackChange = value => {
+  onFeedbackChange = (value) => {
     this.setState({ feedbackValue: value });
   };
 
-  onNext = e => {
+  onNext = (e) => {
     e.preventDefault();
     const error = validateInputMessage(this.state.feedbackValue);
     if (error) {
@@ -84,19 +84,19 @@ export default class Feedback extends Component {
     this.setState({ isConfirmationShown: true });
   };
 
-  onSubmitFeedback = e => {
+  onSubmitFeedback = (e) => {
     e.preventDefault();
     this.setState({ isConfirmationShown: false, isLoading: true });
     submitFeedback({ text: this.state.feedbackValue })
-      .then(res => this.onFeedbackSentSuccessfully(res.result))
-      .catch(err => this.onFeedbackError(err));
+      .then((res) => this.onFeedbackSentSuccessfully(res.result))
+      .catch((err) => this.onFeedbackError(err));
   };
 
   onFeedbackSentSuccessfully(res) {
     this.setState({
       isLoading: false,
       isSubmited: true,
-      submitResult: { message: res.id }
+      submitResult: { message: res.id },
     });
   }
 
@@ -104,15 +104,15 @@ export default class Feedback extends Component {
     this.setState({
       isLoading: false,
       isSubmited: true,
-      submitResult: { error: err.message }
+      submitResult: { error: err.message },
     });
   }
 
-  onFeedbackIdChange = value => {
+  onFeedbackIdChange = (value) => {
     this.setState({ feedbackIdValue: value });
   };
 
-  onFeedbackIdNext = e => {
+  onFeedbackIdNext = (e) => {
     e.preventDefault();
     this.getFeedbackMessagesRequest(this.state.feedbackIdValue);
   };
@@ -129,7 +129,7 @@ export default class Feedback extends Component {
       submitResult,
       feedbackValue,
       feedbackIdValue,
-      feedbackIdError
+      feedbackIdError,
     } = this.state;
 
     return (

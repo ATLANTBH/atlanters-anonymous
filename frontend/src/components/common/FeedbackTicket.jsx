@@ -258,7 +258,6 @@ export default class FeedbackTicket extends Component {
 
   onPostFeedbackMessageSuccess = (res) => {
     const { messages } = this.state;
-    if (res.User == null) res.User = ANONYMOUS_USER;
     messages.push(res);
     const lastMessage = messages[messages.length - 1];
     const latestAuthorName = this.resolveAuthorName(lastMessage);
@@ -279,21 +278,22 @@ export default class FeedbackTicket extends Component {
   };
 
   onEnter = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       this.onSendMessage(e);
     }
   };
 
   displayMessages = (messages, seen) => {
-    return sortMessages(messages).map((item, index) => (
+    const sortedMessages = sortMessages(messages);
+    return sortedMessages.map((item, index) => (
       <TicketMessage
         key={index}
         totalMessages={messages.length}
         index={index}
         text={item.text}
         info={item.info}
-        userName={item.User ? item.User.name : DEFAULT_USERNAME}
+        user={item.User}
         seen={seen}
         date={item.createdAt}
       />
@@ -315,7 +315,6 @@ export default class FeedbackTicket extends Component {
       isMessageSubmitting,
       error,
       isClosed,
-      user,
     } = this.state;
     const { feedback } = this.props;
     return (

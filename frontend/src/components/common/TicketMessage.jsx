@@ -3,16 +3,14 @@ import dateformat from "dateformat";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import seenImg from "../../assets/images/feedback/seen.png";
-import { DEFAULT_USERNAME } from "../../constants/user";
 import { getCurrentUser } from "../../services/http/authService";
 
 export default class TicketMessage extends Component {
   static propTypes = {
     /**
-     * Username of currently logged in user,
-     * if not logged in username is defined in constants/strings
+     * Currently logged in user,
      */
-    userName: PropTypes.string.isRequired,
+    user: PropTypes.object,
 
     /**
      * Message to display
@@ -44,12 +42,14 @@ export default class TicketMessage extends Component {
    * Used to output message on the left or the right of chat
    */
   getColumn = () => {
-    const user = getCurrentUser();
-    const { userName } = this.props;
-    if (user) {
-      return user.name === userName ? 2 : 1;
+    const currentUser = getCurrentUser();
+    const { user } = this.props;
+    const leftColumn = 1;
+    const rightColumn = 2;
+    if (currentUser) {
+      return user ? rightColumn : leftColumn;
     } else {
-      return userName === DEFAULT_USERNAME ? 2 : 1;
+      return user ? leftColumn : rightColumn;
     }
   };
 

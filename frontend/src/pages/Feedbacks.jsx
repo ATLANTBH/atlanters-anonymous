@@ -95,6 +95,7 @@ export default class Feedbacks extends Component {
       feedback.hasNewMessages =
         new Date(latestMessageDate) >= new Date(adminSeenAt) &&
         latestMessage.UserId == null;
+      return feedback;
     });
   };
 

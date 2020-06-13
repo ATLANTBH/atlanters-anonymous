@@ -43,7 +43,7 @@ export default class FeedbackItem extends Component {
   };
 
   render() {
-    const { createdAt, isClosed, userSeenAt, hasNewMessages } = this.props;
+    const { createdAt, userSeenAt, hasNewMessages } = this.props;
     return (
       <tr className="feedback-item-container" onClick={this.onFeedback}>
         <td className="notification-icon">
