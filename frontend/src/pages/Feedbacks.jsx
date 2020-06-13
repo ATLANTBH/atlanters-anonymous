@@ -91,11 +91,15 @@ export default class Feedbacks extends Component {
       const { Messages, userLastSeenAt } = feedback;
       sortMessages(Messages);
       const latestMessage = Messages[Messages.length - 1];
-      const adminSeenAt = userLastSeenAt;
-      const latestMessageDate = latestMessage.createdAt;
-      feedback.hasNewMessages =
-        new Date(latestMessageDate) >= new Date(adminSeenAt) &&
-        latestMessage.UserId == null;
+      if (latestMessage) {
+        const adminSeenAt = userLastSeenAt;
+        const latestMessageDate = latestMessage.createdAt;
+        feedback.hasNewMessages =
+          new Date(latestMessageDate) >= new Date(adminSeenAt) &&
+          latestMessage.UserId == null;
+      } else {
+        feedback.hasNewMessages = false;
+      }
       return feedback;
     });
   };
