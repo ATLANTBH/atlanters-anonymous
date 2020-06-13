@@ -37,13 +37,17 @@ class App extends Component {
             <ProtectedRoute path={SIGNUP_ROUTE} component={SignUp} />
             <ProtectedRoute path={ACCOUNT_ROUTE} component={Account} />
             <Route path={SIGNIN_ROUTE} component={SignIn} />
-            <Route exact path={FEEDBACK_ROUTE_PARAMS} component={Feedback} />
-            <Route path={NOT_FOUND_ROUTE} component={NotFound} />
             <ProtectedRoute
-              exact
+              exact={true}
               path={FEEDBACKS_ROUTE_PARAMS}
               component={Feedbacks}
             />
+            <Route
+              exact={true}
+              path={FEEDBACK_ROUTE_PARAMS}
+              component={Feedback}
+            />
+            <Route path={NOT_FOUND_ROUTE} component={NotFound} />
 
             <Redirect from="/" exact to={FEEDBACK_ROUTE} />
             <Redirect to={NOT_FOUND_ROUTE} />
