@@ -34,19 +34,15 @@ class App extends Component {
         {user && <Navbar user={user} />}
         <main className="container-fluid">
           <Switch>
-            <ProtectedRoute path={SIGNUP_ROUTE} component={SignUp} />
-            <ProtectedRoute path={ACCOUNT_ROUTE} component={Account} />
-            <Route path={SIGNIN_ROUTE} component={SignIn} />
+            <ProtectedRoute exact path={SIGNUP_ROUTE} component={SignUp} />
+            <ProtectedRoute exact path={ACCOUNT_ROUTE} component={Account} />
+            <Route exact path={SIGNIN_ROUTE} component={SignIn} />
             <ProtectedRoute
-              exact={true}
+              exact
               path={FEEDBACKS_ROUTE_PARAMS}
               component={Feedbacks}
             />
-            <Route
-              exact={true}
-              path={FEEDBACK_ROUTE_PARAMS}
-              component={Feedback}
-            />
+            <Route exact path={FEEDBACK_ROUTE_PARAMS} component={Feedback} />
             <Route path={NOT_FOUND_ROUTE} component={NotFound} />
 
             <Redirect from="/" exact to={FEEDBACK_ROUTE} />
