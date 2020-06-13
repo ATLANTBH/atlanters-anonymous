@@ -44,8 +44,13 @@ export default class Feedbacks extends Component {
 
   onGetFeedbackSuccess = (res) => {
     const { page } = queryString.parse(this.props.location.search);
+    let feedbacks = res.reverse();
+    this.assignHasNewMessages(feedbacks);
+    feedbacks = feedbacks.sort((feedbackA, feedbackB) => {
+      return feedbackB.hasNewMessages - feedbackA.hasNewMessages;
+    });
     this.setState({
-      feedbacks: res.reverse(),
+      feedbacks,
       totalPages: this.calculateTotalPages(res),
     });
     this.onPageChange(this.validatePage(page));
@@ -78,10 +83,6 @@ export default class Feedbacks extends Component {
       indexOfFirstFeedback,
       indexOfLastFeedback
     );
-    this.assignHasNewMessages(currentFeedbacks);
-    currentFeedbacks = currentFeedbacks.sort((feedbackA, feedbackB) => {
-      return feedbackB.hasNewMessages - feedbackA.hasNewMessages;
-    });
     this.setState({ currentPage: parseInt(page), currentFeedbacks });
   };
 
