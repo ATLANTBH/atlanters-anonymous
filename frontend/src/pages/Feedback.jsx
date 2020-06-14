@@ -4,7 +4,7 @@ import FeedbackIdForm from "../components/common/FeedbackIdForm";
 import FeedbackResult from "../components/common/FeedbackResult";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
-import { FEEDBACK_ROUTE } from "../constants/routes";
+import { FEEDBACK_CHAT } from "../constants/routes";
 import { getCurrentUser } from "../services/http/authService";
 import {
   getFeedbackMessages,
@@ -51,7 +51,7 @@ export default class Feedback extends Component {
       feedbackMessages: res.messages,
       feedbackIdError: null,
     });
-    this.props.history.push(FEEDBACK_ROUTE + "/" + res.feedback.id);
+    this.props.history.push(FEEDBACK_CHAT(res.feedback.id));
   }
 
   onGetMessagesError(err, feedbackId) {
