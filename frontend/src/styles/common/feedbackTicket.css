@@ -1,3 +1,7 @@
+.feedback-ticket .form.feedback-card {
+  grid-column: 2;
+}
+
 .feedback-ticket {
   margin-top: 5rem;
   display: grid;
