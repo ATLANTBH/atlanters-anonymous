@@ -61,6 +61,7 @@ export default class FeedbackList extends Component {
           onCloseFeedback={this.onCloseFeedback}
           userSeenAt={feedback.anonymLastSeenAt}
           hasNewMessages={feedback.hasNewMessages}
+          history={this.props.history}
         />
       );
   };

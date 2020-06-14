@@ -7,6 +7,7 @@ import {
   FEEDBACKS_ROUTE_PARAMS,
   FEEDBACK_ROUTE,
   FEEDBACK_ROUTE_PARAMS,
+  FEEDBACK_TICKET_ROUTE,
   NOT_FOUND_ROUTE,
   SIGNIN_ROUTE,
   SIGNUP_ROUTE,
@@ -14,6 +15,7 @@ import {
 import Account from "./pages/Account";
 import Feedback from "./pages/Feedback";
 import Feedbacks from "./pages/Feedbacks";
+import FeedbackTicket from "./pages/FeedbackTicket";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -34,13 +36,17 @@ class App extends Component {
         {user && <Navbar user={user} />}
         <main className="container-fluid">
           <Switch>
-            <ProtectedRoute exact path={SIGNUP_ROUTE} component={SignUp} />
-            <ProtectedRoute exact path={ACCOUNT_ROUTE} component={Account} />
-            <Route exact path={SIGNIN_ROUTE} component={SignIn} />
+            <ProtectedRoute path={SIGNUP_ROUTE} component={SignUp} />
+            <ProtectedRoute path={ACCOUNT_ROUTE} component={Account} />
+            <Route path={SIGNIN_ROUTE} component={SignIn} />
             <ProtectedRoute
-              exact
               path={FEEDBACKS_ROUTE_PARAMS}
               component={Feedbacks}
+            />
+            <Route
+              exact
+              path={FEEDBACK_TICKET_ROUTE}
+              component={FeedbackTicket}
             />
             <Route exact path={FEEDBACK_ROUTE_PARAMS} component={Feedback} />
             <Route path={NOT_FOUND_ROUTE} component={NotFound} />

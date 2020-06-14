@@ -1,3 +1,9 @@
+.feedback-ticket {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
 .ticket-title {
   font-weight: 600;
   font-size: 18px;

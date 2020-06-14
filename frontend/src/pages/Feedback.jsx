@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import FeedbackForm from "../components/common/FeedbackForm";
 import FeedbackIdForm from "../components/common/FeedbackIdForm";
 import FeedbackResult from "../components/common/FeedbackResult";
-import FeedbackTicket from "../components/common/FeedbackTicket";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { FEEDBACK_ROUTE } from "../constants/routes";
@@ -140,24 +139,27 @@ export default class Feedback extends Component {
 
         {!isLoading &&
           (isSubmited ? (
-            <FeedbackResult submitResult={submitResult} />
-          ) : isFeedbackTicketShown ? (
-            <FeedbackTicket feedback={feedback} messages={feedbackMessages} />
+            <FeedbackResult
+              submitResult={submitResult}
+              history={this.props.history}
+            />
           ) : (
-            <React.Fragment>
-              <FeedbackForm
-                value={feedbackValue}
-                onChange={this.onFeedbackChange}
-                onNext={this.onNext}
-                error={error}
-              />
-              <FeedbackIdForm
-                value={feedbackIdValue}
-                onChange={this.onFeedbackIdChange}
-                onNext={this.onFeedbackIdNext}
-                error={feedbackIdError}
-              />
-            </React.Fragment>
+            !isFeedbackTicketShown && (
+              <React.Fragment>
+                <FeedbackForm
+                  value={feedbackValue}
+                  onChange={this.onFeedbackChange}
+                  onNext={this.onNext}
+                  error={error}
+                />
+                <FeedbackIdForm
+                  value={feedbackIdValue}
+                  onChange={this.onFeedbackIdChange}
+                  onNext={this.onFeedbackIdNext}
+                  error={feedbackIdError}
+                />
+              </React.Fragment>
+            )
           ))}
 
         {isConfirmationShown && (

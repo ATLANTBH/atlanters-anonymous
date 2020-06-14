@@ -2,7 +2,7 @@ import dateformat from "dateformat";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { FEEDBACK_CHAT } from "../../constants/routes";
-import { newWindowLocation } from "../../utils/navigate";
+
 export default class FeedbackItem extends Component {
   static propTypes = {
     /**
@@ -28,7 +28,7 @@ export default class FeedbackItem extends Component {
 
   onFeedback = () => {
     const { id } = this.props;
-    newWindowLocation(FEEDBACK_CHAT(id));
+    this.props.history.push(FEEDBACK_CHAT(id));
   };
 
   onClose = (e) => {

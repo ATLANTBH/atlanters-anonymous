@@ -5,7 +5,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
 import { FEEDBACK_CHAT } from "../../constants/routes";
-import { newWindowLocation } from "../../utils/navigate";
 
 export default class FeedbackResult extends Component {
   static propTypes = {
@@ -58,7 +57,7 @@ export default class FeedbackResult extends Component {
                     type="submit"
                     className="btn btn-primary access-link filled1"
                     onClick={() => {
-                      newWindowLocation(FEEDBACK_CHAT(message));
+                      this.props.history.push(FEEDBACK_CHAT(message));
                     }}
                   >
                     <div className="filled1-text">Access this ticket</div>

@@ -1,48 +1,29 @@
-import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../../constants/strings";
-import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../../constants/user";
-import { getCurrentUser } from "../../services/http/authService";
+import TicketMessage from "../components/common/TicketMessage";
+import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../constants/strings";
+import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../constants/user";
+import { getCurrentUser } from "../services/http/authService";
 import {
   closeFeedback,
+  getFeedback,
+  getFeedbackMessages,
   postFeedbackMessage,
   updateSeenAt,
-} from "../../services/http/feedbackService";
-import { connectSocket } from "../../services/socket/base";
+} from "../services/http/feedbackService";
+import { connectSocket } from "../services/socket/base";
 import {
   emitMessage,
   onErrorReceived,
   onMessageReceived,
   onSeen,
-} from "../../services/socket/chat";
-import { sortMessages } from "../../utils/array";
-import { validateInputMessage } from "../../utils/strings";
-import { ANONYMOUS_USER } from "../../utils/user";
-import TicketMessage from "./TicketMessage";
+} from "../services/socket/chat";
+import { sortMessages } from "../utils/array";
+import { validateInputMessage } from "../utils/strings";
+import { ANONYMOUS_USER } from "../utils/user";
 
 export default class FeedbackTicket extends Component {
-  static propTypes = {
-    /**
-     * Feedback info returned from server after it is initially created
-     */
-    feedback: PropTypes.shape({
-      id: PropTypes.string,
-      isClosed: PropTypes.bool,
-    }),
-
-    /**
-     * Messages related to specific feedback
-     */
-    messages: PropTypes.array.isRequired,
-  };
-
-  constructor(props) {
-    super(props);
-    this.textInput = React.createRef();
-    this.focus = this.focus.bind(this);
-  }
-
   state = {
+    id: "",
     messages: [],
     inputMessage: "",
     latestAuthorName: "",
@@ -62,6 +43,12 @@ export default class FeedbackTicket extends Component {
     isClosed: false,
     error: "",
   };
+
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+    this.focus = this.focus.bind(this);
+  }
 
   resolveCurrentUser = () => {
     return getCurrentUser() ? getCurrentUser() : ANONYMOUS_USER;
@@ -152,11 +139,11 @@ export default class FeedbackTicket extends Component {
   /**
    * Sets states of necessary properties on mount
    */
-  updateMountState = (socket, user, { feedback, messages }) => {
-    const { isClosed } = feedback;
+  updateMountState = (socket, user, { isClosed, messages, id }) => {
     const lastMessage = messages[messages.length - 1];
     const latestAuthorName = this.resolveAuthorName(lastMessage);
     this.setState({
+      id,
       user,
       messages,
       latestAuthorName,
@@ -166,17 +153,37 @@ export default class FeedbackTicket extends Component {
     });
   };
 
-  componentDidMount() {
+  onGetFeedbackMessagesSuccess = (feedbackResult, messagesResult) => {
     this.scrollToBottom();
     const socket = connectSocket();
     const user = this.resolveCurrentUser();
-    const { feedback } = this.props;
-    this.updateMountState(socket, user, this.props);
+    const feedback = {
+      id: feedbackResult.id,
+      isClosed: feedbackResult.isClosed,
+      messages: messagesResult.messages,
+    };
+    this.updateMountState(socket, user, feedback);
     onMessageReceived(feedback.id, this.onChatMessageReceived);
     onErrorReceived(user ? user.id : DEFAULT_USER_ID, this.onChatErrorReceived);
     onSeen(feedback.id, this.onSeenReceived);
     this.updateSeenInfo();
     window.addEventListener("focus", this.onFocus);
+  };
+
+  onGetFeedbackMessagesError = (err) => {};
+
+  onGetFeedbackSuccess = (feedback) => {
+    getFeedbackMessages(this.props.match.params.feedbackId)
+      .then((res) => this.onGetFeedbackMessagesSuccess(feedback, res.result))
+      .catch((err) => this.onGetFeedbackMessagesError(err));
+  };
+
+  onGetFeedbackError = (err) => {};
+
+  componentDidMount() {
+    getFeedback(this.props.match.params.feedbackId)
+      .then((res) => this.onGetFeedbackSuccess(res.result))
+      .catch((err) => this.onGetFeedbackError(err));
   }
 
   /**
@@ -184,7 +191,7 @@ export default class FeedbackTicket extends Component {
    */
   updateSeenInfo = () => {
     const user = this.resolveCurrentUser();
-    const { id } = this.props.feedback;
+    const { id } = this.state;
     const date = new Date();
     const payload = {
       [user.name !== DEFAULT_USERNAME
@@ -223,7 +230,7 @@ export default class FeedbackTicket extends Component {
   }
 
   onCloseFeedback = () => {
-    const { id } = this.props.feedback;
+    const { id } = this.state;
     closeFeedback(id)
       .then((res) => this.onCloseFeedbackSuccess())
       .catch((err) => this.onCloseFeedbackError(err));
@@ -247,7 +254,7 @@ export default class FeedbackTicket extends Component {
       this.setState({ error });
       return;
     }
-    const { id } = this.props.feedback;
+    const { id } = this.state;
     this.setState({ isMessageSubmitting: true });
     postFeedbackMessage(id, user.id === DEFAULT_USER_ID ? "" : user.id, {
       text: inputMessage,
@@ -269,7 +276,7 @@ export default class FeedbackTicket extends Component {
       latestAuthorName,
       inputMessage: "",
     });
-    emitMessage(this.props.feedback.id, messages);
+    emitMessage(this.state.id, messages);
     this.focus();
   };
 
@@ -315,41 +322,43 @@ export default class FeedbackTicket extends Component {
       isMessageSubmitting,
       error,
       isClosed,
+      id,
     } = this.state;
-    const { feedback } = this.props;
     return (
-      <div className="form feedback-card">
-        <div className="ticket-title text-center">Ticket id: {feedback.id}</div>
-        <hr />
-        <div className="messages-container">
-          {this.displayMessages(messages, seen)}
-          <div
-            className="bottom-message"
-            ref={(el) => {
-              this.messagesEnd = el;
-            }}
-          >
-            {error}
+      <div className="feedback-ticket">
+        <div className="form feedback-card">
+          <div className="ticket-title text-center">Ticket id: {id}</div>
+          <hr />
+          <div className="messages-container">
+            {this.displayMessages(messages, seen)}
+            <div
+              className="bottom-message"
+              ref={(el) => {
+                this.messagesEnd = el;
+              }}
+            >
+              {error}
+            </div>
           </div>
+          <form
+            className="submit-message-container"
+            onSubmit={this.onSendMessage}
+            ref={(el) => (this.submitForm = el)}
+          >
+            <textarea
+              className="input"
+              placeholder="Type a message ..."
+              onChange={(e) => this.setState({ inputMessage: e.target.value })}
+              value={isClosed ? "This ticket is closed" : inputMessage}
+              disabled={isClosed || isMessageSubmitting}
+              ref={this.textInput}
+              wrap="hard"
+              rows="2"
+              cols="20"
+              onKeyDown={this.onEnter}
+            />
+          </form>
         </div>
-        <form
-          className="submit-message-container"
-          onSubmit={this.onSendMessage}
-          ref={(el) => (this.submitForm = el)}
-        >
-          <textarea
-            className="input"
-            placeholder="Type a message ..."
-            onChange={(e) => this.setState({ inputMessage: e.target.value })}
-            value={isClosed ? "This ticket is closed" : inputMessage}
-            disabled={isClosed || isMessageSubmitting}
-            ref={this.textInput}
-            wrap="hard"
-            rows="2"
-            cols="20"
-            onKeyDown={this.onEnter}
-          />
-        </form>
       </div>
     );
   }
