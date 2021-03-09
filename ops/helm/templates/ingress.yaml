@@ -30,7 +30,13 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-	{{- range $ingressPaths }}
+  {{- if $.Values.ingress.sslRedirect }}
+          - path: /*
+            backend:
+              serviceName: ssl-redirect
+              servicePort: use-annotation
+  {{- end }}
+  {{- range $ingressPaths }}
           - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}
