@@ -8,7 +8,7 @@
     "dateformat": "^3.0.3",
     "joi-browser": "^13.4.0",
     "jwt-decode": "^2.2.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "query-string": "^6.8.2",
     "raven-js": "^3.27.2",
     "react": "^16.8.6",
