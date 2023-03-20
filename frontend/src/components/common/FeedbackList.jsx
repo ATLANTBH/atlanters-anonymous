@@ -8,9 +8,14 @@ import FeedbackItem from "./FeedbackItem";
 export default class FeedbackList extends Component {
   static propTypes = {
     /**
-     * Array of all feedbacks
+     * Array of feedbacks for the current page
      */
     feedbacks: PropTypes.array.isRequired,
+
+    /**
+     * True if there is at least one unread message
+     */
+    hasNewMessages: PropTypes.bool.isRequired,
 
     /**
      * Total number of pages
@@ -26,6 +31,11 @@ export default class FeedbackList extends Component {
      * Handles pagination
      */
     onPageChange: PropTypes.func.isRequired,
+
+    /**
+     * Enables marking all feedbacks as read
+     */
+    onMarkAllRead: PropTypes.func.isRequired,
 
     /**
      * Handles feedback when successfully closed
@@ -79,7 +89,7 @@ export default class FeedbackList extends Component {
   };
 
   render() {
-    let { feedbacks, totalPages, currentPage } = this.props;
+    let { feedbacks, totalPages, currentPage, hasNewMessages } = this.props;
     return (
       <div className="feedbacks-container">
         <div className="page">
@@ -102,7 +112,9 @@ export default class FeedbackList extends Component {
             <Table className="feedbacks-table">
               <thead>
                 <tr className="feedback-item-container info table-head">
-                  <td></td>
+                  <td className="notification-icon header" onClick={this.props.onMarkAllRead}>
+                    <span className="circle header" style={hasNewMessages ? { color: "rgb(0, 164, 216)" } : { color: "rgb(169, 169, 169)" }}></span>
+                  </td>
                   <td>Feedback Created</td>
                   <td>Latest User Visit</td>
                 </tr>

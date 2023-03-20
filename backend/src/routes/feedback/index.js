@@ -6,11 +6,13 @@ import getFeedbackById from './feedback.id.get';
 import getMessagesByFeedbackId from './feedback.messages.get';
 import createMessage from './feedback.messages.post';
 import closeFeedback from './feedback.close.put';
+import markAllFeedbackRead from './feedback.allread.put';
 import seenFeedback from './feedback.seen.put';
 
 export default app => {
   const router = Router();
 
+  router.put('/mark-all-read', markAllFeedbackRead(app));
   router.get('/:id', getFeedbackById(app));
   router.get('/:id/messages', getMessagesByFeedbackId(app));
   router.get('/', verifyToken(app), getAllFeedback(app));
