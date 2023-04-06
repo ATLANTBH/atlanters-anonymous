@@ -17,11 +17,31 @@ export default class ConfirmationModal extends PureComponent {
     /**
      * Called when send button is pressed
      */
-    onConfirm: PropTypes.func.isRequired
+    onConfirm: PropTypes.func.isRequired,
+
+    /**
+     * Title of the modal
+     */
+    title: PropTypes.string,
+
+    /**
+     * Modal body text
+     */
+    body: PropTypes.string,
+
+    /**
+     * Text shown on a button that cancel the action and closes the modal
+     */
+    noText: PropTypes.string,
+
+    /**
+     * Text shown on a button that proceeds with current action
+     */
+    yesText: PropTypes.string,
   };
 
   render() {
-    const { onHide, show, onConfirm } = this.props;
+    const { onHide, show, onConfirm, title, body, noText, yesText } = this.props;
     return (
       <Modal
         onHide={onHide}
@@ -33,20 +53,19 @@ export default class ConfirmationModal extends PureComponent {
       >
         <form onSubmit={onConfirm}>
           <div className="form feedback-card confirm">
-            <div className="title confirm-title">Are you sure?</div>
+            <div className="title confirm-title">{title}</div>
             <div className="text">
-              Last chance to edit your comment. Are you sure you want to send
-              your feedback?
+              {body}
             </div>
             <div className="submit-container">
               <button
                 className="btn btn-primary submit empty1"
                 onClick={onHide}
               >
-                <div className="empty1-text">GO BACK</div>
+                <div className="empty1-text">{noText}</div>
               </button>
               <button type="submit" className="btn btn-primary submit filled1">
-                <div className="filled1-text">SEND</div>
+                <div className="filled1-text">{yesText}</div>
               </button>
             </div>
           </div>
@@ -55,3 +74,11 @@ export default class ConfirmationModal extends PureComponent {
     );
   }
 }
+
+
+ConfirmationModal.defaultProps = {
+    title: "Are you sure?",
+    body: "Are you sure you want to proceed?",
+    noText: "BACK",
+    yesText: "FINISH",
+};

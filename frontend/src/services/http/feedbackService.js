@@ -29,3 +29,7 @@ export function postFeedbackMessage(feedbackId, userId, data) {
   if (userId && userId !== "") userIdPath = `/${userId}`;
   return post(`/api/feedback/${feedbackId}/user${userIdPath}/messages`, data);
 }
+
+export function markAllFeedbacksRead() {
+  return put(`/api/feedback/mark-all-read`);
+}

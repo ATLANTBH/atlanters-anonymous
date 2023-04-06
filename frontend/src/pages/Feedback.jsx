@@ -167,6 +167,9 @@ export default class Feedback extends Component {
             show={isConfirmationShown}
             onHide={this.onModalClose}
             onConfirm={this.onSubmitFeedback}
+            body="Last chance to edit your comment. Are you sure you want to send your feedback?"
+            noText="GO BACK"
+            yesText="SEND"
           />
         )}
       </section>

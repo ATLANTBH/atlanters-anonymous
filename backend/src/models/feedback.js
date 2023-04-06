@@ -56,6 +56,32 @@ class Feedback extends Sequelize.Model {
     return user;
   }
 
+  /**
+   * Updates userLastSeenAt of all Feedbacks to the current date
+   */
+  static async markAllAsRead() {
+    const Op = Sequelize.Op;
+    return await Feedback.update(
+      {
+        userLastSeenAt: new Date()
+      },
+      {
+        where: {
+          id: {
+            [Op.not]: null
+          }
+        }
+      }
+    );
+  }
+
+  static async getAllFeedbacks(Message) {
+    return await Feedback.findAll({
+      include: [{ model: Message }],
+      order: [[ 'createdAt', 'DESC' ]],
+    });
+  }
+
   static async sendMail({ text }) {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,

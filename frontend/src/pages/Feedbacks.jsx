@@ -2,9 +2,11 @@ import queryString from "query-string";
 import React, { Component } from "react";
 import FeedbackList from "../components/common/FeedbackList";
 import { FEEDBACK_ROUTE } from "../constants/routes";
-import { getAllFeedback } from "../services/http/feedbackService";
+import { getAllFeedback, markAllFeedbacksRead } from "../services/http/feedbackService";
 import { sortMessages } from "../utils/array";
 import { newWindowLocation } from "../utils/navigate";
+import LoadingSpinner from "../components/common/ui/LoadingSpinner";
+import ConfirmationModal from "../components/modals/ConfirmationModal";
 
 export default class Feedbacks extends Component {
   state = {
@@ -13,6 +15,9 @@ export default class Feedbacks extends Component {
     currentPage: 1,
     totalPages: [],
     itemsPerPage: 10,
+    hasNewMessages: false,
+    isLoading: false,
+    isConfirmationModalShown: false
   };
 
   componentDidMount() {
@@ -25,7 +30,9 @@ export default class Feedbacks extends Component {
    * Returns total pages based on number of feedbacks
    */
   calculateTotalPages = (res) => {
-    const { itemsPerPage, totalPages } = this.state;
+    const { itemsPerPage } = this.state;
+    let { totalPages } = this.state;
+    totalPages = [];
     for (let i = 1; i <= Math.ceil(res.length / itemsPerPage); i++) {
       totalPages.push(i);
     }
@@ -42,16 +49,18 @@ export default class Feedbacks extends Component {
     return page;
   };
 
-  onGetFeedbackSuccess = (res) => {
+  onGetFeedbackSuccess = (feedbacks) => {
     const { page } = queryString.parse(this.props.location.search);
-    let feedbacks = res.reverse();
     this.assignHasNewMessages(feedbacks);
+    // show feedback tickets that have new messages at the top of the list
     feedbacks = feedbacks.sort((feedbackA, feedbackB) => {
       return feedbackB.hasNewMessages - feedbackA.hasNewMessages;
     });
     this.setState({
       feedbacks,
-      totalPages: this.calculateTotalPages(res),
+      totalPages: this.calculateTotalPages(feedbacks),
+      isLoading: false,
+      hasNewMessages: feedbacks.filter(feedback => feedback.hasNewMessages).length > 0
     });
     this.onPageChange(this.validatePage(page));
   };
@@ -63,7 +72,7 @@ export default class Feedbacks extends Component {
   };
 
   /**
-   * When feedback successfully closed
+   * When feedback is successfully closed
    */
   feedbackClosed = (feedbackId) => {
     const { currentFeedbacks } = this.state;
@@ -104,17 +113,52 @@ export default class Feedbacks extends Component {
     });
   };
 
+  onMarkAllRead = (e) => {
+    e.preventDefault();
+    this.setState({ isConfirmationModalShown: true });
+  }
+
+  /**
+   * Called when confirmation modal gets closed.
+   */
+  onModalClose = () => this.setState({ isConfirmationModalShown: false });
+
+  /**
+   * Marks all feedbacks as read.
+   */
+  markAllRead = (e) => {
+    this.setState({ isLoading: true, isConfirmationModalShown: false });
+    markAllFeedbacksRead()
+      .then((res) => this.onGetFeedbackSuccess(res.result))
+      .catch((err) => this.onGetFeedbackError(err));
+  }
+
   render() {
-    const { currentFeedbacks, totalPages, currentPage } = this.state;
+    const { currentFeedbacks, totalPages, currentPage, isLoading, isConfirmationModalShown, hasNewMessages } = this.state;
     return (
-      <FeedbackList
-        feedbacks={currentFeedbacks}
-        feedbackClosed={this.feedbackClosed}
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={this.onPageChange}
-        history={this.props.history}
-      />
-    );
+      <div>
+        {isLoading && <LoadingSpinner height={60} width={60} />}
+        {!isLoading && <FeedbackList
+          hasNewMessages={hasNewMessages}
+          feedbacks={currentFeedbacks}
+          feedbackClosed={this.feedbackClosed}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={this.onPageChange}
+          onMarkAllRead={this.onMarkAllRead}
+          history={this.props.history}
+        />}
+
+        {isConfirmationModalShown && (<ConfirmationModal
+            show={isConfirmationModalShown}
+            onHide={this.onModalClose}
+            onConfirm={this.markAllRead}
+            body="Are you sure you want to mark everything as read?"
+            noText="GO BACK"
+            yesText="MARK AS READ"
+          />
+        )}
+      </div>
+    )
   }
 }

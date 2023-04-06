@@ -46,6 +46,11 @@
   margin-right: 10px;
 }
 
+.circle.header:before {
+  font-size: 12px;
+  content: "\25CF";
+}
+
 .table-head {
   font-weight: 600;
 }
@@ -69,6 +74,10 @@ td.notification-icon {
   text-align: right;
   padding-right: 0;
   padding-top: 13px;
+}
+
+td.notification-icon.header:hover {
+  cursor: pointer;
 }
 
 .table-body td:hover {
