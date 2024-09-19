@@ -126,6 +126,17 @@ class User extends Sequelize.Model {
     return { user, token };
   }
 
+  static async updateUserById(updateObject, userId) {
+    return await User.update(
+      { ...updateObject },
+      {
+        where: {
+          id: userId
+        }
+      }
+    );
+  }
+
   static isPasswordValid(password) {
     const validPassword =
       typeof password == 'string' &&
@@ -185,7 +196,7 @@ class User extends Sequelize.Model {
     };
     const token = jwt.sign(objToSign, process.env.JWT_SECRET).toString();
     user.tokens.push(token);
-    await user.update({ tokens: user.tokens });
+    await User.updateUserById({ tokens: user.tokens }, user.id);
     return token;
   }
 
@@ -194,7 +205,7 @@ class User extends Sequelize.Model {
     user.tokens = user.tokens.filter((value, index, array) => {
       return value != token;
     });
-    await user.update({ tokens: user.tokens });
+    await User.updateUserById({ tokens: user.tokens }, user.id);
     return user;
   }
 }

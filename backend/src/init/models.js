@@ -1,4 +1,5 @@
 import initModels from '../models';
+import User from '../models/user';
 
 export default async (sequelize, eraseDatabaseOnSync) => {
   const models = initModels(sequelize);
@@ -10,19 +11,19 @@ export default async (sequelize, eraseDatabaseOnSync) => {
     console.log(error);
   }
   if (eraseDatabaseOnSync) {
-    await createFirstUser(models);
+    await createFirstUser();
     await createUsersWithMessages(models);
   }
 
   return models;
 };
 
-const createFirstUser = async models => {
-  await models.User.create({
+const createFirstUser = async () => {
+  await User.insert({
     name: 'Admin',
     surname: 'Admin',
     email: 'atlantersanonymous@atlantbh.com',
-    password: '$2b$10$z186VQxBAHCxS9Ry6yJLJORMMHSgKfglSYz1wq/tgw0hw/tp4I7Zu',
+    password: 'adminadmin'
   });
 };
 

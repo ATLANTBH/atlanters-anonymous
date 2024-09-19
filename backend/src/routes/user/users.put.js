@@ -7,7 +7,7 @@ export default ({ models }) => {
       const user = await User.findById(userId);
       if (user) {
         reqUser = await User.getValidUserRequest(user, reqUser);
-        const updateResult = await user.update(reqUser);
+        const updateResult = await User.updateUserById(reqUser, user.id);
         res.send(updateResult);
       } else
         next(
