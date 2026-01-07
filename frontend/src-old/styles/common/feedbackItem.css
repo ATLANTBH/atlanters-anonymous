@@ -1,0 +1,97 @@
+.feedback-item-container {
+  grid-template-columns: auto auto;
+  background-color: white;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 10px;
+  grid-gap: 30px;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-item-container:hover {
+  cursor: pointer;
+}
+
+.feedback-item-container.info {
+  height: auto;
+  padding: 5px 15px 5px 15px;
+}
+
+.feedback-item-container.info:hover {
+  cursor: auto;
+}
+
+.feedback-item-container.info .text {
+  font-weight: 600;
+}
+
+.feedback-item-container .text {
+  font-family: SourceSansPro;
+  color: #333333;
+  margin-top: 3px;
+}
+
+.feedback-item-container .text.created-at {
+  grid-column: 1;
+}
+
+.feedback-item-container .text.user-seen-at {
+  grid-column: 2;
+}
+
+.circle:before {
+  content: "\25CF";
+  font-size: 10px;
+  padding-top: -10px;
+  margin-right: 10px;
+}
+
+.table-head {
+  font-weight: 600;
+}
+
+.table-head td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.feedbacks-table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  border-right: 0px;
+}
+
+.feedbacks-table td {
+  border-top: 0px;
+}
+
+td.notification-icon {
+  text-align: right;
+  padding-right: 0;
+  padding-top: 13px;
+}
+
+.table-body td:hover {
+  cursor: pointer;
+}
+
+.feedback-item-container .text.message {
+  margin-left: 30px;
+  grid-column: 3;
+}
+
+.feedback-item-container .closed {
+  width: 100%;
+}
+
+.feedback-item-container .closed .button {
+  grid-column: 4;
+}
+
+.feedback-item-container .closed .text {
+  color: #f34a43;
+}
+
+.feedback-item-container .closed .button .close-text {
+  font-size: 10px;
+}

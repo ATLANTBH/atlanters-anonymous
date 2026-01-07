@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ModifyAccountForm from "../components/common/ModifyAccountForm";
-import { updateUser, getCurrentUser } from "../services/http/authService";
+import { updateUser, getCurrentUser } from "../services/http/authService.jsx";
 
 export default class Account extends Component {
   state = {

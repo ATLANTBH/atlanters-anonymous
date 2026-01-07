@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+// import { CopyToClipboard } from "react-copy-to-clipboard";
 import checkmark from "../../assets/images/feedback/checkmark.png";
 import xmark from "../../assets/images/feedback/xmark.png";
 import { FEEDBACK_CHAT } from "../../constants/routes";
@@ -48,9 +48,9 @@ export default class FeedbackResult extends Component {
                   <hr />
                   <div className="key-info">Ticket id: </div>
                   <div className="key">{message}</div>
-                  <CopyToClipboard text={message}>
-                    <div className="copy-key">copy id</div>
-                  </CopyToClipboard>
+                  {/* TODO: <CopyToClipboard text={message}> */}
+                    {/* <div className="copy-key">copy id</div> */}
+                  {/* </CopyToClipboard> */}
                 </div>
                 <div className="access-link-container text-center">
                   <button

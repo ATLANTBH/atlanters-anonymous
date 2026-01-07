@@ -7,9 +7,9 @@ export default ({ models }) => {
     try {
       let feedback = await Feedback.create();
       const feedbackUrl = GET_FEEDBACK_URL(req, feedback.id);
-      await Feedback.sendMail(
-        GET_DETAILED_MESSAGE_HTML(feedback, feedbackUrl, messageReq)
-      );
+      // await Feedback.sendMail(
+      //   GET_DETAILED_MESSAGE_HTML(feedback, feedbackUrl, messageReq)
+      // );
       const message = await Message.create(messageReq);
       feedback = await feedback.addMessage(message);
       res.send(feedback);

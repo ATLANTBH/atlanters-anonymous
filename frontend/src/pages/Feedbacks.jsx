@@ -34,9 +34,9 @@ export default class Feedbacks extends Component {
     let { totalPages } = this.state;
     totalPages = [];
     for (let i = 1; i <= Math.ceil(res.length / itemsPerPage); i++) {
-      totalPages.push(i);
+      pages.push(i);
     }
-    return totalPages;
+    return pages;
   };
 
   /**
@@ -62,7 +62,6 @@ export default class Feedbacks extends Component {
       isLoading: false,
       hasNewMessages: feedbacks.filter(feedback => feedback.hasNewMessages).length > 0
     });
-    this.onPageChange(this.validatePage(page));
   };
 
   onGetFeedbackError = (err) => {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TicketMessage from "../components/common/TicketMessage";
 import { ANONYMOUS_LAST_SEEN, USER_LAST_SEEN } from "../constants/strings";
 import { DEFAULT_USERNAME, DEFAULT_USER_ID } from "../constants/user";
-import { getCurrentUser } from "../services/http/authService";
+import { getCurrentUser } from "../services/http/authService.jsx";
 import {
   closeFeedback,
   getFeedback,
@@ -150,6 +150,8 @@ export default class FeedbackTicket extends Component {
       socket,
       isClosed,
       error: "",
+    }, () => {
+      this.updateSeenInfo();
     });
   };
 
@@ -190,8 +192,11 @@ export default class FeedbackTicket extends Component {
    * Updates latest user visit
    */
   updateSeenInfo = () => {
-    const user = this.resolveCurrentUser();
     const { id } = this.state;
+    if (!id) {
+      return;
+    }
+    const user = this.resolveCurrentUser();
     const date = new Date();
     const payload = {
       [user.name !== DEFAULT_USERNAME
