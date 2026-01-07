@@ -1,0 +1,84 @@
+.form.feedback-card.feedback-send.error {
+  border-top: 6px solid #f34a43;
+}
+
+.form.feedback-card.feedback-send {
+  grid-column: 3;
+}
+
+.form.feedback-card .send-title {
+  text-align: left;
+}
+
+.result-container {
+  margin: 5px;
+}
+
+.result-container .body {
+  display: grid;
+  grid-template-rows: 2;
+}
+
+.result-container .header {
+  display: flex;
+}
+
+.result-container .text {
+  font-family: SourceSansPro;
+}
+
+.result-container .text .access-link-container {
+  grid-row: 2;
+  width: 100%;
+}
+
+.result-container .text .access-link {
+  width: 150px;
+  margin-top: 15px;
+}
+
+.result-container .text .copy-image {
+  width: 30px;
+  height: 30px;
+}
+
+.result-container .key-all {
+  display: inline-block;
+  grid-row: 1;
+}
+
+.result-container .key-all .key-info {
+  float: left;
+}
+
+.result-container .key-all .key {
+  float: left;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.result-container .key-all .copy-key {
+  color: #00a4d8;
+  float: left;
+  margin-left: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.status-image {
+  width: 24px;
+  height: 24px;
+  margin: 6px 8px 5px 1px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .form.feedback-card.feedback-send {
+    grid-column: 2;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .form.feedback-card.feedback-send {
+    grid-column: 1;
+  }
+}

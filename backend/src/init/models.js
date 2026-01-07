@@ -6,6 +6,7 @@ export default async (sequelize, eraseDatabaseOnSync) => {
 
   console.log("Syncing with erase: '" + eraseDatabaseOnSync + "'...");
   try {
+    console.log('Squelize Sync');
     await sequelize.sync({ force: eraseDatabaseOnSync });
   } catch (error) {
     console.log(error);

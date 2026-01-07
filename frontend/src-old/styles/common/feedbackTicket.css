@@ -1,0 +1,90 @@
+.feedback-ticket .form.feedback-card {
+  grid-column: 2;
+}
+
+.feedback-ticket {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.ticket-title {
+  font-weight: 600;
+  font-size: 18px;
+  font-family: SourceSansPro;
+}
+
+.messages-container {
+  width: 100%;
+  height: 450px;
+  border: 0;
+  overflow: auto;
+  border-radius: 4px;
+  padding: 16px 16px 0px 16px;
+}
+
+.form.feedback-card .bottom-text {
+  margin-top: 5px;
+  margin-left: 10px;
+  font-style: italic;
+  font-size: 10px;
+  font-family: SourceSansPro;
+}
+
+.messages-container .bottom-message {
+  float: left;
+  clear: both;
+  font-style: italic;
+  color: #f34a43;
+}
+
+.submit-message-container {
+  display: grid;
+  grid-template-columns: 4fr auto;
+  margin-top: 15px;
+  background-color: #f1f1f1;
+  border-radius: 50px;
+}
+
+.submit-message-container .input {
+  border: 0;
+  width: 100%;
+  grid-column: 1;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  padding-left: 13px;
+  padding-top: 13px;
+}
+
+.submit-message-container .input:focus {
+  outline: 0;
+}
+
+.submit-message-container .image:focus {
+  outline: 0;
+}
+
+.submit-message-container .image {
+  grid-column: 2;
+  width: 30px;
+  margin-top: 2.5px;
+  margin-right: 10px;
+}
+
+.close-ticket-container {
+  margin-top: 15px;
+}
+
+.close-ticket-container .close-ticket {
+  font-family: SourceSansPro;
+  font-size: 14px;
+  text-decoration: underline !important;
+  border: 0;
+  background-color: transparent;
+}
+
+.close-ticket-container .close-ticket:hover {
+  cursor: pointer;
+  color: #555454 !important;
+  text-decoration: underline !important;
+}

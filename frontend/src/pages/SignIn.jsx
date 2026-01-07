@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SignInForm from "../components/common/SignInForm";
 import { TOKEN_HEADER } from "../constants/headers";
 import { FEEDBACK_ROUTE } from "../constants/routes";
-import { getJwt, setJwt, signIn } from "../services/http/authService";
+import { getJwt, setJwt, signIn } from "../services/http/authService.jsx";
 import { newWindowLocation } from "../utils/navigate";
 
 export default class SignIn extends Component {

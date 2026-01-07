@@ -1,0 +1,17 @@
+.form.feedback-card.feedback-id {
+  grid-row: 2;
+  border-top: 0px;
+}
+
+.title.form-title.feedback-id {
+  font-size: 18px;
+}
+
+.feedback-id .btn.filled1 {
+  margin-top: 10px;
+}
+
+.feedback-id .form-text.error {
+  font-size: 15px;
+  color: #f34a43;
+}

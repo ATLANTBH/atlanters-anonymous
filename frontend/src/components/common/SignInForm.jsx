@@ -1,7 +1,7 @@
-import Joi from "joi-browser";
+import Joi from "joi";
 import PropTypes from "prop-types";
 import React from "react";
-import { ReactComponent as Logo } from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/logo.svg";
 import { SIGNIN } from "../../constants/form/labels/button";
 import { EMAIL_LABEL, PASSWORD_LABEL } from "../../constants/form/labels/input";
 import { EMAIL, SIGNIN_PASSWORD } from "../../constants/form/names/input";
@@ -30,14 +30,14 @@ export default class SignInForm extends Form {
     errors: {}
   };
 
-  schema = {
+  schema = Joi.object({
     email: Joi.string()
       .required()
       .label(EMAIL_LABEL),
     password: Joi.string()
       .required()
       .label(PASSWORD_LABEL)
-  };
+  });
 
   onSubmit = e => {
     this.handleSubmit(e, this.props.onSubmit);
@@ -51,7 +51,7 @@ export default class SignInForm extends Form {
           <div className="col-lg-3">
             <form onSubmit={this.onSubmit} className="form sign-in">
               <div className="text-center" style={{ marginBottom: "20px" }}>
-                <Logo />
+                <img src={Logo} className="logo" alt="Logo" />
               </div>
               {this.renderInput(
                 EMAIL,

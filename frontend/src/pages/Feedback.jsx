@@ -5,7 +5,7 @@ import FeedbackResult from "../components/common/FeedbackResult";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import { FEEDBACK_CHAT } from "../constants/routes";
-import { getCurrentUser } from "../services/http/authService";
+import { getCurrentUser } from "../services/http/authService.jsx";
 import {
   getFeedbackMessages,
   submitFeedback,
