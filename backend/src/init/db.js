@@ -9,9 +9,6 @@ export default async () => {
     DB_NAME,
   } = process.env;
   return new Sequelize(
-    `postgresql://${DB_USERNAME}:${DB_USER_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-    {
-      logging: msg => console.log('[sequelize]', msg),
-    }
+    `postgresql://${DB_USERNAME}:${DB_USER_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
   );
 };

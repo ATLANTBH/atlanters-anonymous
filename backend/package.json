@@ -40,7 +40,6 @@
     "pg-hstore": "^2.3.4",
     "quick-encrypt": "^1.0.8",
     "sequelize": "^6.37.3",
-    "sequelize-cli": "^6.6.2",
     "sinon": "^7.3.2",
     "socket.io": "^4.8.3",
     "supertest": "^4.0.2"

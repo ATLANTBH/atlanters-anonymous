@@ -41,13 +41,21 @@ export default class ModifyAccountForm extends Form {
   };
 
   schema = Joi.object({
-    newPassword: Joi.string().required().label(NEW_PASSWORD_LABEL).min(8),
-    confirmPassword: Joi.valid(Joi.ref(NEW_PASSWORD))
-      .options({
-        language: { any: { allowOnly: "must match password" } },
-      })
-      .label(CONFIRM_PASSWORD_LABEL),
+    newPassword: Joi.string()
+      .min(8)
+      .required()
+      .label(NEW_PASSWORD_LABEL),
+
+    confirmPassword: Joi.string()
+      .required()
+      .valid(Joi.ref(NEW_PASSWORD))
+      .label(CONFIRM_PASSWORD_LABEL)
+      .messages({
+        "any.only": "must match password",
+        "any.required": "confirmation is required",
+      }),
   });
+
 
   onSubmit = (e) => {
     this.handleSubmit(e, this.props.onSubmit);

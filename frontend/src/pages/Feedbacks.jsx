@@ -2,7 +2,10 @@ import queryString from "query-string";
 import React, { Component } from "react";
 import FeedbackList from "../components/common/FeedbackList";
 import { FEEDBACK_ROUTE } from "../constants/routes";
-import { getAllFeedback, markAllFeedbacksRead } from "../services/http/feedbackService";
+import {
+  getAllFeedback,
+  markAllFeedbacksRead
+} from "../services/http/feedbackService";
 import { sortMessages } from "../utils/array";
 import { newWindowLocation } from "../utils/navigate";
 import LoadingSpinner from "../components/common/ui/LoadingSpinner";
@@ -16,11 +19,12 @@ export default class Feedbacks extends Component {
     totalPages: [],
     itemsPerPage: 10,
     hasNewMessages: false,
-    isLoading: false,
+    isLoading: true,
     isConfirmationModalShown: false
   };
 
   componentDidMount() {
+    this.setState({ isLoading: true });
     getAllFeedback()
       .then((res) => this.onGetFeedbackSuccess(res.result))
       .catch((err) => this.onGetFeedbackError(err));
@@ -29,39 +33,44 @@ export default class Feedbacks extends Component {
   /**
    * Returns total pages based on number of feedbacks
    */
-  calculateTotalPages = (res) => {
+  calculateTotalPages = (feedbacks) => {
     const { itemsPerPage } = this.state;
-    let { totalPages } = this.state;
-    totalPages = [];
-    for (let i = 1; i <= Math.ceil(res.length / itemsPerPage); i++) {
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(feedbacks.length / itemsPerPage); i++) {
       pages.push(i);
     }
     return pages;
   };
 
   /**
-   * Checks if page passed to url is a valid number
+   * Validates page from URL
    */
   validatePage = (page) => {
-    if (typeof currentPage != "number") {
-      return 1;
-    }
-    return page;
+    const parsed = parseInt(page, 10);
+    return Number.isNaN(parsed) || parsed < 1 ? 1 : parsed;
   };
 
   onGetFeedbackSuccess = (feedbacks) => {
     const { page } = queryString.parse(this.props.location.search);
+    const validatedPage = this.validatePage(page);
+
     this.assignHasNewMessages(feedbacks);
-    // show feedback tickets that have new messages at the top of the list
-    feedbacks = feedbacks.sort((feedbackA, feedbackB) => {
-      return feedbackB.hasNewMessages - feedbackA.hasNewMessages;
-    });
-    this.setState({
-      feedbacks,
-      totalPages: this.calculateTotalPages(feedbacks),
-      isLoading: false,
-      hasNewMessages: feedbacks.filter(feedback => feedback.hasNewMessages).length > 0
-    });
+
+    feedbacks = feedbacks.sort(
+      (a, b) => b.hasNewMessages - a.hasNewMessages
+    );
+
+    this.setState(
+      {
+        feedbacks,
+        totalPages: this.calculateTotalPages(feedbacks),
+        hasNewMessages: feedbacks.some(f => f.hasNewMessages),
+        isLoading: false
+      },
+      () => {
+        this.onPageChange(validatedPage);
+      }
+    );
   };
 
   onGetFeedbackError = (err) => {
@@ -74,10 +83,14 @@ export default class Feedbacks extends Component {
    * When feedback is successfully closed
    */
   feedbackClosed = (feedbackId) => {
-    const { currentFeedbacks } = this.state;
-    const index = currentFeedbacks.findIndex((item) => item.id === feedbackId);
-    currentFeedbacks[index].isClosed = true;
-    this.setState({ currentFeedbacks });
+    const currentFeedbacks = [...this.state.currentFeedbacks];
+    const index = currentFeedbacks.findIndex(
+      (item) => item.id === feedbackId
+    );
+    if (index !== -1) {
+      currentFeedbacks[index].isClosed = true;
+      this.setState({ currentFeedbacks });
+    }
   };
 
   /**
@@ -87,69 +100,86 @@ export default class Feedbacks extends Component {
     const { feedbacks, itemsPerPage } = this.state;
     const indexOfLastFeedback = page * itemsPerPage;
     const indexOfFirstFeedback = indexOfLastFeedback - itemsPerPage;
-    let currentFeedbacks = feedbacks.slice(
+
+    const currentFeedbacks = feedbacks.slice(
       indexOfFirstFeedback,
       indexOfLastFeedback
     );
-    this.setState({ currentPage: parseInt(page), currentFeedbacks });
+
+    this.setState({
+      currentPage: page,
+      currentFeedbacks
+    });
   };
 
   assignHasNewMessages = (feedbacks) => {
-    feedbacks.map((feedback) => {
+    feedbacks.forEach((feedback) => {
       const { Messages, userLastSeenAt } = feedback;
       sortMessages(Messages);
       const latestMessage = Messages[Messages.length - 1];
+
       if (latestMessage) {
-        const adminSeenAt = userLastSeenAt;
-        const latestMessageDate = latestMessage.createdAt;
         feedback.hasNewMessages =
-          new Date(latestMessageDate) >= new Date(adminSeenAt) &&
+          new Date(latestMessage.createdAt) >= new Date(userLastSeenAt) &&
           latestMessage.UserId == null;
       } else {
         feedback.hasNewMessages = false;
       }
-      return feedback;
     });
   };
 
   onMarkAllRead = (e) => {
     e.preventDefault();
     this.setState({ isConfirmationModalShown: true });
-  }
+  };
+
+  onModalClose = () =>
+    this.setState({ isConfirmationModalShown: false });
 
   /**
-   * Called when confirmation modal gets closed.
+   * Marks all feedbacks as read
    */
-  onModalClose = () => this.setState({ isConfirmationModalShown: false });
+  markAllRead = () => {
+    this.setState({
+      isLoading: true,
+      isConfirmationModalShown: false
+    });
 
-  /**
-   * Marks all feedbacks as read.
-   */
-  markAllRead = (e) => {
-    this.setState({ isLoading: true, isConfirmationModalShown: false });
     markAllFeedbacksRead()
       .then((res) => this.onGetFeedbackSuccess(res.result))
       .catch((err) => this.onGetFeedbackError(err));
-  }
+  };
 
   render() {
-    const { currentFeedbacks, totalPages, currentPage, isLoading, isConfirmationModalShown, hasNewMessages } = this.state;
+    const {
+      currentFeedbacks,
+      totalPages,
+      currentPage,
+      isLoading,
+      isConfirmationModalShown,
+      hasNewMessages
+    } = this.state;
+
     return (
       <div>
         {isLoading && <LoadingSpinner height={60} width={60} />}
-        {!isLoading && <FeedbackList
-          hasNewMessages={hasNewMessages}
-          feedbacks={currentFeedbacks}
-          feedbackClosed={this.feedbackClosed}
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={this.onPageChange}
-          onMarkAllRead={this.onMarkAllRead}
-          history={this.props.history}
-        />}
 
-        {isConfirmationModalShown && (<ConfirmationModal
-            show={isConfirmationModalShown}
+        {!isLoading && (
+          <FeedbackList
+            hasNewMessages={hasNewMessages}
+            feedbacks={currentFeedbacks}
+            feedbackClosed={this.feedbackClosed}
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={this.onPageChange}
+            onMarkAllRead={this.onMarkAllRead}
+            history={this.props.history}
+          />
+        )}
+
+        {isConfirmationModalShown && (
+          <ConfirmationModal
+            show
             onHide={this.onModalClose}
             onConfirm={this.markAllRead}
             body="Are you sure you want to mark everything as read?"
@@ -158,6 +188,6 @@ export default class Feedbacks extends Component {
           />
         )}
       </div>
-    )
+    );
   }
 }
