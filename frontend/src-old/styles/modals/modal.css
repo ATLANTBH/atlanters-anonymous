@@ -1,0 +1,8 @@
+.modal-dialog.modal-lg.modal-dialog-centered .modal-content {
+  border: 0px;
+}
+
+.modal.fade .modal-dialog {
+  width: auto;
+  max-width: 350px;
+}

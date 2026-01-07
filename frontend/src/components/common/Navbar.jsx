@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/logo.svg";
 import { TOKEN_HEADER } from "../../constants/headers";
 import {
   ACCOUNT_ROUTE,
@@ -43,7 +43,7 @@ export default class NavBar extends Component {
     return (
       <Navbar bg="light" expand="lg">
         <a className="navbar-brand" href={FEEDBACK_ROUTE}>
-          <Logo />
+          <img src={Logo} className="logo" alt="Logo" />
         </a>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

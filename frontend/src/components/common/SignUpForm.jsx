@@ -1,4 +1,4 @@
-import Joi from "joi-browser";
+import Joi from "joi";
 import PropTypes from "prop-types";
 import React from "react";
 import { SIGNUP } from "../../constants/form/labels/button";
@@ -49,7 +49,7 @@ export default class SignUpForm extends Form {
     errors: {}
   };
 
-  schema = {
+  schema = Joi.object({
     name: Joi.string()
       .required()
       .label(NAME_LABEL),
@@ -64,11 +64,13 @@ export default class SignUpForm extends Form {
       .label(PASSWORD_LABEL)
       .min(8),
     confirmPassword: Joi.valid(Joi.ref(SIGNUP_PASSWORD))
-      .options({
-        language: { any: { allowOnly: "must match password" } }
+      .required()
+      .messages({
+        "any.only": "must match password",
+        "any.required": "confirm password is required"
       })
       .label(CONFIRM_PASSWORD_LABEL)
-  };
+  });
 
   onSubmit = e => {
     this.handleSubmit(e, this.props.onSubmit);

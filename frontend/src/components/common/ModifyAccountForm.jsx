@@ -1,4 +1,4 @@
-import Joi from "joi-browser";
+import Joi from "joi";
 import PropTypes from "prop-types";
 import React from "react";
 import { CHANGE } from "../../constants/form/labels/button";
@@ -40,14 +40,14 @@ export default class ModifyAccountForm extends Form {
     errors: {},
   };
 
-  schema = {
+  schema = Joi.object({
     newPassword: Joi.string().required().label(NEW_PASSWORD_LABEL).min(8),
     confirmPassword: Joi.valid(Joi.ref(NEW_PASSWORD))
       .options({
         language: { any: { allowOnly: "must match password" } },
       })
       .label(CONFIRM_PASSWORD_LABEL),
-  };
+  });
 
   onSubmit = (e) => {
     this.handleSubmit(e, this.props.onSubmit);

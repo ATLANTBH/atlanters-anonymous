@@ -1,4 +1,4 @@
-import Joi from "joi-browser";
+import Joi from "joi";
 import React, { Component } from "react";
 import {
   CONFIRM_PASSWORD,
@@ -16,27 +16,27 @@ export default class Form extends Component {
   };
 
   validate = () => {
-    const options = {
+    const { error } = this.schema.validate(this.state.data, {
       abortEarly: false
-    };
-    const { error } = Joi.validate(this.state.data, this.schema, options);
-    if (!error) {
-      return null;
-    }
+    });
+
+    if (!error) return null;
 
     const errors = {};
     for (let item of error.details) {
       errors[item.path[0]] = item.message;
     }
-    return errors ? errors : null;
+
+    return errors;
   };
 
   validateProperty = ({ name, value }) => {
-    const obj = {
-      [name]: value
-    };
-    const schema = { [name]: this.schema[name] };
-    const { error } = Joi.validate(obj, schema);
+    // Build a schema for a single property
+    const schema = Joi.object({
+      [name]: this.schema.extract(name)
+    });
+
+    const { error } = schema.validate({ [name]: value });
     return error ? error.details[0].message : null;
   };
 
@@ -45,9 +45,9 @@ export default class Form extends Component {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
-    if (errors) {
-      return;
-    }
+
+    if (errors) return;
+
     onSubmit(this.state.data);
   };
 
@@ -56,8 +56,7 @@ export default class Form extends Component {
   };
 
   toggleSubmitFlag = submitFlag => {
-    let submitPressed = !submitFlag;
-    this.setState({ submitPressed });
+    this.setState({ submitPressed: !submitFlag });
   };
 
   validateConfirmPassword(
@@ -94,9 +93,10 @@ export default class Form extends Component {
       } else {
         this.deleteProperty(errors, name);
       }
+
       if (
         (name === SIGNUP_PASSWORD || name === NEW_PASSWORD) &&
-        confirmPassword.length > 0
+        confirmPassword?.length > 0
       ) {
         this.validateConfirmPassword(
           value,
@@ -107,8 +107,7 @@ export default class Form extends Component {
       }
     }
 
-    const data = { ...this.state.data };
-    data[name] = value;
+    const data = { ...this.state.data, [name]: value };
     this.setState({ data, errors });
   };
 
@@ -127,7 +126,7 @@ export default class Form extends Component {
   renderInput(
     name,
     label,
-    placholder,
+    placeholder,
     disabled = false,
     type = "text",
     required = false
@@ -137,11 +136,11 @@ export default class Form extends Component {
       <Input
         name={name}
         label={label}
-        placeholder={placholder}
+        placeholder={placeholder}
         disabled={disabled}
         type={type}
         required={required}
-        value={data[name]}
+        value={data[name] || ""}
         error={errors[name]}
         onChange={this.handleChange}
       />

@@ -1,52 +1,39 @@
 {
   "name": "atlanters-anonymous",
-  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "bootstrap": "^4.1.1",
-    "classnames": "^2.2.6",
-    "dateformat": "^3.0.3",
-    "joi-browser": "^13.4.0",
-    "jwt-decode": "^2.2.0",
-    "node-fetch": "^2.6.0",
-    "query-string": "^6.8.2",
-    "raven-js": "^3.27.2",
-    "react": "^16.8.6",
-    "react-bootstrap": "^1.0.0-beta.9",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.8.6",
-    "react-infinite-scroller": "^1.2.1",
-    "react-loader-spinner": "^2.3.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.4.1",
-    "react-smooth-dnd": "^0.11.0",
-    "react-spring": "^8.0.25",
-    "react-switch": "^5.0.0",
-    "serve": "^11.0.1",
-    "socket.io-client": "^2.2.0"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "serve -s build",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "proxy": "http://localhost:65534",
-  "eslintConfig": {
-    "extends": "abh-poll"
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "classnames": "^2.5.1",
+    "dateformat": "^5.0.3",
+    "joi": "^18.0.2",
+    "jwt-decode": "^4.0.0",
+    "prop-types": "^15.8.1",
+    "query-string": "^9.3.1",
+    "react": "^19.2.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.0",
+    "react-loader-spinner": "^8.0.0",
+    "react-router-dom": "^5.3.4",
+    "react-transition-group": "^4.4.5",
+    "socket.io-client": "^4.8.3"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "vite": "^7.2.4"
   }
 }

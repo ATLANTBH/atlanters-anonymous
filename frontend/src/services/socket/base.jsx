@@ -2,11 +2,17 @@ import socketIOClient from "socket.io-client";
 import { getHostnameWithProtocol } from "../../utils/strings";
 let socket = null;
 
+const SOCKET_URL =
+  import.meta.env.VITE_SOCKET_URL || "/";
+
+console.log("VITE_SOCKET_URL =", import.meta.env.VITE_SOCKET_URL);
+console.log("MODE =", import.meta.env.MODE);
+
 /**
  * Creates a socket instance
  */
 export const connectSocket = () => {
-  socket = socketIOClient(getHostnameWithProtocol(window), {
+  socket = socketIOClient(SOCKET_URL, {
     transports: ["websocket"],
     rejectUnauthorized: false
   });

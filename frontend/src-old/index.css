@@ -1,0 +1,74 @@
+/** IMPORT COMMOM **/
+@import "styles/fonts.css";
+@import "styles/animations.css";
+
+/** IMPORT COMMON STYLES **/
+@import "styles/common/feedbackForm.css";
+@import "styles/common/feedbackIdForm.css";
+@import "styles/common/feedbackResult.css";
+@import "styles/common/signUpForm.css";
+@import "styles/common/signInForm.css";
+@import "styles/common/navbar.css";
+@import "styles/common/feedbackList.css";
+@import "styles/common/feedbackItem.css";
+@import "styles/common/ticketMessage.css";
+@import "styles/common/feedbackTicket.css";
+/** UI **/
+@import "styles/common/ui/loadingSpinner.css";
+@import "styles/common/ui/buttons.css";
+@import "styles/common/ui/input.css";
+
+/** IMPORT MODAL STYLES **/
+@import "styles/modals/modal.css";
+@import "styles/modals/confirmationModal.css";
+
+/** IMPORT PAGE STYLES **/
+@import "styles/pages/feedback.css";
+@import "styles/pages/notFound.css";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: scroll;
+}
+
+.form-row.row {
+  justify-content: center;
+  padding-top: 10rem;
+  align-content: center;
+  position: relative;
+  margin-top: -90px;
+  z-index: 0;
+}
+
+.form {
+  background-color: #ffffff;
+  border-top: 6px solid #00a4d8;
+  border-radius: 4px;
+  padding: 40px;
+  vertical-align: middle;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

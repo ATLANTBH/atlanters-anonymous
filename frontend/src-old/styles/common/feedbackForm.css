@@ -1,0 +1,61 @@
+.form.feedback-card {
+  width: 100%;
+  grid-column: 3;
+  margin: 0px;
+  padding: 20px 24px 24px 24px;
+}
+.form.feedback-card .title {
+  color: #333333;
+  font-family: SourceSansPro;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 13px;
+}
+
+.form.feedback-card .title.form-title {
+  text-align: center;
+}
+
+.form.feedback-card .form-control {
+  font-family: SourceSansPro;
+  color: #333333;
+}
+
+.form.feedback-card .form-control::placeholder {
+  color: #94a8c2;
+}
+
+.form.feedback-card .form-control:focus {
+  box-shadow: none;
+}
+
+.form.feedback-card .form-text {
+  color: #94a8c2;
+  margin-top: 2px;
+  margin-bottom: 0px;
+  font-size: 11px;
+  font-family: SourceSansPro;
+}
+
+.form.feedback-card .error {
+  color: #f34a43;
+  font-size: 14px;
+  font-family: SourceSansPro;
+  font-style: italic;
+}
+
+.submit-container {
+  text-align: right;
+}
+
+@media only screen and (max-width: 1600px) {
+  .form.feedback-card {
+    grid-column: 2;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .form.feedback-card {
+    grid-column: 1;
+  }
+}

@@ -35,6 +35,7 @@ class Message extends Sequelize.Model {
         },
       ],
     });
+    console.log("FOUND", messages);
     messages = Message.decryptMessages(messages);
     return messages;
   }

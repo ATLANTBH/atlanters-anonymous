@@ -17,9 +17,9 @@ export default ({ models }) => {
         if (!user) throw new Error(`User with id ${userId} does not exist`);
       } else {
         const feedbackUrl = GET_FEEDBACK_URL(req, feedbackId);
-        Feedback.sendMail(
-          GET_DETAILED_MESSAGE_HTML(feedback, feedbackUrl, messageReq)
-        );
+        // Feedback.sendMail(
+        //   GET_DETAILED_MESSAGE_HTML(feedback, feedbackUrl, messageReq)
+        // );
       }
       let message = await Message.create(messageReq);
       if (user) await user.addMessage(message);

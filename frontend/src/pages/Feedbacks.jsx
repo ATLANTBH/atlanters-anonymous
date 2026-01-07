@@ -25,11 +25,12 @@ export default class Feedbacks extends Component {
    * Returns total pages based on number of feedbacks
    */
   calculateTotalPages = (res) => {
-    const { itemsPerPage, totalPages } = this.state;
+    const { itemsPerPage } = this.state;
+    const pages = [];
     for (let i = 1; i <= Math.ceil(res.length / itemsPerPage); i++) {
-      totalPages.push(i);
+      pages.push(i);
     }
-    return totalPages;
+    return pages;
   };
 
   /**
@@ -52,8 +53,9 @@ export default class Feedbacks extends Component {
     this.setState({
       feedbacks,
       totalPages: this.calculateTotalPages(res),
+    }, () => {
+      this.onPageChange(this.validatePage(page));
     });
-    this.onPageChange(this.validatePage(page));
   };
 
   onGetFeedbackError = (err) => {

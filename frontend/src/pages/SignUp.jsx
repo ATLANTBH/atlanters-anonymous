@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SignUpForm from "../components/common/SignUpForm";
-import { signUp } from "../services/http/authService";
+import { signUp } from "../services/http/authService.jsx";
 
 export default class SignUp extends Component {
   state = {

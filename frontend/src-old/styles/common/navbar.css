@@ -1,0 +1,53 @@
+.navbar {
+  margin-bottom: 48px;
+  background-color: #ffffff !important;
+  min-height: 60px;
+  padding-left: 20% !important;
+  padding-right: 20% !important;
+  padding-bottom: 0px !important;
+  box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.navbar-brand {
+  color: #333333;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.66px;
+  line-height: 18px;
+  margin-bottom: 8px;
+}
+
+.navbar-nav .nav-link {
+  color: #333333 !important;
+  font-family: Overpass;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.66px;
+  line-height: 33px;
+  margin-left: 30px;
+  border-bottom: 3px solid transparent;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #797979 !important;
+}
+
+.navbar-nav .nav-link.active {
+  border-bottom: 3px solid #00a4d8;
+  animation-name: linkActive;
+  animation-duration: 0.5s;
+}
+
+.navbar-nav .nav-create-survey {
+  margin-top: 10px;
+  width: 125px;
+}
+
+.navbar-nav .nav-link.sign-out {
+  margin: 0px 0px 0px 10px;
+}
+
+.navbar-nav .nav-link.sign-out:hover {
+  cursor: pointer;
+}
